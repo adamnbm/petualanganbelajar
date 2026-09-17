@@ -6,9 +6,10 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-// Ambil URL dan ANON KEY dari environment variable Vite
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+// Ambil URL dan ANON KEY dari environment variable Vite, lalu bersihkan jika ada trailing slash atau /rest/v1
+const rawUrl = (import.meta.env.VITE_SUPABASE_URL || "").trim();
+const supabaseUrl = rawUrl.replace(/\/rest\/v1\/?$/, "").replace(/\/$/, "");
+const supabaseAnonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY || "").trim();
 
 export const isSupabaseConfigured = Boolean(
   supabaseUrl && 
