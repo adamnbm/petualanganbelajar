@@ -53,13 +53,17 @@ export default function Navbar({
             style={{
               background: activeStudent ? "#ecfdf5" : "#f1f5f9",
               borderColor: activeStudent ? "#a7f3d0" : "#cbd5e1",
-              color: activeStudent ? "#065f46" : "#475569"
+              color: activeStudent ? "#065f46" : "#475569",
+              maxWidth: "150px",
+              overflow: "hidden"
             }}
             onClick={onOpenStudentModal}
-            title={activeStudent ? "Ganti Profil Siswa" : "Isi Profil Siswa"}
+            title={activeStudent ? `Profil: ${activeStudent.name}` : "Isi Profil Siswa"}
           >
             {activeStudent ? <UserCheck size={16} color="#059669" /> : <Users size={16} />}
-            <span>{activeStudent ? `${activeStudent.name} (${activeStudent.className})` : "Daftar Siswa"}</span>
+            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {activeStudent ? activeStudent.name : "Profil"}
+            </span>
           </button>
 
           <button
@@ -67,7 +71,7 @@ export default function Navbar({
             onClick={() => onNavigate("landing")}
           >
             <Sparkles size={16} />
-            <span className="hide-on-mobile">Beranda</span>
+            <span>Beranda</span>
           </button>
 
           <button
@@ -86,16 +90,16 @@ export default function Navbar({
             style={{ background: "#f8fafc", borderColor: "#cbd5e1" }}
           >
             <span style={{ fontSize: "1rem" }}>👨‍🏫</span>
-            <span>Dashboard Guru</span>
+            <span>Guru</span>
           </button>
 
           <button
-            className="nav-pill-btn"
+            className="nav-pill-btn hide-on-mobile"
             onClick={onOpenTreeModal}
             title="Lihat Peta Pohon Percakapan / Struktur Decision Tree (Guru & Penilai)"
           >
             <Map size={16} />
-            <span className="hide-on-mobile">Peta Decision Tree</span>
+            <span>Peta</span>
           </button>
 
           <button
