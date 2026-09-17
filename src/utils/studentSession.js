@@ -1,6 +1,7 @@
 /**
  * Student Session & Local Storage Helper
  * Menyimpan identitas siswa yang sedang aktif dan riwayat lokal sesi pembelajaran
+ * Sistem mandiri (self-contained) tanpa ketergantungan database eksternal.
  */
 
 const ACTIVE_STUDENT_KEY = "timi_active_student";
@@ -35,17 +36,17 @@ export const studentSession = {
     }
   },
 
-  // Simpan arsip sesi siswa secara lokal (sebagai backup atau saat offline)
+  // Simpan arsip sesi siswa secara lokal
   saveLocalSubmission(submission) {
     try {
       const existing = this.getAllLocalSubmissions();
       const newSubmission = {
         ...submission,
-        id: submission.id || `local_${Date.now()}`,
+        id: submission.id || `sesi_${Date.now()}`,
         created_at: new Date().toISOString()
       };
       existing.unshift(newSubmission);
-      localStorage.setItem(ALL_SUBMISSIONS_KEY, JSON.stringify(existing.slice(0, 100)));
+      localStorage.setItem(ALL_SUBMISSIONS_KEY, JSON.stringify(existing.slice(0, 200)));
       return newSubmission;
     } catch {
       return null;
@@ -57,6 +58,28 @@ export const studentSession = {
     try {
       const data = localStorage.getItem(ALL_SUBMISSIONS_KEY);
       return data ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
+  },
+
+  // Hapus SATU riwayat sesi siswa tertentu berdasarkan ID
+  deleteLocalSubmission(submissionId) {
+    try {
+      const existing = this.getAllLocalSubmissions();
+      const updated = existing.filter((s) => s.id !== submissionId);
+      localStorage.setItem(ALL_SUBMISSIONS_KEY, JSON.stringify(updated));
+      return updated;
+    } catch {
+      return [];
+    }
+  },
+
+  // Hapus SEMUA riwayat sesi siswa sekaligus (Reset Data Guru)
+  clearAllLocalSubmissions() {
+    try {
+      localStorage.removeItem(ALL_SUBMISSIONS_KEY);
+      return [];
     } catch {
       return [];
     }
