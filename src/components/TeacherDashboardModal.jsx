@@ -2,27 +2,21 @@ import React, { useState, useEffect } from "react";
 import {
   X,
   Users,
-  Database,
-  CloudCheck,
-  HardDrive,
   Download,
   Eye,
   ArrowLeft,
   Search,
   CheckCircle2,
   Clock,
-  Sparkles,
-  Printer
+  Trash2,
+  HardDrive
 } from "lucide-react";
-import { isSupabaseConfigured, fetchAllStudentSessionsFromCloud } from "../services/supabaseClient";
 import { studentSession } from "../utils/studentSession";
 
 export default function TeacherDashboardModal({ isOpen, onClose }) {
   const [sessions, setSessions] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [selectedTranscript, setSelectedTranscript] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [dataSource, setDataSource] = useState("local"); // 'supabase' | 'local'
 
   useEffect(() => {
     if (isOpen) {
@@ -30,27 +24,33 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  const loadSessions = async () => {
-    setLoading(true);
-    // Ambil data lokal terlebih dahulu
-    const localData = studentSession.getAllLocalSubmissions();
-
-    if (isSupabaseConfigured) {
-      const res = await fetchAllStudentSessionsFromCloud();
-      if (res.success && res.data.length > 0) {
-        setSessions(res.data);
-        setDataSource("supabase");
-        setLoading(false);
-        return;
-      }
-    }
-
-    setSessions(localData);
-    setDataSource("local");
-    setLoading(false);
+  const loadSessions = () => {
+    const data = studentSession.getAllLocalSubmissions();
+    setSessions(data);
   };
 
   if (!isOpen) return null;
+
+  // Hapus satu data siswa
+  const handleDeleteOne = (id, studentName) => {
+    if (window.confirm(`Hapus riwayat belajar atas nama "${studentName || "Siswa"}"?`)) {
+      const updated = studentSession.deleteLocalSubmission(id);
+      setSessions(updated);
+      if (selectedTranscript && selectedTranscript.id === id) {
+        setSelectedTranscript(null);
+      }
+    }
+  };
+
+  // Hapus semua data siswa
+  const handleClearAll = () => {
+    if (sessions.length === 0) return;
+    if (window.confirm("Apakah Bapak/Ibu Guru yakin ingin MENGHAPUS SEMUA riwayat percakapan siswa? Tindakan ini tidak dapat dibatalkan.")) {
+      const updated = studentSession.clearAllLocalSubmissions();
+      setSessions(updated);
+      setSelectedTranscript(null);
+    }
+  };
 
   // Filter pencarian
   const filteredSessions = sessions.filter((s) => {
@@ -92,7 +92,7 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
       s.is_completed ? "SELESAI" : "BELUM SELESAI"
     ]);
 
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+    const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
@@ -102,56 +102,58 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
     document.body.removeChild(link);
   };
 
-  // Fungsi Ekspor ke JSON
-  const handleExportJSON = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sessions, null, 2));
-    const dlAnchorElem = document.createElement("a");
-    dlAnchorElem.setAttribute("href", dataStr);
-    dlAnchorElem.setAttribute("download", `riwayat_belajar_siswa_${Date.now()}.json`);
-    dlAnchorElem.click();
-  };
-
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
         className="modal-card-tree"
-        style={{ maxWidth: "1050px" }}
+        style={{ maxWidth: "1080px" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Modal */}
         <div className="modal-header" style={{ background: "#f8fafc" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <div style={{ width: "38px", height: "38px", borderRadius: "10px", background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.4rem" }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "12px", background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.4rem" }}>
               👨‍🏫
             </div>
             <div>
-              <h3>Dashboard Guru: Rekaman Riwayat Siswa</h3>
+              <h3>Dashboard Guru: Riwayat & Transkrip Siswa</h3>
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "2px" }}>
-                {dataSource === "supabase" ? (
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", fontSize: "0.78rem", color: "#047857", background: "#d1fae5", padding: "2px 8px", borderRadius: "999px", fontWeight: "700" }}>
-                    🟢 Terhubung ke Cloud Supabase
-                  </span>
-                ) : (
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", fontSize: "0.78rem", color: "#b45309", background: "#fef3c7", padding: "2px 8px", borderRadius: "999px", fontWeight: "700" }}>
-                    🟡 Mode Penyimpanan Lokal (LocalStorage)
-                  </span>
-                )}
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", fontSize: "0.78rem", color: "#065f46", background: "#d1fae5", padding: "2px 8px", borderRadius: "999px", fontWeight: "700" }}>
+                  <HardDrive size={13} />
+                  Sistem Penyimpanan Terintegrasi (Otomatis Tersimpan)
+                </span>
                 <span style={{ fontSize: "0.8rem", color: "#64748b" }}>
-                  Total: <strong>{sessions.length} Sesi Belajar</strong>
+                  Total: <strong>{sessions.length} Sesi Pembelajaran</strong>
                 </span>
               </div>
             </div>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <button
-              className="nav-pill-btn"
-              onClick={handleExportCSV}
-              title="Unduh Data dalam Format CSV / Excel"
-            >
-              <Download size={15} />
-              <span>Ekspor Excel/CSV</span>
-            </button>
+            {sessions.length > 0 && (
+              <>
+                <button
+                  className="nav-pill-btn"
+                  onClick={handleExportCSV}
+                  title="Unduh Data dalam Format CSV / Excel"
+                  style={{ background: "#ecfdf5", color: "#065f46", borderColor: "#a7f3d0" }}
+                >
+                  <Download size={15} />
+                  <span>Ekspor Excel/CSV</span>
+                </button>
+
+                <button
+                  className="nav-pill-btn"
+                  onClick={handleClearAll}
+                  title="Hapus Seluruh Data Siswa"
+                  style={{ background: "#fef2f2", color: "#b91c1c", borderColor: "#fecaca" }}
+                >
+                  <Trash2 size={15} />
+                  <span>Hapus Semua</span>
+                </button>
+              </>
+            )}
+
             <button className="nav-icon-btn" onClick={onClose} title="Tutup">
               <X size={18} />
             </button>
@@ -178,7 +180,7 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                     Transkrip: {selectedTranscript.student_name} ({selectedTranscript.student_class})
                   </h4>
                   <p style={{ fontSize: "0.82rem", color: "#64748b" }}>
-                    Misi: {selectedTranscript.mission_title} • Skor: {selectedTranscript.score_percent}%
+                    Misi: {selectedTranscript.mission_title} • Skor: {selectedTranscript.score_percent}% • Petunjuk: {selectedTranscript.hints_used || 0}
                   </p>
                 </div>
               </div>
@@ -276,17 +278,12 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* Tabel */}
-              {loading ? (
-                <div style={{ textAlign: "center", padding: "3rem", color: "#64748b" }}>
-                  Memuat data riwayat siswa...
-                </div>
-              ) : filteredSessions.length === 0 ? (
+              {filteredSessions.length === 0 ? (
                 <div style={{ textAlign: "center", padding: "3rem", background: "#f8fafc", borderRadius: "12px", border: "2px dashed #cbd5e1" }}>
                   <Users size={36} color="#94a3b8" style={{ margin: "0 auto 8px" }} />
-                  <h4 style={{ color: "#475569" }}>Belum Ada Riwayat Percakapan Siswa</h4>
+                  <h4 style={{ color: "#475569" }}>Belum Ada Riwayat Siswa</h4>
                   <p style={{ fontSize: "0.85rem", color: "#94a3b8", marginTop: "4px" }}>
-                    Saat siswa mulai bermain dan menyelesaikan pertanyaan, riwayat dan transkrip obrolan akan muncul otomatis di sini.
+                    Saat siswa mulai bermain dan menyelesaikan pertanyaan, riwayat dan transkrip obrolan akan otomatis terekam di sini.
                   </p>
                 </div>
               ) : (
@@ -342,15 +339,26 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                             )}
                           </td>
                           <td style={{ padding: "10px 12px", textAlign: "center" }}>
-                            <button
-                              className="nav-pill-btn"
-                              style={{ padding: "4px 10px", fontSize: "0.8rem" }}
-                              onClick={() => setSelectedTranscript(s)}
-                              title="Baca Transkrip Percakapan Lengkap Siswa"
-                            >
-                              <Eye size={14} />
-                              <span>Lihat Chat</span>
-                            </button>
+                            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                              <button
+                                className="nav-pill-btn"
+                                style={{ padding: "4px 10px", fontSize: "0.8rem" }}
+                                onClick={() => setSelectedTranscript(s)}
+                                title="Baca Transkrip Percakapan Lengkap Siswa"
+                              >
+                                <Eye size={14} />
+                                <span>Lihat Chat</span>
+                              </button>
+
+                              <button
+                                className="nav-icon-btn"
+                                style={{ width: "28px", height: "28px", color: "#dc2626", background: "#fef2f2", borderColor: "#fecaca" }}
+                                onClick={() => handleDeleteOne(s.id, s.student_name)}
+                                title="Hapus Riwayat Siswa Ini"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
