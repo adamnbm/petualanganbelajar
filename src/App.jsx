@@ -9,18 +9,26 @@ import ChatOptionButtons from "./components/ChatOptionButtons";
 import ChatHintDrawer from "./components/ChatHintDrawer";
 import ResultCard from "./components/ResultCard";
 import TreeVisualizerModal from "./components/TreeVisualizerModal";
+import TeacherDashboardModal from "./components/TeacherDashboardModal";
+import StudentProfileModal from "./components/StudentProfileModal";
 import Footer from "./components/Footer";
 
 import { MISSIONS_DATA, getMissionById } from "./data/missions";
 import { getNode } from "./data/decisionTreeSawah";
 import { BranchingSessionController } from "./engine/conversationEngine";
 import { storage } from "./utils/storage";
+import { studentSession } from "./utils/studentSession";
 
 export default function App() {
   // Navigation View: 'landing' | 'missions' | 'chat' | 'result'
   const [currentView, setCurrentView] = useState("landing");
   const [selectedMissionId, setSelectedMissionId] = useState("sawah-pak-budi");
+  
+  // Modals
   const [isTreeModalOpen, setIsTreeModalOpen] = useState(false);
+  const [isTeacherDashboardOpen, setIsTeacherDashboardOpen] = useState(false);
+  const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+  const [pendingMissionId, setPendingMissionId] = useState(null);
 
   // Chat Session State
   const [chatState, setChatState] = useState(null);
@@ -53,6 +61,16 @@ export default function App() {
   }, []);
 
   const navigateTo = (view, missionId = null) => {
+    // Jika masuk ke 'chat' tetapi siswa belum mengisi nama, buka form profil siswa terlebih dahulu!
+    if (view === "chat") {
+      const activeStudent = studentSession.getActiveStudent();
+      if (!activeStudent) {
+        setPendingMissionId(missionId || selectedMissionId);
+        setIsStudentModalOpen(true);
+        return;
+      }
+    }
+
     if (missionId) {
       setSelectedMissionId(missionId);
     }
@@ -69,6 +87,16 @@ export default function App() {
       window.location.hash = "/";
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Callback saat siswa menyimpan profil
+  const handleStudentProfileSaved = () => {
+    setIsStudentModalOpen(false);
+    if (pendingMissionId) {
+      const target = pendingMissionId;
+      setPendingMissionId(null);
+      navigateTo("chat", target);
+    }
   };
 
   // Inisialisasi atau pulihkan engine chat saat masuk ke view 'chat'
@@ -99,6 +127,8 @@ export default function App() {
         currentView={currentView}
         onNavigate={(view) => navigateTo(view)}
         onOpenTreeModal={() => setIsTreeModalOpen(true)}
+        onOpenTeacherDashboard={() => setIsTeacherDashboardOpen(true)}
+        onOpenStudentModal={() => setIsStudentModalOpen(true)}
       />
 
       <main className="main-content">
@@ -223,6 +253,19 @@ export default function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Modal Input Identitas Siswa */}
+      <StudentProfileModal
+        isOpen={isStudentModalOpen}
+        onClose={() => setIsStudentModalOpen(false)}
+        onSaveStudent={handleStudentProfileSaved}
+      />
+
+      {/* Modal Dashboard Guru (Melihat Transkrip Obrolan & Ekspor) */}
+      <TeacherDashboardModal
+        isOpen={isTeacherDashboardOpen}
+        onClose={() => setIsTeacherDashboardOpen(false)}
+      />
 
       {/* Modal Visualisasi Struktur Decision Tree (Guru & Evaluasi) */}
       <TreeVisualizerModal
