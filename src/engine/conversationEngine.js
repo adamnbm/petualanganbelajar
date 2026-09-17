@@ -5,12 +5,14 @@
  */
 
 import { DECISION_TREE_SAWAH, getNode } from "../data/decisionTreeSawah";
+import { getMissionById } from "../data/missions";
 import { soundManager } from "./audioEffects";
 import { storage } from "../utils/storage";
+import { studentSession } from "../utils/studentSession";
+import { saveStudentSessionToCloud } from "../services/supabaseClient";
 
 export function createInitialSession(missionId = "sawah-pak-budi") {
   const tree = DECISION_TREE_SAWAH;
-  const startNode = getNode(tree.startNodeId);
 
   return {
     missionId,
@@ -225,13 +227,52 @@ export class BranchingSessionController {
     this.state.isFinished = true;
     this.state.optionsDisabled = true;
 
-    // Simpan ke storage bahwa misi sudah tuntas
-    storage.saveCompletedMission(this.missionId, {
+    const mission = getMissionById(this.missionId);
+    const activeStudent = studentSession.getActiveStudent() || {
+      name: "Siswa Petualang",
+      className: "Kelas 4",
+      studentNumber: "-"
+    };
+
+    const resultSummary = {
       completedMainCount: this.tree.totalMainQuestions,
       hintsUsed: this.state.stats.hintsUsed,
       firstTryCorrectCount: this.state.stats.firstTryCorrectCount,
       totalAttempts: this.state.stats.totalAttempts,
-      badgeEarned: "Penjelajah Rantai Makanan"
+      badgeEarned: mission.badgeTitle || "Penjelajah Rantai Makanan"
+    };
+
+    // 1. Simpan ke storage bahwa misi sudah tuntas
+    storage.saveCompletedMission(this.missionId, resultSummary);
+
+    // 2. Simpan riwayat lengkap sesi belajar siswa ke penyimpanan lokal (untuk Dashboard Guru)
+    studentSession.saveLocalSubmission({
+      student_name: activeStudent.name,
+      student_class: activeStudent.className,
+      student_number: activeStudent.studentNumber,
+      mission_id: this.missionId,
+      mission_title: mission.title,
+      score_percent: Math.max(70, Math.min(100, 100 - this.state.stats.hintsUsed * 5)),
+      completed_questions: this.tree.totalMainQuestions,
+      hints_used: this.state.stats.hintsUsed,
+      first_try_correct: this.state.stats.firstTryCorrectCount,
+      total_attempts: this.state.stats.totalAttempts,
+      badge_earned: mission.badgeTitle || "Penjelajah Rantai Makanan",
+      is_completed: true,
+      conversation_transcript: this.state.messages
+    });
+
+    // 3. Simpan ke Supabase Cloud secara asynchronous
+    saveStudentSessionToCloud({
+      student: activeStudent,
+      mission,
+      stats: this.state.stats,
+      messages: this.state.messages,
+      isCompleted: true
+    }).then((res) => {
+      if (res.success && !res.localOnly) {
+        console.log("Riwayat sesi berhasil dikirim ke Supabase!");
+      }
     });
 
     this.emit();

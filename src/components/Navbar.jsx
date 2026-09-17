@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { Volume2, VolumeX, Compass, Sparkles, Map, RefreshCw } from "lucide-react";
+import { Volume2, VolumeX, Compass, Sparkles, Map, RefreshCw, Users, UserCheck } from "lucide-react";
 import { soundManager } from "../engine/audioEffects";
 import { storage } from "../utils/storage";
+import { studentSession } from "../utils/studentSession";
 
-export default function Navbar({ currentView, onNavigate, onOpenTreeModal }) {
+export default function Navbar({
+  currentView,
+  onNavigate,
+  onOpenTreeModal,
+  onOpenTeacherDashboard,
+  onOpenStudentModal
+}) {
   const [isMuted, setIsMuted] = useState(soundManager.isMuted());
+  const activeStudent = studentSession.getActiveStudent();
 
   const handleToggleSound = () => {
     const muted = soundManager.toggleMute();
@@ -14,6 +22,7 @@ export default function Navbar({ currentView, onNavigate, onOpenTreeModal }) {
   const handleResetData = () => {
     if (window.confirm("Apakah kamu yakin ingin mereset seluruh progres belajar untuk memulai petualangan baru?")) {
       storage.resetAllProgress();
+      studentSession.clearActiveStudent();
       window.location.reload();
     }
   };
@@ -38,12 +47,27 @@ export default function Navbar({ currentView, onNavigate, onOpenTreeModal }) {
         </button>
 
         <nav className="navbar-actions">
+          {/* Status Profil Siswa Aktif */}
+          <button
+            className="nav-pill-btn"
+            style={{
+              background: activeStudent ? "#ecfdf5" : "#f1f5f9",
+              borderColor: activeStudent ? "#a7f3d0" : "#cbd5e1",
+              color: activeStudent ? "#065f46" : "#475569"
+            }}
+            onClick={onOpenStudentModal}
+            title={activeStudent ? "Ganti Profil Siswa" : "Isi Profil Siswa"}
+          >
+            {activeStudent ? <UserCheck size={16} color="#059669" /> : <Users size={16} />}
+            <span>{activeStudent ? `${activeStudent.name} (${activeStudent.className})` : "Daftar Siswa"}</span>
+          </button>
+
           <button
             className={`nav-pill-btn ${currentView === "landing" ? "active" : ""}`}
             onClick={() => onNavigate("landing")}
           >
             <Sparkles size={16} />
-            <span>Beranda</span>
+            <span className="hide-on-mobile">Beranda</span>
           </button>
 
           <button
@@ -51,7 +75,18 @@ export default function Navbar({ currentView, onNavigate, onOpenTreeModal }) {
             onClick={() => onNavigate("missions")}
           >
             <Compass size={16} />
-            <span>Misi Belajar</span>
+            <span>Misi</span>
+          </button>
+
+          {/* Tombol Dashboard Guru */}
+          <button
+            className="nav-pill-btn"
+            onClick={onOpenTeacherDashboard}
+            title="Buka Dashboard Guru (Rekaman Riwayat & Transkrip Siswa)"
+            style={{ background: "#f8fafc", borderColor: "#cbd5e1" }}
+          >
+            <span style={{ fontSize: "1rem" }}>👨‍🏫</span>
+            <span>Dashboard Guru</span>
           </button>
 
           <button
