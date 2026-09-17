@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Volume2, VolumeX, Compass, Sparkles, Map, RefreshCw, Users, UserCheck } from "lucide-react";
+import { Volume2, VolumeX, Map, RefreshCw, Users, UserCheck } from "lucide-react";
 import { soundManager } from "../engine/audioEffects";
 import { storage } from "../utils/storage";
 import { studentSession } from "../utils/studentSession";
 
 export default function Navbar({
-  currentView,
   onNavigate,
   onOpenTreeModal,
   onOpenTeacherDashboard,
@@ -30,6 +29,7 @@ export default function Navbar({
   return (
     <header className="site-navbar">
       <div className="navbar-inner">
+        {/* Logo & Brand - klik ke Landing */}
         <button
           className="brand-logo"
           onClick={() => onNavigate("landing")}
@@ -47,73 +47,62 @@ export default function Navbar({
         </button>
 
         <nav className="navbar-actions">
-          {/* Status Profil Siswa Aktif */}
+          {/* Profil Siswa */}
           <button
-            className="nav-pill-btn"
+            className="nav-pill-btn navbar-profile-btn"
             style={{
               background: activeStudent ? "#ecfdf5" : "#f1f5f9",
               borderColor: activeStudent ? "#a7f3d0" : "#cbd5e1",
-              color: activeStudent ? "#065f46" : "#475569",
-              maxWidth: "150px",
-              overflow: "hidden"
+              color: activeStudent ? "#065f46" : "#475569"
             }}
             onClick={onOpenStudentModal}
             title={activeStudent ? `Profil: ${activeStudent.name}` : "Isi Profil Siswa"}
+            id="btn-profile-siswa"
           >
             {activeStudent ? <UserCheck size={16} color="#059669" /> : <Users size={16} />}
-            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-              {activeStudent ? activeStudent.name : "Profil"}
+            <span className="profile-name-label">
+              {activeStudent ? activeStudent.name : "Profil Siswa"}
             </span>
           </button>
 
-          <button
-            className={`nav-pill-btn ${currentView === "landing" ? "active" : ""}`}
-            onClick={() => onNavigate("landing")}
-          >
-            <Sparkles size={16} />
-            <span>Beranda</span>
-          </button>
-
-          <button
-            className={`nav-pill-btn ${currentView === "missions" ? "active" : ""}`}
-            onClick={() => onNavigate("missions")}
-          >
-            <Compass size={16} />
-            <span>Misi</span>
-          </button>
-
-          {/* Tombol Dashboard Guru */}
+          {/* Dashboard Guru */}
           <button
             className="nav-pill-btn"
             onClick={onOpenTeacherDashboard}
-            title="Buka Dashboard Guru (Rekaman Riwayat & Transkrip Siswa)"
-            style={{ background: "#f8fafc", borderColor: "#cbd5e1" }}
+            title="Buka Dashboard Guru"
+            id="btn-dashboard-guru"
           >
-            <span style={{ fontSize: "1rem" }}>👨‍🏫</span>
-            <span>Guru</span>
+            <span style={{ fontSize: "1rem", lineHeight: 1 }}>👨‍🏫</span>
+            <span className="navbar-label">Guru</span>
           </button>
 
+          {/* Peta Decision Tree - Sembunyikan di mobile */}
           <button
             className="nav-pill-btn hide-on-mobile"
             onClick={onOpenTreeModal}
-            title="Lihat Peta Pohon Percakapan / Struktur Decision Tree (Guru & Penilai)"
+            title="Lihat Peta Pohon Percakapan"
+            id="btn-tree-map"
           >
             <Map size={16} />
             <span>Peta</span>
           </button>
 
+          {/* Suara */}
           <button
             className="nav-icon-btn"
             onClick={handleToggleSound}
             title={isMuted ? "Aktifkan Efek Suara" : "Bisukan Suara"}
+            id="btn-toggle-sound"
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </button>
 
+          {/* Reset */}
           <button
-            className="nav-icon-btn"
+            className="nav-icon-btn hide-on-mobile"
             onClick={handleResetData}
             title="Reset Seluruh Progres"
+            id="btn-reset-progress"
           >
             <RefreshCw size={16} />
           </button>

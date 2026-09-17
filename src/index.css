@@ -238,6 +238,24 @@ a {
   color: var(--amber-600);
 }
 
+/* Tombol Profil Siswa di Navbar */
+.navbar-profile-btn {
+  max-width: 160px;
+  overflow: hidden;
+}
+
+.profile-name-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 110px;
+  display: inline-block;
+}
+
+.navbar-label {
+  white-space: nowrap;
+}
+
 /* ==========================================================================
    HERO SECTION (LANDING PAGE)
    ========================================================================== */
@@ -1463,21 +1481,25 @@ a {
   }
 
   /* Sembunyikan teks label navbar di mobile, tampilkan ikon saja */
-  .navbar-actions .nav-pill-btn span {
+  .navbar-actions .navbar-label,
+  .navbar-actions .profile-name-label {
     display: none;
   }
 
   .navbar-actions .nav-pill-btn {
-    padding: 0.45rem 0.6rem;
+    padding: 0.45rem 0.55rem;
     gap: 0;
     border-radius: var(--radius-md);
     min-width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
   }
 
-  /* Sembunyikan beberapa tombol navbar yang tidak terlalu krusial di mobile */
-  .nav-pill-btn.hide-on-mobile {
-    display: none;
+  /* Sembunyikan semua elemen hide-on-mobile di mobile */
+  .hide-on-mobile {
+    display: none !important;
   }
 
   .navbar-actions {
