@@ -1,0 +1,452 @@
+{
+  "missions": [
+    {
+      "id": "misi_1",
+      "code": "TP 1",
+      "missionNumber": 1,
+      "title": "Siapa Aku?",
+      "icon": "🌾",
+      "category": "Peran Organisme",
+      "grade": "SD Kelas 5-6 (Fase C)",
+      "subject": "IPAS - Ekosistem Sawah",
+      "description": "Bantu Pak Budi menyelidiki peran makhluk hidup di sawah! Apakah padi makan pupuk? Dan apakah jamur memakan tanah?",
+      "badgeTitle": "Ahli Penghuni Sawah",
+      "badgeIcon": "🌾",
+      "totalMainQuestions": 2,
+      "estimatedMinutes": 5,
+      "accentColor": "#2E7D32",
+      "characters": [
+        { "name": "Padi", "emoji": "🌾", "role": "Produsen" },
+        { "name": "Belalang", "emoji": "🦗", "role": "Konsumen I" },
+        { "name": "Jamur", "emoji": "🍄", "role": "Pengurai" }
+      ],
+      "topics": ["Produsen", "Konsumen", "Pengurai", "Fotosintesis", "Nutrisi Tanah"],
+      "questions": [
+        {
+          "id": "m1_q1_main",
+          "isMain": true,
+          "mainIndex": 1,
+          "title": "Teka-teki Makanan Tanaman Padi",
+          "learningObjective": "Mengidentifikasi peran produsen padi yang membuat makanan sendiri lewat fotosintesis matahari, bukan pemakan pupuk.",
+          "question": "Menurut hasil pengamatanmu, mengapa tanaman padi disebut sebagai PRODUSEN di sawah?",
+          "expectedAnswer": "Karena padi membuat makanannya sendiri melalui proses fotosintesis dengan bantuan sinar matahari.",
+          "acceptableKeywords": ["sendiri", "fotosintesis", "matahari", "cahaya", "membuat", "produsen"],
+          "hint": "Pikirkan apakah padi punya mulut untuk mengunyah pupuk, atau daunnya yang memasak energi dari matahari.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Karena padi membuat makanannya sendiri menggunakan energi sinar matahari",
+              "correct": true,
+              "feedback": "Tepat sekali, Detektif! 🌾 Padi membuat makanan sendiri lewat fotosintesis di daun hijaunya."
+            },
+            {
+              "id": "B",
+              "text": "Karena padi memakan pupuk dan menelan air tanah dengan mulutnya",
+              "correct": false,
+              "feedback": "Hmm, coba kita amati bersama ya Detektif! Apakah padi punya mulut untuk mengunyah?"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m1_q2_main",
+          "scaffolding": [
+            {
+              "id": "m1_q1_scaffold_1",
+              "title": "Bimbingan Socratic: Dari Mana Padi Mendapat Energi?",
+              "question": "Jika padi tidak punya mulut, dari mana sebenarnya padi mendapatkan energi saat pagi hingga siang hari?",
+              "expectedAnswer": "Dari daun hijaunya yang menyerap cahaya matahari (fotosintesis).",
+              "acceptableKeywords": ["matahari", "cahaya", "daun", "sinar", "fotosintesis"],
+              "hint": "Lihat ke langit pematang sawah di pagi hari.",
+              "options": [
+                {
+                  "id": "A",
+                  "text": "Dari daun hijaunya yang menyerap cahaya matahari (fotosintesis)",
+                  "correct": true,
+                  "feedback": "Hebat, Detektif! ☀️ Pupuk hanyalah vitamin penyubur, energi sejatinya berasal dari sinar mentari!"
+                },
+                {
+                  "id": "B",
+                  "text": "Padi menunggu malam hari lalu menelan tanah di bawahnya",
+                  "correct": false,
+                  "feedback": "Padi tidak menelan tanah, daun hijaunyalah yang memproduksi makanan!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m1_q2_main",
+          "isMain": true,
+          "mainIndex": 2,
+          "title": "Misteri Jamur di Jerami Padi",
+          "learningObjective": "Mengidentifikasi peran pengurai (jamur) yang memecah sisa materi mati menjadi nutrisi penyubur tanah, bukan pemakan tanah.",
+          "question": "Menurut analisismu, apa peran sebenarnya JAMUR dalam ekosistem sawah?",
+          "expectedAnswer": "Pengurai (dekomposer) yang memecah sisa makhluk mati menjadi nutrisi penyubur tanah.",
+          "acceptableKeywords": ["pengurai", "dekomposer", "memecah", "membusukkan", "nutrisi", "penyubur", "bangkai"],
+          "hint": "Pikirkan apa yang terjadi pada bangkai hewan dan jerami kering jika tidak ada jamur pembersih.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pengurai yang memecah sisa makhluk mati menjadi nutrisi penyubur tanah",
+              "correct": true,
+              "feedback": "Luar biasa, Detektif! 🍄 Jamur adalah dekomposer pembersih alami sawah!"
+            },
+            {
+              "id": "B",
+              "text": "Konsumen pemakan butiran tanah sawah",
+              "correct": false,
+              "feedback": "Hmm, apakah jamur memakan pasir dan tanah? Mari kita selidiki fungsinya terhadap sisa makhluk mati!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m1_end",
+          "scaffolding": [
+            {
+              "id": "m1_q2_scaffold_1",
+              "title": "Bimbingan Socratic: Tugas Jamur & Pembersih Alami",
+              "question": "Jika ada bangkai belalang atau jerami kering di sawah, apa yang dilakukan jamur terhadap bangkai tersebut?",
+              "expectedAnswer": "Menguraikannya menjadi zat hara penyubur tanah.",
+              "acceptableKeywords": ["mengurai", "membusukkan", "hancur", "nutrisi", "subur"],
+              "hint": "Bangkai yang membusuk perlahan akan berubah menjadi humus tanah subur.",
+              "options": [
+                {
+                  "id": "A",
+                  "text": "Menguraikan dan memecah bangkai menjadi nutrisi alami bagi tanah",
+                  "correct": true,
+                  "feedback": "Tepat sekali, Detektif! 🌟 Jamur memecah materi mati agar tanah kembali subur!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "misi_2",
+      "code": "TP 2",
+      "missionNumber": 2,
+      "title": "Jejak Energi",
+      "icon": "⚡",
+      "category": "Aliran Energi & Panah",
+      "grade": "SD Kelas 5-6 (Fase C)",
+      "subject": "IPAS - Ekosistem Sawah",
+      "description": "Pecahkan teka-teki arah panah rantai makanan! Apakah panah berarti mulut memakan, atau arah perpindahan energi?",
+      "badgeTitle": "Pelacak Energi",
+      "badgeIcon": "⚡",
+      "totalMainQuestions": 2,
+      "estimatedMinutes": 5,
+      "accentColor": "#F57F17",
+      "characters": [
+        { "name": "Padi", "emoji": "🌾", "role": "Sumber Energi" },
+        { "name": "Tikus", "emoji": "🐀", "role": "Konsumen I" },
+        { "name": "Ular", "emoji": "🐍", "role": "Konsumen II" }
+      ],
+      "topics": ["Aliran Energi", "Arah Panah", "Rantai Makanan", "Matahari"],
+      "questions": [
+        {
+          "id": "m2_q1_main",
+          "isMain": true,
+          "mainIndex": 1,
+          "title": "Teka-teki Arah Panah Tikus & Ular",
+          "learningObjective": "Menganalisis arti panah sebagai arah aliran energi (Tikus ➔ Ular), bukan mulut yang memakan.",
+          "question": "Jika Ular memakan Tikus, ke mana arah panah rantai makanan yang BENAR menurut ilmu sains?",
+          "expectedAnswer": "Dari Tikus menuju Ular (Tikus ➔ Ular) karena energi berpindah dari tikus ke tubuh ular.",
+          "acceptableKeywords": ["tikus ke ular", "tikus -> ular", "tikus ➔ ular", "aliran energi", "energi"],
+          "hint": "Panah adalah simbol ke mana energi makanan berpindah dan tubuh siapa yang kenyang.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tikus ➔ Ular (Panah dari Tikus menuju ke arah Ular)",
+              "correct": true,
+              "feedback": "Tepat sekali, Detektif! ⚡ Energi dari tubuh Tikus berpindah masuk ke tubuh Ular!"
+            },
+            {
+              "id": "B",
+              "text": "Ular ➔ Tikus (Panah dari Ular menuju ke arah Tikus)",
+              "correct": false,
+              "feedback": "Pilihan yang sering mengecoh! Ingat, panah menunjukkan ke mana energi mengalir!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m2_q2_main",
+          "scaffolding": [
+            {
+              "id": "m2_q1_scaffold_1",
+              "title": "Bimbingan Socratic: Siapa Penerima Energi?",
+              "question": "Jika Tikus dimakan oleh Ular, tubuh siapakah yang kenyang dan menerima energi baru?",
+              "expectedAnswer": "Tubuh ular yang menerima energi.",
+              "acceptableKeywords": ["ular", "tubuh ular"],
+              "hint": "Siapa yang kenyang setelah makan?",
+              "options": [
+                {
+                  "id": "A",
+                  "text": "Tubuh Ular yang menerima energi dari makanan tersebut",
+                  "correct": true,
+                  "feedback": "Benar sekali! Tubuh Ular yang mendapat energi! 🐍⚡"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m2_q2_main",
+          "isMain": true,
+          "mainIndex": 2,
+          "title": "Menyusun Rantai Energi Sawah Lengkap",
+          "learningObjective": "Menyusun rantai makanan sawah dari produsen hingga konsumen puncak secara runtut.",
+          "question": "Urutan aliran energi makanan yang paling tepat di bawah ini adalah...",
+          "expectedAnswer": "Matahari ➔ Padi ➔ Belalang ➔ Katak ➔ Ular",
+          "acceptableKeywords": ["padi", "belalang", "katak", "ular"],
+          "hint": "Energi selalu berawal dari produsen tumbuhan hijau yang disinari matahari.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Matahari ➔ Padi ➔ Belalang ➔ Katak ➔ Ular",
+              "correct": true,
+              "feedback": "Hebat sekali, Detektif! ⚡ Energi mengalir teratur dari produsen ke konsumen puncak!"
+            },
+            {
+              "id": "B",
+              "text": "Ular ➔ Katak ➔ Belalang ➔ Padi ➔ Matahari",
+              "correct": false,
+              "feedback": "Arah terbalik! Energi berpindah dari makanan menuju ke pemangsa!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m2_end"
+        }
+      ]
+    },
+    {
+      "id": "misi_3",
+      "code": "TP 3",
+      "missionNumber": 3,
+      "title": "Siapa Makan Siapa?",
+      "icon": "🦅",
+      "category": "Pemangsa & Mangsa",
+      "grade": "SD Kelas 5-6 (Fase C)",
+      "subject": "IPAS - Ekosistem Sawah",
+      "description": "Selidiki adaptasi Elang perkasa di sawah! Apakah predator memakan segala tumbuhan atau punya mangsa spesifik?",
+      "badgeTitle": "Detektif Rantai Makanan",
+      "badgeIcon": "🔍",
+      "totalMainQuestions": 2,
+      "estimatedMinutes": 6,
+      "accentColor": "#D84315",
+      "characters": [
+        { "name": "Ular", "emoji": "🐍", "role": "Mangsa Elang" },
+        { "name": "Elang", "emoji": "🦅", "role": "Pemangsa Puncak" }
+      ],
+      "topics": ["Predasi", "Adaptasi Paruh", "Adaptasi Cakar", "Karnivora"],
+      "questions": [
+        {
+          "id": "m3_q1_main",
+          "isMain": true,
+          "mainIndex": 1,
+          "title": "Misteri Diet Burung Elang",
+          "learningObjective": "Menganalisis adaptasi paruh tajam dan cakar Elang sebagai karnivora spesifik, bukan pemakan biji padi.",
+          "question": "Menurut hasil analisismu, apakah Burung Elang akan memakan tanaman padi milik petani?",
+          "expectedAnswer": "Tidak, Elang adalah karnivora pemangsa daging (tikus/ular) yang diadaptasi khusus dengan paruh dan cakar tajam.",
+          "acceptableKeywords": ["tidak", "bukan", "daging", "karnivora", "ular", "tikus", "paruh", "cakar"],
+          "hint": "Amati bentuk paruh melengkung tajam dan cakar elang yang diciptakan untuk mencengkeram daging.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Tidak, Elang adalah karnivora pemangsa daging (tikus/ular) yang diadaptasi khusus dengan paruh dan cakar tajam",
+              "correct": true,
+              "feedback": "Tepat sekali, Detektif! 🦅 Elang adalah sekutu petani pengendali hama tikus dan ular!"
+            },
+            {
+              "id": "B",
+              "text": "Ya, Elang memangsa semua makhluk di sawah termasuk mematuk biji-biji padi",
+              "correct": false,
+              "feedback": "Amati organ tubuh Elang! Paruh tajam melengkung elang tidak bisa mematuk biji padi kecil!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m3_q2_main"
+        },
+        {
+          "id": "m3_q2_main",
+          "isMain": true,
+          "mainIndex": 2,
+          "title": "Peran Predator dalam Menjaga Keseimbangan",
+          "learningObjective": "Memahami peran predator puncak dalam mengendalikan hama tikus dan ular sawah.",
+          "question": "Jika Elang hadir di sekitar sawah, apa manfaat kehadiran Elang bagi para petani?",
+          "expectedAnswer": "Membantu memangsa tikus dan ular sehingga populasi hama tetap terkendali.",
+          "acceptableKeywords": ["hama", "tikus", "mengontrol", "mengendalikan", "ular", "petani", "bantu"],
+          "hint": "Pikirkan hama apa yang paling sering merusak padi petani.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Membantu memangsa tikus dan ular sehingga jumlah hama perusak padi tetap terkendali",
+              "correct": true,
+              "feedback": "Hebat sekali, Detektif! 👏 Predator puncak adalah pahlawan penjaga keseimbangan alami!"
+            },
+            {
+              "id": "B",
+              "text": "Tidak ada manfaatnya karena Elang hanya mengganggu tanaman padi",
+              "correct": false,
+              "feedback": "Tanpa Elang, hama tikus dan ular bisa meledak jumlahnya!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m3_end"
+        }
+      ]
+    },
+    {
+      "id": "misi_4",
+      "code": "TP 4",
+      "missionNumber": 4,
+      "title": "Sawah dalam Bahaya!",
+      "icon": "⚠️",
+      "category": "Dinamika Populasi",
+      "grade": "SD Kelas 5-6 (Fase C)",
+      "subject": "IPAS - Ekosistem Sawah",
+      "description": "Gawat! Populasi Ular di sawah Pak Budi diburu habis. Apa yang akan terjadi pada populasi Tikus dan tanaman Padi?",
+      "badgeTitle": "Detektif Rantai Makanan",
+      "badgeIcon": "🔍",
+      "totalMainQuestions": 2,
+      "estimatedMinutes": 6,
+      "accentColor": "#C62828",
+      "characters": [
+        { "name": "Padi", "emoji": "🌾", "role": "Terancam Hama" },
+        { "name": "Tikus", "emoji": "🐀", "role": "Populasi Meledak" },
+        { "name": "Ular", "emoji": "🐍", "role": "Populasi Habis" }
+      ],
+      "topics": ["Keseimbangan Populasi", "Efek Domino", "Hama Tikus", "Dinamika"],
+      "questions": [
+        {
+          "id": "m4_q1_main",
+          "isMain": true,
+          "mainIndex": 1,
+          "title": "Bencana Perburuan Ular Sawah",
+          "learningObjective": "Menganalisis efek domino hilangnya predator ular terhadap ledakan populasi tikus dan kerusakan padi.",
+          "question": "Apakah tanaman padi mati langsung seketika karena ular habis, atau ada rantai peristiwa lain yang terjadi?",
+          "expectedAnswer": "Ada efek domino: ular habis membuat populasi tikus meledak, lalu tikus memakan tanaman padi sampai rusak.",
+          "acceptableKeywords": ["domino", "tikus", "meledak", "banyak", "memakan padi", "tidak langsung", "hama"],
+          "hint": "Pikirkan hewan apa yang dimakan Ular, dan apa yang terjadi jika pemangsanya tiada.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Ada efek domino: tanpa ular pemangsa, populasi tikus meledak berlipat ganda lalu tikus merusak tanaman padi",
+              "correct": true,
+              "feedback": "Cerdas sekali, Detektif! 💥 Ini adalah efek domino dinamika populasi rantai makanan!"
+            },
+            {
+              "id": "B",
+              "text": "Padi langsung layu dan mati seketika di hari ular punah",
+              "correct": false,
+              "feedback": "Padi tidak berhubungan langsung dengan ular, ada perantara tikus yang memakan padi!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m4_q2_main"
+        },
+        {
+          "id": "m4_q2_main",
+          "isMain": true,
+          "mainIndex": 2,
+          "title": "Hukum Rantai Makanan Sawah",
+          "learningObjective": "Menyimpulkan pentingnya menjaga kelestarian predator alami untuk menjaga keseimbangan ekosistem.",
+          "question": "Apa pelajaran terpenting bagi kita saat menjaga kelestarian hewan pemangsa di sawah?",
+          "expectedAnswer": "Menjaga predator alami sangat penting agar tidak terjadi ledakan hama yang merugikan ekosistem.",
+          "acceptableKeywords": ["predator", "keseimbangan", "hama", "ekosistem", "menjaga", "lestari"],
+          "hint": "Setiap mata rantai terhubung erat satu sama lain.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Jangan membasmi predator alami seenaknya, karena kepunahan satu hewan akan mengacaukan seluruh sawah",
+              "correct": true,
+              "feedback": "Luar biasa bijak, Detektif! 🌟 Sawah Pak Budi berhutang budi pada pemikiran cerdasmu!"
+            },
+            {
+              "id": "B",
+              "text": "Sebaiknya semua hewan di sawah dibersihkan agar hanya tersisa tanaman padi saja",
+              "correct": false,
+              "feedback": "Tanpa hewan dan pengurai, tanah akan kehilangan siklus nutrisi alaminya!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m4_end"
+        }
+      ]
+    },
+    {
+      "id": "misi_5",
+      "code": "TP 5",
+      "missionNumber": 5,
+      "title": "Selamatkan Ekosistem!",
+      "icon": "🛡️",
+      "category": "Integrasi & Evaluasi",
+      "grade": "SD Kelas 5-6 (Fase C)",
+      "subject": "IPAS - Ekosistem Sawah",
+      "description": "Waktunya bertindak! Pak Budi ingin menyemprot racun kimia massal. Bisakah kamu merumuskan solusi ramah alam?",
+      "badgeTitle": "Penyelamat Ekosistem",
+      "badgeIcon": "🛡️",
+      "totalMainQuestions": 2,
+      "estimatedMinutes": 7,
+      "accentColor": "#1B5E20",
+      "characters": [
+        { "name": "Burung Hantu & Ular", "emoji": "🦉", "role": "Predator Alami" },
+        { "name": "Tanah Sawah Subur", "emoji": "🌱", "role": "Pondasi Ekosistem" }
+      ],
+      "topics": ["Pengendalian Hayati", "Solusi Ekologis", "Kestabilan Sawah", "Petani Cerdas"],
+      "questions": [
+        {
+          "id": "m5_q1_main",
+          "isMain": true,
+          "mainIndex": 1,
+          "title": "Rencana Racun Kimia Massal",
+          "learningObjective": "Mengevaluasi bahaya racun pestisida kimia keras yang merusak katak dan mikroba pengurai tanah.",
+          "question": "Menurut evaluasi ilmiahmu, apakah membasmi hama dengan racun kimia dosis tinggi adalah solusi terbaik untuk jangka panjang?",
+          "expectedAnswer": "Tidak, karena racun kimia membunuh katak, predator alami, dan mikroba pengurai tanah sehingga sawah rusak berkepanjangan.",
+          "acceptableKeywords": ["tidak", "bukan", "rusak", "katak", "pengurai", "racun", "jangka panjang", "mati", "tanah"],
+          "hint": "Perhatikan dampak racun terhadap pengurai tanah dan predator katak pembasmi hama.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Bukan solusi terbaik, karena racun kimia juga membunuh katak, predator pembantu, dan mematikan mikroba pengurai tanah",
+              "correct": true,
+              "feedback": "Jawaban luar biasa, Detektif! 🌿 Racun kimia justru menimbulkan kerusakan lingkungan yang parah!"
+            },
+            {
+              "id": "B",
+              "text": "Ya, racun kimia adalah solusi terbaik karena membunuh segalanya dengan cepat tanpa sisa",
+              "correct": false,
+              "feedback": "Racun kimia membunuh mikroba penyubur tanah dan katak pemakan serangga!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m5_q2_main"
+        },
+        {
+          "id": "m5_q2_main",
+          "isMain": true,
+          "mainIndex": 2,
+          "title": "Merumuskan Solusi Sawah Lestari",
+          "learningObjective": "Merumuskan solusi pengendalian hayati alami (burung hantu Tyto alba, ular sawah, kompos) untuk menjaga kestabilan sawah.",
+          "question": "Solusi ramah lingkungan apakah yang paling tepat untuk menjaga keseimbangan sawah Pak Budi secara berkelanjutan?",
+          "expectedAnswer": "Pengendalian hayati alami dengan memelihara burung hantu (Tyto alba), menjaga ular sawah, dan pupuk organik.",
+          "acceptableKeywords": ["burung hantu", "predator alami", "hayati", "organik", "keseimbangan", "ramah lingkungan"],
+          "hint": "Gunakan musuh alami hama (predator hayati) dan rawat pengurai tanah.",
+          "options": [
+            {
+              "id": "A",
+              "text": "Pengendalian hayati: memasang pagupon rumah Burung Hantu (Tyto alba), menjaga ular sawah, dan menggunakan pupuk kompos alami",
+              "correct": true,
+              "feedback": "SEMPURNA! 🏆🌟 Kamu telah menjadi Penyelamat Ekosistem Sawah yang sejati!"
+            },
+            {
+              "id": "B",
+              "text": "Membakar seluruh sawah dan menggantinya dengan semen beton",
+              "correct": false,
+              "feedback": "Itu merusak alam, Detektif!"
+            }
+          ],
+          "correctAnswer": "A",
+          "nextQuestion": "m5_end"
+        }
+      ]
+    }
+  ]
+}

@@ -17,8 +17,8 @@ export default function LandingHero({ onStartAdventure, onExploreMissions }) {
 
           <p className="hero-description">
             Temukan jawaban melalui berbagai misi pembelajaran interaktif. 
-            Bersama <strong>Timi Si Robot Belajar</strong>, kamu tidak sekadar menghafal, 
-            tetapi diajak berpikir dan menyelidiki sains langkah demi langkah!
+            Bersama <strong>SOKRABOT si Robot Sahabat Sains</strong>, kamu tidak sekadar menghafal, 
+            tetapi diajak berdiskusi dan menyelidiki sains langkah demi langkah!
           </p>
 
           <div className="hero-cta-group">
@@ -49,10 +49,10 @@ export default function LandingHero({ onStartAdventure, onExploreMissions }) {
               🤖
             </div>
             <span className="mascot-badge">Sahabat Belajarmu</span>
-            <h3>Halo, Aku Timi! 👋</h3>
+            <h3>Halo, Aku SOKRABOT! 👋</h3>
             <p>
-              "Aku akan memandumu memecahkan teka-teki alam di Sawah Pak Budi. 
-              Jika kamu belum tepat menjawab, jangan khawatir—kita akan cari tahu bersama!"
+              "Aku akan menemanimu memecahkan teka-teki alam di Sawah Pak Budi. 
+              Kamu bebas mengutarakan pendapatmu, dan kita akan cari tahu jawabannya bersama!"
             </p>
           </div>
         </div>

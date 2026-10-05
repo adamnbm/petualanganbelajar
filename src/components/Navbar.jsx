@@ -1,90 +1,172 @@
-import React, { useState } from "react";
-import { Volume2, VolumeX, Map, RefreshCw, Users, UserCheck } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import {
+  Volume2,
+  VolumeX,
+  MapPin,
+  BookOpen,
+  Award,
+  HelpCircle,
+  Users,
+  UserCheck,
+  Sparkles,
+  Home,
+  GraduationCap
+} from "lucide-react";
 import { soundManager } from "../engine/audioEffects";
-import { storage } from "../utils/storage";
 import { studentSession } from "../utils/studentSession";
+import { checkServerHealth } from "../services/api";
 
 export default function Navbar({
+  currentView,
   onNavigate,
-  onOpenTreeModal,
   onOpenTeacherDashboard,
   onOpenStudentModal
 }) {
   const [isMuted, setIsMuted] = useState(soundManager.isMuted());
-  const activeStudent = studentSession.getActiveStudent();
+  const [activeStudent, setActiveStudent] = useState(studentSession.getActiveStudent());
+  const [aiStatus, setAiStatus] = useState(null);
+
+  useEffect(() => {
+    checkServerHealth().then((status) => {
+      setAiStatus(status);
+    });
+  }, []);
+
+  useEffect(() => {
+    const handleStudentChange = () => {
+      setActiveStudent(studentSession.getActiveStudent());
+    };
+    window.addEventListener("timi_student_changed", handleStudentChange);
+    return () => window.removeEventListener("timi_student_changed", handleStudentChange);
+  }, []);
 
   const handleToggleSound = () => {
     const muted = soundManager.toggleMute();
     setIsMuted(muted);
   };
 
-  const handleResetData = () => {
-    if (window.confirm("Apakah kamu yakin ingin mereset seluruh progres belajar untuk memulai petualangan baru?")) {
-      storage.resetAllProgress();
-      studentSession.clearActiveStudent();
-      window.location.reload();
-    }
-  };
+  const studentName = activeStudent ? activeStudent.name : "Detektif Cilik";
 
   return (
     <header className="site-navbar">
       <div className="navbar-inner">
-        {/* Logo & Brand - klik ke Landing */}
+        {/* Brand Logo & Name */}
         <button
           className="brand-logo"
-          onClick={() => onNavigate("landing")}
-          title="Kembali ke Beranda"
+          onClick={() => onNavigate("menu")}
+          title="Menuju Menu Utama SOKRABOT"
+          id="btn-brand-home"
         >
-          <div className="brand-badge-icon">
-            🤖
+          <div className="brand-mascot-avatar">
+            <img
+              src="/sokrabot_mascot.jpg"
+              alt="SOKRABOT Logo"
+              className="brand-mascot-pic"
+            />
           </div>
           <div className="brand-text-wrapper">
             <span className="brand-title">
-              Timi<span>Belajar</span> 🌱
+              SOKRABOT <span className="brand-sub-badge">Fase C</span> 🌾
             </span>
-            <span className="brand-subtitle">Chatbot Edukasi Sains SD</span>
+            <span className="brand-subtitle">Petualangan Rantai Makanan Sawah</span>
           </div>
         </button>
 
-        <nav className="navbar-actions">
-          {/* Profil Siswa */}
+        {/* Primary Navigation Links */}
+        <nav className="navbar-links-group hide-on-mobile">
+          <button
+            className={`nav-tab-link ${currentView === "menu" ? "active" : ""}`}
+            onClick={() => onNavigate("menu")}
+            id="nav-link-menu"
+          >
+            <Home size={16} />
+            <span>Menu</span>
+          </button>
+
+          <button
+            className={`nav-tab-link ${currentView === "map" || currentView === "chat" ? "active" : ""}`}
+            onClick={() => onNavigate("map")}
+            id="nav-link-map"
+          >
+            <MapPin size={16} />
+            <span>Peta Misi</span>
+          </button>
+
+          <button
+            className={`nav-tab-link ${currentView === "codex" ? "active" : ""}`}
+            onClick={() => onNavigate("codex")}
+            id="nav-link-codex"
+          >
+            <BookOpen size={16} />
+            <span>Buku Pintar</span>
+          </button>
+
+          <button
+            className={`nav-tab-link ${currentView === "achievements" ? "active" : ""}`}
+            onClick={() => onNavigate("achievements")}
+            id="nav-link-achievements"
+          >
+            <Award size={16} />
+            <span>Pencapaian</span>
+          </button>
+
+          <button
+            className={`nav-tab-link ${currentView === "guide" ? "active" : ""}`}
+            onClick={() => onNavigate("guide")}
+            id="nav-link-guide"
+          >
+            <HelpCircle size={16} />
+            <span>Petunjuk</span>
+          </button>
+        </nav>
+
+        {/* Right Action Icons */}
+        <div className="navbar-actions">
+          {/* AI Live Connection Status */}
+          {aiStatus && (
+            <div
+              className="nav-ai-status hide-on-mobile"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "5px",
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                padding: "5px 10px",
+                borderRadius: "9999px",
+                background: aiStatus.mode?.includes("Live") ? "#E8F5E9" : "#FFF9C4",
+                color: aiStatus.mode?.includes("Live") ? "#1B5E20" : "#B78103",
+                border: aiStatus.mode?.includes("Live") ? "1px solid #A5D6A7" : "1px solid #FFF176"
+              }}
+              title={`Status Engine: ${aiStatus.mode} (${aiStatus.model || 'Gemini'})`}
+            >
+              <Sparkles size={13} className={aiStatus.mode?.includes("Live") ? "text-emerald-600" : "text-amber-600"} />
+              <span>{aiStatus.mode?.includes("Live") ? "Gemini Socratic" : "Kurikulum Socratic"}</span>
+            </div>
+          )}
+
+          {/* Detective Identity Profile */}
           <button
             className="nav-pill-btn navbar-profile-btn"
-            style={{
-              background: activeStudent ? "#ecfdf5" : "#f1f5f9",
-              borderColor: activeStudent ? "#a7f3d0" : "#cbd5e1",
-              color: activeStudent ? "#065f46" : "#475569"
-            }}
             onClick={onOpenStudentModal}
-            title={activeStudent ? `Profil: ${activeStudent.name}` : "Isi Profil Siswa"}
+            title={activeStudent ? `Detektif: ${studentName}` : "Isi Nama Detektif"}
             id="btn-profile-siswa"
           >
-            {activeStudent ? <UserCheck size={16} color="#059669" /> : <Users size={16} />}
+            <UserCheck size={16} className="text-emerald-700" />
             <span className="profile-name-label">
-              {activeStudent ? activeStudent.name : "Profil Siswa"}
+              {studentName}
             </span>
           </button>
 
-          {/* Dashboard Guru */}
+          {/* Portal Evaluasi Guru */}
           <button
-            className="nav-pill-btn"
+            className="nav-pill-btn btn-teacher-portal"
             onClick={onOpenTeacherDashboard}
-            title="Buka Dashboard Guru"
+            title="Buka Portal Evaluasi Guru"
             id="btn-dashboard-guru"
           >
-            <span style={{ fontSize: "1rem", lineHeight: 1 }}>👨‍🏫</span>
+            <GraduationCap size={17} />
             <span className="navbar-label">Guru</span>
-          </button>
-
-          {/* Peta Decision Tree - Sembunyikan di mobile */}
-          <button
-            className="nav-pill-btn hide-on-mobile"
-            onClick={onOpenTreeModal}
-            title="Lihat Peta Pohon Percakapan"
-            id="btn-tree-map"
-          >
-            <Map size={16} />
-            <span>Peta</span>
           </button>
 
           {/* Suara */}
@@ -96,17 +178,7 @@ export default function Navbar({
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </button>
-
-          {/* Reset */}
-          <button
-            className="nav-icon-btn hide-on-mobile"
-            onClick={handleResetData}
-            title="Reset Seluruh Progres"
-            id="btn-reset-progress"
-          >
-            <RefreshCw size={16} />
-          </button>
-        </nav>
+        </div>
       </div>
     </header>
   );

@@ -6,22 +6,22 @@ export default function HowToPlay() {
     {
       number: "01",
       icon: <Compass size={22} />,
-      title: "Temukan Misi",
-      desc: "Pilih misi pembelajaran yang ingin kamu selesaikan, mulai dari Sawah Pak Budi hingga Hutan Rimba.",
+      title: "Pilih Pos Misi",
+      desc: "Pilih pos pengamatan sains yang ingin kamu selidiki bersama SOKRABOT di Sawah Pak Budi.",
       accent: "green"
     },
     {
       number: "02",
       icon: <MessageCircleQuestion size={22} />,
-      title: "Jawab Pertanyaan",
-      desc: "Jawab pertanyaan dari Timi si Robot Belajar menggunakan tombol pilihan yang tersedia.",
+      title: "Ketik Analisismu",
+      desc: "Ketik pendapat dan alasanmu sendiri di kolom obrolan interaktif — murni diskusi langsung dengan AI!",
       accent: "sky"
     },
     {
       number: "03",
       icon: <Lightbulb size={22} />,
-      title: "Temukan Jawabannya",
-      desc: "Jika salah, chatbot TIDAK langsung memberi kunci jawaban, melainkan memandumu berpikir sampai paham!",
+      title: "Paham Secara Mandiri",
+      desc: "SOKRABOT memandu jalan pikiranmu melalui pertanyaan pemandu bertahap hingga kamu menemukan jawaban yang tepat!",
       accent: "amber"
     }
   ];
