@@ -1,74 +1,98 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "./components/Navbar";
-import LandingHero from "./components/LandingHero";
-import HowToPlay from "./components/HowToPlay";
-import MissionCard from "./components/MissionCard";
+import SplashScreen from "./components/SplashScreen";
+import MainMenu from "./components/MainMenu";
+import MissionMap from "./components/MissionMap";
+import BukuPintarView from "./components/BukuPintarView";
+import AchievementsView from "./components/AchievementsView";
+import GuideView from "./components/GuideView";
 import ChatHeader from "./components/ChatHeader";
 import ChatMessageList from "./components/ChatMessageList";
+import ChatTextInput from "./components/ChatTextInput";
 import ChatOptionButtons from "./components/ChatOptionButtons";
 import ChatHintDrawer from "./components/ChatHintDrawer";
+import VisualHintModal from "./components/VisualHintModal";
 import ResultCard from "./components/ResultCard";
-import TreeVisualizerModal from "./components/TreeVisualizerModal";
 import TeacherDashboardModal from "./components/TeacherDashboardModal";
 import StudentProfileModal from "./components/StudentProfileModal";
 import Footer from "./components/Footer";
 
-import { MISSIONS_DATA, getMissionById } from "./data/missions";
-import { getNode } from "./data/decisionTreeSawah";
+import { getMissionById } from "./data/missions";
 import { BranchingSessionController } from "./engine/conversationEngine";
 import { storage } from "./utils/storage";
 import { studentSession } from "./utils/studentSession";
+import { getMissionProgress } from "./utils/sokrabotProgress";
 
 export default function App() {
-  // Navigation View: 'landing' | 'missions' | 'chat' | 'result'
-  const [currentView, setCurrentView] = useState("landing");
-  const [selectedMissionId, setSelectedMissionId] = useState("sawah-pak-budi");
+  const [activeStudent, setActiveStudent] = useState(studentSession.getActiveStudent());
   
-  // Modals
-  const [isTreeModalOpen, setIsTreeModalOpen] = useState(false);
+  // Navigation View: 'splash' | 'menu' | 'map' | 'chat' | 'codex' | 'achievements' | 'guide' | 'result'
+  const [currentView, setCurrentView] = useState(activeStudent ? "menu" : "splash");
+  const [selectedMissionId, setSelectedMissionId] = useState("misi_1");
+
+  // Modals & Drawers
   const [isTeacherDashboardOpen, setIsTeacherDashboardOpen] = useState(false);
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
-  const [pendingMissionId, setPendingMissionId] = useState(null);
+  const [isHintDrawerOpen, setIsHintDrawerOpen] = useState(false);
+  const [activeVisualHintModal, setActiveVisualHintModal] = useState(null);
 
   // Chat Session State
   const [chatState, setChatState] = useState(null);
   const controllerRef = useRef(null);
 
-  // Sync dengan Hash URL untuk kemudahan navigasi
+  // Pantau perubahan siswa aktif secara global
+  useEffect(() => {
+    const handleStudentChange = (e) => {
+      const updated = e.detail || studentSession.getActiveStudent();
+      setActiveStudent(updated);
+      if (!updated && currentView !== "splash") {
+        setCurrentView("splash");
+      }
+    };
+    window.addEventListener("timi_student_changed", handleStudentChange);
+    return () => window.removeEventListener("timi_student_changed", handleStudentChange);
+  }, [currentView]);
+
+  // Sync dengan Hash URL
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
       if (hash.startsWith("/mission/")) {
         const id = hash.replace("/mission/", "");
-        setSelectedMissionId(id || "sawah-pak-budi");
+        setSelectedMissionId(id || "misi_1");
         setCurrentView("chat");
-      } else if (hash === "/missions") {
-        setCurrentView("missions");
+      } else if (hash === "/map") {
+        setCurrentView("map");
+      } else if (hash === "/codex") {
+        setCurrentView("codex");
+      } else if (hash === "/achievements") {
+        setCurrentView("achievements");
+      } else if (hash === "/guide") {
+        setCurrentView("guide");
       } else if (hash === "/result") {
         setCurrentView("result");
+      } else if (hash === "/menu") {
+        setCurrentView("menu");
+      } else if (hash === "/splash" || !studentSession.getActiveStudent()) {
+        setCurrentView("splash");
       } else {
-        setCurrentView("landing");
+        setCurrentView("menu");
       }
     };
 
     window.addEventListener("hashchange", handleHashChange);
-    // Parse saat load pertama kali
     if (window.location.hash) {
       handleHashChange();
     }
-
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
   const navigateTo = (view, missionId = null) => {
-    // Jika masuk ke 'chat' tetapi siswa belum mengisi nama, buka form profil siswa terlebih dahulu!
-    if (view === "chat") {
-      const activeStudent = studentSession.getActiveStudent();
-      if (!activeStudent) {
-        setPendingMissionId(missionId || selectedMissionId);
-        setIsStudentModalOpen(true);
-        return;
-      }
+    // Jika belum ada identitas siswa, arahkan ke splash screen
+    if (!studentSession.getActiveStudent() && view !== "splash") {
+      setCurrentView("splash");
+      window.location.hash = "/splash";
+      return;
     }
 
     if (missionId) {
@@ -79,31 +103,39 @@ export default function App() {
     // Update Hash URL
     if (view === "chat") {
       window.location.hash = `/mission/${missionId || selectedMissionId}`;
-    } else if (view === "missions") {
-      window.location.hash = "/missions";
+    } else if (view === "map") {
+      window.location.hash = "/map";
+    } else if (view === "codex") {
+      window.location.hash = "/codex";
+    } else if (view === "achievements") {
+      window.location.hash = "/achievements";
+    } else if (view === "guide") {
+      window.location.hash = "/guide";
     } else if (view === "result") {
       window.location.hash = "/result";
+    } else if (view === "splash") {
+      window.location.hash = "/splash";
     } else {
-      window.location.hash = "/";
+      window.location.hash = "/menu";
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Callback saat siswa menyimpan profil
-  const handleStudentProfileSaved = () => {
-    setIsStudentModalOpen(false);
-    if (pendingMissionId) {
-      const target = pendingMissionId;
-      setPendingMissionId(null);
-      navigateTo("chat", target);
-    }
+  // Callback dari Splash Screen saat siswa baru mengisi nama
+  const handleStartAdventureFromSplash = (studentProfile) => {
+    setActiveStudent(studentProfile);
+    navigateTo("menu");
   };
 
-  // Inisialisasi atau pulihkan engine chat saat masuk ke view 'chat'
+  // Inisialisasi engine chat saat masuk ke view 'chat'
   useEffect(() => {
     if (currentView === "chat") {
       const controller = new BranchingSessionController(selectedMissionId, (state) => {
         setChatState(state);
+        // Buka modal visual jika ada trigger H3 baru
+        if (state.activeVisualHint) {
+          setActiveVisualHintModal(state.activeVisualHint);
+        }
         if (state.isFinished) {
           navigateTo("result");
         }
@@ -115,81 +147,87 @@ export default function App() {
         controller.cleanup();
       };
     }
-  }, [currentView, selectedMissionId]);
+  }, [currentView, selectedMissionId, activeStudent?.id]);
 
   const activeMission = getMissionById(selectedMissionId);
-  const currentNode = chatState ? getNode(chatState.currentNodeId) : null;
+  const totalConcepts = activeMission?.conversationConfig?.concepts?.length || 2;
 
   return (
-    <div className="app-container">
-      {/* Navbar Atas */}
-      <Navbar
-        currentView={currentView}
-        onNavigate={(view) => navigateTo(view)}
-        onOpenTreeModal={() => setIsTreeModalOpen(true)}
-        onOpenTeacherDashboard={() => setIsTeacherDashboardOpen(true)}
-        onOpenStudentModal={() => setIsStudentModalOpen(true)}
-      />
+    <div className="app-container sawah-theme">
+      {/* Navbar Atas (Hanya tampil jika bukan di Splash Screen) */}
+      {currentView !== "splash" && (
+        <Navbar
+          currentView={currentView}
+          onNavigate={(view) => navigateTo(view)}
+          onOpenTeacherDashboard={() => setIsTeacherDashboardOpen(true)}
+          onOpenStudentModal={() => setIsStudentModalOpen(true)}
+        />
+      )}
 
       <main className="main-content">
         {/* =========================================================
-            1. LANDING PAGE
+            1. SPLASH SCREEN (INPUT NAMA DETEKTIF)
            ========================================================= */}
-        {currentView === "landing" && (
-          <>
-            <LandingHero
-              onStartAdventure={() => navigateTo("chat", "sawah-pak-budi")}
-              onExploreMissions={() => navigateTo("missions")}
-            />
-
-            <HowToPlay />
-
-            {/* Featured Missions Section */}
-            <section className="section-wrapper" style={{ paddingTop: "1rem" }}>
-              <div className="section-header">
-                <span className="section-header-tag">Mulai Berpetualang</span>
-                <h2>Misi Pembelajaran Pilihan 🚀</h2>
-                <p>Pilih topik sains dan pecahkan teka-tekinya bersama Timi</p>
-              </div>
-
-              <div className="missions-grid">
-                {MISSIONS_DATA.map((mission) => (
-                  <MissionCard
-                    key={mission.id}
-                    mission={mission}
-                    onSelectMission={(id) => navigateTo("chat", id)}
-                  />
-                ))}
-              </div>
-            </section>
-          </>
+        {currentView === "splash" && (
+          <SplashScreen
+            onStartAdventure={handleStartAdventureFromSplash}
+          />
         )}
 
         {/* =========================================================
-            2. HALAMAN PILIH MISI
+            2. MENU UTAMA (DASHBOARD KOMANDO SOKRABOT)
            ========================================================= */}
-        {currentView === "missions" && (
-          <section className="section-wrapper">
-            <div className="section-header" style={{ textAlign: "left", marginBottom: "2rem" }}>
-              <span className="section-header-tag">Daftar Materi SD</span>
-              <h2>Pilih Misi Belajarmu 🚀</h2>
-              <p>Pilih misi sains yang ingin kamu selesaikan hari ini</p>
-            </div>
-
-            <div className="missions-grid">
-              {MISSIONS_DATA.map((mission) => (
-                <MissionCard
-                  key={mission.id}
-                  mission={mission}
-                  onSelectMission={(id) => navigateTo("chat", id)}
-                />
-              ))}
-            </div>
-          </section>
+        {currentView === "menu" && (
+          <MainMenu
+            activeStudent={activeStudent}
+            onNavigate={(view) => navigateTo(view)}
+            onOpenTeacherDashboard={() => setIsTeacherDashboardOpen(true)}
+            onSwitchStudent={() => setIsStudentModalOpen(true)}
+          />
         )}
 
         {/* =========================================================
-            3. HALAMAN CHATBOT PEMBELAJARAN
+            3. PETA MISI SAWAH (LEVEL LOCK 1-5)
+           ========================================================= */}
+        {currentView === "map" && (
+          <MissionMap
+            onSelectMission={(missionId) => navigateTo("chat", missionId)}
+            onBackToMenu={() => navigateTo("menu")}
+          />
+        )}
+
+        {/* =========================================================
+            4. BUKU PINTAR (INTERACTIVE CODEX CARDS)
+           ========================================================= */}
+        {currentView === "codex" && (
+          <BukuPintarView
+            onBackToMenu={() => navigateTo("menu")}
+            onSelectMission={(missionId) => navigateTo("chat", missionId)}
+          />
+        )}
+
+        {/* =========================================================
+            5. PENCAPAIANKU (BINTANG, LENCANA, STATISTIK)
+           ========================================================= */}
+        {currentView === "achievements" && (
+          <AchievementsView
+            onBackToMenu={() => navigateTo("menu")}
+            onSelectMission={(missionId) => navigateTo("chat", missionId)}
+          />
+        )}
+
+        {/* =========================================================
+            6. PETUNJUK BERMAIN (PANDUAN SOCRATIC)
+           ========================================================= */}
+        {currentView === "guide" && (
+          <GuideView
+            onBackToMenu={() => navigateTo("menu")}
+            onGoToMap={() => navigateTo("map")}
+          />
+        )}
+
+        {/* =========================================================
+            7. RUANG INVESTIGASI CHATBOT SOKRABOT
            ========================================================= */}
         {currentView === "chat" && (
           <div className="chat-page-wrapper">
@@ -198,79 +236,116 @@ export default function App() {
               <ChatHeader
                 mission={activeMission}
                 currentMainIndex={chatState?.stats?.currentMainIndex || 1}
-                totalMainQuestions={chatState?.stats?.totalMainQuestions || activeMission.totalMainQuestions}
-                onBack={() => navigateTo("missions")}
+                totalMainQuestions={chatState?.stats?.totalMainQuestions || totalConcepts}
+                currentStars={chatState?.stats?.currentStars || 3}
+                onBack={() => navigateTo("map")}
                 onRestart={() => {
-                  if (window.confirm("Mulai ulang misi dari awal?")) {
-                    controllerRef.current?.startOrResume(true);
-                  }
+                  controllerRef.current?.restartSession();
                 }}
+                onToggleHintDrawer={() => setIsHintDrawerOpen(true)}
               />
 
-              {/* Daftar Pesan Obrolan */}
+              {/* Balon Pesan Obrolan SOKRABOT & Siswa */}
               <ChatMessageList
                 messages={chatState?.messages || []}
                 isBotTyping={chatState?.isBotTyping || false}
-              />
-
-              {/* Hint Drawer Berpikir */}
-              <ChatHintDrawer hintText={currentNode?.hint} />
-
-              {/* Pilihan Jawaban (A, B, C, D) */}
-              <ChatOptionButtons
-                options={chatState?.currentOptions || []}
-                disabled={chatState?.optionsDisabled || chatState?.isBotTyping}
-                onSelectOption={(option) => {
-                  controllerRef.current?.chooseOption(option);
+                studentName={activeStudent?.name || "Detektif"}
+                onOpenVisualHint={() => {
+                  const h3 = chatState?.currentConceptH3;
+                  if (h3) setActiveVisualHintModal(h3);
                 }}
               />
+
+              {/* Tombol Pilihan A/B/C (dari Decision Tree GBPM) */}
+              {!chatState?.isFinished && chatState?.currentOptions?.length > 0 && (
+                <ChatOptionButtons
+                  options={chatState.currentOptions}
+                  disabled={chatState?.optionsDisabled || chatState?.isBotTyping}
+                  onSelectOption={(option) => {
+                    controllerRef.current?.chooseOption(option);
+                  }}
+                />
+              )}
+
+              {/* Input Teks Bebas (HANYA tampil saat pertanyaan terbuka meminta alasan / isOpenEnded) */}
+              {!chatState?.isFinished && chatState?.isOpenEnded && (
+                <ChatTextInput
+                  disabled={chatState?.optionsDisabled || chatState?.isBotTyping}
+                  placeholder={
+                    chatState?.inputPlaceholder || `Ketik alasanmu di sini, Detektif ${activeStudent?.name || ""}...`
+                  }
+                  isHighlighted={true}
+                  onSend={(text) => {
+                    controllerRef.current?.submitFreeText(text);
+                  }}
+                />
+              )}
             </div>
           </div>
         )}
 
         {/* =========================================================
-            4. HALAMAN HASIL / PROGRES BELAJAR
+            8. HASIL SELEBRASI MISI (BINTANG, CODEX UNLOCKED, FANFARE)
            ========================================================= */}
         {currentView === "result" && (
           <ResultCard
             mission={activeMission}
-            stats={
-              chatState?.stats || {
-                totalMainQuestions: activeMission.totalMainQuestions,
-                completedMainCount: activeMission.totalMainQuestions,
-                hintsUsed: 0,
-                firstTryCorrectCount: activeMission.totalMainQuestions
-              }
-            }
+            stats={chatState?.stats}
+            completedRecord={chatState?.completedRecord || getMissionProgress(selectedMissionId)}
             onReplay={() => {
               storage.clearMissionState(selectedMissionId);
               navigateTo("chat", selectedMissionId);
             }}
-            onBackToMissions={() => navigateTo("missions")}
+            onBackToMap={() => navigateTo("map")}
+            onOpenCodex={() => navigateTo("codex")}
+            onNextMission={(nextId) => navigateTo("chat", nextId)}
           />
         )}
       </main>
 
       {/* Footer */}
-      <Footer />
+      {currentView !== "splash" && <Footer />}
 
-      {/* Modal Input Identitas Siswa */}
+      {/* Modal Drawer Petunjuk Bertingkat (H1 - H3) */}
+      <ChatHintDrawer
+        isOpen={isHintDrawerOpen}
+        onClose={() => setIsHintDrawerOpen(false)}
+        hintsOpened={chatState?.stats?.hintsOpened || []}
+        onRequestHint={(level) => {
+          controllerRef.current?.requestHint(level);
+        }}
+        onOpenVisualHint={() => {
+          const h3 = chatState?.currentConceptH3;
+          if (h3) setActiveVisualHintModal(h3);
+        }}
+        hasVisualHint={Boolean(chatState?.currentConceptH3)}
+      />
+
+      {/* Modal Diagram Visual H3 Interaktif */}
+      {activeVisualHintModal && (
+        <VisualHintModal
+          visualHint={activeVisualHintModal}
+          onClose={() => {
+            setActiveVisualHintModal(null);
+            controllerRef.current?.closeVisualHint();
+          }}
+        />
+      )}
+
+      {/* Modal Identitas Detektif Siswa */}
       <StudentProfileModal
         isOpen={isStudentModalOpen}
         onClose={() => setIsStudentModalOpen(false)}
-        onSaveStudent={handleStudentProfileSaved}
+        onSaveStudent={(saved) => {
+          setActiveStudent(saved);
+          setIsStudentModalOpen(false);
+        }}
       />
 
-      {/* Modal Dashboard Guru (Melihat Transkrip Obrolan & Ekspor) */}
+      {/* Modal Dashboard Guru */}
       <TeacherDashboardModal
         isOpen={isTeacherDashboardOpen}
         onClose={() => setIsTeacherDashboardOpen(false)}
-      />
-
-      {/* Modal Visualisasi Struktur Decision Tree (Guru & Evaluasi) */}
-      <TreeVisualizerModal
-        isOpen={isTreeModalOpen}
-        onClose={() => setIsTreeModalOpen(false)}
       />
     </div>
   );

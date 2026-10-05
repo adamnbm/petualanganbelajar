@@ -1,37 +1,51 @@
 import React, { useEffect } from "react";
 import confetti from "canvas-confetti";
-import { Trophy, RotateCcw, Compass, Award, CheckCircle2, Lightbulb, Star } from "lucide-react";
+import {
+  RotateCcw,
+  MapPin,
+  Star,
+  BookOpen,
+  ArrowRight,
+  Sparkles
+} from "lucide-react";
 import { soundManager } from "../engine/audioEffects";
+import { getNextMissionId } from "../data/missions";
+import { getCodexByMissionId } from "../data/codexData";
 
 export default function ResultCard({
   mission,
   stats,
+  completedRecord,
   onReplay,
-  onBackToMissions
+  onBackToMap,
+  onOpenCodex,
+  onNextMission
 }) {
+  const starsEarned = completedRecord?.stars_earned || stats?.currentStars || 3;
+  const nextMissionId = getNextMissionId(mission.id);
+  const unlockedCodexCards = getCodexByMissionId(mission.id);
+
   useEffect(() => {
-    // Bunyikan fanfare dan tembakkan confetti ceria
     soundManager.playFanfare();
 
     try {
       confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.55 }
       });
-      // Efek confetti kedua
       setTimeout(() => {
         confetti({
-          particleCount: 50,
+          particleCount: 60,
           angle: 60,
-          spread: 55,
-          origin: { x: 0 }
+          spread: 60,
+          origin: { x: 0.1 }
         });
         confetti({
-          particleCount: 50,
+          particleCount: 60,
           angle: 120,
-          spread: 55,
-          origin: { x: 1 }
+          spread: 60,
+          origin: { x: 0.9 }
         });
       }, 400);
     } catch {
@@ -39,80 +53,116 @@ export default function ResultCard({
     }
   }, []);
 
-  const totalMain = stats.totalMainQuestions || 5;
-  const completedCount = stats.completedMainCount || totalMain;
-  const hintsUsed = stats.hintsUsed || 0;
-  const firstTryCount = stats.firstTryCorrectCount || 0;
-
-  // Hitung persentase kecermatan
-  const scorePercent = Math.max(70, Math.min(100, 100 - hintsUsed * 5));
+  let starReasonText = "";
+  if (starsEarned === 3) {
+    starReasonText = "Sempurna! Kamu berhasil menyelesaikan investigasi pada percobaan pertama tanpa membuka Hint!";
+  } else if (starsEarned === 2) {
+    starReasonText = "Bagus sekali! Kamu berhasil merefleksikan dan memperbaiki jawaban lewat penalaran Socratic/Hint H1-H2!";
+  } else {
+    starReasonText = "Hebat! Kamu berhasil menuntaskan misi dengan bantuan diagram visual Level 3!";
+  }
 
   return (
     <div className="result-page-wrapper">
       <div className="result-celebration-card">
         <div className="result-ribbon-top"></div>
 
-        <div className="badge-showcase">
-          {mission.badgeIcon || "🏆"}
+        {/* Mascot / Badge Icon */}
+        <div className="result-mascot-frame">
+          <img
+            src="/sokrabot_mascot.jpg"
+            alt="SOKRABOT Celebrates"
+            className="result-mascot-img"
+          />
+          <div className="result-confetti-badge">
+            <Sparkles size={20} className="text-yellow-300" />
+          </div>
         </div>
 
         <div className="result-title-group">
-          <h1>Misi Selesai! 🎉</h1>
-          <p>
-            Hebat sekali! Kamu berhasil menuntaskan petualangan sains di{" "}
-            <strong>{mission.title}</strong> bersama Timi!
+          <div className="result-code-tag">{mission.code} SELESAI</div>
+          <h1 className="result-h1-title">Investigasi Berhasil! 🎉</h1>
+          <p className="result-sub-text">
+            Luar biasa, Detektif! Kamu berhasil mengungkap rahasia sains pada <strong>Misi {mission.missionNumber}: {mission.title}</strong> bersama SOKRABOT!
           </p>
         </div>
 
-        {/* Lencana Terbuka */}
-        <div className="badge-card-box">
-          <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#b45309", fontWeight: "800", fontSize: "0.85rem", textTransform: "uppercase" }}>
-            <Award size={18} />
-            <span>Lencana Prestasi Baru Terbuka</span>
+        {/* Stars Celebration Showcase */}
+        <div className="result-stars-box">
+          <div className="stars-animation-row">
+            {[1, 2, 3].map((starIdx) => (
+              <div
+                key={starIdx}
+                className={`star-wrapper-pop ${starIdx <= starsEarned ? "star-earned-pop" : "star-empty-pop"}`}
+              >
+                <Star size={44} className="star-svg-large" />
+              </div>
+            ))}
           </div>
-          <h3 className="badge-card-title">{mission.badgeTitle || "Penjelajah Rantai Makanan"}</h3>
-          <p className="badge-card-desc">{mission.badgeDescription}</p>
+          <h3 className="stars-count-heading">{starsEarned} dari 3 Bintang Emas</h3>
+          <p className="stars-reason-note">{starReasonText}</p>
         </div>
 
-        {/* Ringkasan Skor & Statistik */}
-        <div className="stats-grid-box">
-          <div className="stat-item">
-            <CheckCircle2 size={24} color="#10b981" />
-            <span className="stat-value">{completedCount}</span>
-            <span className="stat-label">Pertanyaan Selesai</span>
+        {/* Unlocked Codex Cards Showcase */}
+        {unlockedCodexCards.length > 0 && (
+          <div className="result-codex-unlocked-card">
+            <div className="codex-unlock-header">
+              <BookOpen size={20} className="text-amber-600" />
+              <span>Kartu Buku Pintar Terbuka Otomatis:</span>
+            </div>
+            <div className="codex-cards-unlocked-list">
+              {unlockedCodexCards.map((c) => (
+                <div key={c.id} className="codex-pill-item">
+                  <span className="pill-emoji">{c.icon}</span>
+                  <div className="pill-content">
+                    <strong>{c.title}</strong>
+                    <small>{c.category}</small>
+                  </div>
+                  <span className="pill-check">✓ Terbuka</span>
+                </div>
+              ))}
+            </div>
           </div>
+        )}
 
-          <div className="stat-item">
-            <Star size={24} color="#f59e0b" />
-            <span className="stat-value">{scorePercent}%</span>
-            <span className="stat-label">Tingkat Kecermatan</span>
-          </div>
-
-          <div className="stat-item">
-            <Lightbulb size={24} color="#0284c7" />
-            <span className="stat-value">{hintsUsed}</span>
-            <span className="stat-label">Petunjuk Digunakan</span>
-          </div>
-        </div>
-
-        {/* Tombol Tindakan */}
+        {/* Action Buttons */}
         <div className="result-actions-group">
+          {nextMissionId && (
+            <button
+              className="btn-next-mission-cta"
+              onClick={() => onNextMission(nextMissionId)}
+              id="btn-next-mission"
+            >
+              <span>Lanjut ke Pos Berikutnya</span>
+              <ArrowRight size={20} />
+            </button>
+          )}
+
           <button
-            className="btn-replay-mission"
-            onClick={onReplay}
-            id="btn-replay-result"
+            className="btn-open-codex-result"
+            onClick={onOpenCodex}
+            id="btn-open-codex-from-result"
           >
-            <RotateCcw size={18} />
-            <span>Ulangi Misi</span>
+            <BookOpen size={18} />
+            <span>Buka Buku Pintar (Codex)</span>
           </button>
 
           <button
             className="btn-all-missions"
-            onClick={onBackToMissions}
-            id="btn-all-missions-result"
+            onClick={onBackToMap}
+            id="btn-back-to-map-from-result"
           >
-            <Compass size={18} />
-            <span>Pilih Misi Lain</span>
+            <MapPin size={18} />
+            <span>Kembali ke Peta Misi</span>
+          </button>
+
+          <button
+            className="btn-replay-mission"
+            onClick={onReplay}
+            id="btn-replay-mission-result"
+          >
+            <RotateCcw size={17} />
+            <span>Ulangi Misi Ini</span>
           </button>
         </div>
       </div>

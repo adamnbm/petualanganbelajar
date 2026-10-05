@@ -18,16 +18,16 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
   const [selectedTranscript, setSelectedTranscript] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const loadSessions = () => {
+    const data = studentSession.getAllLocalSubmissions();
+    setSessions(data);
+  };
+
   useEffect(() => {
     if (isOpen) {
       loadSessions();
     }
   }, [isOpen]);
-
-  const loadSessions = () => {
-    const data = studentSession.getAllLocalSubmissions();
-    setSessions(data);
-  };
 
   if (!isOpen) return null;
 
@@ -36,7 +36,7 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
     if (window.confirm(`Hapus riwayat belajar atas nama "${studentName || "Siswa"}"?`)) {
       const updated = studentSession.deleteLocalSubmission(id);
       setSessions(updated);
-      if (selectedTranscript && selectedTranscript.id === id) {
+      if (selectedTranscript && (selectedTranscript.id === id || selectedTranscript.created_at === id)) {
         setSelectedTranscript(null);
       }
     }
@@ -165,15 +165,27 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
           {selectedTranscript ? (
             /* Tampilan Detail Transkrip Percakapan Siswa */
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#f1f5f9", padding: "0.85rem 1.25rem", borderRadius: "12px" }}>
-                <button
-                  className="nav-pill-btn"
-                  onClick={() => setSelectedTranscript(null)}
-                  style={{ background: "white" }}
-                >
-                  <ArrowLeft size={16} />
-                  <span>Kembali ke Daftar Siswa</span>
-                </button>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#f1f5f9", padding: "0.85rem 1.25rem", borderRadius: "12px", flexWrap: "wrap", gap: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <button
+                    className="nav-pill-btn"
+                    onClick={() => setSelectedTranscript(null)}
+                    style={{ background: "white" }}
+                  >
+                    <ArrowLeft size={16} />
+                    <span>Kembali ke Daftar Siswa</span>
+                  </button>
+
+                  <button
+                    className="nav-pill-btn"
+                    onClick={() => handleDeleteOne(selectedTranscript.id || selectedTranscript.created_at, selectedTranscript.student_name)}
+                    style={{ background: "#fef2f2", color: "#b91c1c", borderColor: "#fecaca" }}
+                    title="Hapus Transkrip Ini"
+                  >
+                    <Trash2 size={14} />
+                    <span>Hapus Transkrip Ini</span>
+                  </button>
+                </div>
 
                 <div style={{ textAlign: "right" }}>
                   <h4 style={{ color: "#0f172a" }}>
@@ -302,66 +314,69 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredSessions.map((s, idx) => (
-                        <tr key={s.id || idx} style={{ borderBottom: "1px solid #f1f5f9" }}>
-                          <td style={{ padding: "10px 12px", color: "#64748b", fontSize: "0.8rem", whiteSpace: "nowrap" }}>
-                            {new Date(s.created_at || Date.now()).toLocaleDateString("id-ID", {
-                              day: "numeric",
-                              month: "short",
-                              hour: "2-digit",
-                              minute: "2-digit"
-                            })}
-                          </td>
-                          <td style={{ padding: "10px 12px", fontWeight: "700", color: "#0f172a" }}>
-                            {s.student_name || "Siswa"}
-                          </td>
-                          <td style={{ padding: "10px 12px", color: "#475569" }}>
-                            {s.student_class || "-"} {s.student_number && s.student_number !== "-" ? `(${s.student_number})` : ""}
-                          </td>
-                          <td style={{ padding: "10px 12px", color: "#0f172a" }}>
-                            {s.mission_title || "Misi Sawah"}
-                          </td>
-                          <td style={{ padding: "10px 12px", fontWeight: "800", color: "#059669" }}>
-                            {s.score_percent ?? 100}%
-                          </td>
-                          <td style={{ padding: "10px 12px", color: "#d97706", fontWeight: "700" }}>
-                            {s.hints_used ?? 0}
-                          </td>
-                          <td style={{ padding: "10px 12px" }}>
-                            {s.is_completed ? (
-                              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#065f46", background: "#d1fae5", padding: "2px 8px", borderRadius: "999px", fontSize: "0.75rem", fontWeight: "700" }}>
-                                <CheckCircle2 size={12} /> Selesai
-                              </span>
-                            ) : (
-                              <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#92400e", background: "#fef3c7", padding: "2px 8px", borderRadius: "999px", fontSize: "0.75rem", fontWeight: "700" }}>
-                                <Clock size={12} /> Berlangsung
-                              </span>
-                            )}
-                          </td>
-                          <td style={{ padding: "10px 12px", textAlign: "center" }}>
-                            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                              <button
-                                className="nav-pill-btn"
-                                style={{ padding: "4px 10px", fontSize: "0.8rem" }}
-                                onClick={() => setSelectedTranscript(s)}
-                                title="Baca Transkrip Percakapan Lengkap Siswa"
-                              >
-                                <Eye size={14} />
-                                <span>Lihat Chat</span>
-                              </button>
+                      {filteredSessions.map((s, idx) => {
+                        const rowKey = s.id || s.created_at || `idx_${idx}`;
+                        return (
+                          <tr key={rowKey} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                            <td style={{ padding: "10px 12px", color: "#64748b", fontSize: "0.8rem", whiteSpace: "nowrap" }}>
+                              {new Date(s.created_at || Date.now()).toLocaleDateString("id-ID", {
+                                day: "numeric",
+                                month: "short",
+                                hour: "2-digit",
+                                minute: "2-digit"
+                              })}
+                            </td>
+                            <td style={{ padding: "10px 12px", fontWeight: "700", color: "#0f172a" }}>
+                              {s.student_name || "Siswa"}
+                            </td>
+                            <td style={{ padding: "10px 12px", color: "#475569" }}>
+                              {s.student_class || "-"} {s.student_number && s.student_number !== "-" ? `(${s.student_number})` : ""}
+                            </td>
+                            <td style={{ padding: "10px 12px", color: "#0f172a" }}>
+                              {s.mission_title || "Misi Sawah"}
+                            </td>
+                            <td style={{ padding: "10px 12px", fontWeight: "800", color: "#059669" }}>
+                              {s.score_percent ?? 100}%
+                            </td>
+                            <td style={{ padding: "10px 12px", color: "#d97706", fontWeight: "700" }}>
+                              {s.hints_used ?? 0}
+                            </td>
+                            <td style={{ padding: "10px 12px" }}>
+                              {s.is_completed ? (
+                                <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#065f46", background: "#d1fae5", padding: "2px 8px", borderRadius: "999px", fontSize: "0.75rem", fontWeight: "700" }}>
+                                  <CheckCircle2 size={12} /> Selesai
+                                </span>
+                              ) : (
+                                <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#92400e", background: "#fef3c7", padding: "2px 8px", borderRadius: "999px", fontSize: "0.75rem", fontWeight: "700" }}>
+                                  <Clock size={12} /> Berlangsung
+                                </span>
+                              )}
+                            </td>
+                            <td style={{ padding: "10px 12px", textAlign: "center" }}>
+                              <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                                <button
+                                  className="nav-pill-btn"
+                                  style={{ padding: "4px 10px", fontSize: "0.8rem" }}
+                                  onClick={() => setSelectedTranscript(s)}
+                                  title="Baca Transkrip Percakapan Lengkap Siswa"
+                                >
+                                  <Eye size={14} />
+                                  <span>Lihat Chat</span>
+                                </button>
 
-                              <button
-                                className="nav-icon-btn"
-                                style={{ width: "28px", height: "28px", color: "#dc2626", background: "#fef2f2", borderColor: "#fecaca" }}
-                                onClick={() => handleDeleteOne(s.id, s.student_name)}
-                                title="Hapus Riwayat Siswa Ini"
-                              >
-                                <Trash2 size={13} />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                                <button
+                                  className="nav-icon-btn"
+                                  style={{ width: "28px", height: "28px", color: "#dc2626", background: "#fef2f2", borderColor: "#fecaca" }}
+                                  onClick={() => handleDeleteOne(rowKey, s.student_name)}
+                                  title="Hapus Riwayat Siswa Ini"
+                                >
+                                  <Trash2 size={13} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>

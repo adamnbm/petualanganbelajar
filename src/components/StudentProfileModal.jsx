@@ -1,18 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { User, GraduationCap, Hash, Sparkles, X } from "lucide-react";
 import { studentSession } from "../utils/studentSession";
 
 export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) {
   const [name, setName] = useState("");
-  const [className, setClassName] = useState("Kelas 4");
+  const [className, setClassName] = useState("Kelas 5 SD");
   const [studentNumber, setStudentNumber] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      const current = studentSession.getActiveStudent();
+      if (current) {
+        setName(current.name || "");
+        setClassName(current.className || "Kelas 5 SD");
+        setStudentNumber(current.studentNumber && current.studentNumber !== "-" ? current.studentNumber : "");
+      } else {
+        setName("");
+        setClassName("Kelas 5 SD");
+        setStudentNumber("");
+      }
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name.trim()) {
-      alert("Halo! Silakan masukkan namamu terlebih dahulu ya! 😊");
+      alert("Halo Detektif! Silakan masukkan namamu terlebih dahulu ya! 😊");
       return;
     }
 
@@ -22,9 +37,9 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
       studentNumber: studentNumber.trim() || "-"
     };
 
-    studentSession.setActiveStudent(profile);
+    const saved = studentSession.setActiveStudent(profile);
     if (onSaveStudent) {
-      onSaveStudent(profile);
+      onSaveStudent(saved || profile);
     }
     if (onClose) {
       onClose();
@@ -38,13 +53,13 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
         style={{ maxWidth: "480px" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="modal-header" style={{ background: "linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)" }}>
+        <div className="modal-header" style={{ background: "linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "2rem" }}>🎒</span>
+            <span style={{ fontSize: "2rem" }}>🌾</span>
             <div>
-              <h3 style={{ color: "#065f46" }}>Profil Petualang Cilik</h3>
-              <p style={{ fontSize: "0.82rem", color: "#047857" }}>
-                Masukkan identitasmu agar hasil belajar tersimpan rapi
+              <h3 style={{ color: "#1B5E20" }}>Identitas Detektif SOKRABOT</h3>
+              <p style={{ fontSize: "0.82rem", color: "#2E7D32" }}>
+                Ganti nama siswa untuk mencatat bintang dan lencana investigasi
               </p>
             </div>
           </div>
@@ -56,11 +71,10 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
         </div>
 
         <form onSubmit={handleSubmit} style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          {/* Input Nama Lengkap */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <label style={{ fontSize: "0.92rem", fontWeight: "800", color: "#1e293b", display: "flex", alignItems: "center", gap: "6px" }}>
-              <User size={16} color="#10b981" />
-              <span>Nama Lengkap Siswa:</span>
+              <User size={16} color="#2E7D32" />
+              <span>Nama Lengkap / Panggilan Detektif:</span>
             </label>
             <input
               type="text"
@@ -72,22 +86,18 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
               style={{
                 padding: "0.8rem 1rem",
                 borderRadius: "12px",
-                border: "2px solid #cbd5e1",
+                border: "2px solid #A5D6A7",
                 fontSize: "1rem",
                 fontFamily: "inherit",
-                outline: "none",
-                transition: "border-color 0.2s"
+                outline: "none"
               }}
-              onFocus={(e) => (e.target.style.borderColor = "#10b981")}
-              onBlur={(e) => (e.target.style.borderColor = "#cbd5e1")}
             />
           </div>
 
-          {/* Pilihan Kelas */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <label style={{ fontSize: "0.92rem", fontWeight: "800", color: "#1e293b", display: "flex", alignItems: "center", gap: "6px" }}>
-              <GraduationCap size={16} color="#0ea5e9" />
-              <span>Kelas:</span>
+              <GraduationCap size={16} color="#0284c7" />
+              <span>Tingkat Kelas (Fase C):</span>
             </label>
             <select
               value={className}
@@ -95,21 +105,19 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
               style={{
                 padding: "0.8rem 1rem",
                 borderRadius: "12px",
-                border: "2px solid #cbd5e1",
+                border: "2px solid #A5D6A7",
                 fontSize: "1rem",
                 fontFamily: "inherit",
                 background: "white",
                 outline: "none"
               }}
             >
-              <option value="Kelas 3">SD Kelas 3</option>
-              <option value="Kelas 4">SD Kelas 4</option>
-              <option value="Kelas 5">SD Kelas 5</option>
-              <option value="Kelas 6">SD Kelas 6</option>
+              <option value="Kelas 5 SD">SD Kelas 5 (Fase C)</option>
+              <option value="Kelas 6 SD">SD Kelas 6 (Fase C)</option>
+              <option value="Kelas 4 SD">SD Kelas 4</option>
             </select>
           </div>
 
-          {/* Nomor Absen (Opsional) */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <label style={{ fontSize: "0.92rem", fontWeight: "800", color: "#1e293b", display: "flex", alignItems: "center", gap: "6px" }}>
               <Hash size={16} color="#f59e0b" />
@@ -131,14 +139,13 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
             />
           </div>
 
-          {/* Tombol Submit */}
           <button
             type="submit"
-            className="btn-start-mission"
-            style={{ marginTop: "0.5rem", padding: "0.95rem" }}
+            className="btn-splash-cta"
+            style={{ marginTop: "0.5rem" }}
           >
             <Sparkles size={18} />
-            <span>Mulai Petualangan Belajar! 🚀</span>
+            <span>Simpan Identitas Detektif 🌾</span>
           </button>
         </form>
       </div>
