@@ -46,7 +46,11 @@ export default function LandingHero({ onStartAdventure, onExploreMissions }) {
           <div className="mascot-backdrop-glow"></div>
           <div className="mascot-card-inner">
             <div className="mascot-avatar-large">
-              🤖
+              <img
+                src="/hero_robot.png"
+                alt="SOKRABOT Petualang Sawah"
+                className="hero-mascot-avatar-img"
+              />
             </div>
             <span className="mascot-badge">Sahabat Belajarmu</span>
             <h3>Halo, Aku SOKRABOT! 👋</h3>

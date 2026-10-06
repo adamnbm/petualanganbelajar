@@ -163,11 +163,21 @@ export const DECISION_TREES = {
         id: "m0_lalu_apa",
         isMain: false,
         title: "Lalu Apa yang Dilakukan Padi?",
-        question: "Lalu apa yang dilakukan padi?",
+        question: "Lalu apa yang dilakukan padi dengan air dan mineral tersebut?",
         options: [
           {
             id: "A",
-            text: "Membuat makanannya sendiri.",
+            text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
+            next: "m0_reinforcement"
+          },
+          {
+            id: "B",
+            text: "Menyimpannya langsung tanpa perlu mengolahnya.",
+            next: "m0_reinforcement"
+          },
+          {
+            id: "C",
+            text: "Mengubahnya langsung menjadi padi tanpa butuh daun.",
             next: "m0_reinforcement"
           }
         ]
@@ -353,6 +363,16 @@ export const DECISION_TREES = {
             id: "A",
             text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
             next: "m0_reinforcement"
+          },
+          {
+            id: "B",
+            text: "Menyerap makanan yang sudah jadi dari tanah melalui akar.",
+            next: "m0_reinforcement"
+          },
+          {
+            id: "C",
+            text: "Memakan bangkai serangga dan hewan kecil di sekitarnya.",
+            next: "m0_reinforcement"
           }
         ]
       },
@@ -496,6 +516,16 @@ export const DECISION_TREES = {
             id: "A",
             text: "Tikus memakan padi",
             next: "m1_tanya_pemakan_tikus"
+          },
+          {
+            id: "B",
+            text: "Padi memakan tikus",
+            next: "m1_tanya_pemakan_tikus"
+          },
+          {
+            id: "C",
+            text: "Padi dan tikus saling memakan",
+            next: "m1_tanya_pemakan_tikus"
           }
         ]
       },
@@ -533,11 +563,21 @@ export const DECISION_TREES = {
           "Ingat, padi adalah tumbuhan yang tidak bisa memakan hewan 🌾.",
           "Hewan apa yang suka memangsa tikus di sawah? 🐍"
         ],
-        question: "Siapa yang memakan tikus?",
+        question: "Siapa yang memakan tikus di sawah?",
         options: [
           {
             id: "A",
             text: "Ular",
+            next: "m1_tanya_pemakan_ular"
+          },
+          {
+            id: "B",
+            text: "Padi",
+            next: "m1_tanya_pemakan_ular"
+          },
+          {
+            id: "C",
+            text: "Rumput",
             next: "m1_tanya_pemakan_ular"
           }
         ]
@@ -576,11 +616,21 @@ export const DECISION_TREES = {
           "Padi tetap tumbuhan, tidak bisa memakan ular 🌾.",
           "Hewan besar apa yang terbang gagah di langit sawah dan memangsa ular? 🦅"
         ],
-        question: "Siapa yang memakan ular?",
+        question: "Siapa yang memakan ular di sawah?",
         options: [
           {
             id: "A",
             text: "Elang",
+            next: "m1_reinforcement"
+          },
+          {
+            id: "B",
+            text: "Tikus",
+            next: "m1_reinforcement"
+          },
+          {
+            id: "C",
+            text: "Padi",
             next: "m1_reinforcement"
           }
         ]
@@ -694,6 +744,16 @@ export const DECISION_TREES = {
             id: "A",
             text: "Tikus",
             next: "m2_1_tanya_tikus_ular"
+          },
+          {
+            id: "B",
+            text: "Elang langsung",
+            next: "m2_1_tanya_tikus_ular"
+          },
+          {
+            id: "C",
+            text: "Cahaya matahari",
+            next: "m2_1_tanya_tikus_ular"
           }
         ]
       },
@@ -732,6 +792,16 @@ export const DECISION_TREES = {
           {
             id: "A",
             text: "Dari tikus ke ular",
+            next: "m2_1_fungsi_panah"
+          },
+          {
+            id: "B",
+            text: "Dari ular ke tikus",
+            next: "m2_1_fungsi_panah"
+          },
+          {
+            id: "C",
+            text: "Dari elang ke padi",
             next: "m2_1_fungsi_panah"
           }
         ]
@@ -773,6 +843,16 @@ export const DECISION_TREES = {
           {
             id: "A",
             text: "Energi berpindah dari padi ke tikus",
+            next: "m2_1_reinforcement"
+          },
+          {
+            id: "B",
+            text: "Padi memakan tikus",
+            next: "m2_1_reinforcement"
+          },
+          {
+            id: "C",
+            text: "Tikus memberi makanan kepada padi",
             next: "m2_1_reinforcement"
           }
         ]
@@ -875,11 +955,21 @@ export const DECISION_TREES = {
           "Coba pikirkan: siapa yang makan, dia yang mendapat tenaga 🐀.",
           "Tikus yang memakan padi, jadi tikus yang mendapatkan energi dari makanan tersebut."
         ],
-        question: "Jadi, energi berpindah dari padi ke tikus. Mari kita lihat ke mana selanjutnya!",
+        question: "Jadi, ketika tikus memakan padi, ke mana energi berpindah?",
         options: [
           {
             id: "A",
-            text: "Lanjut lihat perpindahan energi",
+            text: "Energi berpindah dari padi ke tikus",
+            next: "m2_1_jadi_energi_berpindah"
+          },
+          {
+            id: "B",
+            text: "Energi berpindah dari tikus ke padi",
+            next: "m2_1_jadi_energi_berpindah"
+          },
+          {
+            id: "C",
+            text: "Energi hilang dan tidak berpindah",
             next: "m2_1_jadi_energi_berpindah"
           }
         ]
@@ -907,11 +997,21 @@ export const DECISION_TREES = {
         id: "m2_1_klarifikasi_energi_ac",
         isMain: false,
         title: "Klarifikasi Arah Perpindahan Energi",
-        question: "Energi berpindah dari padi ke tikus, karena tikus yang memakan padi dan mendapatkan energi darinya.",
+        question: "Tikus memakan padi dan mendapatkan energi darinya. Arah perpindahan energi yang benar adalah...",
         options: [
           {
             id: "A",
-            text: "Paham!",
+            text: "Dari padi ke tikus (Padi → Tikus)",
+            next: "m2_1_hebat_perpindahan"
+          },
+          {
+            id: "B",
+            text: "Dari tikus ke padi (Tikus → Padi)",
+            next: "m2_1_hebat_perpindahan"
+          },
+          {
+            id: "C",
+            text: "Tidak ada energi yang mengalir",
             next: "m2_1_hebat_perpindahan"
           }
         ]
@@ -925,11 +1025,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Hebat!"
         ],
-        question: "Jadi arah panah bukan hanya menunjukkan siapa yang memakan, tetapi menunjukkan perpindahan energi dari yang dimakan ke yang memakan!",
+        question: "Jadi apa arti sebenarnya dari tanda panah (→) pada rantai makanan?",
         options: [
           {
             id: "A",
-            text: "Paham! Panah = perpindahan energi!",
+            text: "Arah perpindahan energi dari yang dimakan ke pemakan",
+            next: "m2_1_reinforcement"
+          },
+          {
+            id: "B",
+            text: "Urutan hewan dari tubuh terkecil ke terbesar",
+            next: "m2_1_reinforcement"
+          },
+          {
+            id: "C",
+            text: "Menunjukkan arah jalan hewan di pematang sawah",
             next: "m2_1_reinforcement"
           }
         ]
@@ -1023,6 +1133,16 @@ export const DECISION_TREES = {
             id: "A",
             text: "Membuat makanannya sendiri (fotosintesis)",
             next: "m2_3_tikus_energi"
+          },
+          {
+            id: "B",
+            text: "Mengeringkan daunnya yang basah",
+            next: "m2_3_tikus_energi"
+          },
+          {
+            id: "C",
+            text: "Menghangatkan serangga di sawah",
+            next: "m2_3_tikus_energi"
           }
         ]
       },
@@ -1068,7 +1188,17 @@ export const DECISION_TREES = {
         options: [
           {
             id: "A",
-            text: "Padi",
+            text: "Dari memakan padi",
+            next: "m2_3_ular_energi"
+          },
+          {
+            id: "B",
+            text: "Langsung menyerap cahaya matahari",
+            next: "m2_3_ular_energi"
+          },
+          {
+            id: "C",
+            text: "Dari tanah dan air sawah",
             next: "m2_3_ular_energi"
           }
         ]
@@ -1114,6 +1244,16 @@ export const DECISION_TREES = {
             id: "A",
             text: "Tikus",
             next: "m2_3_elang_energi"
+          },
+          {
+            id: "B",
+            text: "Padi secara langsung",
+            next: "m2_3_elang_energi"
+          },
+          {
+            id: "C",
+            text: "Elang",
+            next: "m2_3_elang_energi"
           }
         ]
       },
@@ -1152,11 +1292,21 @@ export const DECISION_TREES = {
           "Dalam rantai makanan ini: Ular → Elang 🦅.",
           "Elang adalah pemangsa puncak yang memakan ular."
         ],
-        question: "Jadi elang memperoleh energinya dari?",
+        question: "Jadi elang memperoleh energinya dari memakan siapa?",
         options: [
           {
             id: "A",
             text: "Ular",
+            next: "m2_3_selamat"
+          },
+          {
+            id: "B",
+            text: "Padi",
+            next: "m2_3_selamat"
+          },
+          {
+            id: "C",
+            text: "Cahaya matahari langsung",
             next: "m2_3_selamat"
           }
         ]
@@ -1267,7 +1417,17 @@ export const DECISION_TREES = {
         options: [
           {
             id: "A",
-            text: "Air dan Mineral",
+            text: "Air dan mineral",
+            next: "m2_3_tepat_kembali"
+          },
+          {
+            id: "B",
+            text: "Makanan yang sudah jadi",
+            next: "m2_3_tepat_kembali"
+          },
+          {
+            id: "C",
+            text: "Cahaya matahari",
             next: "m2_3_tepat_kembali"
           }
         ]
@@ -1333,6 +1493,16 @@ export const DECISION_TREES = {
             id: "A",
             text: "Arah perpindahan energi dari yang dimakan ke yang memakan",
             next: "m2_4_tanya_asal"
+          },
+          {
+            id: "B",
+            text: "Siapa hewan yang paling kuat di alam",
+            next: "m2_4_tanya_asal"
+          },
+          {
+            id: "C",
+            text: "Perjalanan tempat tinggal hewan di sawah",
+            next: "m2_4_tanya_asal"
           }
         ]
       },
@@ -1379,6 +1549,16 @@ export const DECISION_TREES = {
           {
             id: "A",
             text: "Matahari",
+            next: "m2_4_susun_rantai"
+          },
+          {
+            id: "B",
+            text: "Tanah dan pupuk",
+            next: "m2_4_susun_rantai"
+          },
+          {
+            id: "C",
+            text: "Air hujan",
             next: "m2_4_susun_rantai"
           }
         ]
@@ -1588,6 +1768,16 @@ export const DECISION_TREES = {
             id: "A",
             text: "Karena memburu dan memakan hewan lain",
             next: "m3_1_tepat_definisi_predator"
+          },
+          {
+            id: "B",
+            text: "Karena memiliki ukuran tubuh paling besar",
+            next: "m3_1_tepat_definisi_predator"
+          },
+          {
+            id: "C",
+            text: "Karena hidup di tempat yang gelap",
+            next: "m3_1_tepat_definisi_predator"
           }
         ]
       },
@@ -1600,11 +1790,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Tepat! Hewan disebut predator karena memburu atau memakan hewan lain 🐍."
         ],
-        question: "Sekarang kamu sudah memahami bahwa ular adalah predator karena memburu tikus.",
+        question: "Sekarang kamu tahu ular adalah predator karena memburu tikus. Bagaimana dengan peran tikus?",
         options: [
           {
             id: "A",
-            text: "Lanjut ke peran tikus! 👉",
+            text: "Tikus adalah mangsa (hewan yang diburu)",
+            next: "m3_1_tanya_mangsa"
+          },
+          {
+            id: "B",
+            text: "Tikus juga predator bagi ular",
+            next: "m3_1_tanya_mangsa"
+          },
+          {
+            id: "C",
+            text: "Tikus adalah produsen di sawah",
             next: "m3_1_tanya_mangsa"
           }
         ]
@@ -1693,7 +1893,17 @@ export const DECISION_TREES = {
         options: [
           {
             id: "A",
-            text: "Mangsa",
+            text: "Mangsa (hewan yang diburu)",
+            next: "m3_1_selesai_p1"
+          },
+          {
+            id: "B",
+            text: "Predator (hewan pemburu)",
+            next: "m3_1_selesai_p1"
+          },
+          {
+            id: "C",
+            text: "Produsen (pembuat makanan)",
             next: "m3_1_selesai_p1"
           }
         ]
@@ -1797,11 +2007,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Ingat kembali 🔍: Hewan tidak disebut mangsa hanya karena ukuran tubuhnya yang kecil."
         ],
-        question: "Hewan disebut mangsa karena diburu dan dimakan oleh predator.",
+        question: "Apa alasan sebenarnya suatu hewan disebut sebagai mangsa?",
         options: [
           {
             id: "A",
-            text: "Paham! Hewan yang diburu/dimakan disebut mangsa",
+            text: "Karena diburu dan dimakan oleh predator",
+            next: "m3_2_b_sukses"
+          },
+          {
+            id: "B",
+            text: "Karena tubuhnya selalu kecil dan lemah",
+            next: "m3_2_b_sukses"
+          },
+          {
+            id: "C",
+            text: "Karena tidak bisa berlari cepat",
             next: "m3_2_b_sukses"
           }
         ]
@@ -1854,11 +2074,21 @@ export const DECISION_TREES = {
           "Ular tidak diburu oleh tikus 🐍🐀.",
           "Justru tikus yang diburu dan dimakan oleh ular."
         ],
-        question: "Jadi, siapa hewan yang diburu dalam hubungan ini?",
+        question: "Jadi, siapa hewan yang diburu dalam hubungan antara ular dan tikus?",
         options: [
           {
             id: "A",
-            text: "Tikus",
+            text: "Tikus (diburu oleh ular)",
+            next: "m3_2_ac_jawaban_b"
+          },
+          {
+            id: "B",
+            text: "Ular (diburu oleh tikus)",
+            next: "m3_2_ac_jawaban_b"
+          },
+          {
+            id: "C",
+            text: "Padi (diburu oleh ular)",
             next: "m3_2_ac_jawaban_b"
           }
         ]
@@ -1944,11 +2174,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Ingat 💡: Status predator atau mangsa ditentukan oleh interaksinya saat itu."
         ],
-        question: "Ketika ular memburu tikus, ular adalah predator. Namun ketika elang memburu ular, ular menjadi mangsa bagi elang.",
+        question: "Apakah peran predator dan mangsa pada seekor hewan bisa berubah tergantung hubungannya?",
         options: [
           {
             id: "A",
-            text: "Paham! Peran hewan tergantung siapa yang memakan siapa",
+            text: "Bisa, seperti ular: predator bagi tikus, tapi mangsa bagi elang",
+            next: "m3_3_sesuai"
+          },
+          {
+            id: "B",
+            text: "Tidak bisa, perannya selalu tetap selamanya",
+            next: "m3_3_sesuai"
+          },
+          {
+            id: "C",
+            text: "Hanya elang yang perannya bisa berubah",
             next: "m3_3_sesuai"
           }
         ]
@@ -1985,11 +2225,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Tikus tidak memburu dan memakan ular 🐀."
         ],
-        question: "Elang lah yang terbang tinggi dan memburu ular untuk dimakan.",
+        question: "Siapakah hewan yang terbang tinggi dan memburu ular untuk dimakan?",
         options: [
           {
             id: "A",
-            text: "Coba lagi: Siapa yang memburu ular?",
+            text: "Elang",
+            next: "m3_3_bc_klarifikasi"
+          },
+          {
+            id: "B",
+            text: "Tikus",
+            next: "m3_3_bc_klarifikasi"
+          },
+          {
+            id: "C",
+            text: "Katak",
             next: "m3_3_bc_klarifikasi"
           }
         ]
@@ -2275,11 +2525,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Mari kita perjelas bersama 🔍."
         ],
-        question: "Karena pemangsanya (ular) berkurang drastis, maka tikus yang berhasil dimangsa ular justru LEBIH SEDIKIT. Dengan begitu, tikus yang selamat bertambah banyak!",
+        question: "Jika pemburu (ular) berkurang drastis, apa pengaruhnya pada jumlah tikus yang dimangsa?",
         options: [
           {
             id: "A",
-            text: "Paham, lanjut ke akibat bagi padi!",
+            text: "Tikus yang dimangsa lebih sedikit, sehingga populasi tikus bertambah",
+            next: "m4_1_selesai_p1"
+          },
+          {
+            id: "B",
+            text: "Tikus yang dimangsa menjadi lebih banyak",
+            next: "m4_1_selesai_p1"
+          },
+          {
+            id: "C",
+            text: "Tikus yang dimangsa tetap sama seperti biasa",
             next: "m4_1_selesai_p1"
           }
         ]
@@ -2317,11 +2577,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Ingat kembali: padi adalah produsen yang dimakan oleh tikus, bukan pemangsa! 🌾🐀"
         ],
-        question: "Yang memangsa tikus adalah ULAR 🐍. Mari kita lihat apa yang terjadi jika ular berkurang.",
+        question: "Dalam rantai makanan sawah, siapa sebenarnya pemangsa yang memburu tikus?",
         options: [
           {
             id: "A",
-            text: "Lanjut: Ular berkurang",
+            text: "Ular",
+            next: "m4_1_ular_memangsa"
+          },
+          {
+            id: "B",
+            text: "Padi",
+            next: "m4_1_ular_memangsa"
+          },
+          {
+            id: "C",
+            text: "Cacing",
             next: "m4_1_ular_memangsa"
           }
         ]
@@ -2359,11 +2629,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Perhatikan baik-baik 🔍:"
         ],
-        question: "Karena ularnya berkurang, maka pemburu tikus lebih sedikit. Jadi tikus yang dimangsa ular akan SEMAKIN SEDIKIT!",
+        question: "Karena pemangsa ular berkurang, pemburu tikus makin sedikit. Jadi tikus yang dimangsa ular akan...",
         options: [
           {
             id: "A",
-            text: "Lanjut melihat jumlah tikus",
+            text: "Semakin sedikit yang dimangsa, sehingga tikus bertambah banyak",
+            next: "m4_1_tikus_dimangsa_sedikit"
+          },
+          {
+            id: "B",
+            text: "Semakin banyak yang dimangsa, sehingga tikus habis",
+            next: "m4_1_tikus_dimangsa_sedikit"
+          },
+          {
+            id: "C",
+            text: "Tetap sama karena tikus tidak terpengaruh ular",
             next: "m4_1_tikus_dimangsa_sedikit"
           }
         ]
@@ -2398,11 +2678,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Mari kita bayangkan bersama 💡:"
         ],
-        question: "Jika tikus yang dimangsa ular semakin sedikit, artinya semakin banyak tikus yang selamat dan bebas berkembang biak! Oleh karena itu, jumlah tikus di sawah akan BERTAMBAH.",
+        question: "Jika tikus yang dimangsa makin sedikit dan bebas berkembang biak, apa akibatnya pada jumlah tikus?",
         options: [
           {
             id: "A",
-            text: "Paham, jumlah tikus bertambah!",
+            text: "Jumlah tikus akan bertambah banyak",
+            next: "m4_1_selesai_p1"
+          },
+          {
+            id: "B",
+            text: "Jumlah tikus akan berkurang drastis",
+            next: "m4_1_selesai_p1"
+          },
+          {
+            id: "C",
+            text: "Jumlah tikus akan musnah dari sawah",
             next: "m4_1_selesai_p1"
           }
         ]
@@ -2516,7 +2806,17 @@ export const DECISION_TREES = {
         options: [
           {
             id: "A",
-            text: "Lebih banyak",
+            text: "Lebih banyak (sehingga tanaman padi berkurang)",
+            next: "m4_2_selesai_p2"
+          },
+          {
+            id: "B",
+            text: "Lebih sedikit (sehingga tanaman padi bertambah)",
+            next: "m4_2_selesai_p2"
+          },
+          {
+            id: "C",
+            text: "Tetap sama (tikus tidak memakan padi)",
             next: "m4_2_selesai_p2"
           }
         ]
@@ -2554,11 +2854,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Perhatikan baik-baik 🔍:"
         ],
-        question: "Bila ada lebih banyak tikus lapar di sawah, tentu padi yang dimakan menjadi LEBIH BANYAK, sehingga sisa tanaman padi berkurang.",
+        question: "Bila ada lebih banyak tikus lapar di sawah, bagaimana pengaruhnya terhadap tanaman padi?",
         options: [
           {
             id: "A",
-            text: "Benar! Mari kita ke Penyelidikan 3!",
+            text: "Padi yang dimakan lebih banyak, sisa padi berkurang",
+            next: "m4_2_selesai_p2"
+          },
+          {
+            id: "B",
+            text: "Padi yang dimakan lebih sedikit, padi melimpah",
+            next: "m4_2_selesai_p2"
+          },
+          {
+            id: "C",
+            text: "Tanaman padi tidak terpengaruh oleh tikus",
             next: "m4_2_selesai_p2"
           }
         ]
@@ -2655,11 +2965,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Ingat kembali urutan rantai makanannya 🔗:"
         ],
-        question: "🐍 Ular berkurang membuat 🐀 tikus BERTAMBAH (karena tidak ada pemangsa).\nLalu tikus yang banyak memakan padi sehingga 🌾 padi BERKURANG!",
+        question: "Apa rantai akibat jika pemangsa ular berkurang habis?",
         options: [
           {
             id: "A",
-            text: "Bagus! Mari ke penyelidikan selanjutnya!",
+            text: "Ular berkurang → Tikus bertambah → Padi berkurang",
+            next: "m4_4_start"
+          },
+          {
+            id: "B",
+            text: "Ular berkurang → Tikus berkurang → Padi bertambah",
+            next: "m4_4_start"
+          },
+          {
+            id: "C",
+            text: "Ular bertambah → Tikus bertambah → Padi melimpah",
             next: "m4_4_start"
           }
         ]
@@ -2782,11 +3102,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Betul! 🐍🐀"
         ],
-        question: "Betul! Jika tikus yang dimangsa semakin banyak, maka jumlah tikus akan berkurang dan padi menjadi bertambah.",
+        question: "Sebaliknya, jika ular pemangsa tikus bertambah banyak, apa akibatnya bagi padi?",
         options: [
           {
             id: "A",
-            text: "Yeah! Kita lanjut ke refleksi! 📝",
+            text: "Tikus berkurang, sehingga padi bertambah (panen selamat)",
+            next: "m4_refleksi_start"
+          },
+          {
+            id: "B",
+            text: "Tikus bertambah, sehingga padi habis dimakan",
+            next: "m4_refleksi_start"
+          },
+          {
+            id: "C",
+            text: "Tikus dan padi sama-sama punah",
             next: "m4_refleksi_start"
           }
         ]
@@ -2800,11 +3130,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Ingat: ular adalah pemangsa tikus."
         ],
-        question: "Jika ada semakin banyak ular yang berburu, tentu semakin banyak tikus yang dimangsa! Akibatnya, tikus berkurang dan padi bertambah.",
+        question: "Jika ada semakin banyak ular berburu di sawah, bagaimana perubahan populasinya?",
         options: [
           {
             id: "A",
-            text: "Yeah! Kita lanjut ke refleksi! 📝",
+            text: "Tikus semakin banyak dimangsa (berkurang), padi terselamatkan",
+            next: "m4_refleksi_start"
+          },
+          {
+            id: "B",
+            text: "Tikus semakin sedikit dimangsa, padi habis",
+            next: "m4_refleksi_start"
+          },
+          {
+            id: "C",
+            text: "Ular berhenti berburu tikus",
             next: "m4_refleksi_start"
           }
         ]
@@ -2900,11 +3240,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Coba ingat kembali pelajaran dari Misi 4! 🔗"
         ],
-        question: "Ingat kembali pelajaran dari Misi 4:\nDalam rantai makanan, setiap organisme saling terhubung.\n\n🌾 Padi → 🐀 Tikus → 🐍 Ular\n\nJika semua tikus dibasmi, ular akan kehilangan sumber makanannya!\nJadi, membasmi semua tikus BUKAN tindakan yang tepat karena dapat mengganggu keseimbangan.",
+        question: "Mengapa membasmi SELURUH tikus hingga musnah bukan tindakan yang bijak?",
         options: [
           {
             id: "A",
-            text: "Mengerti! Lanjut berpikir lebih dalam 🤔",
+            text: "Karena ular akan kehilangan sumber makanan utamanya",
+            next: "m5_1_tanya_mengapa"
+          },
+          {
+            id: "B",
+            text: "Karena tikus bertugas membuat makanan bagi padi",
+            next: "m5_1_tanya_mengapa"
+          },
+          {
+            id: "C",
+            text: "Karena tikus adalah pemangsa elang",
             next: "m5_1_tanya_mengapa"
           }
         ]
@@ -2956,11 +3306,21 @@ export const DECISION_TREES = {
         id: "m5_1_klarifikasi_sumber",
         isMain: false,
         title: "Penjelasan Sumber Makanan Ular",
-        question: "Tikus adalah salah satu makanan utama ular di sawah.\nJika semua tikus hilang, tentu sumber makanan ular akan berkurang!",
+        question: "Tikus adalah makanan utama ular. Jika seluruh tikus di sawah hilang, apa yang terjadi pada ular?",
         options: [
           {
             id: "A",
-            text: "Mengerti! Lanjut! 🔍",
+            text: "Sumber makanan ular berkurang dan ular bisa kelaparan",
+            next: "m5_1_tikus_hilang_ular"
+          },
+          {
+            id: "B",
+            text: "Ular mendapatkan makanan lebih melimpah",
+            next: "m5_1_tikus_hilang_ular"
+          },
+          {
+            id: "C",
+            text: "Ular akan beralih memakan tanaman padi",
             next: "m5_1_tikus_hilang_ular"
           }
         ]
@@ -2995,11 +3355,21 @@ export const DECISION_TREES = {
         introSpeech: [
           "Coba pikirkan kembali 🤔:"
         ],
-        question: "Tikus adalah makanan ular. Jika semua tikus hilang, ular justru KEKURANGAN makanan, bukan mendapatkan lebih banyak!",
+        question: "Jika semua tikus di sawah hilang, apakah ular akan kekurangan atau kelebihan makanan?",
         options: [
           {
             id: "A",
-            text: "Mengerti! Lanjut! 🔍",
+            text: "Kekurangan makanan karena mangsa utamanya hilang",
+            next: "m5_1_membasmi_seluruh"
+          },
+          {
+            id: "B",
+            text: "Kelebihan makanan",
+            next: "m5_1_membasmi_seluruh"
+          },
+          {
+            id: "C",
+            text: "Tidak kekurangan karena ular memakan air dan tanah",
             next: "m5_1_membasmi_seluruh"
           }
         ]
@@ -3031,11 +3401,21 @@ export const DECISION_TREES = {
         id: "m5_1_review_dampak",
         isMain: false,
         title: "Review Dampak Membasmi Tikus",
-        question: "Ingat: tikus adalah makanan ular 🐀→🐍.\nJika semua tikus habis, ular kekurangan makanan!\n\nJadi membasmi seluruh tikus PASTI memengaruhi organisme lain dalam rantai makanan.",
+        question: "Apakah membasmi satu populasi secara total dapat memengaruhi keseimbangan ekosistem?",
         options: [
           {
             id: "A",
-            text: "Mengerti! 👍",
+            text: "Pasti memengaruhi karena semua makhluk hidup saling terhubung",
+            next: "m5_1_tepat_cara_lain"
+          },
+          {
+            id: "B",
+            text: "Tidak memengaruhi, makhluk hidup lain tetap baik-baik saja",
+            next: "m5_1_tepat_cara_lain"
+          },
+          {
+            id: "C",
+            text: "Hanya memengaruhi manusia saja",
             next: "m5_1_tepat_cara_lain"
           }
         ]
@@ -3071,11 +3451,21 @@ export const DECISION_TREES = {
         id: "m5_1_klarifikasi_tindakan",
         isMain: false,
         title: "Penjelasan Tindakan Tepat",
-        question: "Membasmi semua tikus akan mengganggu keseimbangan ekosistem karena ular kehilangan sumber makanannya.\n\nYang lebih tepat adalah mengendalikan jumlah tikus, bukan membasmi seluruhnya!",
+        question: "Bagaimana tindakan terbaik menghadapi hama tikus agar ekosistem tetap seimbang?",
         options: [
           {
             id: "A",
-            text: "Mengerti! 👍",
+            text: "Mengendalikan jumlah tikus secara bijak, bukan memusnahkan semuanya",
+            next: "m5_refleksi_start"
+          },
+          {
+            id: "B",
+            text: "Memusnahkan semua hewan di sawah tanpa sisa",
+            next: "m5_refleksi_start"
+          },
+          {
+            id: "C",
+            text: "Membiarkan hama merusak seluruh tanaman padi",
             next: "m5_refleksi_start"
           }
         ]
@@ -3154,11 +3544,21 @@ export const DECISION_TREES = {
         id: "m5_refleksi_review",
         isMain: false,
         title: "Review Hubungan Tikus dan Ular",
-        question: "Ingat: tikus adalah makanan ular 🐀→🐍.\nJika semua tikus hilang, ular justru KEHILANGAN sumber makanan, bukan mendapatkan lebih banyak!\n\nKarena itu, kita harus mengendalikan populasi tikus tanpa menghilangkannya dari ekosistem.",
+        question: "Apa kesimpulan penting dalam menjaga keseimbangan rantai makanan di sawah?",
         options: [
           {
             id: "A",
-            text: "Mengerti! Lanjut ke penutup! 🌟",
+            text: "Menjaga populasi agar tetap seimbang, bukan melenyapkan satu jenis organisme",
+            next: "m5_refleksi_selesai"
+          },
+          {
+            id: "B",
+            text: "Menghilangkan semua pemangsa agar hewan lain tenang",
+            next: "m5_refleksi_selesai"
+          },
+          {
+            id: "C",
+            text: "Menghilangkan hewan herbivora agar tanaman subur",
             next: "m5_refleksi_selesai"
           }
         ]

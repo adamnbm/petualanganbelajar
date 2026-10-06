@@ -200,7 +200,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
               <div className="sokrabot-quote-card">
                 <div className="quote-robot-header">
                   <img
-                    src="/sokrabot_mascot.jpg"
+                    src="/sokrabot_mascot.png"
                     alt="Sokrabot"
                     className="quote-mascot-tiny"
                   />

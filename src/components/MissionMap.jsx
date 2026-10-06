@@ -69,7 +69,7 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
       {/* Hero Intro Banner */}
       <div className="map-intro-card">
         <img
-          src="/sokrabot_mascot.jpg"
+          src="/sokrabot_mascot.png"
           alt="SOKRABOT Scout"
           className="map-mascot-badge"
         />
