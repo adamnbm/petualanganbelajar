@@ -59,7 +59,7 @@ export default function Navbar({
         >
           <div className="brand-mascot-avatar">
             <img
-              src="/sokrabot_mascot.jpg"
+              src="/sokrabot_mascot.png"
               alt="SOKRABOT Logo"
               className="brand-mascot-pic"
             />

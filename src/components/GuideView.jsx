@@ -34,7 +34,7 @@ export default function GuideView({ onBackToMenu, onGoToMap }) {
       {/* Guide Hero Mascot */}
       <div className="guide-hero-box">
         <img
-          src="/sokrabot_mascot.jpg"
+          src="/sokrabot_mascot.png"
           alt="SOKRABOT Detective"
           className="guide-hero-mascot"
         />

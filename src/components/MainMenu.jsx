@@ -37,7 +37,21 @@ export default function MainMenu({
             <span>Detektif IPAS Fase C Terdaftar</span>
           </div>
           <h1 className="menu-hero-greeting">
-            Halo, Detektif <span className="highlight-name">{studentName}</span>! 🌾
+            Halo, Detektif <span className="highlight-name">{studentName}</span>!
+            <span className="hero-rice-icon" title="Padi Sawah">
+              <svg width="28" height="34" viewBox="0 0 28 34" fill="none">
+                {/* Stems */}
+                <path d="M9 30V15C9 12 11 10 14 10" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M15 30V6C15 4 16 3 19 3" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M6 25C6 22 7 20 9 20" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M21 25C21 22 20 20 18 20" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
+                {/* Rice grains */}
+                <path d="M15 7C19 7 23 8 23 11C23 13 19 13 15 13" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M15 13C20 13 24 14 24 17C24 19 20 19 15 19" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M9 15C13 15 17 16 17 19C17 21 13 21 9 21" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M9 21C13 21 17 22 17 24C17 26 13 26 9 26" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+            </span>
           </h1>
           <p className="menu-hero-sub">
             Sawah Pak Budi sedang menunggumu! SOKRABOT siap memandu penalaranmu untuk mengungkap misteri jaring makanan dan mengembalikan keseimbangan alam.
@@ -76,16 +90,35 @@ export default function MainMenu({
         </div>
 
         <div className="menu-hero-right">
-          <div className="mascot-circle-frame">
-            <img
-              src="/sokrabot_mascot.jpg"
-              alt="SOKRABOT Mascot"
-              className="menu-mascot-img"
+          {/* Organic SVG wave divider with top mint petal */}
+          <svg
+            className="hero-wave-divider"
+            viewBox="0 0 100 284"
+            preserveAspectRatio="none"
+          >
+            {/* Top mint accent petal */}
+            <path
+              d="M 0,0 C 25,0 55,8 55,24 C 55,40 32,54 22,62 C 16,52 24,30 12,20 Z"
+              fill="#a7f3d0"
+              opacity="0.8"
             />
-            <div className="mascot-speech-bubble">
-              "Siap menalar bersamaku hari ini, Detektif {studentName}? 🔍"
-            </div>
+            {/* Main card background organic wave cut */}
+            <path
+              d="M 18,0 C 28,12 36,22 34,34 C 31,48 18,60 18,78 C 18,105 25,130 25,155 C 25,180 19,200 20,220 C 22,240 40,260 90,284 L 0,284 L 0,0 Z"
+              fill="#f6faf6"
+            />
+          </svg>
+
+          {/* Speech bubble di atas kepala SOKRABOT */}
+          <div className="sokrabot-speech-bubble">
+            <span>Ayo berpetualang bersama !</span>
           </div>
+
+          <img
+            src="/hero_robot.png?v=panorama"
+            alt="SOKRABOT Petualang Sawah"
+            className="menu-hero-image"
+          />
         </div>
       </section>
 

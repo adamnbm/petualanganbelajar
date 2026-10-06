@@ -42,7 +42,7 @@ export default function ChatMessageList({
                 title={isAI ? "Respon dari Gemini AI" : "Pemandu SOKRABOT (Alur Misi)"}
               >
                 <img
-                  src="/sokrabot_mascot.jpg"
+                  src="/sokrabot_mascot.png"
                   alt="SOKRABOT"
                   className="avatar-mascot-img"
                 />
@@ -161,7 +161,7 @@ export default function ChatMessageList({
         <div className="typing-indicator-row">
           <div className="message-avatar avatar-bot">
             <img
-              src="/sokrabot_mascot.jpg"
+              src="/sokrabot_mascot.png"
               alt="SOKRABOT"
               className="avatar-mascot-img"
             />

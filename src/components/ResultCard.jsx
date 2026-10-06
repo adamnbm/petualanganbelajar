@@ -70,7 +70,7 @@ export default function ResultCard({
         {/* Mascot / Badge Icon */}
         <div className="result-mascot-frame">
           <img
-            src="/sokrabot_mascot.jpg"
+            src="/sokrabot_mascot.png"
             alt="SOKRABOT Celebrates"
             className="result-mascot-img"
           />

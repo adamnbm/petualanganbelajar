@@ -34,7 +34,7 @@ export default function SplashScreen({ onStartAdventure }) {
         <div className="splash-mascot-wrapper">
           <div className="splash-mascot-glow"></div>
           <img
-            src="/sokrabot_mascot.jpg"
+            src="/sokrabot_mascot.png"
             alt="Maskot Sokrabot"
             className="splash-mascot-img"
           />
