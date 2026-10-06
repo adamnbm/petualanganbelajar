@@ -10,7 +10,7 @@ import {
   UserCheck,
   Sparkles,
   Home,
-  GraduationCap
+  GraduationCap,
 } from "lucide-react";
 import { soundManager } from "../engine/audioEffects";
 import { studentSession } from "../utils/studentSession";
@@ -20,10 +20,12 @@ export default function Navbar({
   currentView,
   onNavigate,
   onOpenTeacherDashboard,
-  onOpenStudentModal
+  onOpenStudentModal,
 }) {
   const [isMuted, setIsMuted] = useState(soundManager.isMuted());
-  const [activeStudent, setActiveStudent] = useState(studentSession.getActiveStudent());
+  const [activeStudent, setActiveStudent] = useState(
+    studentSession.getActiveStudent(),
+  );
   const [aiStatus, setAiStatus] = useState(null);
 
   useEffect(() => {
@@ -37,7 +39,8 @@ export default function Navbar({
       setActiveStudent(studentSession.getActiveStudent());
     };
     window.addEventListener("timi_student_changed", handleStudentChange);
-    return () => window.removeEventListener("timi_student_changed", handleStudentChange);
+    return () =>
+      window.removeEventListener("timi_student_changed", handleStudentChange);
   }, []);
 
   const handleToggleSound = () => {
@@ -66,9 +69,10 @@ export default function Navbar({
           </div>
           <div className="brand-text-wrapper">
             <span className="brand-title">
-              SOKRABOT <span className="brand-sub-badge">Fase C</span> 🌾
+              SOKRABOT
+              {/* <span className="brand-sub-badge">Fase C</span> */}
             </span>
-            <span className="brand-subtitle">Petualangan Rantai Makanan Sawah</span>
+            <span className="brand-subtitle">Petualangan Rantai Makanan</span>
           </div>
         </button>
 
@@ -123,7 +127,7 @@ export default function Navbar({
         {/* Right Action Icons */}
         <div className="navbar-actions">
           {/* AI Live Connection Status */}
-          {aiStatus && (
+          {/* {aiStatus && (
             <div
               className="nav-ai-status hide-on-mobile"
               style={{
@@ -143,19 +147,19 @@ export default function Navbar({
               <Sparkles size={13} className={aiStatus.mode?.includes("Live") ? "text-emerald-600" : "text-amber-600"} />
               <span>{aiStatus.mode?.includes("Live") ? "Gemini Socratic" : "Kurikulum Socratic"}</span>
             </div>
-          )}
+          )} */}
 
           {/* Detective Identity Profile */}
           <button
             className="nav-pill-btn navbar-profile-btn"
             onClick={onOpenStudentModal}
-            title={activeStudent ? `Detektif: ${studentName}` : "Isi Nama Detektif"}
+            title={
+              activeStudent ? `Detektif: ${studentName}` : "Isi Nama Detektif"
+            }
             id="btn-profile-siswa"
           >
             <UserCheck size={16} className="text-emerald-700" />
-            <span className="profile-name-label">
-              {studentName}
-            </span>
+            <span className="profile-name-label">{studentName}</span>
           </button>
 
           {/* Portal Evaluasi Guru */}
