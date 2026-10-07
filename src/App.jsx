@@ -14,6 +14,7 @@ import ChatHintDrawer from "./components/ChatHintDrawer";
 import VisualHintModal from "./components/VisualHintModal";
 import ResultCard from "./components/ResultCard";
 import TeacherDashboardModal from "./components/TeacherDashboardModal";
+import TeacherDashboardView from "./components/TeacherDashboardView";
 import StudentProfileModal from "./components/StudentProfileModal";
 import Footer from "./components/Footer";
 
@@ -57,6 +58,10 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
+      if (hash === "/guru" || hash === "/teacher") {
+        setCurrentView("teacher");
+        return;
+      }
       if (hash.startsWith("/mission/")) {
         const id = hash.replace("/mission/", "");
         setSelectedMissionId(id || "misi_1");
@@ -88,6 +93,14 @@ export default function App() {
   }, []);
 
   const navigateTo = (view, missionId = null) => {
+    // Portal Guru memiliki rute dan hak akses tersendiri
+    if (view === "teacher" || view === "guru") {
+      setCurrentView("teacher");
+      window.location.hash = "/guru";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     // Jika belum ada identitas siswa, arahkan ke splash screen
     if (!studentSession.getActiveStudent() && view !== "splash") {
       setCurrentView("splash");
@@ -154,17 +167,26 @@ export default function App() {
 
   return (
     <div className="app-container sawah-theme">
-      {/* Navbar Atas (Hanya tampil jika bukan di Splash Screen) */}
-      {currentView !== "splash" && (
+      {/* Navbar Atas (Hanya tampil jika bukan di Splash Screen & bukan di Dashboard Guru) */}
+      {currentView !== "splash" && currentView !== "teacher" && (
         <Navbar
           currentView={currentView}
           onNavigate={(view) => navigateTo(view)}
-          onOpenTeacherDashboard={() => setIsTeacherDashboardOpen(true)}
+          onOpenTeacherDashboard={() => navigateTo("teacher")}
           onOpenStudentModal={() => setIsStudentModalOpen(true)}
         />
       )}
 
       <main className="main-content">
+        {/* =========================================================
+            0. PORTAL KHUSUS GURU (LINK TERPISAH: #/guru)
+           ========================================================= */}
+        {currentView === "teacher" && (
+          <TeacherDashboardView
+            onBackToMenu={() => navigateTo("menu")}
+          />
+        )}
+
         {/* =========================================================
             1. SPLASH SCREEN (INPUT NAMA DETEKTIF)
            ========================================================= */}
@@ -181,7 +203,7 @@ export default function App() {
           <MainMenu
             activeStudent={activeStudent}
             onNavigate={(view) => navigateTo(view)}
-            onOpenTeacherDashboard={() => setIsTeacherDashboardOpen(true)}
+            onOpenTeacherDashboard={() => navigateTo("teacher")}
             onSwitchStudent={() => setIsStudentModalOpen(true)}
           />
         )}
@@ -304,7 +326,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      {currentView !== "splash" && <Footer />}
+      {currentView !== "splash" && currentView !== "teacher" && <Footer />}
 
       {/* Modal Drawer Petunjuk Bertingkat (H1 - H3) */}
       <ChatHintDrawer

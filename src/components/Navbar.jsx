@@ -70,7 +70,6 @@ export default function Navbar({
           <div className="brand-text-wrapper">
             <span className="brand-title">
               SOKRABOT
-              {/* <span className="brand-sub-badge">Fase C</span> */}
             </span>
             <span className="brand-subtitle">Petualangan Rantai Makanan</span>
           </div>

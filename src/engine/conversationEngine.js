@@ -489,7 +489,8 @@ export class BranchingSessionController {
       const record = completeMission(this.missionId, {
         wrongAnswersCount: this.state.stats.wrongAnswersCount,
         hintsOpened: this.state.stats.hintsOpened,
-        scaffoldVisits: this.state.stats.scaffoldVisits
+        scaffoldVisits: this.state.stats.scaffoldVisits,
+        conversationTranscript: this.state.messages || []
       });
 
       this.state.completedRecord = record;

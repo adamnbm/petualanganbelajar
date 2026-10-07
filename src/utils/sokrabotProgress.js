@@ -181,7 +181,15 @@ export function calculateStarsEarned({ wrongAnswersCount = 0, hintsOpened = [], 
 /**
  * Menyelesaikan misi dan menghitung bintang serta membuka level berikutnya
  */
-export function completeMission(missionId, { wrongAnswersCount = 0, hintsOpened = [], scaffoldVisits = 0 }) {
+export function completeMission(
+  missionId,
+  {
+    wrongAnswersCount = 0,
+    hintsOpened = [],
+    scaffoldVisits = 0,
+    conversationTranscript = []
+  } = {}
+) {
   const map = getAllMissionProgress();
   const current = map[missionId];
   if (!current) return null;
@@ -204,17 +212,28 @@ export function completeMission(missionId, { wrongAnswersCount = 0, hintsOpened 
 
   saveAllMissionProgress(map);
 
-  // Buat submission arsip ke studentSession
+  // Buat submission arsip ke studentSession (Lokal + Cloud Supabase)
   const activeStudent = studentSession.getActiveStudent();
+  const missionInfo = MISSIONS_DATA.find((m) => m.id === missionId);
+  const earnedStars = current.stars_earned || 3;
+  const scorePercent = earnedStars === 3 ? 100 : earnedStars === 2 ? 80 : 60;
+
   if (activeStudent) {
     studentSession.saveLocalSubmission({
-      missionId,
-      starsEarned: current.stars_earned,
-      hintsUsed: current.hints_used_count || 0,
+      student_id: activeStudent.id,
+      student_name: activeStudent.name,
+      student_class: activeStudent.className || "SD Kelas 5",
+      student_number: activeStudent.studentNumber || "-",
+      mission_id: missionId,
+      mission_title: missionInfo?.title || `Misi ${missionId}`,
+      stars_earned: earnedStars,
+      score_percent: scorePercent,
+      hints_used: current.hints_used_count || 0,
+      completed_questions: missionInfo?.conversationConfig?.concepts?.length || 2,
+      is_completed: true,
       misconceptions: current.misconceptions_triggered || [],
-      studentName: activeStudent.name,
-      studentClass: activeStudent.className || "Kelas 5-6 SD",
-      completed_at: current.completed_at
+      conversation_transcript: conversationTranscript,
+      created_at: current.completed_at
     });
   }
 

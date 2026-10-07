@@ -1,6 +1,6 @@
 /**
  * SOKRABOT: Master Data 5 Misi Utama GBPM
- * Berdasarkan Diagram Alur Flowchart SOKRABOT Lengkap (Target: Kelas 5-6 SD Fase C)
+ * Berdasarkan Diagram Alur Flowchart SOKRABOT Lengkap (Target: Kelas 5-6 SD)
  * Materi: Ekosistem Sawah — Mode: Percakapan Socratic Bercabang + Live Gemini AI
  * 
  * 5 Misi:
@@ -22,7 +22,7 @@ export const MISSIONS_DATA = [
     category: "Produsen & Fotosintesis",
     focus: "Bagaimana Padi Mendapatkan Makanannya (Konsep Produsen)",
     pedagogicalIndicator: "Menganalisis cara tumbuhan hijau (padi) mendapatkan makanan melalui fotosintesis dan memahami konsep produsen.",
-    gradeLevel: "SD Kelas 5 - 6 (Fase C)",
+    gradeLevel: "SD Kelas 5 - 6",
     description: "Selidiki rahasia tanaman padi di sawah Pak Tani! Dari mana padi mendapatkan makanannya? Apakah menyerap makanan jadi dari tanah atau membuat makanannya sendiri dengan bantuan cahaya matahari?",
     misconceptions: [
       { id: "produsen_pemakan_pupuk", name: "Padi Mengambil Makanan Jadi dari Tanah", description: "Anggapan bahwa tanaman padi menyerap makanan yang sudah jadi atau memakan pupuk dari dalam tanah melalui akar." },
@@ -96,7 +96,7 @@ export const MISSIONS_DATA = [
     category: "Rantai Makanan",
     focus: "Hubungan Makan-Dimakan, Arti Panah & Sumber Energi di Sawah",
     pedagogicalIndicator: "Menentukan urutan hubungan makan dan dimakan yang tepat, memahami arti tanda panah sebagai arah perpindahan energi, serta mengidentifikasi matahari sebagai sumber energi awal.",
-    gradeLevel: "SD Kelas 5 - 6 (Fase C)",
+    gradeLevel: "SD Kelas 5 - 6",
     description: "Bantu Pak Tani menyusun urutan rantai makanan, menemukan arti tanda panah (→), dan menyelidiki dari mana sumber energi pertama berasal!",
     misconceptions: [
       { id: "urutan_terbalik", name: "Urutan Terbalik (Konsumen ke Produsen)", description: "Anggapan bahwa urutan rantai makanan dimulai dari pemangsa puncak (Elang) menuju produsen (Padi)." },
@@ -175,7 +175,7 @@ export const MISSIONS_DATA = [
     category: "Predator & Mangsa",
     focus: "Peran Predator dan Mangsa di Ekosistem Sawah",
     pedagogicalIndicator: "Mengidentifikasi peran predator (pemangsa) dan mangsa dalam interaksi berburu di ekosistem sawah.",
-    gradeLevel: "SD Kelas 5 - 6 (Fase C)",
+    gradeLevel: "SD Kelas 5 - 6",
     description: "Di sawah Pak Tani, seekor ular terlihat memburu dan memakan tikus! Selidiki siapakah yang bertindak sebagai predator dan siapakah mangsa!",
     misconceptions: [
       { id: "predator_karena_ukuran", name: "Predator Karena Ukuran Tubuh", description: "Anggapan bahwa hewan disebut predator hanya karena ukuran tubuhnya yang besar, bukan karena perilakunya memburu dan memakan hewan lain." },
@@ -249,7 +249,7 @@ export const MISSIONS_DATA = [
     category: "Dinamika Populasi",
     focus: "Efek Domino Penurunan Populasi Predator terhadap Keseimbangan Sawah",
     pedagogicalIndicator: "Menganalisis dampak berkurangnya satu populasi terhadap populasi lain dan keseimbangan ekosistem.",
-    gradeLevel: "SD Kelas 5 - 6 (Fase C)",
+    gradeLevel: "SD Kelas 5 - 6",
     description: "Gawat! Populasi Ular di sawah berkurang drastis. Apa yang akan terjadi pada populasi Tikus dan tanaman Padi Pak Tani?",
     misconceptions: [
       { id: "ular_berkurang_tikus_berkurang", name: "Ular Berkurang Tikus Ikut Berkurang", description: "Anggapan keliru bahwa jika pemangsa berkurang, mangsanya juga ikut berkurang." },
@@ -326,7 +326,7 @@ export const MISSIONS_DATA = [
     category: "Solusi & Keseimbangan Ekosistem",
     focus: "Mengevaluasi Tindakan Manusia terhadap Keseimbangan Ekosistem Sawah",
     pedagogicalIndicator: "Mengevaluasi dampak tindakan manusia (membasmi tikus) terhadap keseimbangan ekosistem dan menemukan solusi yang tepat.",
-    gradeLevel: "SD Kelas 5 - 6 (Fase C)",
+    gradeLevel: "SD Kelas 5 - 6",
     description: "Pak Tani ingin membasmi semua tikus di sawah! Apakah itu solusi yang tepat? Selidiki dampaknya terhadap rantai makanan dan temukan cara yang lebih bijak untuk menjaga keseimbangan ekosistem!",
     misconceptions: [
       { id: "basmi_semua_tepat", name: "Membasmi Semua Tikus Tepat", description: "Anggapan bahwa membasmi seluruh tikus adalah solusi tepat tanpa mempertimbangkan dampaknya terhadap rantai makanan." },

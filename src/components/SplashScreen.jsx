@@ -40,7 +40,7 @@ export default function SplashScreen({ onStartAdventure }) {
           />
           <div className="splash-badge-pill">
             <Sparkles size={16} className="text-yellow-300" />
-            <span>Tutor Socratic IPAS SD Fase C</span>
+            <span>Tutor Socratic IPAS SD</span>
           </div>
         </div>
 
@@ -84,7 +84,7 @@ export default function SplashScreen({ onStartAdventure }) {
             <div className="form-group-custom flex-1">
               <label htmlFor="detective-class" className="form-label-custom">
                 <School size={18} className="form-icon" />
-                <span>Tingkat Kelas (Fase C)</span>
+                <span>Tingkat Kelas</span>
               </label>
               <select
                 id="detective-class"
