@@ -9,15 +9,18 @@ import {
   GraduationCap,
   RotateCcw,
   Zap,
-  ShieldAlert
+  ShieldAlert,
 } from "lucide-react";
-import { getStudentAchievements, getCodexCardsStatus } from "../utils/sokrabotProgress";
+import {
+  getStudentAchievements,
+  getCodexCardsStatus,
+} from "../utils/sokrabotProgress";
 
 export default function MainMenu({
   activeStudent,
   onNavigate,
   onOpenTeacherDashboard,
-  onSwitchStudent
+  onSwitchStudent,
 }) {
   const achievements = getStudentAchievements();
   const codexCards = getCodexCardsStatus();
@@ -32,29 +35,68 @@ export default function MainMenu({
       {/* Hero Banner Sambutan Detektif */}
       <section className="menu-hero-card">
         <div className="menu-hero-left">
-          <div className="detective-tag">
-            <span className="detective-badge-dot"></span>
-            <span>Detektif IPAS Terdaftar</span>
-          </div>
           <h1 className="menu-hero-greeting">
-            Halo, Detektif <span className="highlight-name">{studentName}</span>!
+            Halo, Detektif <span className="highlight-name">{studentName}</span>
+            !
             <span className="hero-rice-icon" title="Padi Sawah">
               <svg width="28" height="34" viewBox="0 0 28 34" fill="none">
                 {/* Stems */}
-                <path d="M9 30V15C9 12 11 10 14 10" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M15 30V6C15 4 16 3 19 3" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M6 25C6 22 7 20 9 20" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M21 25C21 22 20 20 18 20" stroke="#48bb78" strokeWidth="2.5" strokeLinecap="round" />
+                <path
+                  d="M9 30V15C9 12 11 10 14 10"
+                  stroke="#48bb78"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M15 30V6C15 4 16 3 19 3"
+                  stroke="#48bb78"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M6 25C6 22 7 20 9 20"
+                  stroke="#48bb78"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M21 25C21 22 20 20 18 20"
+                  stroke="#48bb78"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
                 {/* Rice grains */}
-                <path d="M15 7C19 7 23 8 23 11C23 13 19 13 15 13" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M15 13C20 13 24 14 24 17C24 19 20 19 15 19" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M9 15C13 15 17 16 17 19C17 21 13 21 9 21" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M9 21C13 21 17 22 17 24C17 26 13 26 9 26" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round" />
+                <path
+                  d="M15 7C19 7 23 8 23 11C23 13 19 13 15 13"
+                  stroke="#f59e0b"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M15 13C20 13 24 14 24 17C24 19 20 19 15 19"
+                  stroke="#f59e0b"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M9 15C13 15 17 16 17 19C17 21 13 21 9 21"
+                  stroke="#f59e0b"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M9 21C13 21 17 22 17 24C17 26 13 26 9 26"
+                  stroke="#f59e0b"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </span>
           </h1>
           <p className="menu-hero-sub">
-            Sawah Pak Budi sedang menunggumu! SOKRABOT siap memandu penalaranmu untuk mengungkap misteri jaring makanan dan mengembalikan keseimbangan alam.
+            Sawah Pak Budi sedang menunggumu! SOKRABOT siap memandu penalaranmu
+            untuk mengungkap misteri jaring makanan dan mengembalikan
+            keseimbangan alam.
           </p>
 
           {/* Quick Stats Pill */}
@@ -62,7 +104,9 @@ export default function MainMenu({
             <div className="menu-stat-item">
               <span className="stat-emoji">⭐</span>
               <div className="stat-text">
-                <span className="stat-value">{achievements.totalStars} / {achievements.maxStars}</span>
+                <span className="stat-value">
+                  {achievements.totalStars} / {achievements.maxStars}
+                </span>
                 <span className="stat-label">Bintang Diraih</span>
               </div>
             </div>
@@ -72,7 +116,9 @@ export default function MainMenu({
             <div className="menu-stat-item">
               <span className="stat-emoji">🏅</span>
               <div className="stat-text">
-                <span className="stat-value">{unlockedBadgeCount} / {achievements.allBadges.length}</span>
+                <span className="stat-value">
+                  {unlockedBadgeCount} / {achievements.allBadges.length}
+                </span>
                 <span className="stat-label">Lencana Terbuka</span>
               </div>
             </div>
@@ -82,7 +128,9 @@ export default function MainMenu({
             <div className="menu-stat-item">
               <span className="stat-emoji">📖</span>
               <div className="stat-text">
-                <span className="stat-value">{unlockedCodexCount} / {codexCards.length}</span>
+                <span className="stat-value">
+                  {unlockedCodexCount} / {codexCards.length}
+                </span>
                 <span className="stat-label">Kartu Sains</span>
               </div>
             </div>
@@ -144,7 +192,8 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Peta Misi Sawah</h3>
               <p className="card-nav-desc">
-                Jelajahi 5 level misi bertingkat (Level Lock 1-5). Selesaikan tantangan Socratic dan kumpulkan bintang maksimal!
+                Jelajahi 5 level misi bertingkat (Level Lock 1-5). Selesaikan
+                tantangan Socratic dan kumpulkan bintang maksimal!
               </p>
             </div>
             <div className="card-footer-action">
@@ -162,7 +211,9 @@ export default function MainMenu({
             id="menu-btn-buku-pintar"
           >
             <div className="card-badge-top">
-              {unlockedCodexCount > 0 ? `${unlockedCodexCount} Terbuka` : "Semua Terkunci"}
+              {unlockedCodexCount > 0
+                ? `${unlockedCodexCount} Terbuka`
+                : "Semua Terkunci"}
             </div>
             <div className="card-icon-circle bg-amber">
               <BookOpen size={32} className="text-white" />
@@ -170,7 +221,8 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Buku Pintar (Codex)</h3>
               <p className="card-nav-desc">
-                Koleksi kartu konsep ilmiah interaktif. Kartu akan terbuka otomatis setelah percakapan Socratic selesai!
+                Koleksi kartu konsep ilmiah interaktif. Kartu akan terbuka
+                otomatis setelah percakapan Socratic selesai!
               </p>
             </div>
             <div className="card-footer-action">
@@ -188,7 +240,9 @@ export default function MainMenu({
             id="menu-btn-pencapaianku"
           >
             <div className="card-badge-top">
-              {unlockedBadgeCount > 0 ? `${unlockedBadgeCount} Lencana` : "4 Lencana Tersedia"}
+              {unlockedBadgeCount > 0
+                ? `${unlockedBadgeCount} Lencana`
+                : "4 Lencana Tersedia"}
             </div>
             <div className="card-icon-circle bg-orange">
               <Award size={32} className="text-white" />
@@ -196,7 +250,8 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Pencapaianku</h3>
               <p className="card-nav-desc">
-                Lihat koleksi Bintang Emas, 4 Lencana Kehormatan Sawah, dan riwayat investigasi remediasi miskonsepsi.
+                Lihat koleksi Bintang Emas, 4 Lencana Kehormatan Sawah, dan
+                riwayat investigasi remediasi miskonsepsi.
               </p>
             </div>
             <div className="card-footer-action">
@@ -220,7 +275,8 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Petunjuk Bermain</h3>
               <p className="card-nav-desc">
-                Pahami cara menalar bersama SOKRABOT, aturan bintang, dan trik menggunakan petunjuk bertingkat H1-H3.
+                Pahami cara menalar bersama SOKRABOT, aturan bintang, dan trik
+                menggunakan petunjuk bertingkat H1-H3.
               </p>
             </div>
             <div className="card-footer-action">
@@ -234,7 +290,9 @@ export default function MainMenu({
       {/* Baris Kontrol Bawah: Dashboard Guru & Ganti Siswa */}
       <section className="menu-auxiliary-bar">
         <div className="aux-student-info">
-          <span>Detektif Aktif: <strong>{studentName}</strong> ({className})</span>
+          <span>
+            Detektif Aktif: <strong>{studentName}</strong> ({className})
+          </span>
           <button
             onClick={onSwitchStudent}
             className="btn-aux-switch"
