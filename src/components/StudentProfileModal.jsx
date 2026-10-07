@@ -50,10 +50,10 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
     <div className="modal-overlay" onClick={onClose}>
       <div
         className="modal-card-tree"
-        style={{ maxWidth: "480px" }}
+        style={{ maxWidth: "480px", display: "flex", flexDirection: "column", overflow: "hidden" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="modal-header" style={{ background: "linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%)" }}>
+        <div className="modal-header" style={{ background: "linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%)", flexShrink: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span style={{ fontSize: "2rem" }}>🌾</span>
             <div>
@@ -70,7 +70,20 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
           )}
         </div>
 
-        <form onSubmit={handleSubmit} style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+        <form
+          onSubmit={handleSubmit}
+          className="student-modal-form"
+          style={{
+            padding: "1.5rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.1rem",
+            overflowY: "auto",
+            WebkitOverflowScrolling: "touch",
+            flex: "1 1 auto",
+            minHeight: 0
+          }}
+        >
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <label style={{ fontSize: "0.92rem", fontWeight: "800", color: "#1e293b", display: "flex", alignItems: "center", gap: "6px" }}>
               <User size={16} color="#2E7D32" />

@@ -17,6 +17,7 @@ import TeacherDashboardModal from "./components/TeacherDashboardModal";
 import TeacherDashboardView from "./components/TeacherDashboardView";
 import StudentProfileModal from "./components/StudentProfileModal";
 import Footer from "./components/Footer";
+import MobileBottomNav from "./components/MobileBottomNav";
 
 import { getMissionById } from "./data/missions";
 import { BranchingSessionController } from "./engine/conversationEngine";
@@ -327,6 +328,14 @@ export default function App() {
 
       {/* Footer */}
       {currentView !== "splash" && currentView !== "teacher" && <Footer />}
+
+      {/* Navigasi Bawah Khusus Ponsel (Mobile Bottom Navigation) */}
+      {currentView !== "splash" && currentView !== "chat" && currentView !== "teacher" && (
+        <MobileBottomNav
+          currentView={currentView}
+          onNavigate={(view) => navigateTo(view)}
+        />
+      )}
 
       {/* Modal Drawer Petunjuk Bertingkat (H1 - H3) */}
       <ChatHintDrawer

@@ -5,7 +5,9 @@ import {
   CheckCircle2,
   Lock,
   Sparkles,
-  RotateCcw
+  RotateCcw,
+  AlertTriangle,
+  X
 } from "lucide-react";
 import {
   getStudentAchievements,
@@ -51,24 +53,57 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
 
       {/* Confirmation Modal for Reset */}
       {showResetConfirm && (
-        <div className="modal-backdrop-custom" onClick={() => setShowResetConfirm(false)}>
+        <div
+          className="modal-backdrop-custom"
+          onClick={() => setShowResetConfirm(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="reset-modal-title"
+        >
           <div className="modal-reset-box" onClick={(e) => e.stopPropagation()}>
-            <h3>Reset Seluruh Pencapaian?</h3>
-            <p>
-              Semua bintang dan lencana yang telah kamu raih akan dikembalikan ke awal sehingga kamu bisa mencoba menyelesaikan misi lagi.
-            </p>
+            <button
+              className="btn-modal-close-reset"
+              onClick={() => setShowResetConfirm(false)}
+              aria-label="Tutup modal"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="modal-reset-icon-wrapper">
+              <div className="modal-reset-icon-circle">
+                <AlertTriangle size={32} />
+              </div>
+            </div>
+
+            <div className="modal-reset-header">
+              <h3 id="reset-modal-title">Reset Seluruh Pencapaian?</h3>
+              <p className="modal-reset-desc">
+                Semua bintang ⭐, lencana kehormatan 🏅, dan riwayat petualangan belajarmu akan dikembalikan ke kondisi awal.
+              </p>
+            </div>
+
+            <div className="modal-reset-warning-pill">
+              <span className="warning-pill-icon">⚠️</span>
+              <span className="warning-pill-text">
+                Tindakan ini tidak dapat dibatalkan. Kamu bisa mengulang seluruh misi dari awal untuk meraih skor terbaik!
+              </span>
+            </div>
+
             <div className="modal-reset-actions">
               <button
+                type="button"
                 className="btn-cancel-reset"
                 onClick={() => setShowResetConfirm(false)}
               >
                 Batal
               </button>
               <button
+                type="button"
                 className="btn-confirm-reset"
                 onClick={handleReset}
               >
-                Ya, Reset dari Awal
+                <RotateCcw size={16} />
+                <span>Ya, Reset dari Awal</span>
               </button>
             </div>
           </div>
@@ -83,12 +118,12 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           <div className="card-stat-info">
             <span className="stat-big-number">{achievements.totalStars} / {achievements.maxStars}</span>
             <span className="stat-name">Total Bintang Terkumpul</span>
-          </div>
-          <div className="card-progress-track">
-            <div
-              className="card-progress-bar bg-yellow-400"
-              style={{ width: `${(achievements.totalStars / achievements.maxStars) * 100}%` }}
-            ></div>
+            <div className="card-progress-track">
+              <div
+                className="card-progress-bar bg-yellow-400"
+                style={{ width: `${(achievements.totalStars / achievements.maxStars) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
 
@@ -98,12 +133,12 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           <div className="card-stat-info">
             <span className="stat-big-number">{achievements.unlockedBadges.length} / {achievements.allBadges.length}</span>
             <span className="stat-name">Lencana Kehormatan</span>
-          </div>
-          <div className="card-progress-track">
-            <div
-              className="card-progress-bar bg-emerald-500"
-              style={{ width: `${(achievements.unlockedBadges.length / achievements.allBadges.length) * 100}%` }}
-            ></div>
+            <div className="card-progress-track">
+              <div
+                className="card-progress-bar bg-emerald-500"
+                style={{ width: `${(achievements.unlockedBadges.length / achievements.allBadges.length) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
 
@@ -113,12 +148,12 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           <div className="card-stat-info">
             <span className="stat-big-number">{achievements.completedCount} / {achievements.totalMissions}</span>
             <span className="stat-name">Misi Dituntaskan</span>
-          </div>
-          <div className="card-progress-track">
-            <div
-              className="card-progress-bar bg-green-600"
-              style={{ width: `${(achievements.completedCount / achievements.totalMissions) * 100}%` }}
-            ></div>
+            <div className="card-progress-track">
+              <div
+                className="card-progress-bar bg-green-600"
+                style={{ width: `${(achievements.completedCount / achievements.totalMissions) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
