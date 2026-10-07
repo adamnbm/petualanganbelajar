@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Sparkles, Eye, Lightbulb, Bot } from "lucide-react";
 
-
 export default function ChatMessageList({
   messages,
   isBotTyping,
   studentName = "Detektif",
-  onOpenVisualHint
+  onOpenVisualHint,
 }) {
   const scrollEndRef = useRef(null);
 
@@ -24,7 +23,9 @@ export default function ChatMessageList({
 
         let feedbackClass = "";
         if (isAI) {
-          feedbackClass = msg.isCorrect ? "bubble-ai-correct" : "bubble-ai-guide";
+          feedbackClass = msg.isCorrect
+            ? "bubble-ai-correct"
+            : "bubble-ai-guide";
         } else if (msg.isFeedback) {
           feedbackClass = msg.isCorrect ? "feedback-correct" : "feedback-hint";
         } else if (msg.isHint) {
@@ -32,41 +33,55 @@ export default function ChatMessageList({
         }
 
         return (
-          <div
-            key={msg.id}
-            className={`message-row ${isBot ? "bot" : "user"}`}
-          >
+          <div key={msg.id} className={`message-row ${isBot ? "bot" : "user"}`}>
             {isBot && (
               <div
                 className={`message-avatar avatar-bot ${isAI ? "avatar-gemini-ai" : ""}`}
-                title={isAI ? "Respon dari Gemini AI" : "Pemandu SOKRABOT (Alur Misi)"}
+                title={
+                  isAI
+                    ? "Respon dari Gemini AI"
+                    : "Pemandu SOKRABOT (Alur Misi)"
+                }
               >
                 <img
                   src="/sokrabot_mascot.png"
                   alt="SOKRABOT"
                   className="avatar-mascot-img"
                 />
-                {isAI && <span className="avatar-ai-mini-badge" title="Gemini AI">✨</span>}
+                {isAI && (
+                  <span className="avatar-ai-mini-badge" title="Gemini AI">
+                    ✨
+                  </span>
+                )}
               </div>
             )}
 
             <div className="message-bubble-wrapper">
-              <div className={`message-bubble ${feedbackClass} ${isAI ? "is-ai-response" : isBot ? "is-system-response" : ""}`}>
-                
+              <div
+                className={`message-bubble ${feedbackClass} ${isAI ? "is-ai-response" : isBot ? "is-system-response" : ""}`}
+              >
                 {/* ── Banner Penanda Sumber Balasan (Gemini AI vs Bukan AI) ── */}
                 {isBot && (
-                  <div className={`message-source-banner ${isAI ? "source-banner-ai" : msg.isHint ? "source-banner-hint" : "source-banner-system"}`}>
+                  <div
+                    className={`message-source-banner ${isAI ? "source-banner-ai" : msg.isHint ? "source-banner-hint" : "source-banner-system"}`}
+                  >
                     {isAI ? (
                       <>
                         <div className="banner-left">
                           <span className="ai-pulsing-circle" />
                           <Sparkles size={13} className="banner-icon-ai" />
-                          <span className="banner-title-ai">Respon: <strong>Gemini AI (Live)</strong></span>
+                          <span className="banner-title-ai">
+                            Respon: <strong>Gemini AI (Live)</strong>
+                          </span>
                         </div>
                         <div className="banner-right">
                           {msg.isFeedback && (
-                            <span className={`banner-status-tag ${msg.isCorrect ? "tag-aligned" : "tag-guide"}`}>
-                              {msg.isCorrect ? "🌟 Alasan Tepat" : "🤔 Bimbingan Socratic"}
+                            <span
+                              className={`banner-status-tag ${msg.isCorrect ? "tag-aligned" : "tag-guide"}`}
+                            >
+                              {msg.isCorrect
+                                ? "🌟 Alasan Tepat"
+                                : "🤔 Bimbingan Socratic"}
                             </span>
                           )}
                           <span className="banner-pill-ai">✨ AI</span>
@@ -76,20 +91,31 @@ export default function ChatMessageList({
                       <>
                         <div className="banner-left">
                           <Lightbulb size={13} className="banner-icon-hint" />
-                          <span className="banner-title-hint">Bukan AI • <strong>Petunjuk {msg.hintLevel?.toUpperCase() || "H1"}</strong></span>
+                          <span className="banner-title-hint">
+                            Bukan AI •{" "}
+                            <strong>
+                              Petunjuk {msg.hintLevel?.toUpperCase() || "H1"}
+                            </strong>
+                          </span>
                         </div>
                         <div className="banner-right">
-                          <span className="banner-pill-system">💡 Petunjuk</span>
+                          <span className="banner-pill-system">
+                            💡 Petunjuk
+                          </span>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="banner-left">
                           <Bot size={13} className="banner-icon-system" />
-                          <span className="banner-title-system">Pemandu: <strong>SOKRABOT</strong></span>
+                          <span className="banner-title-system">
+                            Pemandu: <strong>SOKRABOT</strong>
+                          </span>
                         </div>
                         <div className="banner-right">
-                          <span className="banner-pill-system">Bukan AI • Alur Misi</span>
+                          <span className="banner-pill-system">
+                            Bukan AI • Alur Misi
+                          </span>
                         </div>
                       </>
                     )}
@@ -138,17 +164,21 @@ export default function ChatMessageList({
               {/* Footer Meta dengan Penanda Jelas */}
               <div className="message-meta-footer">
                 <span className="message-timestamp">{msg.timestamp}</span>
-                {isBot && (
-                  <span className={`meta-source-chip ${isAI ? "chip-ai" : "chip-system"}`}>
+                {/* {isBot && (
+                  <span
+                    className={`meta-source-chip ${isAI ? "chip-ai" : "chip-system"}`}
+                  >
                     {isAI ? "✨ Balasan Gemini AI" : "📜 Alur Skenario Belajar"}
                   </span>
-                )}
+                )} */}
               </div>
             </div>
 
-
             {!isBot && (
-              <div className="message-avatar avatar-user" title={`Detektif ${studentName}`}>
+              <div
+                className="message-avatar avatar-user"
+                title={`Detektif ${studentName}`}
+              >
                 🔍
               </div>
             )}
@@ -167,7 +197,9 @@ export default function ChatMessageList({
             />
           </div>
           <div className="typing-bubble">
-            <span className="typing-label">SOKRABOT + Gemini AI sedang menganalisis jawabanmu...</span>
+            <span className="typing-label">
+              SOKRABOT + Gemini AI sedang menganalisis jawabanmu...
+            </span>
             <div className="typing-dots">
               <div className="typing-dot"></div>
               <div className="typing-dot"></div>
