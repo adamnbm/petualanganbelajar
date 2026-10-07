@@ -4,6 +4,8 @@
  * Setiap siswa memiliki identitas unik dan sesi terpisah.
  */
 
+import { saveSessionToSupabase } from "../services/supabase";
+
 const ACTIVE_STUDENT_KEY = "timi_active_student";
 const ALL_SUBMISSIONS_KEY = "timi_student_submissions";
 
@@ -73,6 +75,12 @@ export const studentSession = {
       };
       existing.unshift(newSubmission);
       localStorage.setItem(ALL_SUBMISSIONS_KEY, JSON.stringify(existing.slice(0, 300)));
+
+      // Sinkronkan ke Supabase Cloud jika terhubung
+      saveSessionToSupabase(newSubmission).catch((err) => {
+        console.warn("[StudentSession] Gagal sync ke Supabase:", err);
+      });
+
       return newSubmission;
     } catch {
       return null;

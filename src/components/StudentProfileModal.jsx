@@ -97,7 +97,7 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <label style={{ fontSize: "0.92rem", fontWeight: "800", color: "#1e293b", display: "flex", alignItems: "center", gap: "6px" }}>
               <GraduationCap size={16} color="#0284c7" />
-              <span>Tingkat Kelas (Fase C):</span>
+              <span>Tingkat Kelas:</span>
             </label>
             <select
               value={className}
@@ -112,8 +112,8 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
                 outline: "none"
               }}
             >
-              <option value="Kelas 5 SD">SD Kelas 5 (Fase C)</option>
-              <option value="Kelas 6 SD">SD Kelas 6 (Fase C)</option>
+              <option value="Kelas 5 SD">SD Kelas 5</option>
+              <option value="Kelas 6 SD">SD Kelas 6</option>
               <option value="Kelas 4 SD">SD Kelas 4</option>
             </select>
           </div>

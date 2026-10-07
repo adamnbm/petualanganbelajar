@@ -34,7 +34,7 @@ export default function MainMenu({
         <div className="menu-hero-left">
           <div className="detective-tag">
             <span className="detective-badge-dot"></span>
-            <span>Detektif IPAS Fase C Terdaftar</span>
+            <span>Detektif IPAS Terdaftar</span>
           </div>
           <h1 className="menu-hero-greeting">
             Halo, Detektif <span className="highlight-name">{studentName}</span>!
