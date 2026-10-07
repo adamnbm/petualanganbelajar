@@ -118,12 +118,12 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           <div className="card-stat-info">
             <span className="stat-big-number">{achievements.totalStars} / {achievements.maxStars}</span>
             <span className="stat-name">Total Bintang Terkumpul</span>
-          </div>
-          <div className="card-progress-track">
-            <div
-              className="card-progress-bar bg-yellow-400"
-              style={{ width: `${(achievements.totalStars / achievements.maxStars) * 100}%` }}
-            ></div>
+            <div className="card-progress-track">
+              <div
+                className="card-progress-bar bg-yellow-400"
+                style={{ width: `${(achievements.totalStars / achievements.maxStars) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
 
@@ -133,12 +133,12 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           <div className="card-stat-info">
             <span className="stat-big-number">{achievements.unlockedBadges.length} / {achievements.allBadges.length}</span>
             <span className="stat-name">Lencana Kehormatan</span>
-          </div>
-          <div className="card-progress-track">
-            <div
-              className="card-progress-bar bg-emerald-500"
-              style={{ width: `${(achievements.unlockedBadges.length / achievements.allBadges.length) * 100}%` }}
-            ></div>
+            <div className="card-progress-track">
+              <div
+                className="card-progress-bar bg-emerald-500"
+                style={{ width: `${(achievements.unlockedBadges.length / achievements.allBadges.length) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
 
@@ -148,12 +148,12 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           <div className="card-stat-info">
             <span className="stat-big-number">{achievements.completedCount} / {achievements.totalMissions}</span>
             <span className="stat-name">Misi Dituntaskan</span>
-          </div>
-          <div className="card-progress-track">
-            <div
-              className="card-progress-bar bg-green-600"
-              style={{ width: `${(achievements.completedCount / achievements.totalMissions) * 100}%` }}
-            ></div>
+            <div className="card-progress-track">
+              <div
+                className="card-progress-bar bg-green-600"
+                style={{ width: `${(achievements.completedCount / achievements.totalMissions) * 100}%` }}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
