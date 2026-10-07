@@ -70,7 +70,7 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
           )}
         </div>
 
-        <form onSubmit={handleSubmit} style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+        <form onSubmit={handleSubmit} className="student-modal-form" style={{ padding: "1.75rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <label style={{ fontSize: "0.92rem", fontWeight: "800", color: "#1e293b", display: "flex", alignItems: "center", gap: "6px" }}>
               <User size={16} color="#2E7D32" />

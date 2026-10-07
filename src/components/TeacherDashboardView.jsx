@@ -510,7 +510,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
   // DASHBOARD AKTIF (AUTHENTICATED)
   // ==========================================
   return (
-    <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "1.5rem 1rem 4rem" }}>
+    <div className="teacher-portal-view" style={{ maxWidth: "1280px", margin: "0 auto", padding: "1.5rem 1rem 4rem" }}>
       {/* Top Banner & Header */}
       <div
         style={{
