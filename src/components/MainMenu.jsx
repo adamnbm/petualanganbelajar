@@ -8,6 +8,7 @@ import {
   ChevronRight,
   GraduationCap,
   RotateCcw,
+  LogOut,
   Zap,
   ShieldAlert,
 } from "lucide-react";
@@ -308,12 +309,13 @@ export default function MainMenu({
             Detektif Aktif: <strong>{studentName}</strong> ({className})
           </span>
           <button
-            onClick={onSwitchStudent}
+            onClick={() => onNavigate("splash")}
             className="btn-aux-switch"
-            title="Ganti nama atau profil siswa"
+            title="Keluar ke layar awal untuk ganti siswa"
+            id="btn-aux-logout-splash"
           >
-            <RotateCcw size={15} />
-            <span>Ganti Siswa</span>
+            <LogOut size={15} />
+            <span>Keluar / Ganti Siswa</span>
           </button>
         </div>
 

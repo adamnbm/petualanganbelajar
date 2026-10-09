@@ -276,6 +276,15 @@ a {
   white-space: nowrap;
 }
 
+.btn-exit-splash {
+  color: #dc2626 !important;
+}
+
+.btn-exit-splash:hover {
+  background: #fef2f2 !important;
+  color: #b91c1c !important;
+}
+
 /* ==========================================================================
    HERO SECTION (LANDING PAGE)
    ========================================================================== */
@@ -6072,6 +6081,16 @@ body {
 
   .mobile-header-icon-btn.profile-btn {
     color: #15803d !important;
+  }
+
+  .mobile-header-icon-btn.logout-btn {
+    color: #dc2626 !important;
+    background: #fef2f2 !important;
+    border-color: #fecaca !important;
+  }
+
+  .mobile-header-icon-btn.logout-btn:active {
+    background: #fee2e2 !important;
   }
 
   /* ---- MAIN MENU VIEW MOBILE ---- */

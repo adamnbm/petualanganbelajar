@@ -10,6 +10,7 @@ import {
   UserCheck,
   User,
   Bell,
+  LogOut,
   Sparkles,
   Home,
   GraduationCap,
@@ -160,9 +161,19 @@ export default function Navbar({
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </button>
+
+          {/* Tombol Keluar / Kembali ke Layar Awal */}
+          <button
+            className="nav-icon-btn btn-exit-splash"
+            onClick={() => onNavigate("splash")}
+            title="Kembali ke Layar Awal / Ganti Nama Siswa"
+            id="btn-logout-splash"
+          >
+            <LogOut size={18} />
+          </button>
         </div>
 
-        {/* Right Action Icons (Mobile: Bell with Red Dot & Profile Circle) */}
+        {/* Right Action Icons (Mobile: Bell with Red Dot & Keluar) */}
         <div className="mobile-header-actions show-on-mobile-only">
           <button
             className="mobile-header-icon-btn bell-btn"
@@ -175,12 +186,12 @@ export default function Navbar({
           </button>
 
           <button
-            className="mobile-header-icon-btn profile-btn"
-            onClick={onOpenStudentModal}
-            title={activeStudent ? `Detektif: ${studentName}` : "Isi Nama Detektif"}
-            id="mobile-btn-profile"
+            className="mobile-header-icon-btn logout-btn"
+            onClick={() => onNavigate("splash")}
+            title="Keluar ke Layar Awal / Ganti Siswa"
+            id="mobile-btn-logout"
           >
-            <User size={19} />
+            <LogOut size={18} />
           </button>
         </div>
       </div>
