@@ -462,7 +462,13 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "8px"
+                gap: "8px",
+                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                color: "#ffffff",
+                border: "none",
+                cursor: "pointer",
+                boxShadow: "0 4px 14px rgba(16, 185, 129, 0.35)",
+                transition: "all 0.2s ease"
               }}
             >
               <Unlock size={18} />
