@@ -134,6 +134,10 @@ a {
   flex-direction: column;
 }
 
+.show-on-mobile-only {
+  display: none !important;
+}
+
 /* ==========================================================================
    NAVBAR
    ========================================================================== */
@@ -5122,223 +5126,555 @@ body {
 }
 
 @media (max-width: 768px) {
-  .mobile-bottom-nav {
-    display: block;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 990;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1.5px solid #e2e8f0;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-    padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom, 0px));
+  /* Utility classes untuk mobile toggle */
+  .show-on-mobile-only {
+    display: flex !important;
+  }
+  span.show-on-mobile-only {
+    display: inline !important;
+  }
+  .hide-on-mobile {
+    display: none !important;
   }
 
-  .mobile-bottom-nav-inner {
-    max-width: 540px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  /* ---- HEADER MOBILE ---- */
+  .site-navbar {
+    padding: 0.65rem 0.85rem !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #edf2f7 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 900 !important;
   }
 
-  .mobile-bottom-nav-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    min-height: 48px;
-    border-radius: 14px;
-    color: #64748b;
-    background: transparent;
-    padding: 4px 2px;
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .navbar-inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    padding: 0 !important;
   }
 
-  .mobile-bottom-nav-btn .nav-btn-icon-wrapper {
-    width: 36px;
-    height: 32px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .brand-logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    text-align: left !important;
   }
 
-  .mobile-bottom-nav-btn .nav-btn-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.01em;
-    color: inherit;
-    transition: color 0.2s ease;
+  .brand-mascot-avatar {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    border: 2px solid #86efac !important;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15) !important;
+    background: #ffffff !important;
+    flex-shrink: 0 !important;
   }
 
-  .mobile-bottom-nav-btn.active {
-    color: #1b5e20;
+  .brand-mascot-pic {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
 
-  .mobile-bottom-nav-btn.active .nav-btn-icon-wrapper {
-    background: #e8f5e9;
-    color: #1b5e20;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.15);
+  .brand-text-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    line-height: 1.15 !important;
   }
 
-  .mobile-bottom-nav-btn.active .nav-btn-label {
-    color: #1b5e20;
-    font-weight: 800;
+  .brand-title {
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: #14532d !important;
+    letter-spacing: -0.01em !important;
   }
 
-  /* Padding bawah pada kontainer utama agar tidak tertutup nav bawah */
-  .main-menu-container,
-  .mission-map-container,
-  .codex-view-container,
-  .achievements-container,
-  .guide-view-container {
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  .brand-subtitle {
+    display: block !important;
+    font-size: 0.72rem !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
   }
 
-  .site-footer {
-    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px)) !important;
+  /* Mobile Header Action Buttons: Bell & Profile */
+  .mobile-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+
+  .mobile-header-icon-btn {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    border: 1px solid #e2e8f0 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .mobile-header-icon-btn:active {
+    transform: scale(0.92) !important;
+    background: #e2e8f0 !important;
+  }
+
+  .mobile-header-icon-btn.bell-btn {
+    color: #15803d !important;
+  }
+
+  .mobile-notif-dot {
+    position: absolute !important;
+    top: 7px !important;
+    right: 8px !important;
+    width: 8px !important;
+    height: 8px !important;
+    background: #ef4444 !important;
+    border-radius: 50% !important;
+    border: 1.5px solid #ffffff !important;
+  }
+
+  .mobile-header-icon-btn.profile-btn {
+    color: #15803d !important;
   }
 
   /* ---- MAIN MENU VIEW MOBILE ---- */
   .main-menu-container {
-    padding: 1.25rem 0.85rem 5.5rem;
-    gap: 1.35rem;
+    padding: 0.85rem 0.75rem calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+    gap: 1.15rem !important;
   }
 
+  /* HERO CARD MOBILE (2 Kolom di atas + 1 Baris statistik di bawah) */
   .menu-hero-card {
-    flex-direction: column-reverse;
-    text-align: center;
-    padding: 1.5rem 1.15rem 1.25rem;
-    border-radius: 22px;
-    border-width: 2.5px;
-    gap: 1.25rem;
+    display: grid !important;
+    grid-template-columns: 1fr 140px !important;
+    grid-template-areas:
+      "greeting mascot"
+      "desc mascot"
+      "stats stats" !important;
+    gap: 0.35rem 0.65rem !important;
+    padding: 1.15rem 1rem 1rem !important;
+    border-radius: 26px !important;
+    border: 1.5px solid #dcfce7 !important;
+    background: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(22, 101, 52, 0.06) !important;
+    margin-bottom: 0.25rem !important;
+    text-align: left !important;
+    align-items: start !important;
+  }
+
+  @media (max-width: 360px) {
+    .menu-hero-card {
+      grid-template-columns: 1fr 115px !important;
+      padding: 0.95rem 0.75rem 0.85rem !important;
+    }
   }
 
   .menu-hero-left {
-    align-items: center;
-    width: 100%;
+    display: contents !important;
   }
 
   .detective-tag {
-    font-size: 0.78rem;
-    padding: 0.3rem 0.75rem;
+    display: none !important;
   }
 
   .menu-hero-greeting {
-    font-size: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    line-height: 1.25;
+    grid-area: greeting !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    color: #14532d !important;
+    line-height: 1.18 !important;
+    margin: 0 0 0.2rem 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    gap: 2px !important;
+  }
+
+  .greeting-title-line {
+    color: #14532d !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+  }
+
+  .greeting-name-line {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .menu-hero-greeting .highlight-name {
+    color: #f59e0b !important;
+    text-decoration: underline !important;
+    text-decoration-color: #f59e0b !important;
+    text-underline-offset: 4px !important;
+    text-decoration-thickness: 3px !important;
+    font-style: normal !important;
+    font-weight: 800 !important;
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 
   .hero-rice-icon {
-    display: none;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-left: 2px !important;
+    vertical-align: middle !important;
+  }
+
+  .hero-rice-icon svg {
+    width: 20px !important;
+    height: 24px !important;
   }
 
   .menu-hero-sub {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin: 0 auto 1.15rem;
-    max-width: 100%;
+    grid-area: desc !important;
+    font-size: 0.76rem !important;
+    line-height: 1.4 !important;
+    color: #475569 !important;
+    margin: 0 0 0.5rem 0 !important;
+    text-align: left !important;
+  }
+
+  /* Mascot Right Container */
+  .menu-hero-right {
+    grid-area: mascot !important;
+    width: 100% !important;
+    height: 145px !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  .hero-wave-divider {
+    display: none !important;
+  }
+
+  .menu-hero-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: 21% center !important;
+    border-radius: 18px !important;
+    display: block !important;
+    margin: 0 !important;
+    border: 1px solid #e2f4e6 !important;
+    box-shadow: 0 4px 12px rgba(22, 101, 52, 0.08) !important;
+  }
+
+  .sokrabot-speech-bubble {
+    position: absolute !important;
+    top: 6px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.65rem !important;
+    font-weight: 800 !important;
+    color: #15803d !important;
+    background: #ffffff !important;
+    padding: 0.25rem 0.55rem !important;
+    border-radius: 9999px !important;
+    border: 1px solid #86efac !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+    z-index: 5 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    line-height: 1.15 !important;
+    width: 88% !important;
+  }
+
+  .sokrabot-speech-bubble::before {
+    display: none !important;
+  }
+
+  .sokrabot-speech-bubble::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: -5px !important;
+    left: 50% !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+    border-top: 5px solid #ffffff !important;
+    border-bottom: none !important;
+    z-index: 6 !important;
   }
 
   /* 3-Kolom horizontal ringkas untuk statistik di HP */
   .menu-stats-bar {
+    grid-area: stats !important;
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: 1fr auto 1fr auto 1fr !important;
+    align-items: center !important;
     width: 100% !important;
-    padding: 0.75rem 0.5rem !important;
-    gap: 0.35rem !important;
+    padding: 0.55rem 0.45rem !important;
+    gap: 0.25rem !important;
     border-radius: 16px !important;
-    margin: 0 auto !important;
-    background: #f8fafc !important;
+    margin: 0.25rem 0 0 0 !important;
+    background: #ffffff !important;
     border: 1.5px solid #e2e8f0 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
   }
 
   .menu-stat-item {
-    flex-direction: column !important;
+    display: flex !important;
+    flex-direction: row !important;
     align-items: center !important;
-    text-align: center !important;
-    gap: 2px !important;
+    justify-content: center !important;
+    text-align: left !important;
+    gap: 0.4rem !important;
+    padding: 0.15rem 0.1rem !important;
   }
 
   .menu-stat-divider {
-    display: none !important;
+    display: block !important;
+    width: 1px !important;
+    height: 22px !important;
+    background: #e2e8f0 !important;
   }
 
   .menu-stat-item .stat-emoji {
-    font-size: 1.3rem;
+    font-size: 1.15rem !important;
+    line-height: 1 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .menu-stat-item .stat-text {
+    display: flex !important;
+    flex-direction: column !important;
+    line-height: 1.1 !important;
   }
 
   .menu-stat-item .stat-value {
-    font-size: 0.95rem;
-    font-weight: 900;
+    font-size: 0.85rem !important;
+    font-weight: 800 !important;
+    color: #1e293b !important;
   }
 
   .menu-stat-item .stat-label {
-    font-size: 0.68rem;
-    line-height: 1.2;
-    color: #64748b;
+    font-size: 0.62rem !important;
+    line-height: 1.15 !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
   }
 
-  .menu-hero-right {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-wave-divider {
-    display: none;
-  }
-
-  .menu-hero-image {
-    max-width: 220px !important;
-    width: 65% !important;
-    height: auto !important;
-    margin: 0 auto;
-  }
-
-  .sokrabot-speech-bubble {
-    position: static;
-    margin-bottom: 0.5rem;
-    display: inline-block;
-    font-size: 0.75rem;
-    padding: 0.35rem 0.75rem;
-    border-radius: 12px;
-  }
-
+  /* ---- SITEMAP SECTION TITLE ---- */
   .section-title-sitemap {
-    font-size: 1.3rem;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #166534 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.75rem !important;
   }
 
+  .section-title-leaf {
+    font-size: 1.15rem !important;
+    line-height: 1 !important;
+  }
+
+  /* ---- PUSAT KOMANDO INVESTIGASI CARDS (HORIZONTAL ROW CARD) ---- */
   .menu-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 0.95rem;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
   }
 
   .menu-nav-card {
-    padding: 1.25rem 1.15rem;
-    border-radius: 20px;
+    display: grid !important;
+    grid-template-columns: 50px 1fr 20px !important;
+    grid-template-rows: auto auto !important;
+    align-items: center !important;
+    padding: 1rem 0.95rem 0.95rem 0.85rem !important;
+    border-radius: 20px !important;
+    border: 1.5px solid #dcfce7 !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03) !important;
+    position: relative !important;
+    gap: 0.15rem 0.75rem !important;
+    cursor: pointer !important;
+  }
+
+  .card-badge-top {
+    display: none !important;
+  }
+
+  .card-icon-circle {
+    grid-column: 1 !important;
+    grid-row: 1 / span 2 !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .card-icon-circle svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .card-text-wrapper {
+    grid-column: 2 !important;
+    grid-row: 1 / span 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: left !important;
+    padding-right: 0.5rem !important;
   }
 
   .card-nav-title {
-    font-size: 1.2rem;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #1e293b !important;
+    margin: 0 0 2px 0 !important;
+    line-height: 1.25 !important;
   }
 
   .card-nav-desc {
-    font-size: 0.88rem;
-    line-height: 1.45;
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
+    color: #64748b !important;
+    margin: 0 !important;
+  }
+
+  .card-footer-action {
+    grid-column: 3 !important;
+    grid-row: 1 / span 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-top: none !important;
+  }
+
+  .card-footer-action .action-label {
+    display: none !important;
+  }
+
+  .action-arrow {
+    display: block !important;
+    width: 20px !important;
+    height: 20px !important;
+    color: #166534 !important;
+    stroke-width: 2.5 !important;
+  }
+
+  /* ---- BOTTOM AUXILIARY BAR MOBILE ---- */
+  .menu-auxiliary-bar {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    padding: 1rem !important;
+    border-radius: 18px !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+  }
+
+  .aux-student-info {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    align-items: center !important;
+  }
+
+  /* ---- MOBILE BOTTOM NAVIGATION ---- */
+  .mobile-bottom-nav {
+    display: block !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important;
+    background: #ffffff !important;
+    border-top: 1px solid #f1f5f9 !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05) !important;
+    padding: 0.4rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .mobile-bottom-nav-inner {
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+  }
+
+  .mobile-bottom-nav-btn {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    min-height: 46px !important;
+    border-radius: 12px !important;
+    color: #64748b !important;
+    background: transparent !important;
+    padding: 2px 0 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .mobile-bottom-nav-btn .nav-btn-icon-wrapper {
+    width: 28px !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: inherit !important;
+    background: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .mobile-bottom-nav-btn .nav-btn-label {
+    font-size: 0.7rem !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    color: inherit !important;
+  }
+
+  .mobile-bottom-nav-btn.active {
+    color: #16a34a !important;
+  }
+
+  .mobile-bottom-nav-btn.active .nav-btn-icon-wrapper {
+    color: #16a34a !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .mobile-bottom-nav-btn.active .nav-btn-label {
+    color: #16a34a !important;
+    font-weight: 700 !important;
   }
 
   /* ---- MISSION MAP MOBILE ---- */

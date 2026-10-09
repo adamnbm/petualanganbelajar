@@ -36,61 +36,64 @@ export default function MainMenu({
       <section className="menu-hero-card">
         <div className="menu-hero-left">
           <h1 className="menu-hero-greeting">
-            Halo, Detektif <span className="highlight-name">{studentName}</span>
-            !
-            <span className="hero-rice-icon" title="Padi Sawah">
-              <svg width="28" height="34" viewBox="0 0 28 34" fill="none">
-                {/* Stems */}
-                <path
-                  d="M9 30V15C9 12 11 10 14 10"
-                  stroke="#48bb78"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M15 30V6C15 4 16 3 19 3"
-                  stroke="#48bb78"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M6 25C6 22 7 20 9 20"
-                  stroke="#48bb78"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M21 25C21 22 20 20 18 20"
-                  stroke="#48bb78"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                {/* Rice grains */}
-                <path
-                  d="M15 7C19 7 23 8 23 11C23 13 19 13 15 13"
-                  stroke="#f59e0b"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M15 13C20 13 24 14 24 17C24 19 20 19 15 19"
-                  stroke="#f59e0b"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M9 15C13 15 17 16 17 19C17 21 13 21 9 21"
-                  stroke="#f59e0b"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M9 21C13 21 17 22 17 24C17 26 13 26 9 26"
-                  stroke="#f59e0b"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
+            <span className="greeting-title-line">Halo, Detektif</span>{" "}
+            <span className="greeting-name-line">
+              <span className="highlight-name">{studentName}</span>
+              {" !"}
+              <span className="hero-rice-icon" title="Padi Sawah">
+                <svg width="28" height="34" viewBox="0 0 28 34" fill="none">
+                  {/* Stems */}
+                  <path
+                    d="M9 30V15C9 12 11 10 14 10"
+                    stroke="#48bb78"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M15 30V6C15 4 16 3 19 3"
+                    stroke="#48bb78"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M6 25C6 22 7 20 9 20"
+                    stroke="#48bb78"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M21 25C21 22 20 20 18 20"
+                    stroke="#48bb78"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  {/* Rice grains */}
+                  <path
+                    d="M15 7C19 7 23 8 23 11C23 13 19 13 15 13"
+                    stroke="#f59e0b"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M15 13C20 13 24 14 24 17C24 19 20 19 15 19"
+                    stroke="#f59e0b"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M9 15C13 15 17 16 17 19C17 21 13 21 9 21"
+                    stroke="#f59e0b"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M9 21C13 21 17 22 17 24C17 26 13 26 9 26"
+                    stroke="#f59e0b"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </span>
           </h1>
           <p className="menu-hero-sub">
@@ -159,7 +162,7 @@ export default function MainMenu({
 
           {/* Speech bubble di atas kepala SOKRABOT */}
           <div className="sokrabot-speech-bubble">
-            <span>Ayo berpetualang bersama !</span>
+            <span>Ayo berpetualang bersama!</span>
           </div>
 
           <img
@@ -173,6 +176,7 @@ export default function MainMenu({
       {/* 4 Pintu Utama Navigasi (Sitemap PRD Section 3) */}
       <section className="menu-grid-section">
         <h2 className="section-title-sitemap">
+          <span className="section-title-leaf">🍃</span>
           <span>Pusat Komando Investigasi SOKRABOT</span>
         </h2>
 
@@ -192,8 +196,13 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Peta Misi Sawah</h3>
               <p className="card-nav-desc">
-                Jelajahi 5 level misi bertingkat (Level Lock 1-5). Selesaikan
-                tantangan Socratic dan kumpulkan bintang maksimal!
+                <span className="desc-mobile show-on-mobile-only">
+                  Jelajahi peta interaktif untuk menemukan lokasi misi dan informasi penting di sekitar sawah.
+                </span>
+                <span className="desc-desktop hide-on-mobile">
+                  Jelajahi 5 level misi bertingkat (Level Lock 1-5). Selesaikan
+                  tantangan Socratic dan kumpulkan bintang maksimal!
+                </span>
               </p>
             </div>
             <div className="card-footer-action">
@@ -221,8 +230,13 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Buku Pintar (Codex)</h3>
               <p className="card-nav-desc">
-                Koleksi kartu konsep ilmiah interaktif. Kartu akan terbuka
-                otomatis setelah percakapan Socratic selesai!
+                <span className="desc-mobile show-on-mobile-only">
+                  Kumpulkan pengetahuan tentang jaring makanan, makhluk hidup, dan keseimbangan ekosistem.
+                </span>
+                <span className="desc-desktop hide-on-mobile">
+                  Koleksi kartu konsep ilmiah interaktif. Kartu akan terbuka
+                  otomatis setelah percakapan Socratic selesai!
+                </span>
               </p>
             </div>
             <div className="card-footer-action">
