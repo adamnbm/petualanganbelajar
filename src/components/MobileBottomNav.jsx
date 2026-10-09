@@ -1,13 +1,12 @@
 import React from "react";
-import { Home, MapPin, BookOpen, Award, HelpCircle } from "lucide-react";
+import { Home, MapPin, BookOpen, Trophy } from "lucide-react";
 
 export default function MobileBottomNav({ currentView, onNavigate }) {
   const navItems = [
-    { id: "menu", label: "Menu", icon: Home },
+    { id: "menu", label: "Beranda", icon: Home },
     { id: "map", label: "Peta Misi", icon: MapPin },
     { id: "codex", label: "Buku Pintar", icon: BookOpen },
-    { id: "achievements", label: "Pencapaian", icon: Award },
-    { id: "guide", label: "Petunjuk", icon: HelpCircle }
+    { id: "achievements", label: "Pencapaian", icon: Trophy }
   ];
 
   return (
@@ -25,7 +24,7 @@ export default function MobileBottomNav({ currentView, onNavigate }) {
               id={`mobile-nav-${item.id}`}
             >
               <div className="nav-btn-icon-wrapper">
-                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                <Icon size={21} strokeWidth={isActive ? 2.5 : 1.8} />
               </div>
               <span className="nav-btn-label">{item.label}</span>
             </button>

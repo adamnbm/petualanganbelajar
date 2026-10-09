@@ -8,6 +8,8 @@ import {
   HelpCircle,
   Users,
   UserCheck,
+  User,
+  Bell,
   Sparkles,
   Home,
   GraduationCap,
@@ -75,7 +77,7 @@ export default function Navbar({
           </div>
         </button>
 
-        {/* Primary Navigation Links */}
+        {/* Primary Navigation Links (Desktop) */}
         <nav className="navbar-links-group hide-on-mobile">
           <button
             className={`nav-tab-link ${currentView === "menu" ? "active" : ""}`}
@@ -123,31 +125,8 @@ export default function Navbar({
           </button>
         </nav>
 
-        {/* Right Action Icons */}
-        <div className="navbar-actions">
-          {/* AI Live Connection Status */}
-          {/* {aiStatus && (
-            <div
-              className="nav-ai-status hide-on-mobile"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "5px",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                padding: "5px 10px",
-                borderRadius: "9999px",
-                background: aiStatus.mode?.includes("Live") ? "#E8F5E9" : "#FFF9C4",
-                color: aiStatus.mode?.includes("Live") ? "#1B5E20" : "#B78103",
-                border: aiStatus.mode?.includes("Live") ? "1px solid #A5D6A7" : "1px solid #FFF176"
-              }}
-              title={`Status Engine: ${aiStatus.mode} (${aiStatus.model || 'Gemini'})`}
-            >
-              <Sparkles size={13} className={aiStatus.mode?.includes("Live") ? "text-emerald-600" : "text-amber-600"} />
-              <span>{aiStatus.mode?.includes("Live") ? "Gemini Socratic" : "Kurikulum Socratic"}</span>
-            </div>
-          )} */}
-
+        {/* Right Action Icons (Desktop) */}
+        <div className="navbar-actions hide-on-mobile">
           {/* Detective Identity Profile */}
           <button
             className="nav-pill-btn navbar-profile-btn"
@@ -180,6 +159,28 @@ export default function Navbar({
             id="btn-toggle-sound"
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+          </button>
+        </div>
+
+        {/* Right Action Icons (Mobile: Bell with Red Dot & Profile Circle) */}
+        <div className="mobile-header-actions show-on-mobile-only">
+          <button
+            className="mobile-header-icon-btn bell-btn"
+            onClick={() => alert("Misi baru siap dijelajahi di Sawah Pak Budi!")}
+            title="Pemberitahuan Misi"
+            id="mobile-btn-notif"
+          >
+            <Bell size={19} />
+            <span className="mobile-notif-dot" />
+          </button>
+
+          <button
+            className="mobile-header-icon-btn profile-btn"
+            onClick={onOpenStudentModal}
+            title={activeStudent ? `Detektif: ${studentName}` : "Isi Nama Detektif"}
+            id="mobile-btn-profile"
+          >
+            <User size={19} />
           </button>
         </div>
       </div>
