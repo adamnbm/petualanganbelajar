@@ -5063,6 +5063,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+}
+
+.guide-header-center {
+  text-align: center;
+  flex: 1;
+}
+
+.guide-main-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #1b5e20;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.guide-sub-title {
+  font-size: 0.9rem;
+  color: #4b6b4e;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  font-style: italic;
 }
 
 .btn-quick-to-map {
@@ -5073,6 +5096,16 @@ body {
   font-weight: 800;
   font-size: 0.92rem;
   min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.btn-quick-to-map:hover {
+  background: #1b5e20;
 }
 
 .guide-hero-box {
@@ -5093,6 +5126,7 @@ body {
   object-fit: cover;
   border: 4px solid #fbc02d;
   flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(251, 192, 45, 0.3);
 }
 
 .guide-hero-content h2 {
@@ -5106,30 +5140,59 @@ body {
   font-size: 1rem;
   color: #475569;
   line-height: 1.6;
+  margin: 0;
+}
+
+.guide-hero-highlight {
+  margin-top: 0.5rem !important;
+  font-weight: 700;
+  color: #15803d !important;
+}
+
+/* guide section wrapper */
+.guide-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.guide-section-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.5rem;
+  color: #1b5e20;
+  margin: 0;
 }
 
 .guide-steps-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .guide-step-card {
   background: white;
   border-radius: 20px;
   border: 2px solid #e2e8f0;
-  padding: 1.75rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.75rem;
   position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+}
+
+.guide-step-card:hover {
+  transform: translateY(-2px);
+  border-color: #86efac;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.09);
 }
 
 .step-badge {
   position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  font-size: 0.78rem;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: #64748b;
   background: #f1f5f9;
@@ -5138,101 +5201,188 @@ body {
 }
 
 .step-icon-circle {
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
 }
 
-.step-icon-circle.bg-emerald {
-  background: #2e7d32;
-}
-
-.step-icon-circle.bg-blue {
-  background: #0284c7;
-}
-
-.step-icon-circle.bg-amber {
-  background: #f57f17;
-}
-
-.step-icon-circle.bg-purple {
-  background: #9333ea;
-}
+.step-icon-circle.bg-emerald { background: #16a34a; }
+.step-icon-circle.bg-blue    { background: #0284c7; }
+.step-icon-circle.bg-amber   { background: #ea580c; }
+.step-icon-circle.bg-yellow  { background: #ca8a04; }
+.step-icon-circle.bg-purple  { background: #9333ea; }
+.step-icon-circle.bg-teal    { background: #0d9488; }
+.step-icon-circle.bg-rose    { background: #e11d48; }
+.step-icon-circle.bg-indigo  { background: #4f46e5; }
 
 .guide-step-card h3 {
   font-family: var(--font-fredoka);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: #1e293b;
+  margin: 0;
+  line-height: 1.35;
 }
 
 .guide-step-card p {
-  font-size: 0.92rem;
+  font-size: 0.93rem;
   color: #475569;
   line-height: 1.55;
+  margin: 0;
 }
 
-.guide-example-container {
-  background: white;
+/* ---- ATURAN PETUALANG HEBAT ---- */
+.guide-rules-container {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   border-radius: 24px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #86efac;
   padding: 1.75rem 2rem;
-}
-
-.example-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-fredoka);
-  font-size: 1.3rem;
-  color: #1b5e20;
-  margin-bottom: 1.25rem;
-}
-
-.socratic-chat-preview {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  background: #f8fafc;
-  padding: 1.25rem;
-  border-radius: 16px;
+  gap: 1.25rem;
+  box-shadow: 0 6px 20px rgba(22, 101, 52, 0.06);
 }
 
-.chat-bubble-sample {
-  padding: 0.85rem 1.15rem;
+.guide-rules-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guide-rules-icon-badge {
+  width: 48px;
+  height: 48px;
   border-radius: 14px;
-  max-width: 80%;
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-
-.chat-bubble-sample.bot {
   background: white;
-  border: 2px solid #c8e6c9;
-  align-self: flex-start;
-  color: #1b5e20;
+  border: 2px solid #86efac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #16a34a;
+  box-shadow: 0 3px 10px rgba(22, 101, 52, 0.08);
 }
 
-.chat-bubble-sample.user {
-  background: #e0f2fe;
-  border: 2px solid #bae6fd;
-  align-self: flex-end;
-  color: #0369a1;
+.guide-rules-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.4rem;
+  color: #14532d;
+  margin: 0;
 }
 
-.chat-bubble-sample.highlight-win {
-  border-color: #fbc02d;
-  background: #fffde7;
+.guide-rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
 }
 
-.bubble-speaker {
+.guide-rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  background: white;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  border: 1.5px solid #bbf7d0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #166534;
+  line-height: 1.5;
+}
+
+.rule-check-icon {
+  color: #16a34a;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ---- INGAT! QUOTE BOX ---- */
+.guide-quote-box {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border-radius: 24px;
+  border: 2px solid #fde047;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.1);
+}
+
+.guide-quote-trophy {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: white;
+  border: 3px solid #facc15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(234, 179, 8, 0.18);
+}
+
+.trophy-gold-icon {
+  color: #d97706;
+}
+
+.guide-quote-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.guide-quote-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.35rem;
+  color: #92400e;
+  margin: 0;
+}
+
+.guide-quote-text {
+  font-size: 1rem;
+  color: #78350f;
+  line-height: 1.65;
+  margin: 0;
+  font-weight: 500;
+}
+
+.guide-farewell {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #166534;
+  margin: 0;
+}
+
+.guide-cta-wrapper {
+  margin-top: 0.4rem;
+}
+
+.btn-start-adventure {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 14px;
   font-weight: 800;
-  font-size: 0.78rem;
-  display: block;
-  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.btn-start-adventure:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(22, 163, 74, 0.38);
+}
+
+/* (guide example / socratic preview removed — now handled in ChatMessageList) */
 
 /* ---- VISUAL HINT MODAL ---- */
 .modal-visual-hint {
@@ -6444,6 +6594,39 @@ body {
   .guide-step-card {
     padding: 1.25rem 1rem;
     border-radius: 18px;
+  }
+
+  .guide-rules-container {
+    padding: 1.25rem 1rem;
+    border-radius: 20px;
+  }
+
+  .guide-rules-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.65rem;
+  }
+
+  .guide-rule-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .guide-quote-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1.15rem;
+    gap: 1.15rem;
+    border-radius: 20px;
+  }
+
+  .guide-quote-trophy {
+    margin: 0 auto;
+  }
+
+  .btn-start-adventure {
+    width: 100%;
+    justify-content: center;
   }
 }
 
