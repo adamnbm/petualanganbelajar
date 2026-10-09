@@ -146,7 +146,7 @@ export default function SplashScreen({ onStartAdventure }) {
             <span className="feature-icon">📖</span>
             <div className="feature-content">
               <strong>Buku Pintar Sains</strong>
-              <small>Buka 6 kartu konsep ilmiah ekosistem sawah</small>
+              <small>Buka 5 kartu konsep ilmiah ekosistem sawah</small>
             </div>
           </div>
         </div>
