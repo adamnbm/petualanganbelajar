@@ -1,141 +1,202 @@
 import React from "react";
 import {
-  HelpCircle,
   ArrowLeft,
-  Sparkles,
+  Rocket,
+  Map,
   Search,
+  Lightbulb,
   MessageSquare,
+  Bot,
+  RotateCcw,
   Star,
-  BookOpen,
-  Award,
-  ShieldCheck
+  ShieldCheck,
+  CheckCircle2,
+  Trophy,
 } from "lucide-react";
+
+const STEPS = [
+  {
+    badge: "Langkah 1",
+    title: "1. Mulai Petualangan 🚀",
+    description: "Buka permainan SOKRABOT, kemudian tekan tombol untuk memulai petualanganmu.",
+    Icon: Rocket,
+    color: "bg-emerald",
+  },
+  {
+    badge: "Langkah 2",
+    title: "2. Pilih Misi 🗺️",
+    description:
+      "Ikuti misi yang tersedia secara berurutan. Setiap misi memiliki tantangan yang harus kamu selesaikan.",
+    Icon: Map,
+    color: "bg-blue",
+  },
+  {
+    badge: "Langkah 3",
+    title: "3. Amati dan Pahami 🔍",
+    description:
+      "Baca cerita, perhatikan gambar, dan pahami pertanyaan yang diberikan sebelum menjawab.",
+    Icon: Search,
+    color: "bg-amber",
+  },
+  {
+    badge: "Langkah 4",
+    title: "4. Pilih Jawabanmu 💡",
+    description:
+      "Pilih jawaban yang menurutmu paling tepat. Jangan terburu-buru! Gunakan pengetahuan dan pemikiranmu sendiri.",
+    Icon: Lightbulb,
+    color: "bg-yellow",
+  },
+  {
+    badge: "Langkah 5",
+    title: "5. Jelaskan Alasanmu 💬",
+    description:
+      'SOKRABOT mungkin akan bertanya, "Mengapa kamu memilih jawaban itu?" Jelaskan alasanmu sesuai dengan apa yang kamu pikirkan.',
+    Icon: MessageSquare,
+    color: "bg-purple",
+  },
+  {
+    badge: "Langkah 6",
+    title: "6. Ikuti Pertanyaan SOKRABOT 🤖",
+    description:
+      "SOKRABOT akan membantumu melalui pertanyaan dan petunjuk. Pikirkan kembali jawabanmu jika menemukan sesuatu yang berbeda.",
+    Icon: Bot,
+    color: "bg-teal",
+  },
+  {
+    badge: "Langkah 7",
+    title: "7. Perbaiki Pemahamanmu 🔄",
+    description:
+      "Jika jawabanmu belum tepat, jangan menyerah! Perhatikan petunjuk, pikirkan kembali, dan coba temukan jawaban yang lebih tepat.",
+    Icon: RotateCcw,
+    color: "bg-rose",
+  },
+  {
+    badge: "Langkah 8",
+    title: "8. Selesaikan Semua Misi ⭐",
+    description:
+      "Teruslah berpetualang hingga seluruh misi selesai. Periksa kembali apa yang telah kamu pelajari!",
+    Icon: Star,
+    color: "bg-indigo",
+  },
+];
+
+const RULES = [
+  "Kerjakan setiap misi dengan jujur dan mandiri.",
+  "Bacalah pertanyaan dengan teliti.",
+  "Beranilah menjawab dan menyampaikan alasan.",
+  "Tidak perlu takut salah karena kesalahan adalah bagian dari belajar.",
+  "Gunakan petunjuk untuk menemukan jawaban, bukan sekadar menebak.",
+];
 
 export default function GuideView({ onBackToMenu, onGoToMap }) {
   return (
     <div className="guide-view-container">
-      {/* Top Bar Navigasi */}
+      {/* ── Top Bar ── */}
       <div className="guide-top-bar">
-        <button onClick={onBackToMenu} className="btn-back-map" id="btn-back-to-menu-from-guide">
+        <button
+          onClick={onBackToMenu}
+          className="btn-back-map"
+          id="btn-back-to-menu-from-guide"
+        >
           <ArrowLeft size={20} />
           <span>Kembali ke Menu Utama</span>
         </button>
 
         <div className="guide-header-center">
-          <h1 className="guide-main-title">Petunjuk Bermain 💡</h1>
-          <p className="guide-sub-title">Panduan Investigasi Sains Socratic bersama SOKRABOT</p>
+          <h1 className="guide-main-title">🌾 PETUNJUK BERMAIN SOKRABOT</h1>
+          <p className="guide-sub-title">Petualangan Rantai Makanan</p>
         </div>
 
-        <button onClick={onGoToMap} className="btn-quick-to-map">
+        <button
+          onClick={onGoToMap}
+          className="btn-quick-to-map"
+          id="btn-quick-to-map"
+        >
           <span>Menuju Peta Misi ➔</span>
         </button>
       </div>
 
-      {/* Guide Hero Mascot */}
+      {/* ── Hero / Greeting ── */}
       <div className="guide-hero-box">
         <img
           src="/sokrabot_mascot.png"
-          alt="SOKRABOT Detective"
+          alt="SOKRABOT"
           className="guide-hero-mascot"
         />
         <div className="guide-hero-content">
-          <h2>Selamat Datang di Markas Detektif SOKRABOT!</h2>
+          <h2>Halo, Petualang Cilik! 👋</h2>
           <p>
-            Di sini kamu bukan sekadar menghafal nama-nama hewan, melainkan berlatih menjadi ilmuwan sejati yang memahami <strong>aliran energi</strong> dan <strong>keseimbangan jaring kehidupan sawah</strong>. Yuk pelajari cara memecahkan misi bersama SOKRABOT!
+            Selamat datang di SOKRABOT! Di sini, kamu akan menjadi seorang
+            penjelajah yang bertugas memecahkan berbagai misteri rantai makanan.
+          </p>
+          <p className="guide-hero-highlight">
+            Siapkan dirimu untuk berpikir, menjawab pertanyaan, dan
+            menyelesaikan setiap misi!
           </p>
         </div>
       </div>
 
-      {/* 4 Steps Guide Cards */}
-      <div className="guide-steps-grid">
-        {/* Step 1 */}
-        <div className="guide-step-card">
-          <div className="step-badge">Langkah 1</div>
-          <div className="step-icon-circle bg-emerald">
-            <Search size={28} className="text-white" />
-          </div>
-          <h3>Pilih Misi di Peta Sawah</h3>
-          <p>
-            Mulailah dari <strong>Misi 1: Siapa Aku? (Peran Produsen)</strong>. Misi-misi berikutnya akan terbuka secara bertahap (Level Lock 1-5) setelah kamu berhasil menyelesaikan misi sebelumnya!
-          </p>
-        </div>
-
-        {/* Step 2 */}
-        <div className="guide-step-card">
-          <div className="step-badge">Langkah 2</div>
-          <div className="step-icon-circle bg-blue">
-            <MessageSquare size={28} className="text-white" />
-          </div>
-          <h3>Berpikir Kritis bersama SOKRABOT</h3>
-          <p>
-            SOKRABOT tidak akan pernah bilang <em>"Kamu salah!"</em>. Jika jawabanmu belum tepat, SOKRABOT akan mengajukan pertanyaan pemandu yang seru agar kamu menemukan jawabannya sendiri!
-          </p>
-        </div>
-
-        {/* Step 3 */}
-        <div className="guide-step-card">
-          <div className="step-badge">Langkah 3</div>
-          <div className="step-icon-circle bg-amber">
-            <Star size={28} className="text-white" />
-          </div>
-          <h3>Gunakan Petunjuk Bertingkat (H1-H3)</h3>
-          <p>
-            Butuh bantuan? Buka petunjuk:
-            <br />• <strong>H1</strong>: Petunjuk berpikir konsep dasar.
-            <br />• <strong>H2</strong>: Petunjuk kaitan mendalam.
-            <br />• <strong>H3</strong>: Diagram visual interaktif organ/domino!
-          </p>
-        </div>
-
-        {/* Step 4 */}
-        <div className="guide-step-card">
-          <div className="step-badge">Langkah 4</div>
-          <div className="step-icon-circle bg-purple">
-            <Award size={28} className="text-white" />
-          </div>
-          <h3>Buka Buku Pintar & Koleksi Lencana</h3>
-          <p>
-            Tuntaskan setiap pos untuk membuka kartu konsep ilmiah sejati di <strong>Buku Pintar</strong> dan kumpulkan 5 lencana prestisius hingga menjadi <strong>Penjaga Keseimbangan Sawah</strong>!
-          </p>
+      {/* ── Cara Bermain ── */}
+      <div className="guide-section">
+        <h2 className="guide-section-title">🎮 Cara Bermain</h2>
+        <div className="guide-steps-grid">
+          {STEPS.map((step) => (
+            <div key={step.badge} className="guide-step-card">
+              <div className="step-badge">{step.badge}</div>
+              <div className={`step-icon-circle ${step.color}`}>
+                <step.Icon size={26} className="text-white" />
+              </div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Socratic Dialogue Example (From PRD Page 2) */}
-      <div className="guide-example-container">
-        <h3 className="example-title">
-          <Sparkles size={20} className="text-amber-500" />
-          <span>Contoh Alur Percakapan Socratic Nyata:</span>
-        </h3>
-
-        <div className="socratic-chat-preview">
-          <div className="chat-bubble-sample bot">
-            <span className="bubble-speaker">SOKRABOT:</span>
-            <p>"Lihat Tikus dan Ular. Jika Ular memakan Tikus, ke mana arah panah yang benar?"</p>
+      {/* ── Aturan Petualang Hebat ── */}
+      <div className="guide-rules-container">
+        <div className="guide-rules-header">
+          <div className="guide-rules-icon-badge">
+            <ShieldCheck size={26} />
           </div>
+          <h2 className="guide-rules-title">🌟 Aturan Petualang Hebat</h2>
+        </div>
+        <div className="guide-rules-list">
+          {RULES.map((rule, i) => (
+            <div key={i} className="guide-rule-item">
+              <CheckCircle2 size={20} className="rule-check-icon" />
+              <span>{rule}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-          <div className="chat-bubble-sample user">
-            <span className="bubble-speaker">Detektif Cilik:</span>
-            <p>"Ular ➔ Tikus (karena Ular yang berjalan memakan Tikus)."</p>
-          </div>
-
-          <div className="chat-bubble-sample bot">
-            <span className="bubble-speaker">SOKRABOT:</span>
-            <p>"Jika Tikus dimakan Ular, tubuh siapa yang kenyang dan menerima energi makanan?"</p>
-          </div>
-
-          <div className="chat-bubble-sample user">
-            <span className="bubble-speaker">Detektif Cilik:</span>
-            <p>"Tubuh Ular yang mendapat energi!"</p>
-          </div>
-
-          <div className="chat-bubble-sample bot highlight-win">
-            <span className="bubble-speaker">SOKRABOT:</span>
-            <p>"Tepat sekali! Jika panah adalah SIMBOL ENERGI, dari mana energi itu berasal dan berpindah?"</p>
-          </div>
-
-          <div className="chat-bubble-sample user highlight-win">
-            <span className="bubble-speaker">Detektif Cilik:</span>
-            <p>"Dari Tikus ke Ular! Jadi arah panahnya Tikus ➔ Ular! 🎉"</p>
+      {/* ── Ingat! Quote ── */}
+      <div className="guide-quote-box">
+        <div className="guide-quote-trophy">
+          <Trophy size={40} className="trophy-gold-icon" />
+        </div>
+        <div className="guide-quote-content">
+          <h3 className="guide-quote-title">🏆 Ingat!</h3>
+          <p className="guide-quote-text">
+            <em>
+              "Di SOKRABOT, petualang hebat bukanlah yang selalu menjawab
+              benar, tetapi yang berani berpikir, bertanya, dan memperbaiki
+              pemahamannya."
+            </em>
+          </p>
+          <p className="guide-farewell">
+            <em>Selamat berpetualang! 🌾🐭🐍🦅</em>
+          </p>
+          <div className="guide-cta-wrapper">
+            <button
+              onClick={onGoToMap}
+              className="btn-start-adventure"
+              id="btn-guide-start-adventure"
+            >
+              <Rocket size={18} />
+              <span>Mulai Petualangan 🚀</span>
+            </button>
           </div>
         </div>
       </div>

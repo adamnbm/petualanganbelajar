@@ -38,7 +38,7 @@ export const MISSIONS_DATA = [
     estimatedMinutes: 5,
     accentColor: "#2E7D32",
     badgeReward: { id: "badge_penemu_produsen", name: "Penemu Sang Produsen", icon: "🌱", description: "Menyelesaikan Misi 1 dengan membongkar rahasia fotosintesis padi (Minimal 2 ⭐)!" },
-    codexUnlockIds: ["codex_produsen"],
+    codexUnlockIds: ["codex_kartu_1"],
 
     conversationConfig: {
       openingSpeech: [
@@ -117,7 +117,7 @@ export const MISSIONS_DATA = [
     estimatedMinutes: 12,
     accentColor: "#388E3C",
     badgeReward: { id: "badge_ahli_penghuni", name: "Ahli Rantai Makanan", icon: "🌾", description: "Menyelesaikan Misi 2 dengan minimal perolehan 2 Bintang (⭐)." },
-    codexUnlockIds: ["codex_rantai_makanan"],
+    codexUnlockIds: ["codex_kartu_2"],
 
     conversationConfig: {
       openingSpeech: [
@@ -191,7 +191,7 @@ export const MISSIONS_DATA = [
     estimatedMinutes: 10,
     accentColor: "#E65100",
     badgeReward: { id: "badge_pelacak_predator", name: "Pengamat Predator", icon: "🐍", description: "Menyelesaikan Penyelidikan Predator dan Mangsa!" },
-    codexUnlockIds: ["codex_predator_mangsa"],
+    codexUnlockIds: ["codex_kartu_3"],
 
     conversationConfig: {
       openingSpeech: [
@@ -265,7 +265,7 @@ export const MISSIONS_DATA = [
     estimatedMinutes: 6,
     accentColor: "#C62828",
     badgeReward: { id: "badge_penyelamat_ekosistem", name: "Penjaga Keseimbangan Ekosistem", icon: "🛡️", description: "Menyelesaikan Misi 4 dan memahami pentingnya menjaga keseimbangan ekosistem (3 ⭐)!" },
-    codexUnlockIds: ["codex_efek_domino", "codex_keseimbangan_ekosistem"],
+    codexUnlockIds: ["codex_kartu_4"],
 
     conversationConfig: {
       openingSpeech: [
@@ -342,7 +342,7 @@ export const MISSIONS_DATA = [
     estimatedMinutes: 8,
     accentColor: "#1565C0",
     badgeReward: { id: "badge_penjaga_ekosistem", name: "Penjaga Ekosistem Sejati", icon: "🛡️", description: "Menyelesaikan Misi 5 dan memahami pentingnya solusi bijak untuk menjaga keseimbangan ekosistem!" },
-    codexUnlockIds: ["codex_keseimbangan_solusi"],
+    codexUnlockIds: ["codex_kartu_5"],
 
     conversationConfig: {
       openingSpeech: [

@@ -3571,6 +3571,11 @@ body {
   animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+.modal-codex-large {
+  max-width: 820px;
+  max-height: 90vh;
+}
+
 @keyframes popIn {
   0% {
     transform: scale(0.92);
@@ -3592,38 +3597,55 @@ body {
 .header-meta-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
 }
 
 .meta-category-badge {
-  background: rgba(255, 255, 255, 0.25);
-  padding: 0.2rem 0.65rem;
+  background: rgba(255, 255, 255, 0.28);
+  padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.meta-cat-sub {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .meta-mission-ref {
   font-size: 0.85rem;
-  opacity: 0.9;
+  opacity: 0.95;
+  font-weight: 600;
 }
 
 .header-title-row {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 .modal-header-icon {
-  font-size: 2.2rem;
+  font-size: 2.6rem;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
 }
 
 .modal-header-title {
   font-family: var(--font-fredoka);
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 700;
   line-height: 1.25;
+  margin: 0;
+}
+
+.modal-header-subtitle {
+  font-size: 0.95rem;
+  opacity: 0.95;
+  margin-top: 0.25rem;
+  font-weight: 500;
 }
 
 .btn-modal-close {
@@ -3632,73 +3654,710 @@ body {
   right: 1.25rem;
   background: rgba(255, 255, 255, 0.25);
   color: white;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-modal-close:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.08);
 }
 
 .codex-modal-body {
   padding: 1.75rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  max-height: 60vh;
+  gap: 1.35rem;
+  max-height: 65vh;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
-.myth-vs-fact-container {
+/* 1. HOOK / PERTANYAAN PEMANTIK */
+.codex-hook-card {
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.08);
+}
+
+.hook-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.hook-icon-badge {
+  background: #22c55e;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hook-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #166534;
+  margin: 0;
+}
+
+.hook-story-text {
+  font-size: 0.98rem;
+  color: #14532d;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.hook-question-callout {
+  background: white;
+  border-left: 4px solid #16a34a;
+  border-radius: 0 12px 12px 0;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #15803d;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.question-mark-bubble {
+  font-size: 1.2rem;
+}
+
+.hook-explanation-text {
+  font-size: 0.95rem;
+  color: #166534;
+  line-height: 1.55;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin: 0;
+}
+
+/* 2. MATERI LENGKAP */
+.codex-materi-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
 }
 
-.myth-box {
-  background: #fff1f2;
-  border-left: 4px solid #f43f5e;
-  padding: 0.85rem 1.15rem;
-  border-radius: 0 14px 14px 0;
-}
-
-.myth-header {
+.materi-section-heading {
+  font-family: var(--font-fredoka);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e293b;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  color: #be123c;
-  font-size: 0.88rem;
-  margin-bottom: 0.25rem;
+  gap: 0.5rem;
+  margin: 0;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 0.5rem;
 }
 
-.myth-text {
-  font-size: 0.95rem;
-  color: #881337;
-  font-style: italic;
+.materi-heading-icon {
+  color: #3b82f6;
 }
 
-.fact-box {
-  background: #f0fdf4;
-  border-left: 4px solid #10b981;
-  padding: 0.85rem 1.15rem;
-  border-radius: 0 14px 14px 0;
-}
-
-.fact-header {
+.materi-paragraphs-wrapper {
   display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #047857;
-  font-size: 0.88rem;
-  margin-bottom: 0.25rem;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
-.fact-text {
+.materi-paragraph {
   font-size: 0.98rem;
-  color: #064e3b;
-  line-height: 1.55;
+  color: #334155;
+  line-height: 1.65;
+  margin: 0;
 }
 
+/* INGREDIENTS GRID (FOTOSINTESIS) */
+.codex-ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.ingredient-item-card {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.ingredient-icon {
+  font-size: 1.8rem;
+}
+
+.ingredient-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ingredient-info strong {
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.ingredient-info span {
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+/* FUN FACT / TAHUKAH KAMU */
+.codex-funfact-box {
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-radius: 14px;
+  padding: 0.9rem 1.15rem;
+  margin-top: 0.35rem;
+}
+
+.funfact-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #b45309;
+  font-size: 0.92rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.funfact-text {
+  font-size: 0.95rem;
+  color: #92400e;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* PREDATOR EXAMPLES GRID */
+.codex-examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.example-predator-card {
+  background: #fff7ed;
+  border: 1.5px solid #fdba74;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.predator-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.predator-icon {
+  font-size: 2rem;
+}
+
+.predator-name {
+  font-family: var(--font-fredoka);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #9a3412;
+  margin: 0;
+}
+
+.predator-prey-tag {
+  font-size: 0.8rem;
+  background: #ea580c;
+  color: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 0.15rem;
+}
+
+.predator-ability {
+  font-size: 0.85rem;
+  color: #7c2d12;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* DOMINO EFFECT STEPS */
+.codex-domino-flow {
+  background: #fef2f2;
+  border: 1.5px solid #fecaca;
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.domino-flow-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #b91c1c;
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.domino-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.domino-step-card {
+  background: white;
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 0.85rem 0.75rem;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.domino-step-badge {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 24px;
+  height: 24px;
+  background: #dc2626;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.domino-step-icon {
+  font-size: 1.6rem;
+}
+
+.domino-step-title {
+  font-family: var(--font-fredoka);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #991b1b;
+  margin: 0;
+}
+
+.domino-step-desc {
+  font-size: 0.78rem;
+  color: #4b5563;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* 3. VISUALISASI RANTAI MAKANAN */
+.codex-chains-showcase {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+}
+
+.showcase-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.85rem 0;
+}
+
+.chains-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chain-card {
+  background: white;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.chain-card-title {
+  font-family: var(--font-fredoka);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 0 0 0.75rem 0;
+}
+
+.chain-steps-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.65rem;
+}
+
+.chain-node {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.5rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 75px;
+}
+
+.node-emoji {
+  font-size: 1.4rem;
+}
+
+.node-name {
+  font-size: 0.85rem;
+  color: #0f172a;
+}
+
+.node-role {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.chain-arrow {
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+}
+
+.chain-card-desc {
+  font-size: 0.88rem;
+  color: #475569;
+  font-style: italic;
+  margin: 0;
+}
+
+/* 4. PERAN DALAM RANTAI MAKANAN */
+.codex-roles-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+}
+
+.roles-main-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.85rem 0;
+}
+
+.roles-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.85rem;
+}
+
+.role-info-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-top: 4px solid #16a34a;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.role-icon-big {
+  font-size: 1.8rem;
+  margin-bottom: 0.15rem;
+}
+
+.role-name {
+  font-family: var(--font-fredoka);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.role-subtitle {
+  font-size: 0.8rem;
+  background: #e2e8f0;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  color: #475569;
+  font-weight: 700;
+}
+
+.role-desc {
+  font-size: 0.85rem;
+  color: #334155;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* 5. ALIRAN PERJALANAN ENERGI (KARTU 2) */
+.codex-energy-showcase {
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+}
+
+.energy-showcase-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #b45309;
+  margin: 0 0 0.85rem 0;
+}
+
+.energy-flow-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.energy-flow-node {
+  background: white;
+  border: 1px solid #fcd34d;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 85px;
+  gap: 0.15rem;
+}
+
+.ef-icon {
+  font-size: 1.5rem;
+}
+
+.ef-name {
+  font-size: 0.88rem;
+  color: #78350f;
+}
+
+.ef-info {
+  font-size: 0.72rem;
+  color: #92400e;
+  text-align: center;
+}
+
+.energy-arrow {
+  color: #d97706;
+  display: flex;
+  align-items: center;
+}
+
+.energy-flow-caption {
+  font-size: 0.88rem;
+  color: #92400e;
+  font-style: italic;
+  margin: 0;
+}
+
+/* 6. COMPARISON CONTAINER (KARTU 5) */
+.codex-comparison-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.comparison-box {
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.box-negative {
+  background: #fef2f2;
+  border: 2px solid #f87171;
+}
+
+.box-positive {
+  background: #f0fdf4;
+  border: 2px solid #4ade80;
+}
+
+.comp-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.65rem 0;
+}
+
+.comp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comp-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #1e293b;
+}
+
+.comp-bullet {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+/* 7. CHECKLIST CARD (KARTU 5) */
+.codex-checklist-card {
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+}
+
+.checklist-heading {
+  font-family: var(--font-fredoka);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #065f46;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.65rem 0;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.6rem;
+}
+
+.checklist-item {
+  background: white;
+  border: 1px solid #6ee7b7;
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: #064e3b;
+  line-height: 1.4;
+}
+
+.check-badge {
+  background: #10b981;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+/* 8. ACTION STEPS */
+.codex-action-steps-card {
+  background: #f0fdfa;
+  border: 1.5px solid #99f6e4;
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+}
+
+.action-steps-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #115e59;
+  margin: 0 0 0.75rem 0;
+}
+
+.action-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.65rem;
+}
+
+.action-step-item {
+  background: white;
+  border: 1px solid #5eead4;
+  border-radius: 12px;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.step-num-bubble {
+  background: #0d9488;
+  color: white;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 0.85rem;
+  color: #134e4a;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* 9. SOKRABOT QUOTE */
 .sokrabot-quote-card {
   background: #fffde7;
   border: 2px dashed #fbc02d;
@@ -3710,7 +4369,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 800;
   color: #92400e;
   margin-bottom: 0.35rem;
@@ -3726,39 +4385,51 @@ body {
   font-size: 0.95rem;
   color: #78350f;
   line-height: 1.5;
+  margin: 0;
+  font-style: italic;
 }
 
-.codex-keypoints-box {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 1rem 1.25rem;
-  border: 1px solid #e2e8f0;
+/* 10. INGAT KONSEP NYA */
+.codex-remember-box {
+  background: #fefce8;
+  border: 2px solid #facc15;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(250, 204, 21, 0.15);
 }
 
-.keypoints-title {
+.remember-title {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.92rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 0.6rem;
+  gap: 0.5rem;
+  font-family: var(--font-fredoka);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #854d0e;
+  margin: 0 0 0.75rem 0;
 }
 
-.keypoints-list {
+.remember-list {
   list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.55rem;
 }
 
-.keypoints-list li {
+.remember-list li {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #475569;
-  line-height: 1.45;
+  font-size: 0.95rem;
+  color: #713f12;
+  line-height: 1.5;
+}
+
+.remember-bullet {
+  font-size: 1rem;
+  flex-shrink: 0;
 }
 
 .codex-modal-footer {
@@ -3777,6 +4448,15 @@ body {
   font-weight: 800;
   font-size: 0.95rem;
   min-height: 48px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-close-reader:hover {
+  background: #2e7d32;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.25);
 }
 
 /* ---- ACHIEVEMENTS VIEW ---- */
@@ -4387,6 +5067,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+}
+
+.guide-header-center {
+  text-align: center;
+  flex: 1;
+}
+
+.guide-main-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #1b5e20;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.guide-sub-title {
+  font-size: 0.9rem;
+  color: #4b6b4e;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  font-style: italic;
 }
 
 .btn-quick-to-map {
@@ -4397,6 +5100,16 @@ body {
   font-weight: 800;
   font-size: 0.92rem;
   min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.btn-quick-to-map:hover {
+  background: #1b5e20;
 }
 
 .guide-hero-box {
@@ -4417,6 +5130,7 @@ body {
   object-fit: cover;
   border: 4px solid #fbc02d;
   flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(251, 192, 45, 0.3);
 }
 
 .guide-hero-content h2 {
@@ -4430,30 +5144,59 @@ body {
   font-size: 1rem;
   color: #475569;
   line-height: 1.6;
+  margin: 0;
+}
+
+.guide-hero-highlight {
+  margin-top: 0.5rem !important;
+  font-weight: 700;
+  color: #15803d !important;
+}
+
+/* guide section wrapper */
+.guide-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.guide-section-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.5rem;
+  color: #1b5e20;
+  margin: 0;
 }
 
 .guide-steps-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .guide-step-card {
   background: white;
   border-radius: 20px;
   border: 2px solid #e2e8f0;
-  padding: 1.75rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.75rem;
   position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+}
+
+.guide-step-card:hover {
+  transform: translateY(-2px);
+  border-color: #86efac;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.09);
 }
 
 .step-badge {
   position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  font-size: 0.78rem;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: #64748b;
   background: #f1f5f9;
@@ -4462,101 +5205,188 @@ body {
 }
 
 .step-icon-circle {
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
 }
 
-.step-icon-circle.bg-emerald {
-  background: #2e7d32;
-}
-
-.step-icon-circle.bg-blue {
-  background: #0284c7;
-}
-
-.step-icon-circle.bg-amber {
-  background: #f57f17;
-}
-
-.step-icon-circle.bg-purple {
-  background: #9333ea;
-}
+.step-icon-circle.bg-emerald { background: #16a34a; }
+.step-icon-circle.bg-blue    { background: #0284c7; }
+.step-icon-circle.bg-amber   { background: #ea580c; }
+.step-icon-circle.bg-yellow  { background: #ca8a04; }
+.step-icon-circle.bg-purple  { background: #9333ea; }
+.step-icon-circle.bg-teal    { background: #0d9488; }
+.step-icon-circle.bg-rose    { background: #e11d48; }
+.step-icon-circle.bg-indigo  { background: #4f46e5; }
 
 .guide-step-card h3 {
   font-family: var(--font-fredoka);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: #1e293b;
+  margin: 0;
+  line-height: 1.35;
 }
 
 .guide-step-card p {
-  font-size: 0.92rem;
+  font-size: 0.93rem;
   color: #475569;
   line-height: 1.55;
+  margin: 0;
 }
 
-.guide-example-container {
-  background: white;
+/* ---- ATURAN PETUALANG HEBAT ---- */
+.guide-rules-container {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   border-radius: 24px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #86efac;
   padding: 1.75rem 2rem;
-}
-
-.example-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-fredoka);
-  font-size: 1.3rem;
-  color: #1b5e20;
-  margin-bottom: 1.25rem;
-}
-
-.socratic-chat-preview {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  background: #f8fafc;
-  padding: 1.25rem;
-  border-radius: 16px;
+  gap: 1.25rem;
+  box-shadow: 0 6px 20px rgba(22, 101, 52, 0.06);
 }
 
-.chat-bubble-sample {
-  padding: 0.85rem 1.15rem;
+.guide-rules-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guide-rules-icon-badge {
+  width: 48px;
+  height: 48px;
   border-radius: 14px;
-  max-width: 80%;
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-
-.chat-bubble-sample.bot {
   background: white;
-  border: 2px solid #c8e6c9;
-  align-self: flex-start;
-  color: #1b5e20;
+  border: 2px solid #86efac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #16a34a;
+  box-shadow: 0 3px 10px rgba(22, 101, 52, 0.08);
 }
 
-.chat-bubble-sample.user {
-  background: #e0f2fe;
-  border: 2px solid #bae6fd;
-  align-self: flex-end;
-  color: #0369a1;
+.guide-rules-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.4rem;
+  color: #14532d;
+  margin: 0;
 }
 
-.chat-bubble-sample.highlight-win {
-  border-color: #fbc02d;
-  background: #fffde7;
+.guide-rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
 }
 
-.bubble-speaker {
+.guide-rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  background: white;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  border: 1.5px solid #bbf7d0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #166534;
+  line-height: 1.5;
+}
+
+.rule-check-icon {
+  color: #16a34a;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ---- INGAT! QUOTE BOX ---- */
+.guide-quote-box {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border-radius: 24px;
+  border: 2px solid #fde047;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.1);
+}
+
+.guide-quote-trophy {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: white;
+  border: 3px solid #facc15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(234, 179, 8, 0.18);
+}
+
+.trophy-gold-icon {
+  color: #d97706;
+}
+
+.guide-quote-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.guide-quote-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.35rem;
+  color: #92400e;
+  margin: 0;
+}
+
+.guide-quote-text {
+  font-size: 1rem;
+  color: #78350f;
+  line-height: 1.65;
+  margin: 0;
+  font-weight: 500;
+}
+
+.guide-farewell {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #166534;
+  margin: 0;
+}
+
+.guide-cta-wrapper {
+  margin-top: 0.4rem;
+}
+
+.btn-start-adventure {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 14px;
   font-weight: 800;
-  font-size: 0.78rem;
-  display: block;
-  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.btn-start-adventure:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(22, 163, 74, 0.38);
+}
+
+/* (guide example / socratic preview removed — now handled in ChatMessageList) */
 
 /* ---- VISUAL HINT MODAL ---- */
 .modal-visual-hint {
@@ -6100,6 +6930,39 @@ body {
   .guide-step-card {
     padding: 1.25rem 1rem;
     border-radius: 18px;
+  }
+
+  .guide-rules-container {
+    padding: 1.25rem 1rem;
+    border-radius: 20px;
+  }
+
+  .guide-rules-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.65rem;
+  }
+
+  .guide-rule-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .guide-quote-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1.15rem;
+    gap: 1.15rem;
+    border-radius: 20px;
+  }
+
+  .guide-quote-trophy {
+    margin: 0 auto;
+  }
+
+  .btn-start-adventure {
+    width: 100%;
+    justify-content: center;
   }
 }
 
