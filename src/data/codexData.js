@@ -241,7 +241,13 @@ export const CODEX_CARDS = [
         paragraphs: [
           "Mangsa adalah hewan yang diburu dan dimakan oleh predator.",
           "Contohnya, ketika ular memakan tikus, tikus disebut mangsa karena menjadi makanan ular. Tikus memiliki kemampuan berlari gesit dan pendengaran peka untuk menghindari predator."
-        ]
+        ],
+        illustration: {
+          preyIcon: "🐀",
+          preyName: "Tikus",
+          predatorIcon: "🐍",
+          predatorName: "Ular"
+        }
       },
       {
         heading: "4. Apakah Predator Bisa Menjadi Mangsa?",

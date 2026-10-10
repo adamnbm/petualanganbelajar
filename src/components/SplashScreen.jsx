@@ -132,7 +132,7 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard 
           id="btn-dashboard-guru"
         >
           <GraduationCap size={17} />
-          <span className="navbar-label">Guru</span>
+          <span className="navbar-label">Masuk sebagai Guru</span>
         </button>
 
         {/* Feature Highlights */}
