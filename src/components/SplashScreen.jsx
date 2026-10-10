@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Sparkles, ArrowRight, ShieldCheck, User, School, BookOpen } from "lucide-react";
+import { Sparkles, ArrowRight, ShieldCheck, User, School, BookOpen, GraduationCap } from "lucide-react";
 import { studentSession } from "../utils/studentSession";
 
-export default function SplashScreen({ onStartAdventure }) {
+export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard }) {
   const existing = studentSession.getActiveStudent();
   const [name, setName] = useState(existing?.name || "");
   const [className, setClassName] = useState(existing?.className || "Kelas 5");
@@ -125,6 +125,15 @@ export default function SplashScreen({ onStartAdventure }) {
             <ArrowRight size={22} className="btn-icon-right" />
           </button>
         </form>
+        <button
+          className="nav-pill-btn btn-teacher-portal"
+          onClick={onOpenTeacherDashboard}
+          title="Buka Portal Evaluasi Guru"
+          id="btn-dashboard-guru"
+        >
+          <GraduationCap size={17} />
+          <span className="navbar-label">Guru</span>
+        </button>
 
         {/* Feature Highlights */}
         <div className="splash-features-grid">

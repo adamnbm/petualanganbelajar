@@ -27,7 +27,7 @@ import { getMissionProgress } from "./utils/sokrabotProgress";
 
 export default function App() {
   const [activeStudent, setActiveStudent] = useState(studentSession.getActiveStudent());
-  
+
   // Navigation View: 'splash' | 'menu' | 'map' | 'chat' | 'codex' | 'achievements' | 'guide' | 'result'
   const [currentView, setCurrentView] = useState(activeStudent ? "menu" : "splash");
   const [selectedMissionId, setSelectedMissionId] = useState("misi_1");
@@ -184,7 +184,7 @@ export default function App() {
            ========================================================= */}
         {currentView === "teacher" && (
           <TeacherDashboardView
-            onBackToMenu={() => navigateTo("menu")}
+            onBackToMenu={() => navigateTo("splash")}
           />
         )}
 
@@ -194,6 +194,7 @@ export default function App() {
         {currentView === "splash" && (
           <SplashScreen
             onStartAdventure={handleStartAdventureFromSplash}
+            onOpenTeacherDashboard={() => navigateTo("teacher")}
           />
         )}
 
