@@ -319,14 +319,14 @@ export default function MainMenu({
           </button>
         </div>
 
-        <button
+        {/* <button
           onClick={onOpenTeacherDashboard}
           className="btn-aux-teacher"
           id="btn-open-teacher-dashboard"
         >
           <GraduationCap size={18} />
           <span>Portal Evaluasi Guru</span>
-        </button>
+        </button> */}
       </section>
     </div>
   );

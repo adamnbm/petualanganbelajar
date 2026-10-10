@@ -233,6 +233,35 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
                     ))}
                   </div>
 
+                  {/* Jika ada ilustrasi mangsa-predator */}
+                  {sec.illustration && (
+                    <div className="codex-chains-showcase" style={{ marginTop: "1rem", padding: 0, backgroundColor: "transparent" }}>
+                      <div className="chains-wrapper" style={{ marginTop: 0 }}>
+                        <div className="chain-card" style={{ margin: 0 }}>
+                          <h5 className="chain-card-title" style={{ textAlign: "center", borderBottom: "none", paddingBottom: 0 }}>
+                            Ilustrasi Hubungan Mangsa & Predator
+                          </h5>
+                          <div className="chain-steps-row" style={{ justifyContent: "center" }}>
+                            <div className="chain-node">
+                              <span className="node-emoji">{sec.illustration.preyIcon}</span>
+                              <strong className="node-name">{sec.illustration.preyName}</strong>
+                              <span className="node-role">Mangsa</span>
+                            </div>
+                            <div className="chain-arrow" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                              <span style={{ fontSize: "0.7rem", fontWeight: "bold", color: "#6B7280", marginBottom: "4px" }}>dimakan oleh</span>
+                              <ArrowRight size={20} />
+                            </div>
+                            <div className="chain-node">
+                              <span className="node-emoji">{sec.illustration.predatorIcon}</span>
+                              <strong className="node-name">{sec.illustration.predatorName}</strong>
+                              <span className="node-role">Predator</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Jika ada bahan fotosintesis */}
                   {sec.ingredients && (
                     <div className="codex-ingredients-grid">

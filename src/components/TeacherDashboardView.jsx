@@ -500,7 +500,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
               }}
             >
               <ArrowLeft size={16} />
-              <span>Kembali ke Beranda Siswa</span>
+              <span>Kembali</span>
             </button>
 
             <span style={{ fontSize: "0.78rem", color: "#94a3b8" }}>
@@ -541,7 +541,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
             title="Kembali ke Mode Permainan Siswa"
           >
             <ArrowLeft size={16} />
-            <span>Ke Menu Siswa</span>
+            <span>Kembali</span>
           </button>
 
           <div>

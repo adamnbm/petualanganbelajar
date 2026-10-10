@@ -129,7 +129,7 @@ export default function Navbar({
         {/* Right Action Icons (Desktop) */}
         <div className="navbar-actions hide-on-mobile">
           {/* Detective Identity Profile */}
-          <button
+          {/* <button
             className="nav-pill-btn navbar-profile-btn"
             onClick={onOpenStudentModal}
             title={
@@ -139,10 +139,10 @@ export default function Navbar({
           >
             <UserCheck size={16} className="text-emerald-700" />
             <span className="profile-name-label">{studentName}</span>
-          </button>
+          </button> */}
 
           {/* Portal Evaluasi Guru */}
-          <button
+          {/* <button
             className="nav-pill-btn btn-teacher-portal"
             onClick={onOpenTeacherDashboard}
             title="Buka Portal Evaluasi Guru"
@@ -150,7 +150,7 @@ export default function Navbar({
           >
             <GraduationCap size={17} />
             <span className="navbar-label">Guru</span>
-          </button>
+          </button> */}
 
           {/* Suara */}
           <button
