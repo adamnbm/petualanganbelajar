@@ -201,7 +201,7 @@ export default function GuideView({ onBackToMenu, onGoToMap, onOpenDeveloperInfo
         </div>
       </div>
 
-      {/* ── Info Tim Pengembang & Dosen Pembimbing (Tesis S2 UPI) ── */}
+      {/* ── Info Tim Pengembang & Dosen Pembimbing (S2 PGSD UPI) ── */}
       {onOpenDeveloperInfo && (
         <div style={{ marginTop: "1.25rem", textAlign: "center" }}>
           <button
@@ -221,9 +221,9 @@ export default function GuideView({ onBackToMenu, onGoToMap, onOpenDeveloperInfo
               boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
             }}
             id="btn-guide-dev-info"
-            title="Info Pengembang"
+            title="Tim Pengembang"
           >
-            <span>🎓 Info Pengembang</span>
+            <span>🎓 Tim Pengembang</span>
           </button>
         </div>
       )}

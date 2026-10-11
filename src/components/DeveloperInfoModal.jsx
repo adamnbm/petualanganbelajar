@@ -52,11 +52,9 @@ export default function DeveloperInfoModal({ isOpen, onClose }) {
             </div>
             <div>
               <h3 style={{ margin: 0, color: "#FFFFFF", fontSize: "1.15rem", fontWeight: 800 }}>
-                Informasi Pengembang Media
+                Tim Pengembang
               </h3>
-              <p style={{ margin: "2px 0 0", fontSize: "0.8rem", color: "#E8F5E9" }}>
-                Tesis S2 Magister Pendidikan Guru Sekolah Dasar (PGSD)
-              </p>
+
             </div>
           </div>
           <button
@@ -91,44 +89,8 @@ export default function DeveloperInfoModal({ isOpen, onClose }) {
             backgroundColor: "#F8FAF8"
           }}
         >
-          {/* Banner Logo Kampus */}
-          <div
-            style={{
-              background: "#FFFFFF",
-              border: "1.5px solid #E2E8F0",
-              borderRadius: "14px",
-              padding: "1rem 1.25rem",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "10px"
-            }}
-          >
-            <img
-              src="/logo-upi-cibiru.png"
-              alt="Logo UPI Kampus Cibiru"
-              style={{
-                maxWidth: "260px",
-                width: "100%",
-                height: "auto",
-                objectFit: "contain"
-              }}
-            />
-            <div style={{ textAlign: "center" }}>
-              <p style={{ margin: 0, fontWeight: 800, fontSize: "0.95rem", color: "#1E293B" }}>
-                Universitas Pendidikan Indonesia
-              </p>
-              <p style={{ margin: "2px 0 0", fontSize: "0.85rem", color: "#64748B", fontWeight: 600 }}>
-                Program Studi Magister Pendidikan Guru Sekolah Dasar (S2 PGSD)
-              </p>
-              <p style={{ margin: "2px 0 0", fontSize: "0.8rem", color: "#94A3B8" }}>
-                Kampus Cibiru, Bandung
-              </p>
-            </div>
-          </div>
 
-          {/* Card Pengembang / Peneliti */}
+          {/* Card Tim Pengembang (Unified) */}
           <div
             style={{
               background: "linear-gradient(135deg, #FFFFFF 0%, #F1F8E9 100%)",
@@ -138,82 +100,83 @@ export default function DeveloperInfoModal({ isOpen, onClose }) {
               boxShadow: "0 3px 10px rgba(46, 125, 50, 0.08)"
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
               <div
                 style={{
                   background: "#2E7D32",
                   color: "#FFFFFF",
-                  padding: "3px 8px",
+                  padding: "3px 10px",
                   borderRadius: "6px",
                   fontSize: "0.75rem",
                   fontWeight: 700
                 }}
               >
-                PENGEMBANG / PENELITI
-              </div>
-            </div>
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "50%",
-                  background: "#E8F5E9",
-                  border: "2px solid #4CAF50",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.4rem",
-                  flexShrink: 0
-                }}
-              >
-                👩‍🏫
-              </div>
-              <div>
-                <h4 style={{ margin: 0, fontSize: "1.05rem", fontWeight: 800, color: "#1B5E20" }}>
-                  Suci Ulfah Suhirwah
-                </h4>
-                <ul style={{ margin: "6px 0 0", paddingLeft: "1.2rem", fontSize: "0.85rem", color: "#334155", lineHeight: "1.45" }}>
-                  <li>Guru SDN Pasir Putih 2 Kota Depok</li>
-                  <li>Mahasiswa S2 PGSD UPI Kampus Cibiru</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Card Tim Dosen Pembimbing */}
-          <div
-            style={{
-              background: "#FFFFFF",
-              border: "1px solid #E2E8F0",
-              borderRadius: "14px",
-              padding: "1.1rem",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
-              <div
-                style={{
-                  background: "#0284C7",
-                  color: "#FFFFFF",
-                  padding: "3px 8px",
-                  borderRadius: "6px",
-                  fontSize: "0.75rem",
-                  fontWeight: 700
-                }}
-              >
-                TIM DOSEN PEMBIMBING
+                TIM PENGEMBANG
               </div>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {/* Pembimbing 1 */}
+              {/* Suci Ulfah Suhirwah */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "flex-start",
                   gap: "12px",
-                  padding: "8px 10px",
+                  padding: "10px 12px",
+                  background: "#E8F5E9",
+                  borderRadius: "10px",
+                  border: "1.5px solid #A5D6A7"
+                }}
+              >
+                <div
+                  style={{
+                    width: "42px",
+                    height: "42px",
+                    borderRadius: "50%",
+                    background: "#FFFFFF",
+                    border: "2px solid #4CAF50",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.3rem",
+                    flexShrink: 0
+                  }}
+                >
+                  👩‍🏫
+                </div>
+                <div>
+                  <h4 style={{ margin: "2px 0 0", fontSize: "1rem", fontWeight: 800, color: "#1B5E20" }}>
+                    Suci Ulfah Suhirwah
+                  </h4>
+                  <ul style={{ margin: "4px 0 0", paddingLeft: "1.2rem", fontSize: "0.83rem", color: "#334155", lineHeight: "1.45" }}>
+                    <li>Guru SDN Pasir Putih 2 Kota Depok</li>
+                    <li>Mahasiswa S2 PGSD UPI Kampus Cibiru</li>
+                  </ul>
+                  <div style={{ marginTop: "5px", display: "flex", alignItems: "center", gap: "5px" }}>
+                    <span style={{ fontSize: "0.82rem" }}>✉️</span>
+                    <a
+                      href="mailto:suhirwahh@gmail.com"
+                      style={{
+                        fontSize: "0.8rem",
+                        color: "#0369A1",
+                        textDecoration: "none",
+                        fontWeight: 600,
+                        borderBottom: "1px dashed #93C5FD"
+                      }}
+                    >
+                      suhirwahh@gmail.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dr. Ai Sutini */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "12px",
+                  padding: "8px 12px",
                   background: "#F0F9FF",
                   borderRadius: "10px",
                   border: "1px solid #BAE6FD"
@@ -235,9 +198,6 @@ export default function DeveloperInfoModal({ isOpen, onClose }) {
                   👨‍🏫
                 </div>
                 <div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#0369A1" }}>
-                    DOSEN PEMBIMBING I
-                  </div>
                   <h5 style={{ margin: "2px 0 0", fontSize: "0.95rem", fontWeight: 800, color: "#0F172A" }}>
                     Dr. Ai Sutini, M.Pd
                   </h5>
@@ -247,13 +207,13 @@ export default function DeveloperInfoModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* Pembimbing 2 */}
+              {/* Dr. Dede Trie Kurniawan */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "flex-start",
                   gap: "12px",
-                  padding: "8px 10px",
+                  padding: "8px 12px",
                   background: "#F0F9FF",
                   borderRadius: "10px",
                   border: "1px solid #BAE6FD"
@@ -275,9 +235,6 @@ export default function DeveloperInfoModal({ isOpen, onClose }) {
                   👨‍🏫
                 </div>
                 <div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#0369A1" }}>
-                    DOSEN PEMBIMBING II
-                  </div>
                   <h5 style={{ margin: "2px 0 0", fontSize: "0.95rem", fontWeight: 800, color: "#0F172A" }}>
                     Dr. Dede Trie Kurniawan, M.Pd
                   </h5>

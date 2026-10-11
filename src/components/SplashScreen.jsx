@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Sparkles, ArrowRight, User, School, Hash, GraduationCap, Search, Star, Leaf, ChevronDown, X } from "lucide-react";
+import { Sparkles, ArrowRight, User, School, Hash, GraduationCap, ChevronDown, X } from "lucide-react";
 import { studentSession } from "../utils/studentSession";
 
 export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard, onOpenDeveloperInfo }) {
@@ -37,6 +37,7 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
 
         {/* Hero Section */}
         <div className="splash-hero-section">
+          {/* Mascot */}
           {/* Mascot */}
           <div className="splash-mascot-wrapper splash-mascot-v2">
             <div className="splash-mascot-frame">
@@ -183,7 +184,7 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
             type="button"
             className="nav-pill-btn btn-teacher-v2"
             onClick={onOpenDeveloperInfo}
-            title="Info Pengembang"
+            title="Tim Pengembang"
             id="btn-splash-dev-info"
             style={{
               background: "rgba(255, 255, 255, 0.95)",
@@ -202,40 +203,10 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
             }}
           >
             <Sparkles size={16} color="#2E7D32" />
-            <span className="navbar-label">Info Pengembang</span>
+            <span className="navbar-label">Tim Pengembang</span>
           </button>
         </div>
 
-        {/* Feature Highlights */}
-        <div className="splash-features-grid splash-features-v2">
-          <div className="splash-feature-item splash-feature-v2">
-            <div className="feature-icon-wrap feature-icon-green">
-              <Search size={18} />
-            </div>
-            <div className="feature-content">
-              <strong>Penalaran Socratic</strong>
-              <small>Dibimbing menalar bertahap tanpa jawaban instan</small>
-            </div>
-          </div>
-          <div className="splash-feature-item splash-feature-v2">
-            <div className="feature-icon-wrap feature-icon-amber">
-              <Star size={18} />
-            </div>
-            <div className="feature-content">
-              <strong>Bintang & Lencana</strong>
-              <small>Raih 3 bintang & kumpulkan 4 lencana prestisius</small>
-            </div>
-          </div>
-          <div className="splash-feature-item splash-feature-v2">
-            <div className="feature-icon-wrap feature-icon-sky">
-              <Leaf size={18} />
-            </div>
-            <div className="feature-content">
-              <strong>Buku Pintar Sains</strong>
-              <small>Buka 5 kartu konsep ilmiah ekosistem sawah</small>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

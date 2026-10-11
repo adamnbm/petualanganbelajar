@@ -37,6 +37,7 @@ export default function MainMenu({
       {/* Hero Banner Sambutan Detektif */}
       <section className="menu-hero-card">
         <div className="menu-hero-left">
+
           <h1 className="menu-hero-greeting">
             <span className="greeting-title-line">Halo, Detektif</span>{" "}
             <span className="greeting-name-line">
@@ -335,10 +336,10 @@ export default function MainMenu({
             fontWeight: 700
           }}
           id="btn-menu-dev-info"
-          title="Info Pengembang"
+          title="Tim Pengembang"
         >
           <GraduationCap size={18} color="#2E7D32" />
-          <span>Info Pengembang</span>
+          <span>Tim Pengembang</span>
         </button>
 
         {/* <button

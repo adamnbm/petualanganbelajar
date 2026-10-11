@@ -388,7 +388,7 @@ export default function App() {
         onClose={() => setIsTeacherDashboardOpen(false)}
       />
 
-      {/* Modal Info Pengembang Tesis S2 UPI */}
+      {/* Modal Info Pengembang S2 PGSD UPI */}
       <DeveloperInfoModal
         isOpen={isDeveloperInfoOpen}
         onClose={() => setIsDeveloperInfoOpen(false)}
