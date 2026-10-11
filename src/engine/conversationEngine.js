@@ -97,6 +97,14 @@ export class BranchingSessionController {
 
     if (isValidSaved) {
       this.state = saved;
+      if (this.missionId === "misi_1" && Array.isArray(this.state.messages)) {
+        this.state.messages = this.state.messages.map((m) => {
+          if (m.imageCaption && (m.imageCaption.includes("sinar matahari") || m.imageCaption.includes("fotosintesis") || m.imageCaption.includes("subur"))) {
+            return { ...m, imageCaption: null, image: "/visual_sawah_pak_budi.jpg" };
+          }
+          return m;
+        });
+      }
       this.state.isBotTyping = false;
       this.state.optionsDisabled = false;
       const node = this.getCurrentNode();

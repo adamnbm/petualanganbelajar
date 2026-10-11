@@ -25,7 +25,7 @@ export const MISSIONS_DATA = [
       "Ayo Selidiki bagaimana tanaman padi mendapatkan makanan!",
     gradeLevel: "SD Kelas 5 - 6",
     description:
-      "Selidiki rahasia tanaman padi di sawah Pak Tani! Dari mana padi mendapatkan makanannya? Apakah menyerap makanan jadi dari tanah atau membuat makanannya sendiri dengan bantuan cahaya matahari?",
+      "Selidiki rahasia tanaman padi di sawah Pak Budi! Dari mana padi mendapatkan makanannya? Apakah menyerap makanan jadi dari tanah atau membuat makanannya sendiri dengan bantuan cahaya matahari?",
     misconceptions: [
       {
         id: "produsen_pemakan_pupuk",
@@ -39,6 +39,12 @@ export const MISSIONS_DATA = [
         description:
           "Anggapan bahwa tanaman padi memakan organisme lain seperti halnya hewan.",
       },
+      {
+        id: "hewan_buat_makanan",
+        name: "Hewan Membuat Makanan Sendiri",
+        description:
+          "Anggapan bahwa hewan seperti tikus dapat membuat makanannya sendiri seperti tumbuhan.",
+      },
     ],
     topics: [
       "Produsen",
@@ -46,13 +52,14 @@ export const MISSIONS_DATA = [
       "Cahaya Matahari",
       "Air & Mineral",
       "Akar & Daun",
+      "Perbedaan Produsen & Konsumen",
     ],
     characters: [
       { name: "Padi", emoji: "🌾", role: "Produsen (Membuat Makanan Sendiri)" },
       { name: "Matahari", emoji: "☀️", role: "Sumber Cahaya Fotosintesis" },
       { name: "Akar & Tanah", emoji: "🌱", role: "Penyerap Air & Mineral" },
     ],
-    totalMainQuestions: 2,
+    totalMainQuestions: 3,
     estimatedMinutes: 5,
     accentColor: "#2E7D32",
     badgeReward: {
@@ -67,7 +74,7 @@ export const MISSIONS_DATA = [
     conversationConfig: {
       openingSpeech: [
         "Halo Detektif Cilik! 👋 Selamat datang di penyelidikan pertama bersama SOKRABOT!",
-        "Perhatikan gambar ini: Padi 🌾 terlihat menjadi yang pertama dalam rantai makanan.",
+        "Perhatikan tanaman padi yang tumbuh subur dan hijau di sawah Pak Budi 🌾.",
       ],
       concepts: [
         {
@@ -75,7 +82,7 @@ export const MISSIONS_DATA = [
           title: "Cara Padi Mendapatkan Makanan",
           transitionSpeech: null,
           openingQuestion:
-            "Bagaimana cara padi mendapatkan makanannya? Apakah membuat makanannya sendiri atau mengambil makanan jadi dari tanah? 🤔🌾",
+            "Detektif, coba perhatikan tanaman padi di sawah Pak Budi! 🌾 Padi bisa tumbuh semakin besar. Menurutmu, dari mana padi mendapatkan makanannya?",
           targetUnderstanding:
             "Padi membuat makanannya sendiri dengan bantuan cahaya matahari melalui proses fotosintesis. Akar hanya menyerap air dan mineral dari tanah sebagai bahan baku, bukan makanan jadi.",
           misconceptions: [
@@ -108,14 +115,47 @@ export const MISSIONS_DATA = [
           },
         },
         {
+          id: "konsep_beda_padi_tikus",
+          title: "Perbedaan Padi dan Tikus",
+          transitionSpeech: [
+            "Hebat, Detektif! 🌟 Kamu sudah mengetahui bahwa padi dapat membuat makanannya sendiri dengan bantuan cahaya matahari.",
+            "Sekarang, coba pikirkan!",
+          ],
+          openingQuestion:
+            "Jika padi bisa membuat makanannya sendiri, sedangkan tikus harus memakan tumbuhan, apa perbedaan keduanya?",
+          targetUnderstanding:
+            "Padi membuat makanan sendiri dengan bantuan cahaya matahari, sedangkan tikus mendapatkan makanan dari makhluk hidup lain.",
+          misconceptions: [
+            {
+              id: "hewan_buat_makanan",
+              keywords: ["tikus buat makanan", "sama-sama membuat makanan", "tikus membuat"],
+            },
+            {
+              id: "produsen_pemakan_pupuk",
+              keywords: ["padi dari tanah", "padi menyerap makanan jadi"],
+            },
+          ],
+          confirmationKeywords: [
+            "sendiri",
+            "makhluk hidup lain",
+            "tikus memakan",
+            "padi membuat",
+          ],
+          hints: {
+            h1: "Ingat kembali: Apakah hewan seperti tikus punya klorofil untuk memasak makanan sendiri? 🐭🌾",
+            h2: "Padi membuat makanan sendiri, sedangkan tikus harus memakan tumbuhan lain untuk bertahan hidup! 💡",
+            h3: null,
+          },
+        },
+        {
           id: "konsep_definisi_produsen",
           title: "Konsep Makhluk Hidup Produsen",
           transitionSpeech: [
-            "Hebat sekali, Detektif! Kamu berhasil menemukan bahwa padi membuat makanannya sendiri!",
-            "Sekarang, mari kita simpulkan peran penting tumbuhan hijau ini di alam...",
+            "Luar biasa, Detektif! 🌟",
+            "Padi dapat membuat makanannya sendiri dengan bantuan cahaya matahari. Sementara itu, tikus mendapatkan makanan dengan memakan makhluk hidup lain.",
           ],
           openingQuestion:
-            "Karena padi dapat membuat makanannya sendiri dan menjadi sumber makanan bagi makhluk lain, apa sebutan ilmiah untuk peran padi di ekosistem? 🌱",
+            "Nah, dalam rantai makanan, makhluk hidup seperti padi yang dapat membuat makanannya sendiri disebut PRODUSEN. 🌾 Kamu berhasil menemukan satu konsep penting!",
           targetUnderstanding:
             "Makhluk hidup yang dapat membuat makanannya sendiri disebut PRODUSEN.",
           misconceptions: [
@@ -130,8 +170,8 @@ export const MISSIONS_DATA = [
             "penghasil makanan",
           ],
           hints: {
-            h1: "Kata ini berakar dari kata 'memproduksi' atau menghasilkan 💡",
-            h2: "Tumbuhan hijau yang menghasilkan makanan sendiri disebut PRODUSEN! 🌱",
+            h1: "Kata ini berakar dari kata 'memproduksi' atau menghasilkan makanan sendiri 💡",
+            h2: "Tumbuhan hijau yang menghasilkan makanan sendiri disebut PRODUSEN! 🌾",
             h3: null,
           },
         },
