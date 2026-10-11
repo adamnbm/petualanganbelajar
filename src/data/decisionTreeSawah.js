@@ -20,7 +20,7 @@ export const DECISION_TREES = {
     missionId: "misi_1",
     title: "Misi 1: Siapa Aku? (Peran Produsen)",
     startNodeId: "m0_start",
-    totalMainQuestions: 2,
+    totalMainQuestions: 3,
     nodes: {
       // ── KOTAK AWAL (Padi sebagai Produsen) ───────────────────────────────
       "m0_start": {
@@ -28,10 +28,10 @@ export const DECISION_TREES = {
         isMain: true,
         mainIndex: 1,
         title: "Cara Padi Mendapatkan Makanan",
-        image: "/visual_padi_produsen.jpg",
-        imageAlt: "Padi memanfaatkan cahaya matahari (fotosintesis)",
-        imageCaption: "Padi memanfaatkan sinar matahari untuk membuat makanannya sendiri (fotosintesis)",
-        question: "Padi terlihat menjadi yang pertama dalam rantai makanan di sawah 🌾.\n\nBagaimana cara padi mendapatkan makanannya?",
+        image: "/visual_sawah_pak_budi.jpg",
+        imageAlt: "Tanaman padi di sawah Pak Budi",
+        imageCaption: null,
+        question: "Detektif, coba perhatikan tanaman padi di sawah Pak Budi! 🌾\n\nPadi bisa tumbuh semakin besar. Menurutmu, dari mana padi mendapatkan makanannya?",
         options: [
           {
             id: "A",
@@ -168,17 +168,17 @@ export const DECISION_TREES = {
           {
             id: "A",
             text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
-            next: "m0_reinforcement"
+            next: "m0_beda_padi_tikus"
           },
           {
             id: "B",
             text: "Menyimpannya langsung tanpa perlu mengolahnya.",
-            next: "m0_reinforcement"
+            next: "m0_beda_padi_tikus"
           },
           {
             id: "C",
             text: "Mengubahnya langsung menjadi padi tanpa butuh daun.",
-            next: "m0_reinforcement"
+            next: "m0_beda_padi_tikus"
           }
         ]
       },
@@ -334,7 +334,7 @@ export const DECISION_TREES = {
           {
             id: "A",
             text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
-            next: "m0_reinforcement"
+            next: "m0_beda_padi_tikus"
           },
           {
             id: "B",
@@ -362,30 +362,132 @@ export const DECISION_TREES = {
           {
             id: "A",
             text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
-            next: "m0_reinforcement"
+            next: "m0_beda_padi_tikus"
           },
           {
             id: "B",
             text: "Menyerap makanan yang sudah jadi dari tanah melalui akar.",
-            next: "m0_reinforcement"
+            next: "m0_beda_padi_tikus"
           },
           {
             id: "C",
             text: "Memakan bangkai serangga dan hewan kecil di sekitarnya.",
+            next: "m0_beda_padi_tikus"
+          }
+        ]
+      },
+
+      // ── PERTANYAAN KOMPARASI: Padi vs Tikus ──────────────────────────────
+      "m0_beda_padi_tikus": {
+        id: "m0_beda_padi_tikus",
+        isMain: true,
+        mainIndex: 2,
+        title: "Perbedaan Padi dan Tikus",
+        introSpeech: [
+          "Hebat, Detektif! 🌟 Kamu sudah mengetahui bahwa padi dapat membuat makanannya sendiri dengan bantuan cahaya matahari.",
+          "Sekarang, coba pikirkan!"
+        ],
+        question: "Jika padi bisa membuat makanannya sendiri, sedangkan tikus harus memakan tumbuhan, apa perbedaan keduanya?",
+        options: [
+          {
+            id: "A",
+            text: "Padi membuat makanan sendiri, tikus mendapatkan makanan dari makhluk hidup lain.",
+            next: "m0_tanya_peran_penting"
+          },
+          {
+            id: "B",
+            text: "Padi dan tikus sama-sama membuat makanan sendiri.",
+            misconceptionTriggered: "hewan_buat_makanan",
+            next: "m0_penuntun_padi_tikus"
+          },
+          {
+            id: "C",
+            text: "Padi mendapatkan makanan dari tanah, sedangkan tikus membuat makanan sendiri.",
+            misconceptionTriggered: "produsen_pemakan_pupuk",
+            next: "m0_penuntun_padi_tikus"
+          }
+        ],
+        hintLevel1: "Ingat kembali: Apakah hewan seperti tikus bisa membuat makanan sendiri tanpa memakan tumbuhan? 🤔🌾",
+        hintLevel2: "Padi membuat makanannya sendiri, sedangkan tikus harus memakan tumbuhan untuk mendapatkan energi!"
+      },
+
+      // ── JIKA SISWA MENJAWAB BENAR (Pertanyaan Lanjutan Sebelum Penguatan) ───
+      "m0_tanya_peran_penting": {
+        id: "m0_tanya_peran_penting",
+        isMain: false,
+        title: "Peran Penting Padi",
+        introSpeech: [
+          "Bagus! 👏"
+        ],
+        question: "Jadi, menurutmu mengapa tumbuhan seperti padi memiliki peran penting sebagai sumber makanan bagi makhluk hidup lain?",
+        isOpenEnded: true,
+        placeholder: "Ketik penjelasanmu di sini, Detektif...",
+        conceptContext: {
+          concept: "Tumbuhan seperti padi memiliki peran penting karena mereka dapat membuat makanan sendiri dengan fotosintesis, sedangkan hewan seperti tikus tidak bisa membuat makanan sendiri dan bergantung pada tumbuhan sebagai sumber energi makanan.",
+          keywords: ["sendiri", "makanan", "energi", "hewan", "tikus", "sumber", "bergantung", "tidak bisa", "fotosintesis"],
+          misconceptions: ["tanah", "pupuk", "sama-sama membuat"]
+        },
+        nextOnAligned: "m0_reinforcement",
+        nextOnMisconception: "m0_reinforcement",
+        options: [
+          {
+            id: "A",
+            text: "Karena hewan tidak bisa membuat makanan sendiri, sehingga sangat bergantung pada tumbuhan.",
+            next: "m0_reinforcement"
+          },
+          {
+            id: "B",
+            text: "Karena padi menghasilkan energi makanan utama bagi makhluk hidup lain di sawah.",
             next: "m0_reinforcement"
           }
         ]
       },
 
-      // ── KOTAK AKHIR: SISWA "Membuat makanannya sendiri" -> PRODUSEN ────────
+      // ── JIKA SISWA MENJAWAB SALAH (Pertanyaan Penuntun / Scaffolding) ───────
+      "m0_penuntun_padi_tikus": {
+        id: "m0_penuntun_padi_tikus",
+        isMain: false,
+        title: "Pertanyaan Penuntun: Padi & Tikus",
+        introSpeech: [
+          "Mari kita telusuri lebih teliti lagi 🔍."
+        ],
+        question: "Coba ingat kembali. Apakah padi harus memakan makhluk hidup lain untuk mendapatkan makanan? Bagaimana dengan tikus?",
+        isOpenEnded: true,
+        placeholder: "Ketik analisismu di sini, Detektif...",
+        conceptContext: {
+          concept: "Padi tidak perlu memakan makhluk hidup lain karena dapat membuat makanannya sendiri lewat fotosintesis, sedangkan tikus harus memakan tumbuhan atau makhluk hidup lain.",
+          keywords: ["padi", "tikus", "sendiri", "memakan", "matahari", "tumbuhan", "hewan", "tidak memakan"],
+          misconceptions: ["sama-sama", "dari tanah", "makan pupuk"]
+        },
+        nextOnAligned: "m0_reinforcement",
+        nextOnMisconception: "m0_beda_padi_tikus",
+        options: [
+          {
+            id: "A",
+            text: "Padi membuat makanan sendiri, sedangkan tikus harus memakan makhluk hidup lain.",
+            next: "m0_reinforcement"
+          },
+          {
+            id: "B",
+            text: "Padi dan tikus sama-sama harus memakan tanaman lain.",
+            misconceptionTriggered: "hewan_buat_makanan",
+            next: "m0_beda_padi_tikus"
+          }
+        ]
+      },
+
+      // ── KOTAK AKHIR: KALIMAT PENGUATAN AKHIR SOKRABOT -> PRODUSEN ────────
       "m0_reinforcement": {
         id: "m0_reinforcement",
         isMain: true,
         isConceptCompleted: true,
         isEnd: true,
-        mainIndex: 2,
+        mainIndex: 3,
         title: "Konsep PRODUSEN Ditemukan!",
-        question: "Tepat!\nPadi dapat membuat makanannya sendiri dengan bantuan cahaya matahari. Akar membantu menyerap air dan mineral dari tanah.\n\nMakhluk hidup yang dapat membuat makanannya sendiri disebut PRODUSEN.\nKamu menemukan konsep pertama: PRODUSEN. 🏆",
+        introSpeech: [
+          "Luar biasa, Detektif! 🌟\n\nPadi dapat membuat makanannya sendiri dengan bantuan cahaya matahari. Sementara itu, tikus mendapatkan makanan dengan memakan makhluk hidup lain."
+        ],
+        question: "Nah, dalam rantai makanan, makhluk hidup seperti padi yang dapat membuat makanannya sendiri disebut PRODUSEN. 🌾\n\nKamu berhasil menemukan satu konsep penting!",
         options: [
           {
             id: "Lanjut",

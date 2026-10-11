@@ -131,11 +131,13 @@ export default function ChatMessageList({
                       className="bubble-context-image"
                       loading="lazy"
                     />
-                    {msg.imageCaption && (
-                      <div className="bubble-image-caption">
-                        <span>🔍 {msg.imageCaption}</span>
-                      </div>
-                    )}
+                    {msg.imageCaption &&
+                      !msg.imageCaption.toLowerCase().includes("fotosintesis") &&
+                      !msg.imageCaption.toLowerCase().includes("sinar matahari") && (
+                        <div className="bubble-image-caption">
+                          <span>🔍 {msg.imageCaption}</span>
+                        </div>
+                      )}
                   </div>
                 )}
 
