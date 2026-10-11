@@ -16,6 +16,7 @@ import ResultCard from "./components/ResultCard";
 import TeacherDashboardModal from "./components/TeacherDashboardModal";
 import TeacherDashboardView from "./components/TeacherDashboardView";
 import StudentProfileModal from "./components/StudentProfileModal";
+import DeveloperInfoModal from "./components/DeveloperInfoModal";
 import Footer from "./components/Footer";
 import MobileBottomNav from "./components/MobileBottomNav";
 
@@ -35,6 +36,7 @@ export default function App() {
   // Modals & Drawers
   const [isTeacherDashboardOpen, setIsTeacherDashboardOpen] = useState(false);
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
+  const [isDeveloperInfoOpen, setIsDeveloperInfoOpen] = useState(false);
   const [isHintDrawerOpen, setIsHintDrawerOpen] = useState(false);
   const [activeVisualHintModal, setActiveVisualHintModal] = useState(null);
 
@@ -175,6 +177,7 @@ export default function App() {
           onNavigate={(view) => navigateTo(view)}
           onOpenTeacherDashboard={() => navigateTo("teacher")}
           onOpenStudentModal={() => setIsStudentModalOpen(true)}
+          onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)}
         />
       )}
 
@@ -195,6 +198,7 @@ export default function App() {
           <SplashScreen
             onStartAdventure={handleStartAdventureFromSplash}
             onOpenTeacherDashboard={() => navigateTo("teacher")}
+            onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)}
           />
         )}
 
@@ -207,6 +211,7 @@ export default function App() {
             onNavigate={(view) => navigateTo(view)}
             onOpenTeacherDashboard={() => navigateTo("teacher")}
             onSwitchStudent={() => setIsStudentModalOpen(true)}
+            onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)}
           />
         )}
 
@@ -247,6 +252,7 @@ export default function App() {
           <GuideView
             onBackToMenu={() => navigateTo("menu")}
             onGoToMap={() => navigateTo("map")}
+            onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)}
           />
         )}
 
@@ -328,7 +334,9 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      {currentView !== "splash" && currentView !== "teacher" && <Footer />}
+      {currentView !== "splash" && currentView !== "teacher" && (
+        <Footer onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)} />
+      )}
 
       {/* Navigasi Bawah Khusus Ponsel (Mobile Bottom Navigation) */}
       {currentView !== "splash" && currentView !== "chat" && currentView !== "teacher" && (
@@ -378,6 +386,12 @@ export default function App() {
       <TeacherDashboardModal
         isOpen={isTeacherDashboardOpen}
         onClose={() => setIsTeacherDashboardOpen(false)}
+      />
+
+      {/* Modal Info Pengembang Tesis S2 UPI */}
+      <DeveloperInfoModal
+        isOpen={isDeveloperInfoOpen}
+        onClose={() => setIsDeveloperInfoOpen(false)}
       />
     </div>
   );

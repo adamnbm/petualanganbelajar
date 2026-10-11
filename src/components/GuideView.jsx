@@ -88,7 +88,7 @@ const RULES = [
   "Gunakan petunjuk untuk menemukan jawaban, bukan sekadar menebak.",
 ];
 
-export default function GuideView({ onBackToMenu, onGoToMap }) {
+export default function GuideView({ onBackToMenu, onGoToMap, onOpenDeveloperInfo }) {
   return (
     <div className="guide-view-container">
       {/* ── Top Bar ── */}
@@ -200,6 +200,33 @@ export default function GuideView({ onBackToMenu, onGoToMap }) {
           </div>
         </div>
       </div>
+
+      {/* ── Info Tim Pengembang & Dosen Pembimbing (Tesis S2 UPI) ── */}
+      {onOpenDeveloperInfo && (
+        <div style={{ marginTop: "1.25rem", textAlign: "center" }}>
+          <button
+            onClick={onOpenDeveloperInfo}
+            style={{
+              background: "#FFFFFF",
+              border: "1.5px solid #A5D6A7",
+              borderRadius: "50px",
+              padding: "0.6rem 1.25rem",
+              color: "#1B5E20",
+              fontWeight: 700,
+              fontSize: "0.85rem",
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
+            }}
+            id="btn-guide-dev-info"
+            title="Info Pengembang"
+          >
+            <span>🎓 Info Pengembang</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

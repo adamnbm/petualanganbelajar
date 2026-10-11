@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Sparkles, ArrowRight, User, School, Hash, GraduationCap, Search, Star, Leaf, ChevronDown, X } from "lucide-react";
 import { studentSession } from "../utils/studentSession";
 
-export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard }) {
+export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard, onOpenDeveloperInfo }) {
   const existing = studentSession.getActiveStudent();
   const [name, setName] = useState(existing?.name || "");
   const [className, setClassName] = useState(existing?.className || "Kelas 5");
@@ -166,16 +166,45 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard 
           </button>
         </form>
 
-        {/* Teacher Portal */}
-        <button
-          className="nav-pill-btn btn-teacher-portal btn-teacher-v2"
-          onClick={onOpenTeacherDashboard}
-          title="Buka Portal Evaluasi Guru"
-          id="btn-dashboard-guru"
-        >
-          <GraduationCap size={17} />
-          <span className="navbar-label">Masuk sebagai Guru</span>
-        </button>
+        {/* Portal Guru & Info Pengembang */}
+        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap", margin: "1rem 0 0.5rem" }}>
+          <button
+            type="button"
+            className="nav-pill-btn btn-teacher-portal btn-teacher-v2"
+            onClick={onOpenTeacherDashboard}
+            title="Buka Portal Evaluasi Guru"
+            id="btn-dashboard-guru"
+          >
+            <GraduationCap size={17} />
+            <span className="navbar-label">Masuk sebagai Guru</span>
+          </button>
+
+          <button
+            type="button"
+            className="nav-pill-btn btn-teacher-v2"
+            onClick={onOpenDeveloperInfo}
+            title="Info Pengembang"
+            id="btn-splash-dev-info"
+            style={{
+              background: "rgba(255, 255, 255, 0.95)",
+              border: "1.5px solid #A5D6A7",
+              color: "#1B5E20",
+              cursor: "pointer",
+              padding: "0.55rem 1.1rem",
+              borderRadius: "50px",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              fontWeight: 700,
+              fontSize: "0.85rem",
+              boxShadow: "0 2px 8px rgba(46, 125, 50, 0.1)",
+              transition: "all 0.2s ease"
+            }}
+          >
+            <Sparkles size={16} color="#2E7D32" />
+            <span className="navbar-label">Info Pengembang</span>
+          </button>
+        </div>
 
         {/* Feature Highlights */}
         <div className="splash-features-grid splash-features-v2">
