@@ -91,28 +91,41 @@ export default function DeveloperInfoModal({ isOpen, onClose }) {
             backgroundColor: "#F8FAF8"
           }}
         >
-          {/* Card Institusi & Tesis */}
+          {/* Banner Logo Kampus */}
           <div
             style={{
               background: "#FFFFFF",
-              border: "1px solid #E2E8F0",
+              border: "1.5px solid #E2E8F0",
               borderRadius: "14px",
-              padding: "1rem",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
+              padding: "1rem 1.25rem",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "10px"
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-              <School size={18} color="#2E7D32" />
-              <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#1B5E20", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Afiliasi Akademik
-              </span>
+            <img
+              src="/logo-upi-cibiru.png"
+              alt="Logo UPI Kampus Cibiru"
+              style={{
+                maxWidth: "260px",
+                width: "100%",
+                height: "auto",
+                objectFit: "contain"
+              }}
+            />
+            <div style={{ textAlign: "center" }}>
+              <p style={{ margin: 0, fontWeight: 800, fontSize: "0.95rem", color: "#1E293B" }}>
+                Universitas Pendidikan Indonesia
+              </p>
+              <p style={{ margin: "2px 0 0", fontSize: "0.85rem", color: "#64748B", fontWeight: 600 }}>
+                Program Studi Magister Pendidikan Guru Sekolah Dasar (S2 PGSD)
+              </p>
+              <p style={{ margin: "2px 0 0", fontSize: "0.8rem", color: "#94A3B8" }}>
+                Kampus Cibiru, Bandung
+              </p>
             </div>
-            <p style={{ margin: 0, fontWeight: 700, fontSize: "0.95rem", color: "#1E293B" }}>
-              Universitas Pendidikan Indonesia (UPI) Kampus Cibiru
-            </p>
-            <p style={{ margin: "3px 0 0", fontSize: "0.85rem", color: "#64748B" }}>
-              Program Studi Magister Pendidikan Guru Sekolah Dasar (S2 PGSD)
-            </p>
           </div>
 
           {/* Card Pengembang / Peneliti */}
