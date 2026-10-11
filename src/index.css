@@ -2389,6 +2389,47 @@ body {
   font-weight: 800 !important;
 }
 
+/* Tombol Info Pengembang di Navbar */
+.btn-nav-dev-info {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  height: 38px !important;
+  padding: 0 14px !important;
+  border-radius: 9999px !important;
+  border: 1.5px solid #a5d6a7 !important;
+  background: #f1f8e9 !important;
+  color: #1b5e20 !important;
+  font-size: 0.86rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 5px rgba(46, 125, 50, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-nav-dev-info:hover {
+  background: #e8f5e9 !important;
+  border-color: #4caf50 !important;
+  color: #0f3d13 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.16) !important;
+}
+
+.btn-nav-dev-info svg {
+  flex-shrink: 0 !important;
+}
+
+.btn-nav-dev-info span {
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+}
+
 /* ---- SPLASH SCREEN v2 (Redesign Premium) ---- */
 
 /* === Background & Container === */

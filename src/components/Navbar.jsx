@@ -24,6 +24,7 @@ export default function Navbar({
   onNavigate,
   onOpenTeacherDashboard,
   onOpenStudentModal,
+  onOpenDeveloperInfo,
 }) {
   const [isMuted, setIsMuted] = useState(soundManager.isMuted());
   const [activeStudent, setActiveStudent] = useState(
@@ -152,6 +153,17 @@ export default function Navbar({
             <span className="navbar-label">Guru</span>
           </button> */}
 
+          {/* Info Pengembang */}
+          <button
+            className="btn-nav-dev-info"
+            onClick={onOpenDeveloperInfo}
+            title="Info Pengembang"
+            id="btn-nav-dev-info"
+          >
+            <GraduationCap size={16} color="#2E7D32" />
+            <span>Info Pengembang</span>
+          </button>
+
           {/* Suara */}
           <button
             className="nav-icon-btn"
@@ -173,8 +185,17 @@ export default function Navbar({
           </button>
         </div>
 
-        {/* Right Action Icons (Mobile: Bell with Red Dot & Keluar) */}
+        {/* Right Action Icons (Mobile: Info Pengembang, Bell & Keluar) */}
         <div className="mobile-header-actions show-on-mobile-only">
+          <button
+            className="mobile-header-icon-btn"
+            onClick={onOpenDeveloperInfo}
+            title="Info Pengembang"
+            id="mobile-btn-dev-info"
+          >
+            <GraduationCap size={18} />
+          </button>
+
           <button
             className="mobile-header-icon-btn bell-btn"
             onClick={() => alert("Misi baru siap dijelajahi di Sawah Pak Budi!")}

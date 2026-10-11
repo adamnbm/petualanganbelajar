@@ -22,6 +22,7 @@ export default function MainMenu({
   onNavigate,
   onOpenTeacherDashboard,
   onSwitchStudent,
+  onOpenDeveloperInfo,
 }) {
   const achievements = getStudentAchievements();
   const codexCards = getCodexCardsStatus();
@@ -321,6 +322,24 @@ export default function MainMenu({
             <span>Keluar / Ganti Siswa</span>
           </button>
         </div>
+
+        <button
+          onClick={onOpenDeveloperInfo}
+          className="btn-aux-teacher"
+          style={{
+            background: "#F1F8E9",
+            color: "#1B5E20",
+            border: "1.5px solid #A5D6A7",
+            boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
+            cursor: "pointer",
+            fontWeight: 700
+          }}
+          id="btn-menu-dev-info"
+          title="Info Pengembang"
+        >
+          <GraduationCap size={18} color="#2E7D32" />
+          <span>Info Pengembang</span>
+        </button>
 
         {/* <button
           onClick={onOpenTeacherDashboard}
