@@ -57,27 +57,57 @@ export default function Navbar({
   return (
     <header className="site-navbar">
       <div className="navbar-inner">
-        {/* Brand Logo & Name */}
-        <button
-          className="brand-logo"
-          onClick={() => onNavigate("menu")}
-          title="Menuju Menu Utama SOKRABOT"
-          id="btn-brand-home"
-        >
-          <div className="brand-mascot-avatar">
+        {/* Brand Group & Logo UPI Kampus Cibiru */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+          <button
+            className="brand-logo"
+            onClick={() => onNavigate("menu")}
+            title="Menuju Menu Utama SOKRABOT"
+            id="btn-brand-home"
+          >
+            <div className="brand-mascot-avatar">
+              <img
+                src="/sokrabot_mascot.png"
+                alt="SOKRABOT Logo"
+                className="brand-mascot-pic"
+              />
+            </div>
+            <div className="brand-text-wrapper">
+              <span className="brand-title">
+                SOKRABOT
+              </span>
+              <span className="brand-subtitle">Petualangan Rantai Makanan</span>
+            </div>
+          </button>
+
+          {/* Badge Kapsul Logo UPI Kampus Cibiru (Opsi 3) */}
+          <div
+            className="navbar-upi-pill hide-on-mobile"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              background: "#FFFFFF",
+              padding: "4px 10px",
+              borderRadius: "50px",
+              border: "1.5px solid #dcf2e1",
+              boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
+              height: "36px",
+              flexShrink: 0
+            }}
+            title="Universitas Pendidikan Indonesia - Kampus Cibiru"
+          >
             <img
-              src="/sokrabot_mascot.png"
-              alt="SOKRABOT Logo"
-              className="brand-mascot-pic"
+              src="/logo-upi-cibiru.png"
+              alt="UPI Kampus Cibiru"
+              style={{
+                height: "26px",
+                width: "auto",
+                objectFit: "contain"
+              }}
             />
           </div>
-          <div className="brand-text-wrapper">
-            <span className="brand-title">
-              SOKRABOT
-            </span>
-            <span className="brand-subtitle">Petualangan Rantai Makanan</span>
-          </div>
-        </button>
+        </div>
+
 
         {/* Primary Navigation Links (Desktop) */}
         <nav className="navbar-links-group hide-on-mobile">
@@ -153,17 +183,6 @@ export default function Navbar({
             <span className="navbar-label">Guru</span>
           </button> */}
 
-          {/* Info Pengembang */}
-          <button
-            className="btn-nav-dev-info"
-            onClick={onOpenDeveloperInfo}
-            title="Info Pengembang"
-            id="btn-nav-dev-info"
-          >
-            <GraduationCap size={16} color="#2E7D32" />
-            <span>Info Pengembang</span>
-          </button>
-
           {/* Suara */}
           <button
             className="nav-icon-btn"
@@ -185,17 +204,8 @@ export default function Navbar({
           </button>
         </div>
 
-        {/* Right Action Icons (Mobile: Info Pengembang, Bell & Keluar) */}
+        {/* Right Action Icons (Mobile: Bell & Keluar) */}
         <div className="mobile-header-actions show-on-mobile-only">
-          <button
-            className="mobile-header-icon-btn"
-            onClick={onOpenDeveloperInfo}
-            title="Info Pengembang"
-            id="mobile-btn-dev-info"
-          >
-            <GraduationCap size={18} />
-          </button>
-
           <button
             className="mobile-header-icon-btn bell-btn"
             onClick={() => alert("Misi baru siap dijelajahi di Sawah Pak Budi!")}
