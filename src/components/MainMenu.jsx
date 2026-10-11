@@ -98,9 +98,10 @@ export default function MainMenu({
             </span>
           </h1>
           <p className="menu-hero-sub">
-            Sawah Pak Budi sedang menunggumu! SOKRABOT siap memandu penalaranmu
-            untuk mengungkap misteri jaring makanan dan mengembalikan
-            keseimbangan alam.
+            Ada misteri di sawah Pak Budi! Tanaman padi Pak Budi semakin
+            berkurang. Wah,kira-kira apa yang terjadi,ya? Ayo bantu SOKRABOT
+            mencari petunjuk menjawab pertanyaan, dan menemukan penyebabnya.
+            Siap menjadi detektif sains?
           </p>
 
           {/* Quick Stats Pill */}
@@ -198,7 +199,8 @@ export default function MainMenu({
               <h3 className="card-nav-title">Peta Misi Sawah</h3>
               <p className="card-nav-desc">
                 <span className="desc-mobile show-on-mobile-only">
-                  Jelajahi peta interaktif untuk menemukan lokasi misi dan informasi penting di sekitar sawah.
+                  Jelajahi peta interaktif untuk menemukan lokasi misi dan
+                  informasi penting di sekitar sawah.
                 </span>
                 <span className="desc-desktop hide-on-mobile">
                   Jelajahi 5 level misi bertingkat (Level Lock 1-5). Selesaikan
@@ -232,7 +234,8 @@ export default function MainMenu({
               <h3 className="card-nav-title">Buku Pintar (Codex)</h3>
               <p className="card-nav-desc">
                 <span className="desc-mobile show-on-mobile-only">
-                  Kumpulkan pengetahuan tentang jaring makanan, makhluk hidup, dan keseimbangan ekosistem.
+                  Kumpulkan pengetahuan tentang jaring makanan, makhluk hidup,
+                  dan keseimbangan ekosistem.
                 </span>
                 <span className="desc-desktop hide-on-mobile">
                   Koleksi kartu konsep ilmiah interaktif. Kartu akan terbuka
