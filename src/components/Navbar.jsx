@@ -112,12 +112,11 @@ export default function Navbar({
         {/* Primary Navigation Links (Desktop) */}
         <nav className="navbar-links-group hide-on-mobile">
           <button
-            className={`nav-tab-link ${currentView === "menu" ? "active" : ""}`}
-            onClick={() => onNavigate("menu")}
-            id="nav-link-menu"
+            className={`nav-tab-link ${currentView === "guide" ? "active" : ""}`}
+            onClick={() => onNavigate("guide")}
+            id="nav-link-guide"
           >
-            <Home size={16} />
-            <span>Menu</span>
+            <span>1. Petunjuk Penggunaan</span>
           </button>
 
           <button
@@ -125,8 +124,7 @@ export default function Navbar({
             onClick={() => onNavigate("map")}
             id="nav-link-map"
           >
-            <MapPin size={16} />
-            <span>Peta Misi</span>
+            <span>2. Peta Misi</span>
           </button>
 
           <button
@@ -134,8 +132,7 @@ export default function Navbar({
             onClick={() => onNavigate("codex")}
             id="nav-link-codex"
           >
-            <BookOpen size={16} />
-            <span>Buku Pintar</span>
+            <span>3. Buku Pintar</span>
           </button>
 
           <button
@@ -143,17 +140,7 @@ export default function Navbar({
             onClick={() => onNavigate("achievements")}
             id="nav-link-achievements"
           >
-            <Award size={16} />
-            <span>Pencapaian</span>
-          </button>
-
-          <button
-            className={`nav-tab-link ${currentView === "guide" ? "active" : ""}`}
-            onClick={() => onNavigate("guide")}
-            id="nav-link-guide"
-          >
-            <HelpCircle size={16} />
-            <span>Petunjuk</span>
+            <span>4. Pencapaian</span>
           </button>
         </nav>
 
