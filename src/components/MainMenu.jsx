@@ -11,6 +11,7 @@ import {
   LogOut,
   Zap,
   ShieldAlert,
+  Mail,
 } from "lucide-react";
 import {
   getStudentAchievements,
@@ -23,6 +24,7 @@ export default function MainMenu({
   onOpenTeacherDashboard,
   onSwitchStudent,
   onOpenDeveloperInfo,
+  onOpenContactUs,
 }) {
   const achievements = getStudentAchievements();
   const codexCards = getCodexCardsStatus();
@@ -324,23 +326,43 @@ export default function MainMenu({
           </button>
         </div>
 
-        <button
-          onClick={onOpenDeveloperInfo}
-          className="btn-aux-teacher"
-          style={{
-            background: "#F1F8E9",
-            color: "#1B5E20",
-            border: "1.5px solid #A5D6A7",
-            boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
-            cursor: "pointer",
-            fontWeight: 700
-          }}
-          id="btn-menu-dev-info"
-          title="Tim Pengembang"
-        >
-          <GraduationCap size={18} color="#2E7D32" />
-          <span>Tim Pengembang</span>
-        </button>
+        <div className="aux-action-buttons-group">
+          <button
+            onClick={onOpenContactUs}
+            className="btn-aux-teacher"
+            style={{
+              background: "#F1F8E9",
+              color: "#1B5E20",
+              border: "1.5px solid #A5D6A7",
+              boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
+              cursor: "pointer",
+              fontWeight: 700
+            }}
+            id="btn-menu-contact-us"
+            title="Hubungi Kami"
+          >
+            <Mail size={18} color="#2E7D32" />
+            <span>Hubungi Kami</span>
+          </button>
+
+          <button
+            onClick={onOpenDeveloperInfo}
+            className="btn-aux-teacher"
+            style={{
+              background: "#F1F8E9",
+              color: "#1B5E20",
+              border: "1.5px solid #A5D6A7",
+              boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
+              cursor: "pointer",
+              fontWeight: 700
+            }}
+            id="btn-menu-dev-info"
+            title="Tim Pengembang"
+          >
+            <GraduationCap size={18} color="#2E7D32" />
+            <span>Tim Pengembang</span>
+          </button>
+        </div>
 
         {/* <button
           onClick={onOpenTeacherDashboard}

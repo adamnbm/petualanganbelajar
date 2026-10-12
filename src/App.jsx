@@ -17,6 +17,7 @@ import TeacherDashboardModal from "./components/TeacherDashboardModal";
 import TeacherDashboardView from "./components/TeacherDashboardView";
 import StudentProfileModal from "./components/StudentProfileModal";
 import DeveloperInfoModal from "./components/DeveloperInfoModal";
+import ContactUsModal from "./components/ContactUsModal";
 import Footer from "./components/Footer";
 import MobileBottomNav from "./components/MobileBottomNav";
 
@@ -37,6 +38,7 @@ export default function App() {
   const [isTeacherDashboardOpen, setIsTeacherDashboardOpen] = useState(false);
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [isDeveloperInfoOpen, setIsDeveloperInfoOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isHintDrawerOpen, setIsHintDrawerOpen] = useState(false);
   const [activeVisualHintModal, setActiveVisualHintModal] = useState(null);
 
@@ -64,6 +66,9 @@ export default function App() {
       if (hash === "/guru" || hash === "/teacher") {
         setCurrentView("teacher");
         return;
+      }
+      if (hash === "/contact" || hash === "/hubungi-kami") {
+        setIsContactModalOpen(true);
       }
       if (hash.startsWith("/mission/")) {
         const id = hash.replace("/mission/", "");
@@ -212,6 +217,7 @@ export default function App() {
             onOpenTeacherDashboard={() => navigateTo("teacher")}
             onSwitchStudent={() => setIsStudentModalOpen(true)}
             onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)}
+            onOpenContactUs={() => setIsContactModalOpen(true)}
           />
         )}
 
@@ -335,7 +341,7 @@ export default function App() {
 
       {/* Footer */}
       {currentView !== "splash" && currentView !== "teacher" && (
-        <Footer onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)} />
+        <Footer />
       )}
 
       {/* Navigasi Bawah Khusus Ponsel (Mobile Bottom Navigation) */}
@@ -392,6 +398,12 @@ export default function App() {
       <DeveloperInfoModal
         isOpen={isDeveloperInfoOpen}
         onClose={() => setIsDeveloperInfoOpen(false)}
+      />
+
+      {/* Modal Hubungi Kami (Suci Ulfah Suhirwah) */}
+      <ContactUsModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
       />
     </div>
   );

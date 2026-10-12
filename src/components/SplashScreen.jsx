@@ -168,7 +168,7 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
         </form>
 
         {/* Portal Guru & Info Pengembang */}
-        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap", margin: "1rem 0 0.5rem" }}>
+        <div className="splash-aux-links">
           <button
             type="button"
             className="nav-pill-btn btn-teacher-portal btn-teacher-v2"
@@ -176,33 +176,18 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
             title="Buka Portal Evaluasi Guru"
             id="btn-dashboard-guru"
           >
-            <GraduationCap size={17} />
+            <GraduationCap size={15} />
             <span className="navbar-label">Masuk sebagai Guru</span>
           </button>
 
           <button
             type="button"
-            className="nav-pill-btn btn-teacher-v2"
+            className="nav-pill-btn btn-splash-dev-pill"
             onClick={onOpenDeveloperInfo}
             title="Tim Pengembang"
             id="btn-splash-dev-info"
-            style={{
-              background: "rgba(255, 255, 255, 0.95)",
-              border: "1.5px solid #A5D6A7",
-              color: "#1B5E20",
-              cursor: "pointer",
-              padding: "0.55rem 1.1rem",
-              borderRadius: "50px",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              fontWeight: 700,
-              fontSize: "0.85rem",
-              boxShadow: "0 2px 8px rgba(46, 125, 50, 0.1)",
-              transition: "all 0.2s ease"
-            }}
           >
-            <Sparkles size={16} color="#2E7D32" />
+            <Sparkles size={15} color="#2E7D32" />
             <span className="navbar-label">Tim Pengembang</span>
           </button>
         </div>
