@@ -2382,6 +2382,17 @@ body {
   box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
 }
 
+@media (max-width: 1200px) and (min-width: 769px) {
+  .navbar-links-group {
+    gap: 0.25rem;
+  }
+  .nav-tab-link {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.85rem;
+    gap: 0.35rem;
+  }
+}
+
 .btn-teacher-portal {
   background: #fff9c4 !important;
   border-color: #fbc02d !important;
