@@ -1,12 +1,14 @@
 import React from "react";
 
-export default function Footer({ onOpenDeveloperInfo }) {
+export default function Footer() {
   return (
     <footer className="site-footer">
-      <p>
-        🌾 <strong>SOKRABOT: Petualangan Sains Ekosistem Sawah</strong> •
-        Sahabat Belajar Siswa SD Kelas 5-6
-      </p>
+      <div className="site-footer-inner">
+        <p className="site-footer-text">
+          🌾 <strong>SOKRABOT</strong> • Sains Ekosistem Sawah
+          <span className="footer-full-tagline"> • Sahabat Belajar Siswa SD Kelas 5-6</span>
+        </p>
+      </div>
     </footer>
   );
 }
