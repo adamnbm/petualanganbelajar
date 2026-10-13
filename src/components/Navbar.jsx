@@ -58,7 +58,14 @@ export default function Navbar({
     <header className="site-navbar">
       <div className="navbar-inner">
         {/* Brand Group & Logo UPI Kampus Cibiru */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            flexShrink: 0,
+          }}
+        >
           <button
             className="brand-logo"
             onClick={() => onNavigate("menu")}
@@ -73,9 +80,7 @@ export default function Navbar({
               />
             </div>
             <div className="brand-text-wrapper">
-              <span className="brand-title">
-                SOKRABOT
-              </span>
+              <span className="brand-title">SOKRABOT</span>
               <span className="brand-subtitle">Petualangan Rantai Makanan</span>
             </div>
           </button>
@@ -92,7 +97,7 @@ export default function Navbar({
               border: "1.5px solid #dcf2e1",
               boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
               height: "36px",
-              flexShrink: 0
+              flexShrink: 0,
             }}
             title="Universitas Pendidikan Indonesia - Kampus Cibiru"
           >
@@ -102,12 +107,11 @@ export default function Navbar({
               style={{
                 height: "26px",
                 width: "auto",
-                objectFit: "contain"
+                objectFit: "contain",
               }}
             />
           </div>
         </div>
-
 
         {/* Primary Navigation Links (Desktop) */}
         <nav className="navbar-links-group hide-on-mobile">
@@ -193,7 +197,7 @@ export default function Navbar({
 
         {/* Right Action Icons (Mobile: Bell & Keluar) */}
         <div className="mobile-header-actions show-on-mobile-only">
-          <button
+          {/* <button
             className="mobile-header-icon-btn bell-btn"
             onClick={() => alert("Misi baru siap dijelajahi di Sawah Pak Budi!")}
             title="Pemberitahuan Misi"
@@ -201,7 +205,7 @@ export default function Navbar({
           >
             <Bell size={19} />
             <span className="mobile-notif-dot" />
-          </button>
+          </button> */}
 
           <button
             className="mobile-header-icon-btn logout-btn"
