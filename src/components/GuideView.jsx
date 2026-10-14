@@ -13,6 +13,7 @@ import {
   CheckCircle2,
   Trophy,
 } from "lucide-react";
+import VideoTutorialSection from "./VideoTutorialSection";
 
 const STEPS = [
   {
@@ -152,6 +153,9 @@ export default function GuideView({ onBackToMenu, onGoToMap, onOpenDeveloperInfo
           ))}
         </div>
       </div>
+
+      {/* ── 2 Video Panduan Penggunaan Web (Diputar Langsung di Chrome) ── */}
+      <VideoTutorialSection />
 
       {/* ── Aturan Petualang Hebat ── */}
       <div className="guide-rules-container">
