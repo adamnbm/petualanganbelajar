@@ -17,6 +17,7 @@ import {
   getStudentAchievements,
   getCodexCardsStatus,
 } from "../utils/sokrabotProgress";
+import VideoTutorialSection from "./VideoTutorialSection";
 
 export default function MainMenu({
   activeStudent,
@@ -308,6 +309,9 @@ export default function MainMenu({
           </div>
         </div>
       </section>
+
+      {/* 2 Video Panduan Penggunaan Web (Bisa Ditonton Langsung di Chrome) */}
+      <VideoTutorialSection />
 
       {/* Baris Kontrol Bawah: Dashboard Guru & Ganti Siswa */}
       <section className="menu-auxiliary-bar">
