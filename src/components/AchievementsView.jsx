@@ -32,9 +32,8 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
       {/* Top Bar Navigasi */}
       <div className="achieve-top-bar">
         <button onClick={onBackToMenu} className="btn-back-map" id="btn-back-to-menu-from-achievements">
-          <ArrowLeft size={18} />
-          <span className="btn-back-text">Kembali ke Menu Utama</span>
-          <span className="btn-back-text-mobile">Menu Utama</span>
+          <ArrowLeft size={20} />
+          <span>Kembali ke Menu Utama</span>
         </button>
 
         <div className="achieve-header-center">
@@ -46,10 +45,10 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           onClick={() => setShowResetConfirm(true)}
           className="btn-reset-progress"
           title="Mulai ulang petualangan dari awal"
+          id="btn-reset-achievements-progress"
         >
           <RotateCcw size={16} />
-          <span className="btn-reset-text">Reset Progres</span>
-          <span className="btn-reset-text-mobile">Reset</span>
+          <span>Reset Progres</span>
         </button>
       </div>
 
