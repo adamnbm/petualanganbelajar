@@ -85,30 +85,15 @@ export default function Navbar({
             </div>
           </button>
 
-          {/* Badge Kapsul Logo UPI Kampus Cibiru (Opsi 3) */}
+          {/* Badge Kapsul Logo UPI Kampus Cibiru */}
           <div
-            className="navbar-upi-pill hide-on-mobile"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              background: "#FFFFFF",
-              padding: "4px 10px",
-              borderRadius: "50px",
-              border: "1.5px solid #dcf2e1",
-              boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
-              height: "36px",
-              flexShrink: 0,
-            }}
+            className="navbar-upi-pill"
             title="Universitas Pendidikan Indonesia - Kampus Cibiru"
           >
             <img
               src="/logo-upi-cibiru.png"
               alt="UPI Kampus Cibiru"
-              style={{
-                height: "26px",
-                width: "auto",
-                objectFit: "contain",
-              }}
+              className="navbar-upi-logo-img"
             />
           </div>
         </div>
