@@ -32,8 +32,9 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
       {/* Top Bar Navigasi */}
       <div className="achieve-top-bar">
         <button onClick={onBackToMenu} className="btn-back-map" id="btn-back-to-menu-from-achievements">
-          <ArrowLeft size={20} />
-          <span>Kembali ke Menu Utama</span>
+          <ArrowLeft size={18} />
+          <span className="btn-back-text">Kembali ke Menu Utama</span>
+          <span className="btn-back-text-mobile">Menu Utama</span>
         </button>
 
         <div className="achieve-header-center">
@@ -47,7 +48,8 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           title="Mulai ulang petualangan dari awal"
         >
           <RotateCcw size={16} />
-          <span>Reset Progres</span>
+          <span className="btn-reset-text">Reset Progres</span>
+          <span className="btn-reset-text-mobile">Reset</span>
         </button>
       </div>
 
@@ -253,7 +255,8 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
           <span>Rekapitulasi Investigasi Misi (Data Log Siswa)</span>
         </h2>
 
-        <div className="table-responsive-wrapper">
+        {/* Desktop Table View */}
+        <div className="table-responsive-wrapper desktop-table-view">
           <table className="progress-data-table">
             <thead>
               <tr>
@@ -332,6 +335,86 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
               })}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Cards View */}
+        <div className="mobile-mission-cards-view">
+          {MISSIONS_DATA.map((m) => {
+            const prog = achievements.progressMap[m.id] || { status: "LOCKED", stars_earned: 0 };
+            const isLocked = prog.status === "LOCKED";
+            const isCompleted = prog.status === "COMPLETED";
+
+            return (
+              <div
+                key={m.id}
+                className={`mobile-mission-card ${isCompleted ? "card-completed" : isLocked ? "card-locked" : "card-active"}`}
+              >
+                <div className="mmc-header">
+                  <span className="mmc-number-badge">Misi {m.missionNumber}</span>
+                  <div className="mmc-status-badge">
+                    {isLocked && <span className="status-badge-tbl lock">🔒 Terkunci</span>}
+                    {isCompleted && <span className="status-badge-tbl done">✅ Selesai</span>}
+                    {prog.status === "IN_PROGRESS" && <span className="status-badge-tbl progress">🟡 Berjalan</span>}
+                    {prog.status === "NOT_STARTED" && <span className="status-badge-tbl ready">🟢 Siap Main</span>}
+                  </div>
+                </div>
+
+                <div className="mmc-body">
+                  <div className="mmc-title-row">
+                    <span className="mmc-icon">{m.icon}</span>
+                    <div className="mmc-title-wrap">
+                      <h4 className="mmc-title">{m.title}</h4>
+                      <span className="mmc-code">{m.code}</span>
+                    </div>
+                  </div>
+
+                  <div className="mmc-focus-box">
+                    <span className="mmc-focus-label">Fokus Pedagogis:</span>
+                    <p className="mmc-focus-text">{m.focus}</p>
+                  </div>
+
+                  <div className="mmc-meta-row">
+                    <div className="mmc-stars-box">
+                      <span className="mmc-stars-label">Bintang:</span>
+                      <div className="table-stars">
+                        {[1, 2, 3].map((s) => (
+                          <span
+                            key={s}
+                            className={s <= (prog.stars_earned || 0) ? "star-fill" : "star-dim"}
+                          >
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {prog.misconceptions_triggered && prog.misconceptions_triggered.length > 0 && (
+                    <div className="mmc-misconceptions">
+                      <span className="mmc-misc-label">Miskonsepsi Terdeteksi:</span>
+                      <div className="tag-misconceptions">
+                        {prog.misconceptions_triggered.map((mt, i) => (
+                          <span key={i} className="chip-misconception">
+                            {mt.replace(/_/g, " ")}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mmc-footer">
+                  <button
+                    className={`btn-mmc-action ${isLocked ? "btn-mmc-locked" : isCompleted ? "btn-mmc-replay" : "btn-mmc-play"}`}
+                    disabled={isLocked}
+                    onClick={() => onSelectMission(m.id)}
+                  >
+                    {isLocked ? "🔒 Misi Terkunci" : isCompleted ? "🔄 Mainkan Ulang" : "🚀 Mulai Misi"}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

@@ -40,7 +40,6 @@ export default function MainMenu({
       {/* Hero Banner Sambutan Detektif */}
       <section className="menu-hero-card">
         <div className="menu-hero-left">
-
           <h1 className="menu-hero-greeting">
             <span className="greeting-title-line">Halo, Detektif</span>{" "}
             <span className="greeting-name-line">
@@ -319,7 +318,7 @@ export default function MainMenu({
           <span>
             Detektif Aktif: <strong>{studentName}</strong> ({className})
           </span>
-          <button
+          {/* <button
             onClick={() => onNavigate("splash")}
             className="btn-aux-switch"
             title="Keluar ke layar awal untuk ganti siswa"
@@ -327,7 +326,7 @@ export default function MainMenu({
           >
             <LogOut size={15} />
             <span>Keluar / Ganti Siswa</span>
-          </button>
+          </button> */}
         </div>
 
         <div className="aux-action-buttons-group">
@@ -340,7 +339,7 @@ export default function MainMenu({
               border: "1.5px solid #A5D6A7",
               boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
               cursor: "pointer",
-              fontWeight: 700
+              fontWeight: 700,
             }}
             id="btn-menu-contact-us"
             title="Hubungi Kami"
@@ -358,7 +357,7 @@ export default function MainMenu({
               border: "1.5px solid #A5D6A7",
               boxShadow: "0 2px 6px rgba(46, 125, 50, 0.08)",
               cursor: "pointer",
-              fontWeight: 700
+              fontWeight: 700,
             }}
             id="btn-menu-dev-info"
             title="Tim Pengembang"
