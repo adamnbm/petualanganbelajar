@@ -8,13 +8,13 @@ export const TUTORIAL_VIDEOS = [
     id: "video_guru",
     title: "1. Tutorial untuk Guru",
     // 👇 Ganti link video YouTube untuk Guru di sini:
-    youtubeUrl: "https://youtu.be/a9JwsHFJ08M?si=yEymqJ7WzA5SQhUL",
+    youtubeUrl: "https://youtu.be/a9JwsHFJ08M?si=ZnF8-Ssh9qiaUoFe",
   },
   {
     id: "video_siswa",
     title: "2. Tutorial untuk Siswa",
     // 👇 Ganti link video YouTube untuk Siswa di sini:
-    youtubeUrl: "https://youtu.be/RuYF-6o-WwA?si=K2CHhT837iMqGE-u",
+    youtubeUrl: "https://youtu.be/RuYF-6o-WwA?si=jBH5xehUxMgCdrUp",
   }
 ];
 
