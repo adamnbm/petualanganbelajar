@@ -2861,7 +2861,7 @@ body {
 
 /* === Teacher Portal v2 === */
 .btn-teacher-v2 {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0 !important;
   border-radius: 12px !important;
   padding: 0.5rem 1rem !important;
   font-size: 0.85rem !important;
@@ -2871,6 +2871,301 @@ body {
 .btn-teacher-v2:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(251, 191, 36, 0.25);
+}
+
+/* === Splash Card Topbar (UPI Logo di Kiri & Video Panduan di Kanan) === */
+.splash-card-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  padding: 0 0.15rem;
+}
+
+.splash-upi-brand {
+  display: flex;
+  align-items: center;
+}
+
+.splash-upi-top-logo {
+  height: 42px;
+  width: auto;
+  max-width: 185px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.05));
+  transition: transform 0.2s ease;
+}
+
+.splash-upi-brand:hover .splash-upi-top-logo {
+  transform: scale(1.03);
+}
+
+.btn-splash-guide-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.9rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1.5px solid #a7f3d0;
+  color: #065f46;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(6, 95, 70, 0.08);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+
+.btn-splash-guide-top:hover {
+  background: #ecfdf5;
+  border-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(6, 95, 70, 0.16);
+}
+
+/* === Splash Footer Links (Minimalis tapi Terlihat Jelas) === */
+.splash-footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  width: 100%;
+}
+
+.splash-subtle-link {
+  background: rgba(16, 185, 129, 0.07);
+  border: 1.5px solid rgba(16, 185, 129, 0.18);
+  color: #1b5e20;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.splash-subtle-link:hover {
+  color: #065f46;
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(6, 95, 70, 0.1);
+}
+
+.splash-footer-sep {
+  color: #94a3b8;
+  font-size: 0.7rem;
+  user-select: none;
+}
+
+/* === Modal Video Tutorial SOKRABOT === */
+.splash-video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeInModal 0.25s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.splash-video-modal-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 680px;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: scaleUpModal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scaleUpModal {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.splash-video-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem 0.85rem;
+  border-bottom: 1px solid #f1f5f9;
+  background: linear-gradient(to right, #f8fafc, #ffffff);
+}
+
+.splash-video-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.splash-video-icon-badge {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.splash-video-modal-title {
+  font-family: var(--font-fredoka);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #065f46;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.splash-video-modal-subtitle {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0.15rem 0 0;
+}
+
+.btn-splash-video-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-splash-video-close:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+  transform: rotate(90deg);
+}
+
+.splash-video-tab-switch {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem 0.5rem;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.splash-video-tab-pill {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1.5px solid transparent;
+  background: #ffffff;
+  color: #64748b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.splash-video-tab-pill:hover {
+  color: #065f46;
+  background: #ecfdf5;
+}
+
+.splash-video-tab-pill.active {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.splash-video-screen-frame {
+  position: relative;
+  width: 100%;
+  background: #000000;
+  aspect-ratio: 16 / 9;
+}
+
+.splash-video-iframe-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.splash-video-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #94a3b8;
+  gap: 0.5rem;
+  background: #0f172a;
+  padding: 1.5rem;
+}
+
+.splash-video-modal-footer {
+  padding: 0.85rem 1.25rem;
+  background: #f8fafc;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.splash-video-footer-tip {
+  font-size: 0.78rem;
+  color: #475569;
+  margin: 0;
+  text-align: left;
+  line-height: 1.35;
+}
+
+.btn-splash-video-done-action {
+  padding: 0.5rem 1.2rem;
+  border-radius: 12px;
+  background: #059669;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-splash-video-done-action:hover {
+  background: #047857;
+  transform: translateY(-1px);
 }
 
 /* === Feature Grid v2 === */
@@ -8000,106 +8295,130 @@ body {
     gap: 0.65rem;
   }
 
-  /* Splash v2 mobile overrides - Kompak & Proporsional di Ponsel */
+  /* Splash v2 mobile overrides - Proporsional, Lega & User Friendly di Ponsel */
   .splash-container.splash-v2 {
-    padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.75rem 0.65rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
     min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .splash-card-v2 {
-    padding: 0.85rem 0.85rem 0.65rem !important;
-    border-radius: 18px !important;
-    max-width: 350px !important;
+    padding: 1.25rem 1rem 1.15rem !important;
+    border-radius: 24px !important;
+    max-width: min(94vw, 440px) !important;
     width: 100%;
-    margin: auto !important;
+    margin: 0.5rem auto !important;
     box-shadow:
-      0 6px 20px rgba(27, 94, 32, 0.08),
-      0 2px 6px rgba(0, 0, 0, 0.03) !important;
+      0 10px 30px rgba(27, 94, 32, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.04) !important;
   }
 
+  /* === Topbar Mobile: Logo UPI & Video Panduan === */
+  .splash-card-topbar {
+    margin-bottom: 0.5rem;
+    padding: 0;
+  }
+
+  .splash-upi-top-logo {
+    height: 34px;
+    max-width: 150px;
+  }
+
+  .btn-splash-guide-top {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.72rem;
+    gap: 0.25rem;
+  }
+
+  .btn-splash-guide-top svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  /* === Hero Section Mobile === */
   .splash-hero-section {
-    gap: 0.15rem;
-    margin-bottom: 0.2rem;
+    gap: 0.25rem;
+    margin-bottom: 0.35rem;
   }
 
   .splash-mascot-v2 {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
   }
 
   .splash-mascot-frame {
-    width: 54px;
-    height: 54px;
+    width: 62px;
+    height: 62px;
     padding: 2px;
   }
 
   .splash-title-row {
-    gap: 0.25rem;
+    gap: 0.35rem;
   }
 
   .splash-title-v2 {
-    font-size: 1.35rem !important;
+    font-size: 1.85rem !important;
     letter-spacing: -0.01em;
   }
 
   .splash-title-emoji {
-    font-size: 1.15rem;
+    font-size: 1.45rem;
   }
 
   .splash-subtitle-v2 {
-    font-size: 0.78rem !important;
-    margin-bottom: 0.15rem !important;
+    font-size: 0.92rem !important;
+    margin-bottom: 0.3rem !important;
   }
 
   .splash-desc-v2 {
-    font-size: 0.72rem !important;
-    line-height: 1.32;
+    font-size: 0.8rem !important;
+    line-height: 1.45;
     color: #475569 !important;
-    padding: 0 0.2rem;
-    max-width: 290px;
+    padding: 0 0.25rem;
+    max-width: 360px;
     margin: 0 auto;
   }
 
   .splash-form-v2 {
-    gap: 0.45rem;
-    margin-bottom: 0.4rem !important;
-    margin-top: 0.35rem;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem !important;
+    margin-top: 0.45rem;
   }
 
   .splash-form-card {
-    padding: 0.55rem 0.65rem;
-    border-radius: 12px;
-    gap: 0.45rem;
+    padding: 0.85rem 0.85rem;
+    border-radius: 16px;
+    gap: 0.65rem;
   }
 
   .form-label-v2 {
-    font-size: 0.74rem !important;
-    gap: 0.3rem !important;
+    font-size: 0.8rem !important;
+    gap: 0.4rem !important;
     margin-bottom: 2px;
   }
 
   .form-label-icon-wrap {
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
   }
 
   .form-input-v2,
   .form-select-v2 {
-    padding: 0.35rem 0.6rem !important;
-    font-size: 0.85rem !important;
-    border-radius: 8px !important;
-    min-height: 36px;
+    padding: 0.6rem 0.85rem !important;
+    font-size: 16px !important;
+    border-radius: 10px !important;
+    min-height: 44px;
   }
 
   .form-row-v2 {
     display: grid !important;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1.25fr 1fr;
     align-items: flex-start;
-    gap: 0.45rem;
+    gap: 0.55rem;
     width: 100%;
   }
 
@@ -8110,42 +8429,90 @@ body {
   }
 
   .btn-cta-v2 {
-    font-size: 0.88rem !important;
-    padding: 0.5rem 1rem !important;
-    min-height: 40px;
-    border-radius: 10px !important;
+    font-size: 0.95rem !important;
+    padding: 0.65rem 1.25rem !important;
+    min-height: 46px;
+    border-radius: 14px !important;
     width: 100%;
     justify-content: center;
   }
 
-  .splash-aux-links {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 0.45rem 0 0.1rem;
+  /* === Footer Links Mobile === */
+  .splash-footer-links {
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    padding-top: 0.25rem;
+  }
+
+  .splash-subtle-link {
+    font-size: 0.72rem;
+    gap: 0.2rem;
+    padding: 0.3rem 0.65rem;
+  }
+
+  .splash-footer-sep {
+    font-size: 0.6rem;
+  }
+
+  /* Modal Video di Layar Ponsel */
+  .splash-video-modal-backdrop {
+    padding: 0.5rem;
+  }
+
+  .splash-video-modal-container {
+    max-width: 100%;
+    border-radius: 18px;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+
+  .splash-video-modal-header {
+    padding: 0.75rem 0.95rem;
+    gap: 0.5rem;
+  }
+
+  .splash-video-header-left {
+    min-width: 0;
+    gap: 0.5rem;
+  }
+
+  .splash-video-modal-title {
+    font-size: 1.05rem;
+  }
+
+  .splash-video-modal-subtitle {
+    font-size: 0.74rem;
+  }
+
+  .btn-splash-video-close {
+    flex-shrink: 0;
+  }
+
+  .splash-video-tab-switch {
+    padding: 0.5rem 0.75rem;
+    gap: 0.35rem;
+  }
+
+  .splash-video-tab-pill {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.5rem;
+  }
+
+  .splash-video-modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    padding: 0.75rem 0.95rem;
+  }
+
+  .splash-video-footer-tip {
+    text-align: center;
+    font-size: 0.72rem;
+  }
+
+  .btn-splash-video-done-action {
     width: 100%;
-  }
-
-  .btn-teacher-v2,
-  .btn-splash-dev-pill {
-    margin-bottom: 0 !important;
-    padding: 0.3rem 0.65rem !important;
-    font-size: 0.72rem !important;
-    border-radius: 20px !important;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-weight: 700;
-  }
-
-  .btn-splash-dev-pill {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1.5px solid #a5d6a7;
-    color: #1b5e20;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(46, 125, 50, 0.08);
-    transition: all 0.2s ease;
+    text-align: center;
   }
 
   /* Chat Room & Interactive Dock */
