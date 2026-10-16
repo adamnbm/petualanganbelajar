@@ -134,7 +134,7 @@ export default function StudentProfileModal({ isOpen, onClose, onSaveStudent }) 
           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             <label style={{ fontSize: "0.92rem", fontWeight: "800", color: "#1e293b", display: "flex", alignItems: "center", gap: "6px" }}>
               <Hash size={16} color="#f59e0b" />
-              <span>Nomor Absen (Opsional):</span>
+              <span>Nomor Absen:</span>
             </label>
             <input
               type="text"
