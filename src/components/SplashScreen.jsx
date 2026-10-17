@@ -53,8 +53,17 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
               className="splash-upi-top-logo"
             />
           </div>
-
           <button
+            type="button"
+            className="splash-subtle-link"
+            onClick={onOpenDeveloperInfo}
+            title="Tim Pengembang UPI Kampus Cibiru"
+            id="btn-splash-dev-info"
+          >
+            <Sparkles size={14} />
+            <span>Tim Pengembang</span>
+          </button>
+          {/* <button
             type="button"
             className="btn-splash-guide-top"
             onClick={() => setActiveVideoModal("video_siswa")}
@@ -63,7 +72,7 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
           >
             <Play size={13} fill="currentColor" />
             <span>Video Panduan</span>
-          </button>
+          </button> */}
         </div>
 
         {/* 2. Hero Section: Maskot Sokrabot Terpusat & Judul */}
@@ -191,6 +200,16 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
             <ArrowRight size={20} className="btn-icon-right" />
           </button>
         </form>
+        <button
+          type="button"
+          className="btn-splash-guide-top"
+          onClick={() => setActiveVideoModal("video_siswa")}
+          title="Tonton Video Tutorial Web"
+          id="btn-splash-tutorial"
+        >
+          <Play size={13} fill="currentColor" />
+          <span>Video Panduan</span>
+        </button>
 
         {/* 4. Link Pendukung: Portal Guru & Tim Pengembang (Minimalis & Elegan) */}
         <div className="splash-footer-links">
@@ -205,9 +224,9 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
             <span>Portal Guru</span>
           </button>
 
-          <span className="splash-footer-sep" aria-hidden="true">•</span>
+          {/* <span className="splash-footer-sep" aria-hidden="true">•</span> */}
 
-          <button
+          {/* <button
             type="button"
             className="splash-subtle-link"
             onClick={onOpenDeveloperInfo}
@@ -216,7 +235,7 @@ export default function SplashScreen({ onStartAdventure, onOpenTeacherDashboard,
           >
             <Sparkles size={14} />
             <span>Tim Pengembang</span>
-          </button>
+          </button> */}
         </div>
 
       </div>
