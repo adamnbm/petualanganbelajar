@@ -10294,3 +10294,926 @@ body {
     font-size: 0.78rem !important;
   }
 }
+
+/* ==========================================================================
+   MINIGAME: ARENA RANTAI MAKANAN & ALIRAN ENERGI (SOKRABOT ECO-CHALLENGE)
+   ========================================================================== */
+.minigame-container-root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.minigame-header-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  flex-wrap: wrap;
+}
+
+.minigame-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.minigame-badge-chip {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.minigame-title {
+  margin: 4px 0 0 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.minigame-level-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 14px;
+}
+
+.minigame-lvl-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.minigame-lvl-tab-btn:hover {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.minigame-lvl-tab-btn.active {
+  background: #ffffff;
+  color: #059669;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.minigame-stage-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.minigame-mission-banner {
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+  border-bottom: 1.5px solid #a7f3d0;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.minigame-mascot-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #34d399;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+/* Track Rantai Makanan & Slot */
+.minigame-chain-workspace {
+  padding: 1.75rem 1.5rem 1.5rem;
+  background: radial-gradient(circle at 50% 0%, #f8fafc 0%, #ffffff 70%);
+  border-bottom: 1.5px solid #f1f5f9;
+}
+
+.workspace-header-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chain-slots-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 4px 18px;
+}
+
+.chain-slot-box {
+  min-width: 145px;
+  max-width: 175px;
+  height: 195px;
+  border-radius: 18px;
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.chain-slot-box:hover {
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+}
+
+.chain-slot-box.filled {
+  border-style: solid;
+  border-color: transparent;
+  background: transparent;
+}
+
+.chain-slot-box.wrong-slot {
+  animation: shakeError 0.5s ease-in-out;
+  border-color: #ef4444 !important;
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.chain-slot-box.correct-slot {
+  border-color: #10b981 !important;
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.25);
+}
+
+.slot-number-badge {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.slot-idx-num {
+  color: #059669;
+}
+
+.empty-slot-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.placeholder-icon {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+  opacity: 0.6;
+}
+
+.placeholder-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.placed-organism-card {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 1rem 0.75rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.placed-organism-card:hover {
+  transform: scale(1.02);
+}
+
+.organism-emoji {
+  font-size: 2.7rem;
+  margin-bottom: 4px;
+}
+
+.organism-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.organism-role-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-top: auto;
+}
+
+.validation-error-tag {
+  margin-top: 4px;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 0.68rem;
+  font-weight: 800;
+  border-radius: 6px;
+  padding: 2px 6px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.validation-success-tag {
+  margin-top: 4px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 0.68rem;
+  font-weight: 800;
+  border-radius: 6px;
+  padding: 2px 6px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Panah Aliran Energi Antar Slot */
+.energy-arrow-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 44px;
+  height: 100%;
+  color: #94a3b8;
+  transition: all 0.3s ease;
+}
+
+.energy-arrow-line {
+  width: 24px;
+  height: 3px;
+  background: #cbd5e1;
+  border-radius: 2px;
+  position: relative;
+}
+
+.energy-flow-pulse {
+  font-size: 0.85rem;
+  margin-bottom: -2px;
+  transition: transform 0.3s ease;
+}
+
+.energy-arrow-tip {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: -3px;
+}
+
+.energy-arrow-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #94a3b8;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* Animasi Mengalir Ketika Benar */
+.energy-arrow-connector.energy-flowing {
+  color: #f59e0b;
+}
+
+.energy-arrow-connector.energy-flowing .energy-arrow-line {
+  background: linear-gradient(90deg, #10b981 0%, #f59e0b 100%);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+}
+
+.energy-arrow-connector.energy-flowing .energy-flow-pulse {
+  animation: pulseEnergy 1s infinite alternate;
+  color: #f59e0b;
+}
+
+.energy-arrow-connector.energy-flowing .energy-arrow-tip {
+  color: #f59e0b;
+}
+
+.energy-arrow-connector.energy-flowing .energy-arrow-label {
+  color: #059669;
+}
+
+@keyframes pulseEnergy {
+  0% { transform: scale(1) translateX(-3px); }
+  100% { transform: scale(1.3) translateX(3px); }
+}
+
+/* Baki Pilihan Kartu Organisme */
+.available-pool-workspace {
+  padding: 1.5rem;
+  background: #f8fafc;
+}
+
+.pool-header-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.available-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.pool-organism-card {
+  border-radius: 16px;
+  border-width: 1.5px;
+  border-style: solid;
+  padding: 1rem 1rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.pool-organism-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.pool-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.pool-card-emoji {
+  font-size: 2.2rem;
+}
+
+.pool-card-role-chip {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid;
+}
+
+.pool-card-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.pool-card-desc {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.pool-card-action-hint {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #059669;
+  margin-top: auto;
+  text-align: right;
+}
+
+.all-cards-placed-msg {
+  grid-column: 1 / -1;
+  padding: 2rem 1rem;
+  background: #ffffff;
+  border: 1.5px dashed #a7f3d0;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #047857;
+  text-align: center;
+}
+
+/* Footer Action Bar */
+.minigame-footer-action-bar {
+  padding: 1.25rem 1.5rem;
+  background: #ffffff;
+  border-top: 1.5px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-check-chain-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 1.8rem;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-check-chain-action:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+}
+
+.btn-check-chain-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Modal Popups */
+.game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  animation: fadeInModal 0.2s ease;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.game-modal-box {
+  background: #ffffff;
+  border-radius: 24px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: zoomInModal 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomInModal {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.game-modal-header {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.game-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.game-modal-body {
+  padding: 1.5rem;
+}
+
+.game-modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Success Modal Details */
+.game-modal-box.success-modal {
+  text-align: center;
+}
+
+.success-modal-hero {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1.5px solid #a7f3d0;
+}
+
+.success-star-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.big-star {
+  font-size: 2.2rem;
+}
+
+.center-star {
+  font-size: 3rem;
+  margin-top: -10px;
+  animation: starPulse 1.2s infinite alternate;
+}
+
+@keyframes starPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15) rotate(5deg); }
+}
+
+.success-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #065f46;
+}
+
+.success-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: #047857;
+}
+
+.concept-explanation-card {
+  background: #f0fdf4;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 1.25rem;
+  text-align: left;
+}
+
+/* Card Minigame di Menu Utama */
+.card-minigame {
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 60%, #fef3c7 100%);
+  border: 2px solid #f59e0b !important;
+}
+
+.card-minigame .card-icon-circle {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.card-badge-pulse-gold {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #f59e0b;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+/* Desktop Banner Layout for Minigame Card (5th Card) */
+@media (min-width: 769px) {
+  .card-minigame {
+    grid-column: 1 / -1;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 1.4rem 2rem !important;
+    gap: 1.5rem !important;
+    border-radius: 24px !important;
+  }
+
+  .card-minigame .card-icon-circle {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 18px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .card-minigame .card-text-wrapper {
+    flex: 1 !important;
+  }
+
+  .card-minigame .card-footer-action {
+    flex-shrink: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE MOBILE ADAPTATION FOR MINIGAME (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .minigame-container-root {
+    padding: 0.75rem 0.5rem 5.5rem !important;
+    gap: 0.85rem !important;
+  }
+
+  .minigame-header-card {
+    padding: 0.9rem 0.85rem !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    border-radius: 18px !important;
+  }
+
+  .minigame-header-left {
+    gap: 0.65rem !important;
+  }
+
+  .minigame-title {
+    font-size: 1.15rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .minigame-level-selector {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 4px !important;
+    justify-content: flex-start !important;
+  }
+
+  .minigame-level-selector::-webkit-scrollbar {
+    display: none;
+  }
+
+  .minigame-lvl-tab-btn {
+    flex-shrink: 0 !important;
+    padding: 5px 11px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .minigame-stage-card {
+    border-radius: 18px !important;
+  }
+
+  .minigame-mission-banner {
+    padding: 0.85rem 0.95rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .minigame-mascot-circle {
+    width: 36px !important;
+    height: 36px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .minigame-mascot-circle img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  /* Chain Workspace Mobile */
+  .minigame-chain-workspace {
+    padding: 0.95rem 0.65rem 0.85rem !important;
+  }
+
+  .workspace-header-label {
+    font-size: 0.82rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+
+  .chain-slots-track {
+    justify-content: flex-start !important;
+    padding: 8px 4px 14px !important;
+    gap: 5px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .chain-slot-box {
+    min-width: 110px !important;
+    max-width: 124px !important;
+    height: 155px !important;
+    border-radius: 14px !important;
+  }
+
+  .slot-number-badge {
+    top: -8px !important;
+    left: 6px !important;
+    padding: 1px 5px !important;
+    font-size: 0.62rem !important;
+  }
+
+  .placed-organism-card {
+    padding: 0.65rem 0.35rem 0.45rem !important;
+    border-radius: 14px !important;
+  }
+
+  .organism-emoji {
+    font-size: 1.85rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .organism-title {
+    font-size: 0.75rem !important;
+    line-height: 1.15 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .organism-role-badge {
+    font-size: 0.6rem !important;
+    padding: 1px 5px !important;
+  }
+
+  .validation-error-tag,
+  .validation-success-tag {
+    font-size: 0.58rem !important;
+    padding: 1px 4px !important;
+    gap: 2px !important;
+  }
+
+  .empty-slot-placeholder {
+    padding: 0.5rem !important;
+  }
+
+  .placeholder-icon {
+    font-size: 1.4rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .placeholder-text {
+    font-size: 0.68rem !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Energy Arrow Connector Mobile */
+  .energy-arrow-connector {
+    min-width: 24px !important;
+  }
+
+  .energy-arrow-line {
+    width: 12px !important;
+    height: 2.5px !important;
+  }
+
+  .energy-flow-pulse {
+    font-size: 0.7rem !important;
+  }
+
+  .energy-arrow-tip {
+    font-size: 0.62rem !important;
+  }
+
+  .energy-arrow-label {
+    display: none !important;
+  }
+
+  /* Card Pool Mobile: 2 Columns */
+  .available-pool-workspace {
+    padding: 0.95rem 0.75rem !important;
+  }
+
+  .pool-header-label {
+    font-size: 0.82rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .available-cards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .pool-organism-card {
+    padding: 0.65rem 0.6rem 0.55rem !important;
+    border-radius: 12px !important;
+  }
+
+  .pool-card-top {
+    margin-bottom: 3px !important;
+  }
+
+  .pool-card-emoji {
+    font-size: 1.65rem !important;
+  }
+
+  .pool-card-role-chip {
+    font-size: 0.58rem !important;
+    padding: 1px 5px !important;
+  }
+
+  .pool-card-name {
+    font-size: 0.8rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .pool-card-desc {
+    font-size: 0.67rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 4px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .pool-card-action-hint {
+    font-size: 0.65rem !important;
+  }
+
+  /* Footer Mobile */
+  .minigame-footer-action-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    padding: 0.95rem 0.85rem !important;
+  }
+
+  .footer-status-text {
+    font-size: 0.8rem !important;
+    text-align: center !important;
+  }
+
+  .btn-check-chain-action {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.8rem !important;
+    font-size: 0.92rem !important;
+  }
+
+  /* Modal Mobile */
+  .game-modal-box {
+    max-width: 92vw !important;
+    border-radius: 20px !important;
+  }
+
+  .game-modal-header {
+    padding: 1rem 1.15rem !important;
+  }
+
+  .game-modal-body {
+    padding: 1.15rem !important;
+  }
+
+  .game-modal-footer {
+    padding: 0.75rem 1.15rem 1.15rem !important;
+  }
+}
+
+

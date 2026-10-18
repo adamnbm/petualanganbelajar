@@ -20,6 +20,7 @@ import DeveloperInfoModal from "./components/DeveloperInfoModal";
 import ContactUsModal from "./components/ContactUsModal";
 import Footer from "./components/Footer";
 import MobileBottomNav from "./components/MobileBottomNav";
+import FoodChainGameView from "./components/FoodChainGameView";
 
 import { getMissionById } from "./data/missions";
 import { BranchingSessionController } from "./engine/conversationEngine";
@@ -82,6 +83,8 @@ export default function App() {
         setCurrentView("achievements");
       } else if (hash === "/guide") {
         setCurrentView("guide");
+      } else if (hash === "/game" || hash === "/minigame") {
+        setCurrentView("game");
       } else if (hash === "/result") {
         setCurrentView("result");
       } else if (hash === "/menu") {
@@ -132,6 +135,8 @@ export default function App() {
       window.location.hash = "/achievements";
     } else if (view === "guide") {
       window.location.hash = "/guide";
+    } else if (view === "game") {
+      window.location.hash = "/game";
     } else if (view === "result") {
       window.location.hash = "/result";
     } else if (view === "splash") {
@@ -259,6 +264,16 @@ export default function App() {
             onBackToMenu={() => navigateTo("menu")}
             onGoToMap={() => navigateTo("map")}
             onOpenDeveloperInfo={() => setIsDeveloperInfoOpen(true)}
+          />
+        )}
+
+        {/* =========================================================
+            6.5 MINIGAME ARENA RANTAI MAKANAN & ALIRAN ENERGI
+           ========================================================= */}
+        {currentView === "game" && (
+          <FoodChainGameView
+            onBackToMenu={() => navigateTo("menu")}
+            onGoToMap={() => navigateTo("map")}
           />
         )}
 

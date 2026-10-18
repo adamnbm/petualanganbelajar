@@ -12,6 +12,7 @@ import {
   Zap,
   ShieldAlert,
   Mail,
+  Gamepad2,
 } from "lucide-react";
 import {
   getStudentAchievements,
@@ -309,6 +310,36 @@ export default function MainMenu({
             <div className="card-footer-action">
               <span className="action-label">Baca Petunjuk</span>
               <ChevronRight size={20} className="action-arrow" />
+            </div>
+          </div>
+
+          {/* 5. MINIGAME: ARENA RANTAI MAKANAN */}
+          <div
+            className="menu-nav-card card-minigame"
+            onClick={() => onNavigate("game")}
+            role="button"
+            tabIndex={0}
+            id="menu-btn-minigame"
+            style={{
+              position: "relative",
+              borderColor: "#f59e0b"
+            }}
+          >
+            <div className="card-badge-top" style={{ background: "#f59e0b", color: "#ffffff", fontWeight: "800" }}>
+              BARU! 🎮 Game Interaktif
+            </div>
+            <div className="card-icon-circle" style={{ background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" }}>
+              <Gamepad2 size={32} className="text-white" />
+            </div>
+            <div className="card-text-wrapper">
+              <h3 className="card-nav-title">Arena Rantai Makanan</h3>
+              <p className="card-nav-desc">
+                Uji kemampuan menalarmu menyusun urutan organisme dan melacak arah panah aliran energi ekosistem sawah!
+              </p>
+            </div>
+            <div className="card-footer-action">
+              <span className="action-label" style={{ color: "#d97706", fontWeight: "800" }}>Mainkan Game</span>
+              <ChevronRight size={20} className="action-arrow" style={{ color: "#d97706" }} />
             </div>
           </div>
         </div>
