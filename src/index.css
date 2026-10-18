@@ -2473,35 +2473,38 @@ body {
 /* === Background & Container === */
 .splash-container.splash-v2 {
   min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .splash-bg-gradient {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
-  background:
-    radial-gradient(
-      ellipse 80% 60% at 20% 10%,
-      rgba(16, 185, 129, 0.15),
-      transparent
-    ),
-    radial-gradient(
-      ellipse 70% 50% at 80% 25%,
-      rgba(14, 165, 233, 0.12),
-      transparent
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 50% 90%,
-      rgba(251, 191, 36, 0.1),
-      transparent
-    ),
-    linear-gradient(175deg, #ecfdf5 0%, #f0f9ff 35%, #fffbeb 70%, #faf5ff 100%);
+  background-image: url('/splash_background.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+@media (max-width: 768px), (orientation: portrait) {
+  .splash-bg-gradient {
+    background-image: url('/splash_background_mobile.jpg');
+    background-position: center bottom;
+  }
 }
 
 /* === Glass Card === */
@@ -3545,7 +3548,9 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 2% center;
+  object-position: 8% center;
+  transform: scale(1.5);
+  transform-origin: 24% 52%;
   display: block;
 }
 
@@ -6788,6 +6793,10 @@ body {
     max-width: 380px !important;
     height: auto !important;
     aspect-ratio: 3 / 2 !important;
+    object-fit: cover !important;
+    object-position: 8% center !important;
+    transform: scale(1.45) !important;
+    transform-origin: 24% 52% !important;
   }
 
   .menu-hero-card {
@@ -7100,9 +7109,12 @@ body {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: flex-end !important;
+    justify-content: center !important;
     margin: 0 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
+    border-radius: 18px !important;
+    border: 1px solid #e2f4e6 !important;
+    box-shadow: 0 4px 12px rgba(22, 101, 52, 0.08) !important;
   }
 
   .hero-wave-divider {
@@ -7114,12 +7126,14 @@ body {
     max-width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: 21% center !important;
+    object-position: 24% center !important;
+    transform: scale(1.28) translateX(-8px) !important;
+    transform-origin: 30% 55% !important;
     border-radius: 18px !important;
     display: block !important;
     margin: 0 !important;
-    border: 1px solid #e2f4e6 !important;
-    box-shadow: 0 4px 12px rgba(22, 101, 52, 0.08) !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   .sokrabot-speech-bubble {

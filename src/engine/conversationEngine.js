@@ -219,7 +219,8 @@ export class BranchingSessionController {
       id: `user_${Date.now()}`,
       sender: "user",
       text: option.text,
-      timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+      timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }),
+      ...(option.misconceptionTriggered ? { misconceptionTriggered: option.misconceptionTriggered } : {})
     };
     this.state.messages = [...this.state.messages, userMsg];
     this.state.isBotTyping = true;

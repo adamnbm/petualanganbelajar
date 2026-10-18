@@ -9,7 +9,9 @@ import {
   CheckCircle2,
   Clock,
   Trash2,
-  HardDrive
+  HardDrive,
+  AlertTriangle,
+  Flag
 } from "lucide-react";
 import { studentSession } from "../utils/studentSession";
 
@@ -17,6 +19,24 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
   const [sessions, setSessions] = useState([]);
   const [selectedTranscript, setSelectedTranscript] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [teacherMarkedMisconceptions, setTeacherMarkedMisconceptions] = useState([]);
+
+  // Fungsi toggle penandaan miskonsepsi oleh guru
+  const toggleMisconceptionMark = (messageIndex) => {
+    setTeacherMarkedMisconceptions((prev) =>
+      prev.includes(messageIndex)
+        ? prev.filter((i) => i !== messageIndex)
+        : [...prev, messageIndex]
+    );
+  };
+
+  // Helper: apakah pesan ini terindikasi miskonsepsi
+  const isMisconceptionMessage = (msg, index) => {
+    if (msg.sender === "user" && msg.misconceptionTriggered) return true;
+    if (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false) return true;
+    if (teacherMarkedMisconceptions.includes(index)) return true;
+    return false;
+  };
 
   const loadSessions = () => {
     const data = studentSession.getAllLocalSubmissions();
@@ -197,6 +217,39 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                 </div>
               </div>
 
+              {/* Keterangan Warna Miskonsepsi */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  padding: "0.5rem 0.85rem",
+                  background: "#fffbeb",
+                  border: "1px solid #fde68a",
+                  borderRadius: "10px",
+                  fontSize: "0.72rem",
+                  color: "#92400e",
+                  flexWrap: "wrap",
+                  marginBottom: "0.4rem"
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "4px", fontWeight: "700" }}>
+                  <AlertTriangle size={13} color="#dc2626" />
+                  Penanda Miskonsepsi:
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "3px" }}>
+                  <span style={{ display: "inline-block", width: "10px", height: "10px", background: "#fef2f2", border: "2px solid #fca5a5", borderRadius: "3px" }}></span>
+                  Otomatis
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "3px" }}>
+                  <span style={{ display: "inline-block", width: "10px", height: "10px", background: "#fff7ed", border: "2px solid #fdba74", borderRadius: "3px" }}></span>
+                  Ditandai guru
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "3px", marginLeft: "auto", color: "#78716c" }}>
+                  <Flag size={11} /> Klik bendera untuk menandai
+                </div>
+              </div>
+
               {/* Chat Viewport Transkrip */}
               <div
                 style={{
@@ -214,46 +267,124 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                 {selectedTranscript.conversation_transcript?.length > 0 ? (
                   selectedTranscript.conversation_transcript.map((msg, i) => {
                     const isBot = msg.sender === "bot";
+                    const hasMisconception = isMisconceptionMessage(msg, i);
+                    const isAutoDetected = (msg.sender === "user" && msg.misconceptionTriggered) ||
+                      (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false);
+                    const isTeacherMarked = teacherMarkedMisconceptions.includes(i);
+
                     return (
                       <div
                         key={i}
                         style={{
                           display: "flex",
-                          alignItems: "flex-end",
+                          alignItems: "flex-start",
                           justifyContent: isBot ? "flex-start" : "flex-end",
                           gap: "8px"
                         }}
                       >
                         {isBot && (
-                          <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#d1fae5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>
-                            🤖
+                          <div style={{
+                            width: "32px", height: "32px", borderRadius: "50%",
+                            background: hasMisconception ? "#fef2f2" : "#d1fae5",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            fontSize: "1.1rem", flexShrink: 0, marginTop: "2px"
+                          }}>
+                            {hasMisconception ? "⚠️" : "🤖"}
                           </div>
                         )}
-                        <div
-                          style={{
-                            maxWidth: "75%",
-                            padding: "0.75rem 1rem",
-                            borderRadius: "16px",
-                            fontSize: "0.92rem",
-                            background: isBot ? (msg.isFeedback ? (msg.isCorrect ? "#ecfdf5" : "#fffbeb") : "white") : "#0284c7",
-                            color: isBot ? "#1e293b" : "white",
-                            border: isBot ? "1px solid #cbd5e1" : "none",
-                            boxShadow: "0 2px 4px rgba(0,0,0,0.04)"
-                          }}
-                        >
-                          {msg.isFeedback && (
-                            <div style={{ fontWeight: "800", fontSize: "0.8rem", marginBottom: "4px", color: msg.isCorrect ? "#059669" : "#d97706" }}>
-                              {msg.isCorrect ? "✓ Respon Benar" : "🤔 Respon Bimbingan Socratic"}
+                        <div style={{ display: "flex", flexDirection: "column", gap: "3px", maxWidth: "75%" }}>
+                          <div
+                            style={{
+                              padding: "0.75rem 1rem",
+                              borderRadius: "16px",
+                              fontSize: "0.92rem",
+                              background: hasMisconception
+                                ? (isAutoDetected ? "#fef2f2" : "#fff7ed")
+                                : (isBot ? (msg.isFeedback ? (msg.isCorrect ? "#ecfdf5" : "#fffbeb") : "white") : "#0284c7"),
+                              color: isBot || hasMisconception ? "#1e293b" : "white",
+                              border: hasMisconception
+                                ? (isAutoDetected ? "2px solid #fca5a5" : "2px solid #fdba74")
+                                : (isBot ? "1px solid #cbd5e1" : "none"),
+                              boxShadow: hasMisconception
+                                ? "0 2px 8px rgba(220, 38, 38, 0.1)"
+                                : "0 2px 4px rgba(0,0,0,0.04)",
+                              transition: "all 0.2s ease"
+                            }}
+                          >
+                            {/* Badge Miskonsepsi Otomatis */}
+                            {isAutoDetected && (
+                              <div style={{
+                                display: "flex", alignItems: "center", gap: "4px",
+                                fontWeight: "800", fontSize: "0.73rem", marginBottom: "5px",
+                                color: "#dc2626", background: "#fee2e2",
+                                padding: "2px 7px", borderRadius: "7px", width: "fit-content"
+                              }}>
+                                <AlertTriangle size={11} />
+                                {msg.sender === "user"
+                                  ? `⚡ Miskonsepsi: ${msg.misconceptionTriggered?.replace(/_/g, " ")}`
+                                  : "🤔 Jawaban Belum Tepat"}
+                              </div>
+                            )}
+
+                            {/* Badge Ditandai Guru */}
+                            {isTeacherMarked && !isAutoDetected && (
+                              <div style={{
+                                display: "flex", alignItems: "center", gap: "4px",
+                                fontWeight: "800", fontSize: "0.73rem", marginBottom: "5px",
+                                color: "#c2410c", background: "#ffedd5",
+                                padding: "2px 7px", borderRadius: "7px", width: "fit-content"
+                              }}>
+                                <Flag size={11} />
+                                🏳️ Ditandai Miskonsepsi oleh Guru
+                              </div>
+                            )}
+
+                            {msg.isFeedback && !isAutoDetected && (
+                              <div style={{ fontWeight: "800", fontSize: "0.8rem", marginBottom: "4px", color: msg.isCorrect ? "#059669" : "#d97706" }}>
+                                {msg.isCorrect ? "✓ Respon Benar" : "🤔 Respon Bimbingan Socratic"}
+                              </div>
+                            )}
+                            {msg.text}
+                            <div style={{ fontSize: "0.68rem", opacity: 0.7, marginTop: "4px", textAlign: isBot ? "left" : "right" }}>
+                              {msg.timestamp || "-"}
                             </div>
-                          )}
-                          {msg.text}
-                          <div style={{ fontSize: "0.68rem", opacity: 0.7, marginTop: "4px", textAlign: isBot ? "left" : "right" }}>
-                            {msg.timestamp || "-"}
                           </div>
+
+                          {/* Tombol Toggle Tanda Miskonsepsi */}
+                          {!isBot && (
+                            <button
+                              onClick={() => toggleMisconceptionMark(i)}
+                              title={hasMisconception ? "Hapus Tanda Miskonsepsi" : "Tandai sebagai Miskonsepsi"}
+                              style={{
+                                alignSelf: "flex-end",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                padding: "2px 8px",
+                                borderRadius: "7px",
+                                border: hasMisconception ? "1.5px solid #fca5a5" : "1.5px solid #cbd5e1",
+                                background: hasMisconception ? "#fef2f2" : "#f8fafc",
+                                color: hasMisconception ? "#dc2626" : "#94a3b8",
+                                fontSize: "0.7rem",
+                                fontWeight: "700",
+                                cursor: "pointer",
+                                transition: "all 0.2s ease"
+                              }}
+                            >
+                              <Flag size={10} />
+                              {hasMisconception ? "Miskonsepsi ✓" : "Tandai Miskonsepsi"}
+                            </button>
+                          )}
                         </div>
                         {!isBot && (
-                          <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#fef3c7", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>
-                            👦
+                          <div style={{
+                            width: "32px", height: "32px", borderRadius: "50%",
+                            background: hasMisconception ? "#fef2f2" : "#fef3c7",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            fontSize: "1.1rem", flexShrink: 0, marginTop: "2px",
+                            border: hasMisconception ? "2px solid #fca5a5" : "none"
+                          }}>
+                            {hasMisconception ? "⚠️" : "👦"}
                           </div>
                         )}
                       </div>

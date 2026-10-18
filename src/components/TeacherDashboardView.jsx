@@ -24,7 +24,9 @@ import {
   Calendar,
   Layers,
   ListFilter,
-  LogOut
+  LogOut,
+  AlertTriangle,
+  Flag
 } from "lucide-react";
 import { studentSession } from "../utils/studentSession";
 import {
@@ -61,6 +63,9 @@ export default function TeacherDashboardView({ onBackToMenu }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterClass, setFilterClass] = useState("ALL");
   const [filterMission, setFilterMission] = useState("ALL");
+
+  // Penandaan Miskonsepsi oleh Guru pada Transkrip Chat
+  const [teacherMarkedMisconceptions, setTeacherMarkedMisconceptions] = useState([]);
 
   // Load Data dari Supabase (dengan fallback ke Local Storage)
   const loadData = async () => {
@@ -107,6 +112,27 @@ export default function TeacherDashboardView({ onBackToMenu }) {
     setPinInput("");
     setSelectedStudent(null);
     setSelectedTranscript(null);
+    setTeacherMarkedMisconceptions([]);
+  };
+
+  // Fungsi toggle penandaan miskonsepsi oleh guru pada pesan tertentu
+  const toggleMisconceptionMark = (messageIndex) => {
+    setTeacherMarkedMisconceptions((prev) =>
+      prev.includes(messageIndex)
+        ? prev.filter((i) => i !== messageIndex)
+        : [...prev, messageIndex]
+    );
+  };
+
+  // Helper: apakah pesan ini terindikasi miskonsepsi (otomatis dari engine atau ditandai guru)
+  const isMisconceptionMessage = (msg, index) => {
+    // Otomatis terdeteksi oleh engine (pilihan siswa yang memicu miskonsepsi)
+    if (msg.sender === "user" && msg.misconceptionTriggered) return true;
+    // Respon AI yang menandakan jawaban siswa salah (Socratic feedback negatif)
+    if (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false) return true;
+    // Ditandai manual oleh guru
+    if (teacherMarkedMisconceptions.includes(index)) return true;
+    return false;
   };
 
   // Hapus Satu Sesi
@@ -671,7 +697,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <button
                 className="nav-pill-btn"
-                onClick={() => setSelectedTranscript(null)}
+                onClick={() => { setSelectedTranscript(null); setTeacherMarkedMisconceptions([]); }}
                 style={{ background: "#f1f5f9" }}
               >
                 <ArrowLeft size={16} />
@@ -708,6 +734,39 @@ export default function TeacherDashboardView({ onBackToMenu }) {
             </div>
           </div>
 
+          {/* Keterangan Warna Miskonsepsi */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "16px",
+              padding: "0.6rem 1rem",
+              background: "#fffbeb",
+              border: "1px solid #fde68a",
+              borderRadius: "12px",
+              fontSize: "0.78rem",
+              color: "#92400e",
+              flexWrap: "wrap",
+              marginBottom: "0.5rem"
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "5px", fontWeight: "700" }}>
+              <AlertTriangle size={14} color="#dc2626" />
+              Penanda Miskonsepsi:
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <span style={{ display: "inline-block", width: "12px", height: "12px", background: "#fef2f2", border: "2px solid #fca5a5", borderRadius: "4px" }}></span>
+              Otomatis terdeteksi
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <span style={{ display: "inline-block", width: "12px", height: "12px", background: "#fff7ed", border: "2px solid #fdba74", borderRadius: "4px" }}></span>
+              Ditandai guru
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "4px", marginLeft: "auto", color: "#78716c" }}>
+              <Flag size={12} /> Klik tombol bendera untuk menandai
+            </div>
+          </div>
+
           {/* List Chat Bubble */}
           <div
             style={{
@@ -725,14 +784,20 @@ export default function TeacherDashboardView({ onBackToMenu }) {
             {selectedTranscript.conversation_transcript?.length > 0 ? (
               selectedTranscript.conversation_transcript.map((msg, i) => {
                 const isBot = msg.sender === "bot";
+                const hasMisconception = isMisconceptionMessage(msg, i);
+                const isAutoDetected = (msg.sender === "user" && msg.misconceptionTriggered) ||
+                  (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false);
+                const isTeacherMarked = teacherMarkedMisconceptions.includes(i);
+
                 return (
                   <div
                     key={i}
                     style={{
                       display: "flex",
-                      alignItems: "flex-end",
+                      alignItems: "flex-start",
                       justifyContent: isBot ? "flex-start" : "flex-end",
-                      gap: "8px"
+                      gap: "8px",
+                      position: "relative"
                     }}
                   >
                     {isBot && (
@@ -741,61 +806,149 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           width: "34px",
                           height: "34px",
                           borderRadius: "50%",
-                          background: "#d1fae5",
+                          background: hasMisconception ? "#fef2f2" : "#d1fae5",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "1.1rem"
+                          fontSize: "1.1rem",
+                          flexShrink: 0,
+                          marginTop: "2px"
                         }}
                       >
-                        🤖
+                        {hasMisconception ? "⚠️" : "🤖"}
                       </div>
                     )}
 
-                    <div
-                      style={{
-                        maxWidth: "75%",
-                        padding: "0.75rem 1rem",
-                        borderRadius: "16px",
-                        fontSize: "0.92rem",
-                        background: isBot ? (msg.isHint ? "#fffbeb" : "white") : "#0284c7",
-                        color: isBot ? "#1e293b" : "white",
-                        border: isBot ? (msg.isHint ? "1px solid #fde68a" : "1px solid #e2e8f0") : "none",
-                        boxShadow: "0 2px 4px rgba(0,0,0,0.03)"
-                      }}
-                    >
-                      {msg.isHint && (
-                        <div style={{ fontWeight: "800", fontSize: "0.8rem", marginBottom: "4px", color: "#d97706" }}>
-                          💡 Petunjuk SOKRABOT ({msg.hintLevel?.toUpperCase() || "BANTUAN"})
-                        </div>
-                      )}
-                      {msg.isAIGenerated && (
-                        <div
-                          style={{
-                            fontWeight: "800",
-                            fontSize: "0.78rem",
-                            marginBottom: "4px",
-                            color: "#059669",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "4px"
-                          }}
-                        >
-                          <Sparkles size={12} />
-                          Respon Socratic AI (Gemini)
-                        </div>
-                      )}
-                      <div style={{ whiteSpace: "pre-line", lineHeight: "1.45" }}>{msg.text}</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "4px", maxWidth: "75%", position: "relative" }}>
                       <div
                         style={{
-                          fontSize: "0.68rem",
-                          opacity: 0.7,
-                          marginTop: "6px",
-                          textAlign: isBot ? "left" : "right"
+                          padding: "0.75rem 1rem",
+                          borderRadius: "16px",
+                          fontSize: "0.92rem",
+                          background: hasMisconception
+                            ? (isAutoDetected ? "#fef2f2" : "#fff7ed")
+                            : (isBot ? (msg.isHint ? "#fffbeb" : "white") : "#0284c7"),
+                          color: isBot || hasMisconception ? "#1e293b" : "white",
+                          border: hasMisconception
+                            ? (isAutoDetected ? "2px solid #fca5a5" : "2px solid #fdba74")
+                            : (isBot ? (msg.isHint ? "1px solid #fde68a" : "1px solid #e2e8f0") : "none"),
+                          boxShadow: hasMisconception
+                            ? "0 2px 8px rgba(220, 38, 38, 0.1)"
+                            : "0 2px 4px rgba(0,0,0,0.03)",
+                          transition: "all 0.2s ease"
                         }}
                       >
-                        {msg.timestamp || "-"}
+                        {/* Badge Miskonsepsi Otomatis Terdeteksi */}
+                        {isAutoDetected && (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                              fontWeight: "800",
+                              fontSize: "0.75rem",
+                              marginBottom: "6px",
+                              color: "#dc2626",
+                              background: "#fee2e2",
+                              padding: "3px 8px",
+                              borderRadius: "8px",
+                              width: "fit-content"
+                            }}
+                          >
+                            <AlertTriangle size={12} />
+                            {msg.sender === "user"
+                              ? `⚡ Miskonsepsi Terdeteksi: ${msg.misconceptionTriggered?.replace(/_/g, " ")}`
+                              : "🤔 Respon Bimbingan Socratic (Jawaban Belum Tepat)"}
+                          </div>
+                        )}
+
+                        {/* Badge Ditandai oleh Guru */}
+                        {isTeacherMarked && !isAutoDetected && (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                              fontWeight: "800",
+                              fontSize: "0.75rem",
+                              marginBottom: "6px",
+                              color: "#c2410c",
+                              background: "#ffedd5",
+                              padding: "3px 8px",
+                              borderRadius: "8px",
+                              width: "fit-content"
+                            }}
+                          >
+                            <Flag size={12} />
+                            🏳️ Ditandai Miskonsepsi oleh Guru
+                          </div>
+                        )}
+
+                        {msg.isHint && (
+                          <div style={{ fontWeight: "800", fontSize: "0.8rem", marginBottom: "4px", color: "#d97706" }}>
+                            💡 Petunjuk SOKRABOT ({msg.hintLevel?.toUpperCase() || "BANTUAN"})
+                          </div>
+                        )}
+                        {msg.isAIGenerated && !isAutoDetected && (
+                          <div
+                            style={{
+                              fontWeight: "800",
+                              fontSize: "0.78rem",
+                              marginBottom: "4px",
+                              color: "#059669",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "4px"
+                            }}
+                          >
+                            <Sparkles size={12} />
+                            Respon Socratic AI (Gemini)
+                          </div>
+                        )}
+                        <div style={{ whiteSpace: "pre-line", lineHeight: "1.45" }}>{msg.text}</div>
+                        <div
+                          style={{
+                            fontSize: "0.68rem",
+                            opacity: 0.7,
+                            marginTop: "6px",
+                            textAlign: isBot ? "left" : "right",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: isBot ? "flex-start" : "flex-end",
+                            gap: "6px"
+                          }}
+                        >
+                          {msg.timestamp || "-"}
+                        </div>
                       </div>
+
+                      {/* Tombol Toggle Tanda Miskonsepsi (hanya untuk pesan siswa/user) */}
+                      {!isBot && (
+                        <button
+                          onClick={() => toggleMisconceptionMark(i)}
+                          title={hasMisconception ? "Hapus Tanda Miskonsepsi" : "Tandai sebagai Miskonsepsi"}
+                          style={{
+                            alignSelf: "flex-end",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "4px",
+                            padding: "3px 10px",
+                            borderRadius: "8px",
+                            border: hasMisconception
+                              ? "1.5px solid #fca5a5"
+                              : "1.5px solid #cbd5e1",
+                            background: hasMisconception ? "#fef2f2" : "#f8fafc",
+                            color: hasMisconception ? "#dc2626" : "#94a3b8",
+                            fontSize: "0.72rem",
+                            fontWeight: "700",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease"
+                          }}
+                        >
+                          <Flag size={11} />
+                          {hasMisconception ? "Miskonsepsi ✓" : "Tandai Miskonsepsi"}
+                        </button>
+                      )}
                     </div>
 
                     {!isBot && (
@@ -804,14 +957,17 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           width: "34px",
                           height: "34px",
                           borderRadius: "50%",
-                          background: "#fef3c7",
+                          background: hasMisconception ? "#fef2f2" : "#fef3c7",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "1.1rem"
+                          fontSize: "1.1rem",
+                          flexShrink: 0,
+                          marginTop: "2px",
+                          border: hasMisconception ? "2px solid #fca5a5" : "none"
                         }}
                       >
-                        👦
+                        {hasMisconception ? "⚠️" : "👦"}
                       </div>
                     )}
                   </div>
@@ -1005,7 +1161,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                         )}
 
                         <button
-                          onClick={() => setSelectedTranscript(sessionRecord)}
+                          onClick={() => { setSelectedTranscript(sessionRecord); setTeacherMarkedMisconceptions([]); }}
                           className="nav-pill-btn"
                           style={{
                             width: "100%",
@@ -1447,7 +1603,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           <td style={{ padding: "0.85rem 1rem", textAlign: "center" }}>
                             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px" }}>
                               <button
-                                onClick={() => setSelectedTranscript(s)}
+                                onClick={() => { setSelectedTranscript(s); setTeacherMarkedMisconceptions([]); }}
                                 className="nav-pill-btn"
                                 style={{ padding: "4px 10px", fontSize: "0.8rem", background: "#f0fdf4", color: "#166534", borderColor: "#bbf7d0" }}
                                 title="Buka Transkrip Obrolan Sokratik Siswa"
