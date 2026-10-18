@@ -36,6 +36,39 @@ import {
   clearAllSessionsFromSupabase
 } from "../services/supabase";
 import { MISSIONS_DATA } from "../data/missions";
+import { DECISION_TREES } from "../data/decisionTreeSawah";
+
+// Kumpulan teks opsi miskonsepsi & pilihan kurang tepat dari kurikulum
+const KNOWN_MISCONCEPTIONS = {
+  "ukuran tubuhnya": "predator_karena_ukuran",
+  "karena memiliki ukuran tubuh paling besar": "predator_karena_ukuran",
+  "karena hidup di tempat yang gelap": "predator_habitat_salah",
+  "tikus juga predator bagi ular": "tikus_predator_salah",
+  "tikus adalah produsen di sawah": "tikus_produsen_salah",
+  "predator": "tikus_predator_salah",
+  "produsen": "tikus_produsen_salah",
+  "padi": "predator_padi",
+  "tikus": "predator_tikus"
+};
+
+try {
+  if (DECISION_TREES) {
+    Object.values(DECISION_TREES).forEach((tree) => {
+      if (!tree?.nodes) return;
+      Object.values(tree.nodes).forEach((node) => {
+        if (Array.isArray(node.options)) {
+          node.options.forEach((opt) => {
+            if (opt.misconceptionTriggered) {
+              KNOWN_MISCONCEPTIONS[opt.text.toLowerCase().trim()] = opt.misconceptionTriggered;
+            }
+          });
+        }
+      });
+    });
+  }
+} catch {
+  // safe fallback
+}
 
 const DEFAULT_TEACHER_PIN = "guru321";
 const PIN_STORAGE_KEY = "timi_teacher_pin_authenticated";
@@ -124,15 +157,92 @@ export default function TeacherDashboardView({ onBackToMenu }) {
     );
   };
 
-  // Helper: apakah pesan ini terindikasi miskonsepsi (otomatis dari engine atau ditandai guru)
-  const isMisconceptionMessage = (msg, index) => {
-    // Otomatis terdeteksi oleh engine (pilihan siswa yang memicu miskonsepsi)
-    if (msg.sender === "user" && msg.misconceptionTriggered) return true;
-    // Respon AI yang menandakan jawaban siswa salah (Socratic feedback negatif)
-    if (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false) return true;
-    // Ditandai manual oleh guru
-    if (teacherMarkedMisconceptions.includes(index)) return true;
-    return false;
+  // Helper: Deteksi detail miskonsepsi & jawaban salah
+  const getMisconceptionDetails = (msg, index, transcriptList = []) => {
+    // 1. Ditandai manual oleh guru
+    if (teacherMarkedMisconceptions.includes(index)) {
+      return {
+        hasMisconception: true,
+        isTeacherMarked: true,
+        label: "Ditandai Miskonsepsi oleh Guru"
+      };
+    }
+
+    // 2. Properti eksplisit dari engine
+    if (msg.misconceptionTriggered) {
+      const cleanName = msg.misconceptionTriggered.replace(/_/g, " ");
+      return {
+        hasMisconception: true,
+        isAutoDetected: true,
+        label: `Miskonsepsi: ${cleanName}`
+      };
+    }
+
+    if (msg.isCorrect === false && msg.sender === "user") {
+      return {
+        hasMisconception: true,
+        isAutoDetected: true,
+        label: "Jawaban Belum Tepat"
+      };
+    }
+
+    // 3. Untuk pesan siswa (user): Cek apakah pesan berikutnya dari bot adalah balasan negatif / bimbingan / perbaikan
+    if (msg.sender === "user" && Array.isArray(transcriptList)) {
+      const nextMsg = transcriptList[index + 1];
+      if (nextMsg && nextMsg.sender === "bot") {
+        // Jika AI feedback menunjukkan belum tepat
+        if (nextMsg.isFeedback && nextMsg.isCorrect === false) {
+          return {
+            hasMisconception: true,
+            isAutoDetected: true,
+            label: "Alasan Belum Tepat (Evaluasi Sokratik AI)"
+          };
+        }
+
+        // Cek apakah pesan bot berikutnya berisi kata-kata kunci perbaikan / scaffolding
+        const nextText = (nextMsg.text || "").toLowerCase();
+        const scaffoldKeywords = [
+          "belum tepat",
+          "kurang tepat",
+          "coba kita periksa",
+          "coba perhatikan kembali",
+          "mari kita selidiki buktinya",
+          "tidak selalu karena",
+          "apakah hewan disebut predator karena ukuran tubuhnya",
+          "bukan karena ukuran",
+          "mari kita ingat kembali"
+        ];
+        if (scaffoldKeywords.some((kw) => nextText.includes(kw))) {
+          return {
+            hasMisconception: true,
+            isAutoDetected: true,
+            label: "Pilihan Miskonsepsi (Perlu Bimbingan)"
+          };
+        }
+      }
+
+      // Cek apakah teks pesan siswa cocok dengan daftar opsi miskonsepsi kurikulum
+      const normText = (msg.text || "").toLowerCase().trim();
+      if (KNOWN_MISCONCEPTIONS[normText]) {
+        const cleanName = KNOWN_MISCONCEPTIONS[normText].replace(/_/g, " ");
+        return {
+          hasMisconception: true,
+          isAutoDetected: true,
+          label: `Miskonsepsi: ${cleanName}`
+        };
+      }
+    }
+
+    // 4. Untuk balasan bot yang mengoreksi miskonsepsi
+    if (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false) {
+      return {
+        hasMisconception: true,
+        isAutoDetected: true,
+        label: "Bimbingan Socratic (Jawaban Belum Tepat)"
+      };
+    }
+
+    return { hasMisconception: false };
   };
 
   // Hapus Satu Sesi
@@ -734,39 +844,6 @@ export default function TeacherDashboardView({ onBackToMenu }) {
             </div>
           </div>
 
-          {/* Keterangan Warna Miskonsepsi */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
-              padding: "0.6rem 1rem",
-              background: "#fffbeb",
-              border: "1px solid #fde68a",
-              borderRadius: "12px",
-              fontSize: "0.78rem",
-              color: "#92400e",
-              flexWrap: "wrap",
-              marginBottom: "0.5rem"
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "5px", fontWeight: "700" }}>
-              <AlertTriangle size={14} color="#dc2626" />
-              Penanda Miskonsepsi:
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <span style={{ display: "inline-block", width: "12px", height: "12px", background: "#fef2f2", border: "2px solid #fca5a5", borderRadius: "4px" }}></span>
-              Otomatis terdeteksi
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <span style={{ display: "inline-block", width: "12px", height: "12px", background: "#fff7ed", border: "2px solid #fdba74", borderRadius: "4px" }}></span>
-              Ditandai guru
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "4px", marginLeft: "auto", color: "#78716c" }}>
-              <Flag size={12} /> Klik tombol bendera untuk menandai
-            </div>
-          </div>
-
           {/* List Chat Bubble */}
           <div
             style={{
@@ -784,10 +861,8 @@ export default function TeacherDashboardView({ onBackToMenu }) {
             {selectedTranscript.conversation_transcript?.length > 0 ? (
               selectedTranscript.conversation_transcript.map((msg, i) => {
                 const isBot = msg.sender === "bot";
-                const hasMisconception = isMisconceptionMessage(msg, i);
-                const isAutoDetected = (msg.sender === "user" && msg.misconceptionTriggered) ||
-                  (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false);
-                const isTeacherMarked = teacherMarkedMisconceptions.includes(i);
+                const info = getMisconceptionDetails(msg, i, selectedTranscript.conversation_transcript);
+                const hasMisconception = info.hasMisconception;
 
                 return (
                   <div
@@ -806,7 +881,8 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           width: "34px",
                           height: "34px",
                           borderRadius: "50%",
-                          background: hasMisconception ? "#fef2f2" : "#d1fae5",
+                          background: hasMisconception ? "#fee2e2" : "#d1fae5",
+                          border: hasMisconception ? "2px solid #ef4444" : "none",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -826,61 +902,40 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           borderRadius: "16px",
                           fontSize: "0.92rem",
                           background: hasMisconception
-                            ? (isAutoDetected ? "#fef2f2" : "#fff7ed")
+                            ? "#fef2f2"
                             : (isBot ? (msg.isHint ? "#fffbeb" : "white") : "#0284c7"),
-                          color: isBot || hasMisconception ? "#1e293b" : "white",
+                          color: hasMisconception
+                            ? "#7f1d1d"
+                            : (isBot ? "#1e293b" : "white"),
                           border: hasMisconception
-                            ? (isAutoDetected ? "2px solid #fca5a5" : "2px solid #fdba74")
+                            ? "2px solid #ef4444"
                             : (isBot ? (msg.isHint ? "1px solid #fde68a" : "1px solid #e2e8f0") : "none"),
                           boxShadow: hasMisconception
-                            ? "0 2px 8px rgba(220, 38, 38, 0.1)"
+                            ? "0 4px 14px rgba(239, 68, 68, 0.16)"
                             : "0 2px 4px rgba(0,0,0,0.03)",
                           transition: "all 0.2s ease"
                         }}
                       >
-                        {/* Badge Miskonsepsi Otomatis Terdeteksi */}
-                        {isAutoDetected && (
+                        {/* Badge Merah Miskonsepsi */}
+                        {hasMisconception && (
                           <div
                             style={{
-                              display: "flex",
+                              display: "inline-flex",
                               alignItems: "center",
                               gap: "5px",
                               fontWeight: "800",
-                              fontSize: "0.75rem",
+                              fontSize: "0.74rem",
                               marginBottom: "6px",
-                              color: "#dc2626",
+                              color: "#b91c1c",
                               background: "#fee2e2",
+                              border: "1px solid #fca5a5",
                               padding: "3px 8px",
                               borderRadius: "8px",
                               width: "fit-content"
                             }}
                           >
                             <AlertTriangle size={12} />
-                            {msg.sender === "user"
-                              ? `⚡ Miskonsepsi Terdeteksi: ${msg.misconceptionTriggered?.replace(/_/g, " ")}`
-                              : "🤔 Respon Bimbingan Socratic (Jawaban Belum Tepat)"}
-                          </div>
-                        )}
-
-                        {/* Badge Ditandai oleh Guru */}
-                        {isTeacherMarked && !isAutoDetected && (
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "5px",
-                              fontWeight: "800",
-                              fontSize: "0.75rem",
-                              marginBottom: "6px",
-                              color: "#c2410c",
-                              background: "#ffedd5",
-                              padding: "3px 8px",
-                              borderRadius: "8px",
-                              width: "fit-content"
-                            }}
-                          >
-                            <Flag size={12} />
-                            🏳️ Ditandai Miskonsepsi oleh Guru
+                            <span>{info.label}</span>
                           </div>
                         )}
 
@@ -889,7 +944,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                             💡 Petunjuk SOKRABOT ({msg.hintLevel?.toUpperCase() || "BANTUAN"})
                           </div>
                         )}
-                        {msg.isAIGenerated && !isAutoDetected && (
+                        {msg.isAIGenerated && !hasMisconception && (
                           <div
                             style={{
                               fontWeight: "800",
@@ -935,12 +990,12 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                             padding: "3px 10px",
                             borderRadius: "8px",
                             border: hasMisconception
-                              ? "1.5px solid #fca5a5"
+                              ? "1.5px solid #ef4444"
                               : "1.5px solid #cbd5e1",
-                            background: hasMisconception ? "#fef2f2" : "#f8fafc",
-                            color: hasMisconception ? "#dc2626" : "#94a3b8",
+                            background: hasMisconception ? "#fee2e2" : "#f8fafc",
+                            color: hasMisconception ? "#b91c1c" : "#94a3b8",
                             fontSize: "0.72rem",
-                            fontWeight: "700",
+                            fontWeight: "800",
                             cursor: "pointer",
                             transition: "all 0.2s ease"
                           }}
@@ -957,14 +1012,14 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           width: "34px",
                           height: "34px",
                           borderRadius: "50%",
-                          background: hasMisconception ? "#fef2f2" : "#fef3c7",
+                          background: hasMisconception ? "#fee2e2" : "#fef3c7",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           fontSize: "1.1rem",
                           flexShrink: 0,
                           marginTop: "2px",
-                          border: hasMisconception ? "2px solid #fca5a5" : "none"
+                          border: hasMisconception ? "2px solid #ef4444" : "none"
                         }}
                       >
                         {hasMisconception ? "⚠️" : "👦"}

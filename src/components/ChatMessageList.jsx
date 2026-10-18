@@ -81,7 +81,7 @@ export default function ChatMessageList({
                             >
                               {msg.isCorrect
                                 ? "🌟 Alasan Tepat"
-                                : "🤔 Bimbingan Socratic"}
+                                : "❌ Belum Tepat • 🤔 Bimbingan"}
                             </span>
                           )}
                           <span className="banner-pill-ai">✨ AI</span>

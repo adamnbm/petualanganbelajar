@@ -215,12 +215,14 @@ export class BranchingSessionController {
     this.state.stats.totalAttempts += 1;
 
     // Tampilkan pilihan siswa sebagai pesan chat
+    const hasMisconception = Boolean(option.misconceptionTriggered);
     const userMsg = {
       id: `user_${Date.now()}`,
       sender: "user",
       text: option.text,
       timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }),
-      ...(option.misconceptionTriggered ? { misconceptionTriggered: option.misconceptionTriggered } : {})
+      isCorrect: !hasMisconception,
+      ...(hasMisconception ? { misconceptionTriggered: option.misconceptionTriggered } : {})
     };
     this.state.messages = [...this.state.messages, userMsg];
     this.state.isBotTyping = true;
@@ -297,6 +299,12 @@ export class BranchingSessionController {
         // Balasan Socratic AI Gemini
         const isAligned = Boolean(response.isConceptAligned ?? (response.status === "correct"));
 
+        // Perbarui status pesan jawaban siswa sebelumnya dengan hasil evaluasi AI
+        userMsg.isCorrect = isAligned;
+        if (!isAligned) {
+          userMsg.misconceptionTriggered = response.status || "alasan_belum_tepat";
+        }
+
         const botAIMsg = {
           id: `bot_gemini_${Date.now()}`,
           sender: "bot",
@@ -305,6 +313,7 @@ export class BranchingSessionController {
           source: "gemini_ai",
           isFeedback: true,
           isCorrect: isAligned,
+          status: response.status,
           timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         };
 
@@ -350,6 +359,11 @@ export class BranchingSessionController {
         const keywords = currentNode.conceptContext?.keywords || ["fotosintesis", "sendiri", "matahari"];
         const matched = keywords.some((k) => norm.includes(k));
 
+        userMsg.isCorrect = matched;
+        if (!matched) {
+          userMsg.misconceptionTriggered = "alasan_belum_tepat";
+        }
+
         const fallbackMsg = {
           id: `bot_fb_${Date.now()}`,
           sender: "bot",
@@ -359,6 +373,7 @@ export class BranchingSessionController {
           isAIGenerated: false,
           source: "curriculum_fallback",
           isFeedback: true,
+          isCorrect: matched,
           timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         };
         this.state.messages = [...this.state.messages, fallbackMsg];
