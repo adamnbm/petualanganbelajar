@@ -10433,10 +10433,21 @@ body {
 .chain-slots-track {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 12px;
   overflow-x: auto;
-  padding: 10px 4px 18px;
+  overflow-y: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px 20px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 992px) {
+  .chain-slots-track {
+    justify-content: center;
+  }
 }
 
 .chain-slot-box {
@@ -10971,25 +10982,49 @@ body {
    ========================================================================== */
 @media (max-width: 768px) {
   .minigame-container-root {
-    padding: 0.75rem 0.5rem 5.5rem !important;
-    gap: 0.85rem !important;
-  }
-
-  .minigame-header-card {
-    padding: 0.9rem 0.85rem !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 0.75rem !important;
-    border-radius: 18px !important;
-  }
-
-  .minigame-header-left {
+    padding: 0.5rem 0.5rem 8rem !important;
     gap: 0.65rem !important;
   }
 
+  .minigame-header-card {
+    padding: 0.65rem 0.75rem !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.6rem !important;
+    border-radius: 16px !important;
+  }
+
+  .minigame-header-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    width: 100% !important;
+  }
+
+  .btn-minigame-back {
+    padding: 6px 10px !important;
+    font-size: 0.75rem !important;
+    border-radius: 10px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .minigame-header-titles {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+
+  .minigame-badge-chip {
+    display: none !important;
+  }
+
   .minigame-title {
-    font-size: 1.15rem !important;
-    line-height: 1.25 !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    margin: 2px 0 0 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .minigame-level-selector {
@@ -10997,8 +11032,10 @@ body {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
-    padding: 4px !important;
+    padding: 3px !important;
     justify-content: flex-start !important;
+    gap: 4px !important;
+    border-radius: 12px !important;
   }
 
   .minigame-level-selector::-webkit-scrollbar {
@@ -11006,9 +11043,13 @@ body {
   }
 
   .minigame-lvl-tab-btn {
+    flex: 1 !important;
+    min-width: 66px !important;
+    justify-content: center !important;
+    padding: 5px 8px !important;
+    font-size: 0.75rem !important;
+    border-radius: 8px !important;
     flex-shrink: 0 !important;
-    padding: 5px 11px !important;
-    font-size: 0.78rem !important;
   }
 
   .minigame-stage-card {
@@ -11016,50 +11057,56 @@ body {
   }
 
   .minigame-mission-banner {
-    padding: 0.85rem 0.95rem !important;
-    gap: 0.75rem !important;
+    padding: 0.65rem 0.85rem !important;
+    gap: 0.6rem !important;
   }
 
   .minigame-mascot-circle {
-    width: 36px !important;
-    height: 36px !important;
+    width: 34px !important;
+    height: 34px !important;
     flex-shrink: 0 !important;
   }
 
   .minigame-mascot-circle img {
-    width: 26px !important;
-    height: 26px !important;
+    width: 24px !important;
+    height: 24px !important;
   }
 
-  /* Chain Workspace Mobile */
+  /* Chain Workspace Mobile - Pastikan Slot 1 Mulai Rapi dari Kiri */
   .minigame-chain-workspace {
-    padding: 0.95rem 0.65rem 0.85rem !important;
+    padding: 0.75rem 0.6rem 0.85rem !important;
   }
 
   .workspace-header-label {
-    font-size: 0.82rem !important;
-    margin-bottom: 0.85rem !important;
+    font-size: 0.8rem !important;
+    margin-bottom: 0.65rem !important;
+    gap: 4px !important;
   }
 
   .chain-slots-track {
     justify-content: flex-start !important;
-    padding: 8px 4px 14px !important;
-    gap: 5px !important;
+    padding: 12px 8px 16px !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: smooth !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .chain-slot-box {
-    min-width: 110px !important;
-    max-width: 124px !important;
-    height: 155px !important;
+    min-width: 114px !important;
+    max-width: 118px !important;
+    height: 148px !important;
     border-radius: 14px !important;
+    flex-shrink: 0 !important;
   }
 
   .slot-number-badge {
-    top: -8px !important;
+    top: -9px !important;
     left: 6px !important;
-    padding: 1px 5px !important;
-    font-size: 0.62rem !important;
+    padding: 1px 6px !important;
+    font-size: 0.63rem !important;
   }
 
   .placed-organism-card {
@@ -11079,7 +11126,7 @@ body {
   }
 
   .organism-role-badge {
-    font-size: 0.6rem !important;
+    font-size: 0.58rem !important;
     padding: 1px 5px !important;
   }
 
@@ -11091,7 +11138,7 @@ body {
   }
 
   .empty-slot-placeholder {
-    padding: 0.5rem !important;
+    padding: 0.4rem !important;
   }
 
   .placeholder-icon {
@@ -11100,40 +11147,43 @@ body {
   }
 
   .placeholder-text {
-    font-size: 0.68rem !important;
+    font-size: 0.65rem !important;
     line-height: 1.2 !important;
+    font-weight: 700 !important;
   }
 
   /* Energy Arrow Connector Mobile */
   .energy-arrow-connector {
-    min-width: 24px !important;
+    min-width: 20px !important;
+    flex-shrink: 0 !important;
   }
 
   .energy-arrow-line {
-    width: 12px !important;
-    height: 2.5px !important;
+    width: 10px !important;
+    height: 2px !important;
   }
 
   .energy-flow-pulse {
-    font-size: 0.7rem !important;
+    font-size: 0.68rem !important;
   }
 
   .energy-arrow-tip {
-    font-size: 0.62rem !important;
+    font-size: 0.58rem !important;
   }
 
   .energy-arrow-label {
     display: none !important;
   }
 
-  /* Card Pool Mobile: 2 Columns */
+  /* Card Pool Mobile: 2 Kolom Rapi & Nyaman Ditekan */
   .available-pool-workspace {
-    padding: 0.95rem 0.75rem !important;
+    padding: 0.85rem 0.65rem !important;
   }
 
   .pool-header-label {
-    font-size: 0.82rem !important;
-    margin-bottom: 0.75rem !important;
+    font-size: 0.8rem !important;
+    margin-bottom: 0.65rem !important;
+    gap: 4px !important;
   }
 
   .available-cards-grid {
@@ -11142,8 +11192,15 @@ body {
   }
 
   .pool-organism-card {
-    padding: 0.65rem 0.6rem 0.55rem !important;
+    padding: 0.65rem 0.6rem !important;
     border-radius: 12px !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  .pool-organism-card:active {
+    transform: scale(0.97) !important;
   }
 
   .pool-card-top {
@@ -11151,7 +11208,7 @@ body {
   }
 
   .pool-card-emoji {
-    font-size: 1.65rem !important;
+    font-size: 1.7rem !important;
   }
 
   .pool-card-role-chip {
@@ -11160,14 +11217,14 @@ body {
   }
 
   .pool-card-name {
-    font-size: 0.8rem !important;
+    font-size: 0.82rem !important;
     margin-bottom: 2px !important;
   }
 
   .pool-card-desc {
-    font-size: 0.67rem !important;
+    font-size: 0.66rem !important;
     line-height: 1.25 !important;
-    margin-bottom: 4px !important;
+    margin-bottom: 6px !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
@@ -11176,14 +11233,22 @@ body {
 
   .pool-card-action-hint {
     font-size: 0.65rem !important;
+    font-weight: 800 !important;
+    color: #059669 !important;
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    border-radius: 6px !important;
+    padding: 3px 6px !important;
+    text-align: center !important;
+    margin-top: auto !important;
   }
 
-  /* Footer Mobile */
+  /* Footer Mobile - Check Answer Action */
   .minigame-footer-action-bar {
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 0.75rem !important;
-    padding: 0.95rem 0.85rem !important;
+    gap: 0.65rem !important;
+    padding: 0.85rem 0.75rem !important;
   }
 
   .footer-status-text {
@@ -11194,8 +11259,9 @@ body {
   .btn-check-chain-action {
     width: 100% !important;
     justify-content: center !important;
-    padding: 0.8rem !important;
-    font-size: 0.92rem !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 14px !important;
   }
 
   /* Modal Mobile */

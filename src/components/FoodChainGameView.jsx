@@ -505,7 +505,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
         <div className="minigame-header-left">
           <button
             onClick={onBackToMenu}
-            className="nav-pill-btn"
+            className="nav-pill-btn btn-minigame-back"
             style={{
               background: "#ffffff",
               border: "1.5px solid #cbd5e1",
@@ -518,7 +518,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
             <span>Menu Utama</span>
           </button>
 
-          <div>
+          <div className="minigame-header-titles">
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <span className="minigame-badge-chip">🎮 Minigame Interaktif</span>
               <span
@@ -696,8 +696,11 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                       </div>
                     ) : (
                       <div className="empty-slot-placeholder">
-                        <div className="placeholder-icon">📥</div>
-                        <div className="placeholder-text">Tarik atau Ketuk Kartu ke Sini</div>
+                        <div className="placeholder-icon">🎯</div>
+                        <div className="placeholder-text">
+                          <span className="hide-on-mobile">Tarik atau Ketuk Kartu ke Sini</span>
+                          <span className="show-on-mobile-only">Ketuk Kartu di Bawah</span>
+                        </div>
                       </div>
                     )}
                   </div>
