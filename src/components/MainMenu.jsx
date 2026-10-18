@@ -102,10 +102,12 @@ export default function MainMenu({
             </span>
           </h1>
           <p className="menu-hero-sub">
-            Ada misteri di sawah Pak Budi! Tanaman padi Pak Budi semakin
-            berkurang. Wah,kira-kira apa yang terjadi,ya? Ayo bantu SOKRABOT
-            mencari petunjuk menjawab pertanyaan, dan menemukan penyebabnya.
-            Siap menjadi detektif sains?
+            Pak Budi sedang kebingungan. Tanaman padi di sawahnya semakin rusak
+            dan berkurang. Kira-kira apa penyebabnya, ya? Ayo bantu SOKRABOT
+            mencari petunjuk, menyelidiki hubungan antar makhluk hidup di sawah,
+            dan menemukan jawaban dari misteri ini!
+            <br />
+            <span className="start-penyelidikan">Ayo mulai penyelidikan!</span>
           </p>
 
           {/* Quick Stats Pill */}
@@ -167,13 +169,16 @@ export default function MainMenu({
           </svg>
 
           {/* Speech bubble di atas kepala SOKRABOT */}
-          <div className="sokrabot-speech-bubble">
+          {/* <div className="sokrabot-speech-bubble">
             <span>Ayo berpetualang bersama!</span>
-          </div>
+          </div> */}
 
           <img
-            src="/hero_robot.png?v=panorama"
-            alt="SOKRABOT Petualang Sawah"
+            src="/hero_pakbudi.png?v=panorama"
+            alt="Pak Budi dan SOKRABOT Petualang Sawah"
+            onError={(e) => {
+              e.currentTarget.src = "/hero_robot.png?v=panorama";
+            }}
             className="menu-hero-image"
           />
         </div>
