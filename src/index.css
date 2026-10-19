@@ -10978,94 +10978,420 @@ body {
 }
 
 /* ==========================================================================
+   FOOD CHAIN INPUT GAME — Fill-in-the-Name Cards
+   ========================================================================== */
+.fc-input-chain-track {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 10px 22px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.fc-input-card {
+  min-width: 180px;
+  max-width: 220px;
+  flex: 1 1 180px;
+  border-radius: 20px;
+  border: 2px solid;
+  padding: 1rem 0.9rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fc-input-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.fc-card-correct {
+  box-shadow: 0 6px 22px rgba(16, 185, 129, 0.2) !important;
+}
+
+.fc-card-wrong {
+  box-shadow: 0 6px 22px rgba(239, 68, 68, 0.15) !important;
+}
+
+.fc-card-shake {
+  animation: shakeError 0.5s ease-in-out;
+}
+
+/* Role Badge Pill */
+.fc-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fc-role-subtitle {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+
+/* Emoji Question */
+.fc-slot-emoji {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin: 4px 0;
+  transition: transform 0.3s ease;
+}
+
+.fc-card-correct .fc-slot-emoji {
+  animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Input Field */
+.fc-input-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fc-text-input {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.fc-text-input::placeholder {
+  color: #94a3b8;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.fc-text-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.fc-text-input.input-correct {
+  border-color: #10b981;
+  background: #f0fdf4;
+  color: #065f46;
+}
+
+.fc-text-input.input-wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.fc-text-input:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
+.fc-input-icon-ok {
+  position: absolute;
+  right: 10px;
+  color: #10b981;
+  pointer-events: none;
+}
+
+.fc-input-icon-err {
+  position: absolute;
+  right: 10px;
+  color: #ef4444;
+  pointer-events: none;
+}
+
+/* Feedback Tags */
+.fc-feedback {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 8px;
+}
+
+.fc-feedback-correct {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.fc-feedback-wrong {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+/* Hint Toggle Button */
+.fc-hint-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 1px solid #fde68a;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 2px;
+}
+
+.fc-hint-toggle-btn:hover {
+  background: #fde68a;
+  transform: scale(1.03);
+}
+
+/* Hint Box */
+.fc-hint-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  font-size: 0.72rem;
+  color: #78350f;
+  line-height: 1.35;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeInHint 0.3s ease;
+}
+
+@keyframes fadeInHint {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Description reveal after correct */
+.fc-desc-reveal {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: #047857;
+  line-height: 1.35;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  animation: fadeInHint 0.4s ease;
+}
+
+.fc-desc-reveal svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Energy Flow Summary Bar */
+.fc-energy-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border-top: 1.5px solid #fde68a;
+  border-bottom: 1.5px solid #fde68a;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #92400e;
+  line-height: 1.45;
+  animation: fadeInHint 0.5s ease;
+}
+
+/* Success Modal Chain Visual */
+.fc-success-chain-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 1rem 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.fc-success-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.fc-success-emoji {
+  font-size: 2rem;
+}
+
+.fc-success-name {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.fc-success-role {
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.fc-success-arrow {
+  font-size: 1.5rem;
+  margin: 0 2px;
+}
+
+/* ==========================================================================
    RESPONSIVE MOBILE ADAPTATION FOR MINIGAME (<= 768px)
    ========================================================================== */
+/* Responsive visibility utilities */
+.hide-on-mobile {
+  display: inline;
+}
+.show-on-mobile-only {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  .show-on-mobile-only {
+    display: inline !important;
+  }
+  div.show-on-mobile-only, p.show-on-mobile-only {
+    display: block !important;
+  }
+  span.show-on-mobile-only {
+    display: inline !important;
+  }
+
   .minigame-container-root {
-    padding: 0.4rem 0.4rem 7.5rem !important;
-    gap: 0.5rem !important;
-    max-width: 100vw !important;
+    padding: 0.5rem 0.5rem 6.5rem !important;
+    gap: 0.55rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
     box-sizing: border-box !important;
     overflow-x: hidden !important;
   }
 
-  /* Header Card Mobile: 1 Baris Ringkas (Tombol Kembali & Selector Level) */
+  /* Header Card Mobile: Ramping, tombol Menu + judul ringkas */
   .minigame-header-card {
-    padding: 0.45rem 0.6rem !important;
+    padding: 0.55rem 0.75rem !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    gap: 0.5rem !important;
-    border-radius: 14px !important;
+    justify-content: flex-start !important;
+    gap: 0.65rem !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
   }
 
   .minigame-header-left {
     display: flex !important;
     align-items: center !important;
-    gap: 0.5rem !important;
-    width: auto !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+    min-width: 0 !important;
   }
 
   .btn-minigame-back {
-    padding: 5px 8px !important;
-    font-size: 0.72rem !important;
-    border-radius: 8px !important;
+    padding: 6px 10px !important;
+    font-size: 0.75rem !important;
+    border-radius: 10px !important;
     flex-shrink: 0 !important;
   }
 
   .minigame-header-titles {
-    display: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+  }
+
+  .minigame-title {
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    color: #0f172a !important;
   }
 
   .minigame-badge-chip {
-    display: none !important;
+    display: inline-block !important;
+    font-size: 0.65rem !important;
+    padding: 1px 7px !important;
+    width: fit-content !important;
+    white-space: nowrap !important;
   }
 
   .minigame-level-selector {
-    display: flex !important;
-    align-items: center !important;
-    gap: 3px !important;
-    padding: 2px !important;
-    background: #f1f5f9 !important;
-    border-radius: 10px !important;
-    overflow-x: auto !important;
-    width: auto !important;
-    max-width: 65% !important;
-    scrollbar-width: none !important;
-  }
-
-  .minigame-level-selector::-webkit-scrollbar {
-    display: none;
-  }
-
-  .minigame-lvl-tab-btn {
-    padding: 4px 7px !important;
-    font-size: 0.72rem !important;
-    border-radius: 6px !important;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
+    display: none !important;
   }
 
   .minigame-stage-card {
-    border-radius: 16px !important;
+    border-radius: 18px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    overflow: hidden !important;
   }
 
   /* Mission Banner: Ringkas & Padat */
   .minigame-mission-banner {
-    padding: 0.5rem 0.65rem !important;
+    padding: 0.55rem 0.75rem !important;
     gap: 0.5rem !important;
     align-items: center !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
   }
 
   .minigame-mascot-circle {
-    width: 30px !important;
-    height: 30px !important;
+    width: 32px !important;
+    height: 32px !important;
     flex-shrink: 0 !important;
   }
 
   .minigame-mascot-circle img {
-    width: 20px !important;
-    height: 20px !important;
+    width: 22px !important;
+    height: 22px !important;
   }
 
   .minigame-mission-banner > div:first-child > div:last-child > div:first-child {
@@ -11079,13 +11405,15 @@ body {
   }
 
   .minigame-mission-banner .nav-pill-btn {
-    padding: 4px 7px !important;
+    padding: 5px 8px !important;
     font-size: 0.72rem !important;
   }
 
   /* Chain Workspace Mobile - Semua Slot Pas di Layar Tanpa Terpotong */
   .minigame-chain-workspace {
-    padding: 0.65rem 0.45rem 0.75rem !important;
+    padding: 0.75rem 0.45rem 0.85rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
   }
 
   .workspace-header-label {
@@ -11096,10 +11424,10 @@ body {
 
   .chain-slots-track {
     display: flex !important;
-    align-items: center !important;
+    align-items: stretch !important;
     justify-content: space-between !important;
-    gap: 3px !important;
-    padding: 10px 2px 12px !important;
+    gap: 4px !important;
+    padding: 14px 2px 10px !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     width: 100% !important;
@@ -11108,20 +11436,27 @@ body {
 
   .chain-slot-box {
     flex: 1 1 0 !important;
-    min-width: 66px !important;
-    max-width: 86px !important;
-    height: 120px !important;
+    min-width: 68px !important;
+    max-width: 88px !important;
+    min-height: 130px !important;
+    height: auto !important;
     border-radius: 12px !important;
     border-width: 1.5px !important;
     flex-shrink: 1 !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
   }
 
   .slot-number-badge {
-    top: -8px !important;
-    left: 4px !important;
-    padding: 1px 5px !important;
+    top: -9px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    padding: 1px 6px !important;
     font-size: 0.58rem !important;
     gap: 3px !important;
+    white-space: nowrap !important;
+    z-index: 5 !important;
   }
 
   .slot-role-hint {
@@ -11129,55 +11464,74 @@ body {
   }
 
   .placed-organism-card {
-    padding: 0.5rem 0.2rem 0.35rem !important;
+    padding: 0.65rem 0.15rem 0.4rem !important;
     border-radius: 12px !important;
     border-width: 1.5px !important;
+    min-height: 130px !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
   }
 
   .organism-emoji {
-    font-size: 1.55rem !important;
-    margin-bottom: 1px !important;
+    font-size: 1.6rem !important;
+    line-height: 1 !important;
+    margin-bottom: 2px !important;
   }
 
   .organism-title {
-    font-size: 0.68rem !important;
+    font-size: 0.72rem !important;
     font-weight: 800 !important;
     line-height: 1.15 !important;
     margin-bottom: 2px !important;
     text-align: center !important;
-    word-break: break-word !important;
+    word-break: normal !important;
   }
 
   .organism-role-badge {
-    font-size: 0.52rem !important;
+    font-size: 0.55rem !important;
+    font-weight: 800 !important;
     padding: 1px 4px !important;
     max-width: 100% !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    border-radius: 999px !important;
   }
 
   .validation-error-tag,
   .validation-success-tag {
-    font-size: 0.52rem !important;
-    padding: 1px 3px !important;
+    font-size: 0.55rem !important;
+    font-weight: 800 !important;
+    padding: 1px 4px !important;
     gap: 2px !important;
     margin-top: 2px !important;
+    border-radius: 4px !important;
+    white-space: nowrap !important;
   }
 
   .empty-slot-placeholder {
-    padding: 0.35rem 0.2rem !important;
+    padding: 0.5rem 0.2rem !important;
+    min-height: 130px !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .placeholder-icon {
-    font-size: 1.25rem !important;
+    font-size: 1.3rem !important;
     margin-bottom: 2px !important;
   }
 
   .placeholder-text {
     font-size: 0.62rem !important;
-    line-height: 1.15 !important;
+    line-height: 1.2 !important;
     font-weight: 700 !important;
+    text-align: center !important;
   }
 
   /* Energy Arrow Connector Mobile: Ramping & Proporsional */
@@ -11186,6 +11540,10 @@ body {
     max-width: 14px !important;
     flex-shrink: 0 !important;
     margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .energy-arrow-line {
@@ -11207,7 +11565,9 @@ body {
 
   /* Card Pool Mobile: 2 Kolom Ringkas Tanpa Teks Terpotong */
   .available-pool-workspace {
-    padding: 0.65rem 0.5rem !important;
+    padding: 0.75rem 0.6rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
   }
 
   .pool-header-label {
@@ -11218,19 +11578,23 @@ body {
 
   .available-cards-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 6px !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .pool-organism-card {
-    padding: 0.5rem 0.55rem !important;
-    border-radius: 12px !important;
+    padding: 0.6rem 0.65rem !important;
+    border-radius: 14px !important;
     border-width: 1.5px !important;
     touch-action: manipulation !important;
     user-select: none !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
     display: flex !important;
     flex-direction: column !important;
-    min-height: 82px !important;
+    justify-content: space-between !important;
+    min-height: 80px !important;
+    box-sizing: border-box !important;
   }
 
   .pool-organism-card:active {
@@ -11245,26 +11609,24 @@ body {
   }
 
   .pool-card-emoji {
-    font-size: 1.5rem !important;
+    font-size: 1.45rem !important;
   }
 
   .pool-card-role-chip {
-    font-size: 0.55rem !important;
-    padding: 1px 5px !important;
+    font-size: 0.58rem !important;
+    font-weight: 700 !important;
+    padding: 1px 6px !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: 65% !important;
+    border-radius: 999px !important;
   }
 
   .pool-card-name {
-    font-size: 0.78rem !important;
+    font-size: 0.82rem !important;
     font-weight: 800 !important;
     line-height: 1.2 !important;
     margin-bottom: 2px !important;
   }
 
-  /* Sembunyikan paragraf deskripsi panjang pada kartu baki di ponsel agar kartu rapi & tidak terpotong */
   .pool-card-desc {
     display: none !important;
   }
@@ -11278,7 +11640,7 @@ body {
     border-radius: 6px !important;
     padding: 2px 5px !important;
     text-align: center !important;
-    margin-top: auto !important;
+    margin-top: 4px !important;
   }
 
   /* Footer Mobile - Tombol Periksa Rantai Makanan */
@@ -11287,6 +11649,8 @@ body {
     align-items: stretch !important;
     gap: 0.55rem !important;
     padding: 0.75rem 0.65rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
   }
 
   .footer-status-text {
@@ -11297,27 +11661,159 @@ body {
   .btn-check-chain-action {
     width: 100% !important;
     justify-content: center !important;
-    padding: 0.8rem 1rem !important;
-    font-size: 0.92rem !important;
+    padding: 0.85rem 1rem !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
     border-radius: 14px !important;
   }
 
   /* Modal Mobile */
+  .game-modal-overlay {
+    padding: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
   .game-modal-box {
-    max-width: 92vw !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
     border-radius: 20px !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .game-modal-header {
-    padding: 0.9rem 1rem !important;
+    padding: 0.85rem 1rem !important;
   }
 
   .game-modal-body {
-    padding: 1rem !important;
+    padding: 0.85rem 1rem !important;
+    overflow-y: auto !important;
   }
 
   .game-modal-footer {
-    padding: 0.65rem 1rem 1rem !important;
+    padding: 0.65rem 1rem 0.85rem !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .game-modal-footer .nav-pill-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* =============================================
+     Food Chain Input Game — Mobile Responsive
+     ============================================= */
+  .fc-input-chain-track {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 10px 6px 16px !important;
+  }
+
+  .fc-input-card {
+    min-width: unset !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    flex: none !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    padding: 0.75rem 0.85rem !important;
+    border-radius: 16px !important;
+    gap: 6px !important;
+    text-align: left !important;
+    align-items: center !important;
+  }
+
+  .fc-role-badge {
+    font-size: 0.7rem !important;
+    padding: 3px 10px !important;
+  }
+
+  .fc-role-subtitle {
+    font-size: 0.65rem !important;
+    flex: 1 1 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  .fc-slot-emoji {
+    font-size: 2rem !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .fc-input-wrapper {
+    flex: 1 1 55% !important;
+    min-width: 120px !important;
+  }
+
+  .fc-text-input {
+    padding: 8px 32px 8px 10px !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+    text-align: left !important;
+  }
+
+  .fc-feedback {
+    font-size: 0.62rem !important;
+    padding: 2px 6px !important;
+  }
+
+  .fc-hint-toggle-btn {
+    font-size: 0.62rem !important;
+    padding: 2px 7px !important;
+  }
+
+  .fc-hint-box {
+    flex: 1 1 100% !important;
+    font-size: 0.65rem !important;
+    padding: 6px 8px !important;
+  }
+
+  .fc-desc-reveal {
+    flex: 1 1 100% !important;
+    font-size: 0.64rem !important;
+    padding: 5px 7px !important;
+  }
+
+  /* Energy arrows in mobile become vertical (down arrows) */
+  .fc-input-chain-track .energy-arrow-connector {
+    flex-direction: row !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    gap: 4px !important;
+  }
+
+  .fc-energy-summary {
+    padding: 0.75rem 0.85rem !important;
+    font-size: 0.78rem !important;
+    gap: 8px !important;
+  }
+
+  .fc-success-chain-visual {
+    gap: 4px !important;
+    padding: 0.65rem 0.25rem !important;
+  }
+
+  .fc-success-emoji {
+    font-size: 1.5rem !important;
+  }
+
+  .fc-success-name {
+    font-size: 0.7rem !important;
+  }
+
+  .fc-success-role {
+    font-size: 0.58rem !important;
+  }
+
+  .fc-success-arrow {
+    font-size: 1rem !important;
   }
 }
 

@@ -18,285 +18,80 @@ import {
 } from "lucide-react";
 import { soundManager } from "../engine/audioEffects";
 
-// Master Data Level Permainan Rantai Makanan & Aliran Energi
-const GAME_LEVELS = [
-  {
-    id: 1,
-    title: "Level 1: Rantai Makanan Dasar Sawah",
-    subTitle: "Susun 4 Tingkat Trofik dari Produsen hingga Pengurai",
-    difficulty: "Mudah",
-    difficultyColor: "#059669",
-    hint: "Ingat: Mulailah dari makhluk hidup yang membuat makanannya sendiri (Produsen), lalu hewan yang memakannya, hingga pengurai di akhir!",
-    explanation:
-      "Bagus sekali! Rantai makanan selalu dimulai dari Produsen (Tanaman Padi) yang membuat makanan sendiri, lalu dimakan oleh Konsumen I (Belalang), kemudian Konsumen II (Katak), dan saat mati akan diurai oleh Pengurai (Jamur).",
-    energyExplanation:
-      "Arah panah (➡️) menunjukkan arah aliran energi yang diserap dari makanan, BUKAN siapa yang memburu siapa!",
-    correctOrder: [
-      {
-        id: "padi",
-        name: "Tanaman Padi",
-        scientificName: "Oryza sativa",
-        emoji: "🌾",
-        role: "Produsen",
-        roleType: "producer",
-        description: "Menghasilkan makanan sendiri lewat fotosintesis dengan bantuan sinar matahari.",
-        badgeColor: "#10b981",
-        bgColor: "#ecfdf5"
-      },
-      {
-        id: "belalang",
-        name: "Belalang Sawah",
-        scientificName: "Oxya chinensis",
-        emoji: "🦗",
-        role: "Konsumen I (Herbivora)",
-        roleType: "consumer_1",
-        description: "Memakan daun padi untuk mendapatkan energi pertamanya.",
-        badgeColor: "#0284c7",
-        bgColor: "#f0f9ff"
-      },
-      {
-        id: "katak",
-        name: "Katak Sawah",
-        scientificName: "Fejervarya cancrivora",
-        emoji: "🐸",
-        role: "Konsumen II (Karnivora)",
-        roleType: "consumer_2",
-        description: "Memangsa serangga seperti belalang di sela-sela rumpun padi.",
-        badgeColor: "#ea580c",
-        bgColor: "#fff7ed"
-      },
-      {
-        id: "jamur",
-        name: "Jamur Pengurai",
-        scientificName: "Fungi Decomposer",
-        emoji: "🍄",
-        role: "Pengurai (Dekomposer)",
-        roleType: "decomposer",
-        description: "Menguraikan sisa makhluk hidup mati menjadi zat hara untuk menyuburkan tanah.",
-        badgeColor: "#7c3aed",
-        bgColor: "#f5f3ff"
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: "Level 2: Misteri Hama Tikus & Ular",
-    subTitle: "Susun Rantai 5 Tingkat Menuju Predator Puncak",
-    difficulty: "Sedang",
-    difficultyColor: "#d97706",
-    hint: "Padi dimakan oleh hama pengerat sawah. Siapakah pemangsa alaminya sebelum akhirnya dimangsa oleh burung predator besar?",
-    explanation:
-      "Hebat! Jika ular sawah dibasmi oleh manusia, populasi tikus akan meledak dan menghabiskan padi Pak Budi. Ular dan Elang sangat penting sebagai pengendali hama alami!",
-    energyExplanation:
-      "Energi berpindah dari Padi ➔ Tikus ➔ Ular ➔ Elang ➔ Jamur. Setiap pemangsa menyerap sebagian energi dari mangsanya.",
-    correctOrder: [
-      {
-        id: "padi",
-        name: "Tanaman Padi",
-        scientificName: "Oryza sativa",
-        emoji: "🌾",
-        role: "Produsen",
-        roleType: "producer",
-        description: "Menghasilkan bulir padi sumber energi utama di sawah.",
-        badgeColor: "#10b981",
-        bgColor: "#ecfdf5"
-      },
-      {
-        id: "tikus",
-        name: "Tikus Sawah",
-        scientificName: "Rattus argentiventer",
-        emoji: "🐭",
-        role: "Konsumen I (Herbivora)",
-        roleType: "consumer_1",
-        description: "Memakan biji dan batang padi pada malam hari.",
-        badgeColor: "#0284c7",
-        bgColor: "#f0f9ff"
-      },
-      {
-        id: "ular",
-        name: "Ular Sawah",
-        scientificName: "Ptyas korros",
-        emoji: "🐍",
-        role: "Konsumen II (Karnivora)",
-        roleType: "consumer_2",
-        description: "Predator alami pemburu tikus yang menjaga kelestarian padi.",
-        badgeColor: "#ea580c",
-        bgColor: "#fff7ed"
-      },
-      {
-        id: "elang",
-        name: "Burung Elang",
-        scientificName: "Haliaeetus leucogaster",
-        emoji: "🦅",
-        role: "Konsumen Puncak (Apex)",
-        roleType: "apex",
-        description: "Burung pemangsa puncak yang memangsa ular dan hewan kecil lainnya.",
-        badgeColor: "#b91c1c",
-        bgColor: "#fef2f2"
-      },
-      {
-        id: "bakteri_jamur",
-        name: "Bakteri & Jamur",
-        scientificName: "Mikroorganisme Pengurai",
-        emoji: "🦠",
-        role: "Pengurai (Dekomposer)",
-        roleType: "decomposer",
-        description: "Mengembalikan unsur hara bangkai elang ke tanah sawah.",
-        badgeColor: "#7c3aed",
-        bgColor: "#f5f3ff"
-      }
-    ]
-  },
-  {
-    id: 3,
-    title: "Level 3: Rantai Daun & Burung Pipit",
-    subTitle: "Variasi Rantai Makanan dengan Serangga & Burung",
-    difficulty: "Menantang",
-    difficultyColor: "#dc2626",
-    hint: "Ulat daun memakan dedaunan padi. Burung kecil memakannya, lalu burung kecil menjadi santapan ular sawah!",
-    explanation:
-      "Luar biasa! Di sawah terdapat banyak rantai makanan yang saling berhubungan. Kumpulan dari beberapa rantai makanan ini disebut Jaring-Jaring Makanan (Food Web)!",
-    energyExplanation:
-      "Panah energi membuktikan bahwa semua energi hewan karnivora secara tidak langsung berasal dari tanaman padi!",
-    correctOrder: [
-      {
-        id: "padi",
-        name: "Tanaman Padi",
-        scientificName: "Oryza sativa",
-        emoji: "🌾",
-        role: "Produsen",
-        roleType: "producer",
-        description: "Menghasilkan daun hijau segar lewat fotosintesis.",
-        badgeColor: "#10b981",
-        bgColor: "#ecfdf5"
-      },
-      {
-        id: "ulat",
-        name: "Ulat Daun",
-        scientificName: "Spodoptera litura",
-        emoji: "🐛",
-        role: "Konsumen I (Herbivora)",
-        roleType: "consumer_1",
-        description: "Memakan daun padi muda hingga berlubang.",
-        badgeColor: "#0284c7",
-        bgColor: "#f0f9ff"
-      },
-      {
-        id: "burung_pipit",
-        name: "Burung Pipit",
-        scientificName: "Lonchura punctulata",
-        emoji: "🐦",
-        role: "Konsumen II (Insektivora)",
-        roleType: "consumer_2",
-        description: "Burung kecil lincah yang mematuk ulat dan serangga.",
-        badgeColor: "#ea580c",
-        bgColor: "#fff7ed"
-      },
-      {
-        id: "ular",
-        name: "Ular Sawah",
-        scientificName: "Ptyas korros",
-        emoji: "🐍",
-        role: "Konsumen III (Karnivora)",
-        roleType: "consumer_3",
-        description: "Menyergap burung pipit yang hinggap di tangkai padi.",
-        badgeColor: "#c2410c",
-        bgColor: "#fff7ed"
-      },
-      {
-        id: "elang",
-        name: "Burung Elang",
-        scientificName: "Haliaeetus leucogaster",
-        emoji: "🦅",
-        role: "Konsumen Puncak (Apex)",
-        roleType: "apex",
-        description: "Penguasa udara sawah yang memburu ular dari angkasa.",
-        badgeColor: "#b91c1c",
-        bgColor: "#fef2f2"
-      }
-    ]
-  },
-  {
-    id: 4,
-    title: "Level 4: Sumber Energi Utama Seluruh Kehidupan",
-    subTitle: "Lacak Aliran Energi Lengkap Dimulai dari Sang Surya",
-    difficulty: "Master Sains",
-    difficultyColor: "#9333ea",
-    hint: "Dari manakah padi mendapatkan energi pertamanya sebelum dimakan hewan? Mulailah dari sumber energi terbesar di bumi!",
-    explanation:
-      "Sempurna! Kamu telah membuktikan konsep inti IPA: Matahari adalah sumber energi utama bagi seluruh ekosistem di bumi. Padi menyerap cahaya matahari lewat klorofil daun, lalu energi mengalir ke seluruh rantai makanan!",
-    energyExplanation:
-      "Aliran energi mengalir satu arah: Matahari ➔ Padi ➔ Belalang ➔ Katak ➔ Ular ➔ Elang!",
-    correctOrder: [
-      {
-        id: "matahari",
-        name: "Cahaya Matahari",
-        scientificName: "Sumber Energi Utama",
-        emoji: "☀️",
-        role: "Sumber Energi Terbesar",
-        roleType: "sun",
-        description: "Memancarkan energi cahaya yang diserap oleh klorofil tanaman.",
-        badgeColor: "#eab308",
-        bgColor: "#fefce8"
-      },
-      {
-        id: "padi",
-        name: "Tanaman Padi",
-        scientificName: "Oryza sativa",
-        emoji: "🌾",
-        role: "Produsen Mandiri",
-        roleType: "producer",
-        description: "Mengubah energi cahaya menjadi makanan (glukosa) lewat fotosintesis.",
-        badgeColor: "#10b981",
-        bgColor: "#ecfdf5"
-      },
-      {
-        id: "belalang",
-        name: "Belalang Sawah",
-        scientificName: "Oxya chinensis",
-        emoji: "🦗",
-        role: "Konsumen I",
-        roleType: "consumer_1",
-        description: "Menghisap cairan daun dan memakan daun padi.",
-        badgeColor: "#0284c7",
-        bgColor: "#f0f9ff"
-      },
-      {
-        id: "katak",
-        name: "Katak Sawah",
-        scientificName: "Fejervarya cancrivora",
-        emoji: "🐸",
-        role: "Konsumen II",
-        roleType: "consumer_2",
-        description: "Menangkap belalang dengan lidahnya yang panjang dan lengket.",
-        badgeColor: "#ea580c",
-        bgColor: "#fff7ed"
-      },
-      {
-        id: "ular",
-        name: "Ular Sawah",
-        scientificName: "Ptyas korros",
-        emoji: "🐍",
-        role: "Konsumen III",
-        roleType: "consumer_3",
-        description: "Membelit dan menelan katak sawah secara utuh.",
-        badgeColor: "#c2410c",
-        bgColor: "#fff7ed"
-      },
-      {
-        id: "elang",
-        name: "Burung Elang",
-        scientificName: "Haliaeetus leucogaster",
-        emoji: "🦅",
-        role: "Konsumen Puncak",
-        roleType: "apex",
-        description: "Mencengkeram ular dengan cakar tajamnya yang kuat.",
-        badgeColor: "#b91c1c",
-        bgColor: "#fef2f2"
-      }
-    ]
-  }
-];
+// =====================================================
+// DATA 1 LEVEL — Rantai Makanan Sawah (Konteks Peta Misi)
+// Padi → Tikus → Ular → Elang
+// =====================================================
+const GAME_LEVEL = {
+  id: 1,
+  title: "Rantai Makanan Ekosistem Sawah",
+  subTitle: "Susun kartu organisme dari Produsen hingga Konsumen Puncak!",
+  difficulty: "Tantangan",
+  difficultyColor: "#059669",
+  hint: "Ingat rantai makanan di sawah Pak Budi! Dimulai dari tanaman yang melakukan fotosintesis (Produsen), lalu hewan pemakan tumbuhan (Konsumen I), kemudian hewan pemangsa (Konsumen II), hingga predator puncak (Konsumen III).",
+  explanation:
+    "Rantai makanan di sawah dimulai dari Tanaman Padi (Produsen) yang menghasilkan makanan sendiri lewat fotosintesis. Padi dimakan oleh Tikus Sawah (Konsumen I), Tikus dimangsa oleh Ular Sawah (Konsumen II), dan Ular dimangsa oleh Burung Elang (Konsumen III) sebagai predator puncak.",
+  energyExplanation:
+    "Arah aliran energi: Padi 🌾 ➡️ Tikus 🐀 ➡️ Ular 🐍 ➡️ Elang 🦅. Energi mengalir dari produsen ke konsumen melalui peristiwa makan dan dimakan!",
+  correctOrder: [
+    {
+      id: "padi",
+      name: "Tanaman Padi",
+      shortName: "Padi",
+      scientificName: "Oryza sativa",
+      emoji: "🌾",
+      role: "Produsen",
+      shortRole: "Produsen",
+      roleType: "producer",
+      description:
+        "Menghasilkan makanan sendiri dari cahaya matahari melalui fotosintesis. Sumber energi pertama di ekosistem sawah.",
+      badgeColor: "#10b981",
+      bgColor: "#ecfdf5"
+    },
+    {
+      id: "tikus",
+      name: "Tikus Sawah",
+      shortName: "Tikus",
+      scientificName: "Rattus argentiventer",
+      emoji: "🐀",
+      role: "Konsumen I (Herbivora)",
+      shortRole: "Konsumen 1",
+      roleType: "consumer_1",
+      description:
+        "Memakan biji dan batang padi pada malam hari. Hama utama yang merugikan petani di sawah.",
+      badgeColor: "#0284c7",
+      bgColor: "#f0f9ff"
+    },
+    {
+      id: "ular",
+      name: "Ular Sawah",
+      shortName: "Ular",
+      scientificName: "Ptyas korros",
+      emoji: "🐍",
+      role: "Konsumen II (Karnivora)",
+      shortRole: "Konsumen 2",
+      roleType: "consumer_2",
+      description:
+        "Predator alami pemburu tikus yang menjaga kelestarian padi di sawah.",
+      badgeColor: "#ea580c",
+      bgColor: "#fff7ed"
+    },
+    {
+      id: "elang",
+      name: "Burung Elang",
+      shortName: "Elang",
+      scientificName: "Haliaeetus leucogaster",
+      emoji: "🦅",
+      role: "Konsumen III (Predator Puncak)",
+      shortRole: "Konsumen 3",
+      roleType: "apex",
+      description:
+        "Burung pemangsa puncak yang memangsa ular dan hewan kecil lainnya dari udara.",
+      badgeColor: "#b91c1c",
+      bgColor: "#fef2f2"
+    }
+  ]
+};
 
 // Helper shuffle array
 function shuffleArray(arr) {
@@ -309,12 +104,9 @@ function shuffleArray(arr) {
 }
 
 export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
-  const [selectedLevelId, setSelectedLevelId] = useState(1);
-  const currentLevel = GAME_LEVELS.find((lvl) => lvl.id === selectedLevelId) || GAME_LEVELS[0];
-
   // Game Play State
-  const [placedCards, setPlacedCards] = useState([]); // array of card objects placed in slots [slot0, slot1, ...]
-  const [availableCards, setAvailableCards] = useState([]); // cards waiting in pool
+  const [placedCards, setPlacedCards] = useState([]);
+  const [availableCards, setAvailableCards] = useState([]);
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [isAllCorrect, setIsAllCorrect] = useState(false);
   const [incorrectIndices, setIncorrectIndices] = useState([]);
@@ -322,24 +114,14 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [attempts, setAttempts] = useState(0);
 
-  // Level Progression Storage
-  const [completedLevels, setCompletedLevels] = useState(() => {
-    try {
-      const saved = localStorage.getItem("sokrabot_food_chain_levels");
-      return saved ? JSON.parse(saved) : {};
-    } catch {
-      return {};
-    }
-  });
-
-  // Inisialisasi Level Baru
+  // Inisialisasi Level
   useEffect(() => {
-    initLevel(currentLevel);
-  }, [selectedLevelId]);
+    initLevel();
+  }, []);
 
-  const initLevel = (level) => {
-    setPlacedCards(new Array(level.correctOrder.length).fill(null));
-    setAvailableCards(shuffleArray(level.correctOrder));
+  const initLevel = () => {
+    setPlacedCards(new Array(GAME_LEVEL.correctOrder.length).fill(null));
+    setAvailableCards(shuffleArray(GAME_LEVEL.correctOrder));
     setIsAnswerChecked(false);
     setIsAllCorrect(false);
     setIncorrectIndices([]);
@@ -354,7 +136,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
   const handleSelectFromPool = (card) => {
     soundManager.playClick();
     const emptyIndex = placedCards.findIndex((c) => c === null);
-    if (emptyIndex === -1) return; // slot penuh
+    if (emptyIndex === -1) return;
 
     const newPlaced = [...placedCards];
     newPlaced[emptyIndex] = card;
@@ -420,7 +202,6 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
   const handleCheckAnswer = () => {
     setAttempts((prev) => prev + 1);
 
-    // Pastikan semua slot terisi
     const hasEmptySlot = placedCards.some((c) => c === null);
     if (hasEmptySlot) {
       soundManager.playHint();
@@ -430,7 +211,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
 
     const wrongList = [];
     placedCards.forEach((card, idx) => {
-      if (!card || card.id !== currentLevel.correctOrder[idx].id) {
+      if (!card || card.id !== GAME_LEVEL.correctOrder[idx].id) {
         wrongList.push(idx);
       }
     });
@@ -443,16 +224,16 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
       setIncorrectIndices([]);
 
       // Simpan progress
-      const newCompleted = {
-        ...completedLevels,
-        [currentLevel.id]: {
-          stars: attempts === 0 ? 3 : attempts <= 2 ? 2 : 1,
-          completedAt: new Date().toISOString()
-        }
-      };
-      setCompletedLevels(newCompleted);
       try {
-        localStorage.setItem("sokrabot_food_chain_levels", JSON.stringify(newCompleted));
+        localStorage.setItem(
+          "sokrabot_food_chain_levels",
+          JSON.stringify({
+            1: {
+              stars: attempts === 0 ? 3 : attempts <= 2 ? 2 : 1,
+              completedAt: new Date().toISOString()
+            }
+          })
+        );
       } catch (err) {
         console.error(err);
       }
@@ -479,23 +260,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
   // Reset Level
   const handleReset = () => {
     soundManager.playClick();
-    initLevel(currentLevel);
-  };
-
-  // Beralih Level
-  const handleSwitchLevel = (lvlId) => {
-    soundManager.playClick();
-    setSelectedLevelId(lvlId);
-  };
-
-  // Lanjut Level Berikutnya
-  const handleNextLevel = () => {
-    if (selectedLevelId < GAME_LEVELS.length) {
-      handleSwitchLevel(selectedLevelId + 1);
-    } else {
-      setShowSuccessModal(false);
-      onGoToMap();
-    }
+    initLevel();
   };
 
   return (
@@ -527,38 +292,15 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                   fontWeight: "800",
                   padding: "2px 8px",
                   borderRadius: "999px",
-                  background: currentLevel.difficultyColor + "20",
-                  color: currentLevel.difficultyColor
+                  background: GAME_LEVEL.difficultyColor + "20",
+                  color: GAME_LEVEL.difficultyColor
                 }}
               >
-                {currentLevel.difficulty}
+                {GAME_LEVEL.difficulty}
               </span>
             </div>
             <h1 className="minigame-title">Arena Rantai Makanan & Aliran Energi</h1>
           </div>
-        </div>
-
-        {/* Level Selector Pills */}
-        <div className="minigame-level-selector">
-          {GAME_LEVELS.map((lvl) => {
-            const isCompleted = completedLevels[lvl.id];
-            const isCurrent = lvl.id === selectedLevelId;
-            return (
-              <button
-                key={lvl.id}
-                onClick={() => handleSwitchLevel(lvl.id)}
-                className={`minigame-lvl-tab-btn ${isCurrent ? "active" : ""}`}
-                title={lvl.title}
-              >
-                <span>Level {lvl.id}</span>
-                {isCompleted && (
-                  <span style={{ color: "#f59e0b", fontSize: "0.8rem", marginLeft: "4px" }}>
-                    ⭐
-                  </span>
-                )}
-              </button>
-            );
-          })}
         </div>
       </div>
 
@@ -576,10 +318,10 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
             </div>
             <div>
               <div style={{ fontWeight: "800", color: "#065f46", fontSize: "1.05rem" }}>
-                {currentLevel.title}
+                {GAME_LEVEL.title}
               </div>
               <div style={{ fontSize: "0.85rem", color: "#047857" }}>
-                {currentLevel.subTitle}
+                {GAME_LEVEL.subTitle}
               </div>
             </div>
           </div>
@@ -628,7 +370,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
             </span>
             <span style={{ fontSize: "0.8rem", color: "#64748b" }}>
               <span className="hide-on-mobile">Ketuk kartu di slot untuk membatalkan</span>
-              <span className="show-on-mobile-only">Geser rantai 👉 | Ketuk kartu untuk batal</span>
+              <span className="show-on-mobile-only">Ketuk kartu untuk batal</span>
             </span>
           </div>
 
@@ -653,7 +395,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                     <div className="slot-number-badge">
                       <span className="slot-idx-num">{idx + 1}</span>
                       <span className="slot-role-hint">
-                        {currentLevel.correctOrder[idx]?.role.split(" ")[0]}
+                        {GAME_LEVEL.correctOrder[idx]?.shortRole || GAME_LEVEL.correctOrder[idx]?.role.split(" ")[0]}
                       </span>
                     </div>
 
@@ -668,7 +410,10 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                         }}
                       >
                         <div className="organism-emoji">{card.emoji}</div>
-                        <div className="organism-title">{card.name}</div>
+                        <div className="organism-title">
+                          <span className="hide-on-mobile">{card.name}</span>
+                          <span className="show-on-mobile-only">{card.shortName || card.name}</span>
+                        </div>
                         <div
                           className="organism-role-badge"
                           style={{
@@ -677,20 +422,23 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                             border: `1px solid ${card.badgeColor}40`
                           }}
                         >
-                          {card.role}
+                          <span className="hide-on-mobile">{card.role}</span>
+                          <span className="show-on-mobile-only">{card.shortRole || card.role}</span>
                         </div>
 
                         {/* Status Validasi */}
                         {isWrong && (
                           <div className="validation-error-tag">
                             <AlertCircle size={12} />
-                            <span>Posisi Belum Tepat</span>
+                            <span className="hide-on-mobile">Posisi Belum Tepat</span>
+                            <span className="show-on-mobile-only">Salah</span>
                           </div>
                         )}
                         {isCorrectSlot && isAllCorrect && (
                           <div className="validation-success-tag">
                             <CheckCircle2 size={12} />
-                            <span>Tepat!</span>
+                            <span className="hide-on-mobile">Tepat!</span>
+                            <span className="show-on-mobile-only">Benar!</span>
                           </div>
                         )}
                       </div>
@@ -699,7 +447,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                         <div className="placeholder-icon">🎯</div>
                         <div className="placeholder-text">
                           <span className="hide-on-mobile">Tarik atau Ketuk Kartu ke Sini</span>
-                          <span className="show-on-mobile-only">Ketuk Kartu di Bawah</span>
+                          <span className="show-on-mobile-only">Pilih Kartu</span>
                         </div>
                       </div>
                     )}
@@ -761,11 +509,15 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                         borderColor: card.badgeColor + "40"
                       }}
                     >
-                      {card.role}
+                      <span className="hide-on-mobile">{card.role}</span>
+                      <span className="show-on-mobile-only">{card.shortRole || card.role}</span>
                     </span>
                   </div>
-                  <div className="pool-card-name">{card.name}</div>
-                  <div className="pool-card-desc">{card.description}</div>
+                  <div className="pool-card-name">
+                    <span className="hide-on-mobile">{card.name}</span>
+                    <span className="show-on-mobile-only">{card.shortName || card.name}</span>
+                  </div>
+                  <div className="pool-card-desc hide-on-mobile">{card.description}</div>
                   <div className="pool-card-action-hint">+ Pasang ke Rantai</div>
                 </div>
               ))
@@ -830,7 +582,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
             </div>
             <div className="game-modal-body">
               <p style={{ fontSize: "0.95rem", lineHeight: "1.6", color: "#334155" }}>
-                {currentLevel.hint}
+                {GAME_LEVEL.hint}
               </p>
               <div
                 style={{
@@ -889,10 +641,10 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                   <span>Penjelasan Ilmiah SOKRABOT:</span>
                 </div>
                 <p style={{ margin: 0, fontSize: "0.92rem", lineHeight: "1.55", color: "#064e3b" }}>
-                  {currentLevel.explanation}
+                  {GAME_LEVEL.explanation}
                 </p>
                 <div style={{ marginTop: "10px", fontSize: "0.88rem", fontWeight: "700", color: "#b45309" }}>
-                  ⚡ {currentLevel.energyExplanation}
+                  ⚡ {GAME_LEVEL.energyExplanation}
                 </div>
               </div>
             </div>
@@ -911,7 +663,10 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
               </button>
 
               <button
-                onClick={handleNextLevel}
+                onClick={() => {
+                  setShowSuccessModal(false);
+                  onGoToMap();
+                }}
                 className="nav-pill-btn"
                 style={{
                   background: "linear-gradient(135deg, #059669 0%, #10b981 100%)",
@@ -921,11 +676,7 @@ export default function FoodChainGameView({ onBackToMenu, onGoToMap }) {
                   padding: "0.65rem 1.5rem"
                 }}
               >
-                <span>
-                  {selectedLevelId < GAME_LEVELS.length
-                    ? "Lanjut ke Level Berikutnya ➡️"
-                    : "Selesai & Buka Peta Misi 🏆"}
-                </span>
+                <span>Selesai & Buka Peta Misi 🏆</span>
               </button>
             </div>
           </div>
