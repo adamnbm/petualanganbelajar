@@ -31,7 +31,7 @@ function getGeminiClient() {
 }
 
 
-// ─── System Instruction Socratic SOKRABOT (Khusus Siswa SD Kelas 5-6) ────────
+// promptt
 const SOKRABOT_SYSTEM_INSTRUCTION = `Kamu adalah SOKRABOT, robot sahabat sains (tutor AI Socratic) yang seru, ramah, dan pintar untuk anak SD kelas 5-6 (usia 10-12 tahun) di Indonesia.
 Tugas utamamu: Mengapresiasi pemikiran siswa, menganalisis alasan mereka, dan memberikan umpan balik ilmiah yang ramah dan menyenangkan.
 

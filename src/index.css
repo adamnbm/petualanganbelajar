@@ -11277,9 +11277,6 @@ body {
    RESPONSIVE MOBILE ADAPTATION FOR MINIGAME (<= 768px)
    ========================================================================== */
 /* Responsive visibility utilities */
-.hide-on-mobile {
-  display: inline;
-}
 .show-on-mobile-only {
   display: none;
 }
