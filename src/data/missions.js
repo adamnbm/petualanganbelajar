@@ -605,7 +605,7 @@ export const MISSIONS_DATA = [
             h3: {
               image: "/visual_domino_populasi.jpg",
               label: "Diagram Efek Domino Sawah",
-              text: "Ular berkurang → Populasi tikus meledak → Padi habis dimakan tikus → Keseimbangan sawah terganggu.",
+              text: "Ular berkurang ⇒ Populasi tikus meledak ⇒ Padi habis dimakan tikus ⇒ Keseimbangan sawah terganggu.",
             },
           },
         },

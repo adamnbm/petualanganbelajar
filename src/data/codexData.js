@@ -300,7 +300,7 @@ export const CODEX_CARDS = [
     keyPoints: [
       "Populasi = Kumpulan makhluk hidup sejenis di suatu tempat pada waktu tertentu.",
       "Keterkaitan = Setiap makhluk hidup terikat dalam jaring makanan.",
-      "Efek Domino = Penurunan predator (ular) ➔ Lonjakan hama (tikus) ➔ Kerusakan produsen (padi).",
+      "Efek Domino = Penurunan predator (ular) ⇒ Lonjakan hama (tikus) ⇒ Kerusakan produsen (padi).",
       "Kekeringan pada padi juga memicu kelaparan pada tikus, ular, hingga elang."
     ],
     hook: {
