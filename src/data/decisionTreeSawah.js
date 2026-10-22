@@ -19,10 +19,52 @@ export const DECISION_TREES = {
   misi_1: {
     missionId: "misi_1",
     title: "Misi 1: Siapa Aku? (Peran Produsen)",
-    startNodeId: "m0_start",
+    startNodeId: "m0_pbl1_orientasi",
     totalMainQuestions: 3,
     nodes: {
-      // ── KOTAK AWAL (Padi sebagai Produsen) ───────────────────────────────
+      // ── PBL 1: ORIENTASI SISWA PADA MASALAH ──────────────────────────────
+      "m0_pbl1_orientasi": {
+        id: "m0_pbl1_orientasi",
+        isMain: false,
+        title: "Orientasi Masalah: Sawah Pak Tani",
+        introSpeech: [
+          "Halo, Detektif Sawah! 👋🌾",
+          "Pak Tani sedang bingung. Di sawahnya ada padi, belalang, tikus, ular, elang, jamur, dan makhluk hidup lainnya. Mereka ternyata memiliki peran yang berbeda-beda.",
+          "Pak Tani membutuhkan bantuanmu untuk mencari tahu:\n• Siapa yang dapat membuat makanan sendiri?\n• Siapa yang mendapatkan makanan dari makhluk hidup lain?\n• Siapa yang membantu menguraikan sisa makhluk hidup?\n\nAyo kita selidiki!"
+        ],
+        question: "Perhatikan setiap tantangan. Jawab sesuai dengan apa yang benar-benar kamu pikirkan. Jangan takut salah! Aku akan membantumu menemukan jawabannya.",
+        options: [
+          {
+            id: "mulai",
+            text: "MULAI PENYELIDIKAN",
+            next: "m0_pbl2_organisasi"
+          }
+        ]
+      },
+
+      // ── PBL 2: MENGORGANISASI SISWA UNTUK BELAJAR ────────────────────────
+      "m0_pbl2_organisasi": {
+        id: "m0_pbl2_organisasi",
+        isMain: false,
+        title: "Mengorganisasi Penyelidikan",
+        introSpeech: [
+          "Untuk menyelesaikan misi ini, kita akan menyelidiki beberapa penghuni sawah satu per satu.",
+          "Jangan takut jika jawabanmu belum tepat.",
+          "Aku tidak akan langsung memberikan jawabannya. Aku akan memberimu beberapa pertanyaan agar kamu dapat menemukannya sendiri."
+        ],
+        question: "Siap?",
+        options: [
+          {
+            id: "siap",
+            text: "Siap! 🚀",
+            next: "m0_start"
+          }
+        ]
+      },
+
+      // ── PBL 3: MEMBIMBING PENYELIDIKAN (PENYELIDIKAN 1) ───────────────────
+
+      // ── N1 STIMULUS (Tetap) ──────────────────────────────────────────────
       "m0_start": {
         id: "m0_start",
         isMain: true,
@@ -31,184 +73,154 @@ export const DECISION_TREES = {
         image: "/visual_sawah_pak_budi.jpg",
         imageAlt: "Tanaman padi di sawah Pak Budi",
         imageCaption: null,
-        question: "Detektif, coba perhatikan tanaman padi di sawah Pak Budi! 🌾\n\nPadi bisa tumbuh semakin besar. Menurutmu, dari mana padi mendapatkan makanannya?",
+        introSpeech: [
+          "Hebat! Mari kita mulai penyelidikan pertama! 🌾"
+        ],
+        question: "Padi terlihat menjadi yang pertama dalam rantai makanan. Bagaimana cara padi mendapatkan makanannya?",
         options: [
           {
             id: "A",
-            text: "Padi membuat makanannya sendiri dengan bantuan cahaya matahari.",
-            next: "m0_a_open"
+            text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
+            next: "m0_n2"
           },
           {
             id: "B",
-            text: "Padi mengambil makanan yang sudah jadi dari tanah melalui akar.",
+            text: "Mendapatkan makanan yang sudah jadi dari tanah melalui akar.",
             misconceptionTriggered: "produsen_pemakan_pupuk",
-            next: "m0_bc_open"
+            next: "m0_n2"
           },
           {
             id: "C",
-            text: "Padi mendapatkan makanan dengan memakan makhluk hidup lain.",
+            text: "Mendapatkan makanan dengan memakan makhluk hidup lain.",
             misconceptionTriggered: "padi_seperti_hewan",
-            next: "m0_bc_open"
+            next: "m0_n2"
           }
         ],
         hintLevel1: "Perhatikan daun hijau padi saat terkena sinar matahari pagi ☀️🌾",
         hintLevel2: "Apakah padi punya mulut untuk mengunyah makanan dari tanah? 🤔"
       },
 
-      // ── SISWA A: Mengapa kamu memilih jawaban itu? (Terbuka) ──────────────
-      "m0_a_open": {
-        id: "m0_a_open",
+      // ── N2 [GEMINI] ALASAN TERBUKA ──────────────────────────────────────
+      "m0_n2": {
+        id: "m0_n2",
         isMain: false,
-        title: "Alasan Memilih Jawaban Itu",
+        title: "Alasan Pilihan Jawaban",
         question: "Mengapa kamu memilih jawaban itu?",
         isOpenEnded: true,
         placeholder: "Ketik alasanmu di sini...",
         conceptContext: {
-          concept: "Padi membuat makanannya sendiri melalui fotosintesis dengan bantuan cahaya matahari, bukan mengambil makanan jadi dari tanah",
-          keywords: ["fotosintesis", "cahaya", "matahari", "sendiri", "membuat", "daun", "klorofil", "memasak"],
-          misconceptions: ["dari tanah", "makan pupuk", "akar mengambil makanan", "memakan", "menelan"]
-        },
-        nextOnAligned: "m0_periksa_akar",
-        nextOnMisconception: "m0_klarifikasi_1"
+          concept: "Padi membuat makanannya sendiri melalui fotosintesis dengan bantuan cahaya matahari, bukan mengambil makanan jadi dari tanah atau memakan makhluk lain.",
+          keywords: ["fotosintesis", "cahaya", "matahari", "sendiri", "membuat", "daun", "klorofil", "memasak", "air", "mineral"],
+          misconceptions: ["dari tanah", "makan pupuk", "akar mengambil makanan", "memakan", "menelan", "hewan"]
+        }
       },
 
-      // ── SISWA B (Miskonsepsi): Alasan Memilih Jawaban ──────────────────────
-      "m0_bc_open": {
-        id: "m0_bc_open",
+      // ── JALUR BENAR (pilihan A) ──────────────────────────────────────────
+
+      // ── N3A (Tetap) ──────────────────────────────────────────────────────
+      "m0_n3a": {
+        id: "m0_n3a",
         isMain: false,
-        title: "Eksplorasi Alasan Miskonsepsi",
-        question: "Kamu memilih bahwa padi mendapatkan makanan yang sudah jadi dari tanah. Mengapa kamu berpikir begitu?",
+        title: "Periksa Pemikiran (Jalur Benar)",
+        question: "Bagus! Sekarang kita periksa lagi pemikiranmu. Kalau padi membuat makanannya sendiri, apa yang diambil padi dari tanah?",
+        options: [
+          {
+            id: "B",
+            text: "Air dan mineral",
+            isCorrect: true,
+            next: "m0_n6"
+          },
+          {
+            id: "A",
+            text: "Makanan yang sudah jadi",
+            isWrong: true,
+            next: "m0_n4a"
+          }
+        ],
+        hintLevel1: "Apakah air yang disiramkan ke tanaman padi mengandung nasi atau makanan jadi? 🤔",
+        hintLevel2: "Akar hanya menyerap cairan dan zat hara/mineral dari tanah."
+      },
+
+      // ── N4A (Tetap) ──────────────────────────────────────────────────────
+      "m0_n4a": {
+        id: "m0_n4a",
+        isMain: false,
+        title: "Pemeriksaan Makanan dari Tanah",
+        question: "Hmm, coba kita pikirkan lagi. Jadi, apakah padi mengambil makanan yang sudah jadi dari tanah?",
+        options: [
+          {
+            id: "Tidak",
+            text: "Tidak",
+            isCorrect: true,
+            next: "m0_n4a_sub"
+          },
+          {
+            id: "Ya",
+            text: "Ya",
+            isWrong: true,
+            next: "m0_klarifikasi_2_from_n4a"
+          }
+        ]
+      },
+
+      // ── N4A_SUB (Tetap) ──────────────────────────────────────────────────
+      "m0_n4a_sub": {
+        id: "m0_n4a_sub",
+        isMain: false,
+        title: "Serapan Akar Padi",
+        question: "Lalu apa yang diserap akar padi dari tanah?",
+        options: [
+          {
+            id: "A",
+            text: "Air dan mineral",
+            isCorrect: true,
+            next: "m0_n6"
+          },
+          {
+            id: "B",
+            text: "Makanan yang sudah jadi",
+            isWrong: true,
+            next: "m0_klarifikasi_2_from_n4a"
+          }
+        ]
+      },
+
+      // ── KLARIFIKASI 2 (dari N4A / N4A_sub -> kembali ke N3A) ─────────────
+      "m0_klarifikasi_2_from_n4a": {
+        id: "m0_klarifikasi_2_from_n4a",
+        isMain: false,
+        title: "Klarifikasi 2",
+        question: "Coba ingat dua petunjuk tadi. Akar mengambil air dan mineral. Apakah air dan mineral sama dengan makanan yang sudah jadi? Lalu, apa gunanya cahaya matahari bagi padi?",
+        options: [
+          {
+            id: "kembali",
+            text: "Periksa kembali pertanyaan sebelumnya 🔄",
+            next: "m0_n3a"
+          }
+        ]
+      },
+
+      // ── JALUR MISKONSEPSI (pilihan B/C) ──────────────────────────────────
+
+      // ── N3B [GEMINI] KLARIFIKASI ────────────────────────────────────────
+      "m0_n3b": {
+        id: "m0_n3b",
+        isMain: false,
+        title: "Klarifikasi Pilihan Awal",
+        question: "Kamu memilih bahwa padi mendapat makanan jadi dari tanah. Mengapa kamu berpikir begitu?",
         isOpenEnded: true,
         placeholder: "Ketik alasanmu di sini...",
         conceptContext: {
-          concept: "Padi tidak mengambil makanan jadi dari tanah dan tidak memakan makhluk lain. Padi membuat makanannya sendiri dengan fotosintesis.",
-          keywords: ["sendiri", "cahaya", "matahari", "fotosintesis", "membuat"],
+          concept: "Padi tidak mengambil makanan jadi dari tanah dan tidak memakan makhluk lain. Padi membuat makanannya sendiri melalui fotosintesis.",
+          keywords: ["sendiri", "cahaya", "matahari", "fotosintesis", "membuat", "air", "mineral"],
           misconceptions: ["dari tanah", "akar ambil makanan", "makan pupuk", "memakan hewan", "menelan"]
         },
-        nextOnAligned: "m0_akar_tanah",
-        nextOnMisconception: "m0_akar_tanah"
+        next: "m0_n4b"
       },
 
-      // ── SISWA MENJAWAB SESUAI KONSEP: Periksa Pemikiran ───────────────────
-      "m0_periksa_akar": {
-        id: "m0_periksa_akar",
-        isMain: false,
-        title: "Periksa Lagi Pemikiranmu",
-        introSpeech: [
-          "Bagus! Sekarang kita periksa lagi pemikiranmu."
-        ],
-        question: "Kalau padi membuat makanannya sendiri, apa yang diambil akar dari tanah?",
-        options: [
-          {
-            id: "A",
-            text: "Makanan yang sudah jadi",
-            next: "m0_tyaah"
-          },
-          {
-            id: "B",
-            text: "Air dan mineral",
-            next: "m0_lalu_apa"
-          }
-        ]
-      },
-
-      // ── SISWA MENJAWAB TIDAK SESUAI KONSEP (Klarifikasi 1) ─────────────────
-      "m0_klarifikasi_1": {
-        id: "m0_klarifikasi_1",
-        isMain: false,
-        title: "Klarifikasi 1: Pemikiran Awal",
-        introSpeech: [
-          "Mari kita periksa lagi pemikiranmu 🔍."
-        ],
-        question: "Kalau padi membuat makanannya sendiri, apa yang diambil akar dari tanah?",
-        options: [
-          {
-            id: "A",
-            text: "Makanan yang sudah jadi",
-            next: "m0_tyaah"
-          },
-          {
-            id: "B",
-            text: "Air dan mineral",
-            next: "m0_lalu_apa"
-          }
-        ]
-      },
-
-      // ── SISWA B: Tyeahh! Makanan Jadi dari Tanah? ─────────────────────────
-      "m0_tyaah": {
-        id: "m0_tyaah",
-        isMain: false,
-        title: "Klarifikasi Makanan dari Tanah",
-        introSpeech: [
-          "Tyeahh! 😮"
-        ],
-        question: "Jadi, apakah padi mengambil makanan yang sudah jadi dari tanah?",
-        options: [
-          {
-            id: "A",
-            text: "Tidak",
-            next: "m0_lalu_apa"
-          },
-          {
-            id: "B",
-            text: "Iya",
-            next: "m0_klarifikasi_2"
-          }
-        ]
-      },
-
-      // ── SISWA "TIDAK": Lalu Apa yang Dilakukan Padi? ──────────────────────
-      "m0_lalu_apa": {
-        id: "m0_lalu_apa",
-        isMain: false,
-        title: "Lalu Apa yang Dilakukan Padi?",
-        question: "Lalu apa yang dilakukan padi dengan air dan mineral tersebut?",
-        options: [
-          {
-            id: "A",
-            text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
-            next: "m0_beda_padi_tikus"
-          },
-          {
-            id: "B",
-            text: "Menyimpannya langsung tanpa perlu mengolahnya.",
-            next: "m0_beda_padi_tikus"
-          },
-          {
-            id: "C",
-            text: "Mengubahnya langsung menjadi padi tanpa butuh daun.",
-            next: "m0_beda_padi_tikus"
-          }
-        ]
-      },
-
-      // ── SISWA "IYA" (Klarifikasi 2) ────────────────────────────────────────
-      "m0_klarifikasi_2": {
-        id: "m0_klarifikasi_2",
-        isMain: false,
-        title: "Klarifikasi 2: Padi & Makanan Tanah",
-        introSpeech: [
-          "Hmm, mari kita selidiki lebih dalam 🤔."
-        ],
-        question: "Jika makanan padi sudah tersedia di dalam tanah, mengapa padi membutuhkan cahaya matahari?",
-        options: [
-          {
-            id: "A",
-            text: "Untuk membantu membuat makanan.",
-            next: "m0_dua_petunjuk"
-          },
-          {
-            id: "B",
-            text: "Agar tanah menjadi makanan.",
-            next: "m0_klarifikasi_4"
-          }
-        ]
-      },
-
-      // ── DARI PATH MISKONSEPSI: Menurutmu apa yang diserap akar dari tanah? ──
-      "m0_akar_tanah": {
-        id: "m0_akar_tanah",
+      // ── N4B (Tetap) ──────────────────────────────────────────────────────
+      "m0_n4b": {
+        id: "m0_n4b",
         isMain: false,
         title: "Apa yang Diserap Akar dari Tanah?",
         question: "Menurutmu, apa yang diserap akar dari tanah?",
@@ -216,282 +228,248 @@ export const DECISION_TREES = {
           {
             id: "A",
             text: "Air dan mineral",
-            next: "m0_cahaya"
+            isCorrect: true,
+            next: "m0_n5"
           },
           {
             id: "B",
             text: "Makanan yang sudah jadi",
+            isWrong: true,
             next: "m0_klarifikasi_3"
           }
         ]
       },
 
-      // ── SISWA MENJAWAB B (Klarifikasi 3) ──────────────────────────────────
+      // ── KLARIFIKASI 3 (dari N4B -> kembali ke N4B) ───────────────────────
       "m0_klarifikasi_3": {
         id: "m0_klarifikasi_3",
         isMain: false,
-        title: "Klarifikasi 3: Peran Tanah & Makanan",
-        introSpeech: [
-          "Akar sebenarnya menyerap air dan mineral yang terlarut di dalam tanah, bukan makanan yang sudah jadi.",
-          "Coba kita pikirkan petunjuk berikutnya..."
-        ],
-        question: "Jika makanan padi sudah tersedia di dalam tanah, mengapa padi membutuhkan cahaya matahari?",
+        title: "Klarifikasi 3",
+        question: "Coba bayangkan saat padi disiram. Apa yang masuk ke tanah lalu diserap akar?",
         options: [
           {
             id: "A",
-            text: "Untuk membantu membuat makanan.",
-            next: "m0_dua_petunjuk"
+            text: "Air",
+            isCorrect: true,
+            next: "m0_n4b"
           },
           {
             id: "B",
-            text: "Agar tanah menjadi makanan.",
-            next: "m0_klarifikasi_4"
+            text: "Makanan yang sudah jadi",
+            isWrong: true,
+            next: "m0_n4b"
           }
         ]
       },
 
-      // ── JIKA SISWA MENJAWAB A: Bagus. Berarti akar mengambil air dan mineral ─
-      "m0_cahaya": {
-        id: "m0_cahaya",
+      // ── N5 (Tetap) ───────────────────────────────────────────────────────
+      "m0_n5": {
+        id: "m0_n5",
         isMain: false,
         title: "Peran Cahaya Matahari",
-        introSpeech: [
-          "Bagus. Berarti akar mengambil air dan mineral.",
-          "Sekarang pikirkan satu hal lagi."
-        ],
-        question: "Jika makanan padi sudah tersedia di dalam tanah, mengapa padi membutuhkan cahaya matahari?",
+        question: "Bagus. Berarti akar mengambil air dan mineral. Sekarang kita pikirkan satu hal lagi. Jika makanan padi sudah tersedia di dalam tanah, mengapa padi membutuhkan cahaya matahari?",
         options: [
           {
             id: "A",
             text: "Untuk membantu membuat makanan.",
-            next: "m0_dua_petunjuk"
+            isCorrect: true,
+            next: "m0_n6"
           },
           {
             id: "B",
             text: "Agar tanah menjadi makanan.",
+            isWrong: true,
             next: "m0_klarifikasi_4"
           }
         ]
       },
 
-      // ── SISWA B (Klarifikasi 4) ───────────────────────────────────────────
+      // ── KLARIFIKASI 4 (dari N5 -> kembali ke N5) ─────────────────────────
       "m0_klarifikasi_4": {
         id: "m0_klarifikasi_4",
         isMain: false,
-        title: "Klarifikasi 4: Tanah Menjadi Makanan?",
-        introSpeech: [
-          "Tanah tidak berubah menjadi makanan, Detektif.",
-          "Cahaya matahari diserap oleh daun hijau untuk memasak makanannya!"
-        ],
-        question: "Kita sudah menemukan dua petunjuk:\n• Akar → mengambil air dan mineral.\n• Cahaya matahari → membantu padi membuat makanan.\n\nJadi, apakah tanah memberikan makanan yang sudah jadi kepada padi?",
+        title: "Klarifikasi 4",
+        question: "Coba bayangkan padi ditaruh terus di tempat gelap. Apakah ia bisa tumbuh dengan baik? Apa peran cahaya matahari?",
         options: [
           {
-            id: "A",
+            id: "kembali",
+            text: "Pikirkan kembali peran cahaya matahari 🔄",
+            next: "m0_n5"
+          }
+        ]
+      },
+
+      // ── GABUNGAN (kedua jalur bertemu di sini) ───────────────────────────
+
+      // ── N6: RANGKUMAN PETUNJUK (Tetap) ───────────────────────────────────
+      "m0_n6": {
+        id: "m0_n6",
+        isMain: false,
+        title: "Rangkuman Petunjuk",
+        question: "Kita sudah menemukan dua petunjuk:\n1. Akar → mengambil air dan mineral.\n2. Cahaya matahari → membantu padi membuat makanan.\n\nJadi, apakah tanah memberikan makanan yang sudah jadi kepada padi?",
+        options: [
+          {
+            id: "Tidak",
             text: "Tidak",
-            next: "m0_kembali_awal"
+            isCorrect: true,
+            next: "m0_n7"
           },
           {
-            id: "B",
-            text: "Iya",
-            next: "m0_kembali_awal"
+            id: "Ya",
+            text: "Ya",
+            isWrong: true,
+            next: "m0_klarifikasi_2_from_n6"
           }
         ]
       },
 
-      // ── SISWA A: Kita sudah menemukan dua petunjuk ─────────────────────────
-      "m0_dua_petunjuk": {
-        id: "m0_dua_petunjuk",
+      // ── KLARIFIKASI 2 (dari N6 -> kembali ke N6) ─────────────────────────
+      "m0_klarifikasi_2_from_n6": {
+        id: "m0_klarifikasi_2_from_n6",
         isMain: false,
-        title: "Dua Petunjuk Penting",
-        introSpeech: [
-          "Kita sudah menemukan dua petunjuk:\n• Akar → mengambil air dan mineral.\n• Cahaya matahari → membantu padi membuat makanan."
-        ],
-        question: "Jadi, apakah tanah memberikan makanan yang sudah jadi kepada padi?",
+        title: "Klarifikasi 2",
+        question: "Coba ingat dua petunjuk tadi. Akar mengambil air dan mineral. Apakah air dan mineral sama dengan makanan yang sudah jadi? Lalu, apa gunanya cahaya matahari bagi padi?",
         options: [
           {
-            id: "A",
-            text: "Tidak",
-            next: "m0_kembali_awal"
-          },
-          {
-            id: "B",
-            text: "Iya",
-            next: "m0_kembali_awal"
+            id: "kembali",
+            text: "Periksa kembali kesimpulan petunjuk 🔄",
+            next: "m0_n6"
           }
         ]
       },
 
-      // ── SISWA "TIDAK" (Meninjau Kembali): Pertanyaan Awal ─────────────────
-      "m0_kembali_awal": {
-        id: "m0_kembali_awal",
+      // ── N7: KONFIRMASI AKHIR (Tetap) ─────────────────────────────────────
+      "m0_n7": {
+        id: "m0_n7",
         isMain: false,
-        title: "Meninjau Kembali Pertanyaan Awal",
-        introSpeech: [
-          "Bagus! Sekarang coba jawab kembali pertanyaan awal."
-        ],
-        question: "Bagaimana padi mendapatkan makanannya?",
-        options: [
-          {
-            id: "A",
-            text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
-            next: "m0_beda_padi_tikus"
-          },
-          {
-            id: "B",
-            text: "Mengambil makanan yang sudah jadi dari tanah.",
-            next: "m0_klarifikasi_5"
-          },
-          {
-            id: "C",
-            text: "Memakan makhluk hidup lain.",
-            next: "m0_klarifikasi_5"
-          }
-        ]
-      },
-
-      // ── SISWA B / C (Klarifikasi 5) ────────────────────────────────────────
-      "m0_klarifikasi_5": {
-        id: "m0_klarifikasi_5",
-        isMain: false,
-        title: "Klarifikasi 5: Penguatan Konsep Akhir",
-        introSpeech: [
-          "Ingat dua petunjuk kita tadi:\n• Akar menyerap air dan mineral sebagai bahan.\n• Daun menggunakan cahaya matahari untuk membuat makanannya sendiri!"
-        ],
-        question: "Jadi, bagaimana padi mendapatkan makanannya?",
-        options: [
-          {
-            id: "A",
-            text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
-            next: "m0_beda_padi_tikus"
-          },
-          {
-            id: "B",
-            text: "Menyerap makanan yang sudah jadi dari tanah melalui akar.",
-            next: "m0_beda_padi_tikus"
-          },
-          {
-            id: "C",
-            text: "Memakan bangkai serangga dan hewan kecil di sekitarnya.",
-            next: "m0_beda_padi_tikus"
-          }
-        ]
-      },
-
-      // ── PERTANYAAN KOMPARASI: Padi vs Tikus ──────────────────────────────
-      "m0_beda_padi_tikus": {
-        id: "m0_beda_padi_tikus",
-        isMain: true,
-        mainIndex: 2,
-        title: "Perbedaan Padi dan Tikus",
-        introSpeech: [
-          "Hebat, Detektif! 🌟 Kamu sudah mengetahui bahwa padi dapat membuat makanannya sendiri dengan bantuan cahaya matahari.",
-          "Sekarang, coba pikirkan!"
-        ],
-        question: "Jika padi bisa membuat makanannya sendiri, sedangkan tikus harus memakan tumbuhan, apa perbedaan keduanya?",
-        options: [
-          {
-            id: "A",
-            text: "Padi membuat makanan sendiri, tikus mendapatkan makanan dari makhluk hidup lain.",
-            next: "m0_tanya_peran_penting"
-          },
-          {
-            id: "B",
-            text: "Padi dan tikus sama-sama membuat makanan sendiri.",
-            misconceptionTriggered: "hewan_buat_makanan",
-            next: "m0_penuntun_padi_tikus"
-          },
-          {
-            id: "C",
-            text: "Padi mendapatkan makanan dari tanah, sedangkan tikus membuat makanan sendiri.",
-            misconceptionTriggered: "produsen_pemakan_pupuk",
-            next: "m0_penuntun_padi_tikus"
-          }
-        ],
-        hintLevel1: "Ingat kembali: Apakah hewan seperti tikus bisa membuat makanan sendiri tanpa memakan tumbuhan? 🤔🌾",
-        hintLevel2: "Padi membuat makanannya sendiri, sedangkan tikus harus memakan tumbuhan untuk mendapatkan energi!"
-      },
-
-      // ── JIKA SISWA MENJAWAB BENAR (Pertanyaan Lanjutan Sebelum Penguatan) ───
-      "m0_tanya_peran_penting": {
-        id: "m0_tanya_peran_penting",
-        isMain: false,
-        title: "Peran Penting Padi",
-        introSpeech: [
-          "Bagus! 👏"
-        ],
-        question: "Jadi, menurutmu mengapa tumbuhan seperti padi memiliki peran penting sebagai sumber makanan bagi makhluk hidup lain?",
-        isOpenEnded: true,
-        placeholder: "Ketik penjelasanmu di sini, Detektif...",
-        conceptContext: {
-          concept: "Tumbuhan seperti padi memiliki peran penting karena mereka dapat membuat makanan sendiri dengan fotosintesis, sedangkan hewan seperti tikus tidak bisa membuat makanan sendiri dan bergantung pada tumbuhan sebagai sumber energi makanan.",
-          keywords: ["sendiri", "makanan", "energi", "hewan", "tikus", "sumber", "bergantung", "tidak bisa", "fotosintesis"],
-          misconceptions: ["tanah", "pupuk", "sama-sama membuat"]
-        },
-        nextOnAligned: "m0_reinforcement",
-        nextOnMisconception: "m0_reinforcement",
-        options: [
-          {
-            id: "A",
-            text: "Karena hewan tidak bisa membuat makanan sendiri, sehingga sangat bergantung pada tumbuhan.",
-            next: "m0_reinforcement"
-          },
-          {
-            id: "B",
-            text: "Karena padi menghasilkan energi makanan utama bagi makhluk hidup lain di sawah.",
-            next: "m0_reinforcement"
-          }
-        ]
-      },
-
-      // ── JIKA SISWA MENJAWAB SALAH (Pertanyaan Penuntun / Scaffolding) ───────
-      "m0_penuntun_padi_tikus": {
-        id: "m0_penuntun_padi_tikus",
-        isMain: false,
-        title: "Pertanyaan Penuntun: Padi & Tikus",
-        introSpeech: [
-          "Mari kita telusuri lebih teliti lagi 🔍."
-        ],
-        question: "Coba ingat kembali. Apakah padi harus memakan makhluk hidup lain untuk mendapatkan makanan? Bagaimana dengan tikus?",
-        isOpenEnded: true,
-        placeholder: "Ketik analisismu di sini, Detektif...",
-        conceptContext: {
-          concept: "Padi tidak perlu memakan makhluk hidup lain karena dapat membuat makanannya sendiri lewat fotosintesis, sedangkan tikus harus memakan tumbuhan atau makhluk hidup lain.",
-          keywords: ["padi", "tikus", "sendiri", "memakan", "matahari", "tumbuhan", "hewan", "tidak memakan"],
-          misconceptions: ["sama-sama", "dari tanah", "makan pupuk"]
-        },
-        nextOnAligned: "m0_reinforcement",
-        nextOnMisconception: "m0_beda_padi_tikus",
-        options: [
-          {
-            id: "A",
-            text: "Padi membuat makanan sendiri, sedangkan tikus harus memakan makhluk hidup lain.",
-            next: "m0_reinforcement"
-          },
-          {
-            id: "B",
-            text: "Padi dan tikus sama-sama harus memakan tanaman lain.",
-            misconceptionTriggered: "hewan_buat_makanan",
-            next: "m0_beda_padi_tikus"
-          }
-        ]
-      },
-
-      // ── KOTAK AKHIR: KALIMAT PENGUATAN AKHIR SOKRABOT -> PRODUSEN ────────
-      "m0_reinforcement": {
-        id: "m0_reinforcement",
-        isMain: true,
         isConceptCompleted: true,
-        isEnd: true,
-        mainIndex: 3,
-        title: "Konsep PRODUSEN Ditemukan!",
-        introSpeech: [
-          "Luar biasa, Detektif! 🌟\n\nPadi dapat membuat makanannya sendiri dengan bantuan cahaya matahari. Sementara itu, tikus mendapatkan makanan dengan memakan makhluk hidup lain."
-        ],
-        question: "Nah, dalam rantai makanan, makhluk hidup seperti padi yang dapat membuat makanannya sendiri disebut PRODUSEN. 🌾\n\nKamu berhasil menemukan satu konsep penting!",
+        title: "Konfirmasi Akhir: PRODUSEN",
+        question: "Tepat! Padi dapat membuat makanannya sendiri dengan bantuan cahaya matahari. Akar membantu menyerap air dan mineral dari tanah. Makhluk hidup yang dapat membuat makanannya sendiri disebut PRODUSEN. Kamu menemukan konsep pertama: PRODUSEN.",
+        unlockCodex: "codex_kartu_1",
         options: [
           {
             id: "Lanjut",
-            text: "Lanjut ke Misi 2: Rantai Makanan! 🌾➔🐀➔🐍➔🦅",
+            text: "Lanjut ke Penutup Misi 📝",
+            next: "m0_pbl4_penutup"
+          }
+        ]
+      },
+
+      // ── N8: MENINJAU KEMBALI (Tetap, hanya jalur miskonsepsi) ─────────────
+      "m0_n8": {
+        id: "m0_n8",
+        isMain: false,
+        title: "Meninjau Kembali Pertanyaan Awal",
+        question: "Bagus! Sekarang coba jawab kembali pertanyaan awal. Bagaimana padi mendapatkan makanannya?",
+        options: [
+          {
+            id: "A",
+            text: "Membuat makanannya sendiri dengan bantuan cahaya matahari.",
+            isCorrect: true,
+            next: "m0_selesai_n8"
+          },
+          {
+            id: "B",
+            text: "Mendapatkan makanan yang sudah jadi dari tanah melalui akar.",
+            isWrong: true,
+            next: "m0_klarifikasi_5"
+          },
+          {
+            id: "C",
+            text: "Mendapatkan makanan dengan memakan makhluk hidup lain.",
+            isWrong: true,
+            next: "m0_klarifikasi_5"
+          }
+        ]
+      },
+
+      // ── KLARIFIKASI 5 (dari N8 -> kembali ke N8) ─────────────────────────
+      "m0_klarifikasi_5": {
+        id: "m0_klarifikasi_5",
+        isMain: false,
+        title: "Klarifikasi 5",
+        question: "Ayo ingat dua petunjuk kita: akar mengambil air dan mineral, cahaya matahari membantu padi membuat makanan. Sekarang, bagaimana padi mendapatkan makanannya?",
+        options: [
+          {
+            id: "kembali",
+            text: "Jawab kembali pertanyaan awal 🔄",
+            next: "m0_n8"
+          }
+        ]
+      },
+
+      // ── TRANSISI PENYELIDIKAN 1 (Jalur Miskonsepsi N8) ────────────────────
+      "m0_selesai_n8": {
+        id: "m0_selesai_n8",
+        isMain: false,
+        title: "Penyelidikan Selesai",
+        question: "Jawabanmu sudah berubah, hebat! 🌟 Kamu berhasil membuktikan bahwa padi adalah produsen yang membuat makanannya sendiri.",
+        options: [
+          {
+            id: "Lanjut",
+            text: "Lanjut ke Penutup Misi 📝",
+            next: "m0_pbl4_penutup"
+          }
+        ]
+      },
+
+      // ── PBL 4: MENGEMBANGKAN/MENYAJIKAN HASIL (Penutup Misi) ─────────────
+      "m0_pbl4_penutup": {
+        id: "m0_pbl4_penutup",
+        isMain: true,
+        mainIndex: 2,
+        title: "Menyimpulkan Peran Makhluk Hidup",
+        introSpeech: [
+          "Setelah seluruh tantangan selesai, mari kita menyimpulkan apa yang telah kamu pelajari tentang produsen, konsumen, dan pengurai."
+        ],
+        question: "Apa perbedaan ketiganya?",
+        isOpenEnded: true,
+        placeholder: "Ketik perbedaan produsen, konsumen, dan pengurai di sini...",
+        conceptContext: {
+          concept: "Produsen dapat membuat makanan sendiri dengan fotosintesis (seperti padi). Konsumen mendapatkan makanan dari makhluk hidup lain (seperti tikus). Pengurai menguraikan sisa makhluk hidup (seperti jamur/bakteri).",
+          keywords: ["produsen", "konsumen", "pengurai", "sendiri", "membuat", "memakan", "menguraikan"],
+          misconceptions: ["sama-sama membuat makanan", "semua dari tanah"]
+        },
+        next: "m0_pbl5_refleksi"
+      },
+
+      // ── PBL 5: MENGANALISIS DAN MENGEVALUASI (Refleksi Misi) ──────────────
+      "m0_pbl5_refleksi": {
+        id: "m0_pbl5_refleksi",
+        isMain: true,
+        mainIndex: 3,
+        title: "Refleksi Pemahaman Diri",
+        introSpeech: [
+          "Bagus sekali kesimpulanmu! 👏",
+          "Terakhir, mari kita renungkan proses belajarmu selama misi ini."
+        ],
+        question: "Apakah ada pemikiranmu yang berubah? Mengapa?",
+        isOpenEnded: true,
+        placeholder: "Ceritakan apakah ada pemikiranmu yang berubah dan apa alasannya...",
+        conceptContext: {
+          concept: "Siswa merefleksikan perubahan pemikirannya dari miskonsepsi awal menjadi pemahaman ilmiah bahwa padi membuat makanan sendiri dengan bantuan cahaya matahari.",
+          keywords: ["berubah", "tadi", "sekarang", "mengira", "fotosintesis", "sendiri", "padi", "cahaya", "matahari"],
+          misconceptions: []
+        },
+        next: "m0_selesai_akhir"
+      },
+
+      // ── PENGUATAN AKHIR MISI 1 ───────────────────────────────────────────
+      "m0_selesai_akhir": {
+        id: "m0_selesai_akhir",
+        isMain: false,
+        isConceptCompleted: true,
+        isEnd: true,
+        title: "Misi 1 Selesai!",
+        introSpeech: [
+          "🎉 Luar biasa, Detektif Sawah! Kamu telah menuntaskan seluruh tahapan Misi 1 (Siapa Aku?) dari orientasi masalah hingga refleksi pemahaman!",
+          "Kamu berhasil membuktikan bahwa padi adalah PRODUSEN mandiri yang memasak makanannya sendiri di sawah Pak Tani."
+        ],
+        question: "Lencana 'Penemu Sang Produsen' dan bintang prestasimu siap dibuka! 🌾🏆",
+        options: [
+          {
+            id: "SELESAI",
+            text: "Lihat Hasil Akhir Misi 1! 🏆",
             next: "END"
           }
         ]

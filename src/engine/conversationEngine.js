@@ -34,6 +34,11 @@ export function createInitialSession(missionId) {
     inputPlaceholder: startNode.placeholder || "Ketik analisismu di sini...",
     activeVisualHint: null,
     currentConceptH3: startNode.hintLevel3 || null,
+    pilihan_awal: null,
+    jalur: null, // "benar" | "miskonsepsi"
+    nodeAttempts: {}, // { [nodeId]: number }
+    dibantu: false,
+    miskonsepsi_teratasi: false,
     stats: {
       totalMainQuestions: tree.totalMainQuestions || 2,
       currentMainIndex: startNode.mainIndex || 1,
@@ -143,12 +148,43 @@ export class BranchingSessionController {
     this.state.optionsDisabled = true;
     this.state.currentOptions = [];
 
+    // Teks pertanyaan dan opsi dinamis untuk Misi 1
+    let questionText = node.question;
+    let resolvedOptions = node.options || [];
+
+    if (this.missionId === "misi_1") {
+      if (node.id === "m0_n3b") {
+        const summary = this.state.pilihan_awal === "C"
+          ? "padi memakan makhluk hidup lain"
+          : "padi mendapat makanan jadi dari tanah";
+        questionText = `Kamu memilih bahwa ${summary}. Mengapa kamu berpikir begitu?`;
+      } else if (node.id === "m0_n7") {
+        if (this.state.jalur === "miskonsepsi") {
+          resolvedOptions = [
+            {
+              id: "Lanjut",
+              text: "Lanjut Meninjau Kembali 🔍",
+              next: "m0_n8"
+            }
+          ];
+        } else {
+          resolvedOptions = [
+            {
+              id: "Lanjut",
+              text: "Lanjut ke Penutup Misi 📝",
+              next: "m0_pbl4_penutup"
+            }
+          ];
+        }
+      }
+    }
+
     const speeches = [];
     if (node.introSpeech && Array.isArray(node.introSpeech)) {
       speeches.push(...node.introSpeech);
     }
-    if (node.question) {
-      speeches.push(node.question);
+    if (questionText) {
+      speeches.push(questionText);
     }
 
     const initialDelay = isFirstLoad ? 400 : 600;
@@ -156,7 +192,7 @@ export class BranchingSessionController {
     this._deliverSpeechQueue(speeches, 0, () => {
       this.state.isBotTyping = false;
       this.state.optionsDisabled = false;
-      this.state.currentOptions = node.options || [];
+      this.state.currentOptions = resolvedOptions;
       this.state.isOpenEnded = Boolean(node.isOpenEnded);
       this.state.inputPlaceholder = node.placeholder || (node.isOpenEnded ? "Ketik alasanmu di sini, Detektif..." : "Ketik jawabanmu...");
       this.emit();
@@ -217,6 +253,16 @@ export class BranchingSessionController {
     this.state.optionsDisabled = true;
     this.state.stats.totalAttempts += 1;
 
+    // Simpan pilihan awal dan jalur untuk Misi 1 jika berada di node stimulus N1
+    if (this.missionId === "misi_1") {
+      if (this.state.currentNodeId === "m0_start") {
+        this.state.pilihan_awal = option.id;
+        this.state.jalur = option.id === "A" ? "benar" : "miskonsepsi";
+      } else if (this.state.currentNodeId === "m0_n8" && option.id === "A") {
+        this.state.miskonsepsi_teratasi = true;
+      }
+    }
+
     // Tampilkan pilihan siswa sebagai pesan chat
     const hasMisconception = Boolean(option.misconceptionTriggered);
     const userMsg = {
@@ -240,6 +286,58 @@ export class BranchingSessionController {
       this.state.stats.wrongAnswersCount += 1;
     }
 
+    // Batas pengulangan (Repeat Limit) Misi 1: jika salah 2 kali di node yang sama
+    const isIncorrectChoice = Boolean(option.isWrong || option.misconceptionTriggered);
+    if (this.missionId === "misi_1" && this.state.currentNodeId !== "m0_start" && isIncorrectChoice) {
+      const prevAttempts = this.state.nodeAttempts[this.state.currentNodeId] || 0;
+      const currentAttempts = prevAttempts + 1;
+      this.state.nodeAttempts[this.state.currentNodeId] = currentAttempts;
+
+      if (currentAttempts >= 2) {
+        this.state.dibantu = true;
+
+        let advanceTarget = "m0_n6";
+        if (this.state.currentNodeId === "m0_n3a" || this.state.currentNodeId === "m0_n4a" || this.state.currentNodeId === "m0_n4a_sub") {
+          advanceTarget = "m0_n6";
+        } else if (this.state.currentNodeId === "m0_n4b") {
+          advanceTarget = "m0_n5";
+        } else if (this.state.currentNodeId === "m0_n5") {
+          advanceTarget = "m0_n6";
+        } else if (this.state.currentNodeId === "m0_n6") {
+          advanceTarget = "m0_n7";
+        } else if (this.state.currentNodeId === "m0_n8") {
+          this.state.miskonsepsi_teratasi = true;
+          advanceTarget = "m0_selesai_n8";
+        }
+
+        const strongHintMsg = {
+          id: `bot_strong_hint_${Date.now()}`,
+          sender: "bot",
+          isHint: true,
+          isAIGenerated: false,
+          source: "strong_hint",
+          text: "💡 [Petunjuk Kuat SOKRABOT]\nPerhatikan hubungan penting ini:\n☀️ Cahaya matahari ➔ Daun padi membuat makanannya sendiri (fotosintesis).\n🌱 Akar padi ➔ Menyerap air dan mineral dari tanah (bukan makanan jadi).\n\nKamu sudah mencoba 2 kali di langkah ini. SOKRABOT membantumu agar dapat lanjut ke langkah berikutnya! 👇",
+          timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+        };
+
+        const t = setTimeout(() => {
+          this.state.messages = [...this.state.messages, strongHintMsg];
+          this.state.isBotTyping = false;
+          this.state.optionsDisabled = false;
+          this.state.currentOptions = [
+            {
+              id: "LANJUT_DIBANTU",
+              text: "Lanjut ke Langkah Berikutnya ➡️",
+              next: advanceTarget
+            }
+          ];
+          this.emit();
+        }, 700);
+        this.timeoutIds.push(t);
+        return;
+      }
+    }
+
     // Navigasi ke node berikutnya
     const nextId = option.next;
 
@@ -255,6 +353,27 @@ export class BranchingSessionController {
       this._presentNode(nextId);
     }, 700);
     this.timeoutIds.push(t);
+  }
+
+  _resolveOpenEndedNextNode(currentNode, isAligned) {
+    if (this.missionId === "misi_1") {
+      if (currentNode.id === "m0_n2") {
+        return this.state.jalur === "benar" ? "m0_n3a" : "m0_n3b";
+      }
+      if (currentNode.id === "m0_n3b") {
+        return "m0_n4b";
+      }
+      if (currentNode.id === "m0_pbl4_penutup") {
+        return "m0_pbl5_refleksi";
+      }
+      if (currentNode.id === "m0_pbl5_refleksi") {
+        return "m0_selesai_akhir";
+      }
+      return currentNode.next || (isAligned ? currentNode.nextOnAligned : currentNode.nextOnMisconception);
+    }
+    return isAligned
+      ? (currentNode.nextOnAligned || currentNode.next)
+      : (currentNode.nextOnMisconception || currentNode.next);
   }
 
   // ── Siswa Mengetik Jawaban Terbuka (Dievaluasi oleh Gemini AI) ─────────────
@@ -298,7 +417,6 @@ export class BranchingSessionController {
           new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 45000))
         ]);
 
-
         // Balasan Socratic AI Gemini
         const isAligned = Boolean(response.isConceptAligned ?? (response.status === "correct"));
 
@@ -320,7 +438,6 @@ export class BranchingSessionController {
           timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         };
 
-
         this.state.messages = [...this.state.messages, botAIMsg];
         this.state.isBotTyping = false;
         this.emit();
@@ -332,10 +449,8 @@ export class BranchingSessionController {
           soundManager.playHint();
         }
 
-        // Tentukan cabang berikutnya berdasarkan hasil evaluasi Gemini
-        const nextNodeId = isAligned
-          ? (currentNode.nextOnAligned || currentNode.next)
-          : (currentNode.nextOnMisconception || currentNode.next);
+        // Tentukan cabang berikutnya (Untuk Misi 1 tidak pernah ditentukan oleh evaluasi Gemini)
+        const nextNodeId = this._resolveOpenEndedNextNode(currentNode, isAligned);
 
         if (nextNodeId && nextNodeId !== "END") {
           const t = setTimeout(() => {
@@ -382,9 +497,7 @@ export class BranchingSessionController {
         this.state.messages = [...this.state.messages, fallbackMsg];
         this.emit();
 
-        const nextNodeId = matched
-          ? (currentNode.nextOnAligned || currentNode.next)
-          : (currentNode.nextOnMisconception || currentNode.next);
+        const nextNodeId = this._resolveOpenEndedNextNode(currentNode, matched);
 
         if (nextNodeId && nextNodeId !== "END") {
           setTimeout(() => this._presentNode(nextNodeId), 1000);
@@ -416,7 +529,24 @@ export class BranchingSessionController {
       return;
     }
 
-    // Jika siswa bertanya sesuatu yang bebas di luar opsi: Gemini AI menjawab ramah dan mengarahkan kembali ke opsi
+    // Jika pada Misi 1 siswa mengetik di luar opsi: tidak memicu Gemini, arahkan ke tombol
+    if (this.missionId === "misi_1") {
+      const guideMsg = {
+        id: `bot_guide_${Date.now()}`,
+        sender: "bot",
+        text: "Silakan pilih salah satu tombol jawaban yang tersedia di bawah ini ya, Detektif! 👇",
+        isAIGenerated: false,
+        source: "curriculum",
+        timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+      };
+      this.state.messages = [...this.state.messages, guideMsg];
+      this.state.isBotTyping = false;
+      this.state.optionsDisabled = false;
+      this.emit();
+      return;
+    }
+
+    // Jika siswa bertanya sesuatu yang bebas di luar opsi (Misi 2-5): Gemini AI menjawab ramah dan mengarahkan kembali ke opsi
     try {
       const response = await sendConversationalMessage({
         missionId: this.missionId,
@@ -524,11 +654,15 @@ export class BranchingSessionController {
       this.state.completedRecord = record;
 
       storage.saveCompletedMission(this.missionId, {
-        completedMainCount: this.tree.totalMainQuestions || 2,
+        completedMainCount: this.tree.totalMainQuestions || 1,
         hintsUsed: this.state.stats.hintsUsed,
         totalAttempts: this.state.stats.totalAttempts || 0,
         starsEarned: record?.stars_earned || 3,
-        badgeEarned: this.mission.badgeReward?.name || "Detektif Sawah"
+        badgeEarned: this.mission.badgeReward?.name || "Detektif Sawah",
+        pilihan_awal: this.state.pilihan_awal,
+        jalur: this.state.jalur,
+        dibantu: this.state.dibantu,
+        miskonsepsi_teratasi: this.state.miskonsepsi_teratasi
       });
 
       this.emit();
