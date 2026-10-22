@@ -15,7 +15,7 @@ export default function MissionCard({ mission, onSelectMission }) {
     statusLabel = "Selesai ✓";
     statusClass = "status-completed";
   } else if (isInProgress) {
-    const currentQ = activeState.stats?.currentMainIndex || 1;
+    const currentQ = Math.min(activeState.stats?.currentMainIndex || 1, mission.totalMainQuestions);
     statusLabel = `Sedang berlangsung (${currentQ}/${mission.totalMainQuestions})`;
     statusClass = "status-in-progress";
   }

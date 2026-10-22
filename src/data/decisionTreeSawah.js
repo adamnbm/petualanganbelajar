@@ -1754,7 +1754,7 @@ export const DECISION_TREES = {
         isMain: true,
         isConceptCompleted: true,
         isEnd: true,
-        mainIndex: 6,
+        mainIndex: 5,
         title: "MISI 2 BERHASIL!",
         question: "MISI 2 BERHASIL! 🏆🎉\n\nKamu berhasil mengikuti Jejak Energi:\n🌾 Tikus memakan padi.\n🐀 Ular memakan tikus.\n🐍 Elang memakan ular.\n\n⚡ Tanda panah menunjukkan arah perpindahan energi dari organisme yang dimakan menuju organisme yang memakannya.\n\n☀️ Energi pada rantai makanan ini berawal dari Matahari, kemudian diteruskan melalui hubungan makan dan dimakan.",
         options: [
@@ -2828,9 +2828,9 @@ export const DECISION_TREES = {
         title: "Penyelidikan 2: Efek pada Padi",
         introSpeech: [
           "Kita menemukan bahwa:",
-          "Ular berkurang → Tikus bertambah"
+          "Ular berkurang ⇒ Tikus bertambah"
         ],
-        question: "Kita menemukan bahwa:\nUlar berkurang → Tikus bertambah\n\nJika jumlah tikus bertambah, apa yang kemungkinan terjadi pada padi?",
+        question: "Kita menemukan bahwa:\nUlar berkurang ⇒ Tikus bertambah\n\nJika jumlah tikus bertambah, apa yang kemungkinan terjadi pada padi?",
         options: [
           {
             id: "A",
@@ -3004,9 +3004,9 @@ export const DECISION_TREES = {
         title: "Penyelidikan 3: Rantai Pengaruh Ular ke Padi",
         introSpeech: [
           "Sekarang perhatikan hasil penyelidikan kita:",
-          "Ular berkurang → Tikus bertambah → Padi berkurang"
+          "Ular berkurang ⇒ Tikus bertambah ⇒ Padi berkurang"
         ],
-        question: "Sekarang perhatikan hasil penyelidikan kita:\nUlar berkurang → Tikus bertambah → Padi berkurang\n\nMengapa berkurangnya ular akhirnya dapat memengaruhi padi? Ceritakan alasanmu!",
+        question: "Sekarang perhatikan hasil penyelidikan kita:\nUlar berkurang ⇒ Tikus bertambah ⇒ Padi berkurang\n\nMengapa berkurangnya ular akhirnya dapat memengaruhi padi? Ceritakan alasanmu!",
         isOpenEnded: true,
         placeholder: "Ceritakan alasanmu mengapa berkurangnya ular memengaruhi padi...",
         conceptContext: {
@@ -3043,7 +3043,7 @@ export const DECISION_TREES = {
         id: "m4_3_lengkapi",
         isMain: false,
         title: "Lengkapi Hubungan Rantai Makanan",
-        question: "Lengkapi hubungan berikut:\nUlar berkurang → Tikus ______ → Padi ______",
+        question: "Lengkapi hubungan berikut:\nUlar berkurang ⇒ Tikus ______ ⇒ Padi ______",
         options: [
           {
             id: "A",
@@ -3071,17 +3071,17 @@ export const DECISION_TREES = {
         options: [
           {
             id: "A",
-            text: "Ular berkurang → Tikus bertambah → Padi berkurang",
+            text: "Ular berkurang ⇒ Tikus bertambah ⇒ Padi berkurang",
             next: "m4_4_start"
           },
           {
             id: "B",
-            text: "Ular berkurang → Tikus berkurang → Padi bertambah",
+            text: "Ular berkurang ⇒ Tikus berkurang ⇒ Padi bertambah",
             next: "m4_4_start"
           },
           {
             id: "C",
-            text: "Ular bertambah → Tikus bertambah → Padi melimpah",
+            text: "Ular bertambah ⇒ Tikus bertambah ⇒ Padi melimpah",
             next: "m4_4_start"
           }
         ]
@@ -3282,7 +3282,7 @@ export const DECISION_TREES = {
         isEnd: true,
         mainIndex: 5,
         title: "MISI 4 BERHASIL!",
-        question: "🎉 MISI 4 BERHASIL!\n\nKamu berhasil menyelamatkan sawah Pak Budi!\n\nDalam rantai makanan, organisme saling berhubungan.\nJika jumlah satu organisme berubah, organisme lain dapat ikut terpengaruh.\n\nContohnya:\n🐍 Ular berkurang\n↓\n🐀 Tikus bertambah\n↓\n🌾 Padi semakin banyak dimakan dan dapat berkurang\n\nJadi, perubahan jumlah satu organisme dapat memengaruhi keseimbangan ekosistem. 🏆",
+        question: "🎉 MISI 4 BERHASIL!\n\nKamu berhasil menyelamatkan sawah Pak Budi!\n\nDalam rantai makanan, organisme saling berhubungan.\nJika jumlah satu organisme berubah, organisme lain dapat ikut terpengaruh.\n\nContohnya:\n🐍 Ular berkurang\n⇒\n🐀 Tikus bertambah\n⇒\n🌾 Padi semakin banyak dimakan dan dapat berkurang\n\nJadi, perubahan jumlah satu organisme dapat memengaruhi keseimbangan ekosistem. 🏆",
         options: [
           {
             id: "Selesai",

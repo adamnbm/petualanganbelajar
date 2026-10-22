@@ -46,6 +46,7 @@ export function createInitialSession(missionId) {
       totalAttempts: 0
     },
     isFinished: false,
+    isEnd: Boolean(startNode.isEnd),
     completedRecord: null,
     startedAt: new Date().toISOString()
   };
@@ -111,6 +112,7 @@ export class BranchingSessionController {
       this.state.currentOptions = node.options || [];
       this.state.isOpenEnded = Boolean(node.isOpenEnded);
       this.state.inputPlaceholder = node.placeholder || "Ketik analisismu di sini...";
+      this.state.isEnd = Boolean(node?.isEnd);
       this.emit();
     } else {
       storage.clearMissionState(this.missionId);
@@ -134,6 +136,7 @@ export class BranchingSessionController {
     if (!node) return;
 
     this.state.currentNodeId = nodeId;
+    this.state.isEnd = Boolean(node.isEnd);
     if (node.mainIndex) {
       this.state.stats.currentMainIndex = node.mainIndex;
     }
@@ -507,6 +510,7 @@ export class BranchingSessionController {
 
     setTimeout(() => {
       soundManager.playFanfare();
+      this.state.isEnd = true;
       this.state.isFinished = true;
       this.state.optionsDisabled = true;
 

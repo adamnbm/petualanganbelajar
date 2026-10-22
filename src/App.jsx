@@ -289,6 +289,8 @@ export default function App() {
                 currentMainIndex={chatState?.stats?.currentMainIndex || 1}
                 totalMainQuestions={chatState?.stats?.totalMainQuestions || totalConcepts}
                 currentStars={chatState?.stats?.currentStars || 3}
+                isFinished={chatState?.isFinished}
+                isEnd={chatState?.isEnd}
                 onBack={() => navigateTo("map")}
                 onRestart={() => {
                   controllerRef.current?.restartSession();
