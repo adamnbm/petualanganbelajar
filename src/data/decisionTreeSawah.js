@@ -1754,7 +1754,7 @@ export const DECISION_TREES = {
         isMain: true,
         isConceptCompleted: true,
         isEnd: true,
-        mainIndex: 6,
+        mainIndex: 5,
         title: "MISI 2 BERHASIL!",
         question: "MISI 2 BERHASIL! 🏆🎉\n\nKamu berhasil mengikuti Jejak Energi:\n🌾 Tikus memakan padi.\n🐀 Ular memakan tikus.\n🐍 Elang memakan ular.\n\n⚡ Tanda panah menunjukkan arah perpindahan energi dari organisme yang dimakan menuju organisme yang memakannya.\n\n☀️ Energi pada rantai makanan ini berawal dari Matahari, kemudian diteruskan melalui hubungan makan dan dimakan.",
         options: [

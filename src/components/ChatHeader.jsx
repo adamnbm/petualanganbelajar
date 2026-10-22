@@ -14,6 +14,8 @@ export default function ChatHeader({
   currentMainIndex,
   totalMainQuestions,
   currentStars = 3,
+  isFinished = false,
+  isEnd = false,
   onBack,
   onRestart,
   onToggleHintDrawer,
@@ -25,11 +27,26 @@ export default function ChatHeader({
     setIsMuted(muted);
   };
 
-  const currentSafe = Math.min(currentMainIndex || 1, totalMainQuestions || 2);
-  const progressPercent = Math.min(
-    100,
-    Math.round(((currentSafe - 1) / (totalMainQuestions || 2)) * 100),
+  const totalSafe = totalMainQuestions || 2;
+  const isMissionDone = Boolean(
+    isFinished ||
+    isEnd ||
+    (currentMainIndex && currentMainIndex > totalSafe)
   );
+
+  const currentSafe = isMissionDone
+    ? totalSafe
+    : Math.min(currentMainIndex || 1, totalSafe);
+
+  const progressPercent = isMissionDone
+    ? 100
+    : Math.min(
+        100,
+        Math.max(
+          0,
+          Math.round(((currentSafe - 1) / totalSafe) * 100),
+        ),
+      );
 
   return (
     <header className="chat-header">
