@@ -42,13 +42,26 @@ export const storage = {
   getMissionState(missionId) {
     try {
       const prefix = getStudentStoragePrefix();
-      const data = localStorage.getItem(`${prefix}state_${missionId}`);
-      if (data) return JSON.parse(data);
+      const sanitizeState = (raw) => {
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.messages)) {
+          parsed.messages = parsed.messages.map((m) => {
+            if (m && typeof m.text === "string" && m.text.includes("Pak Tani")) {
+              return { ...m, text: m.text.replaceAll("Pak Tani", "Pak Budi") };
+            }
+            return m;
+          });
+        }
+        return parsed;
+      };
+
+      if (data) return sanitizeState(data);
 
       // Cek legacy key jika prefix default
       if (prefix === `${STORAGE_KEY_PREFIX}s_default_`) {
         const legacy = localStorage.getItem(`${STORAGE_KEY_PREFIX}state_${missionId}`);
-        return legacy ? JSON.parse(legacy) : null;
+        return sanitizeState(legacy);
       }
       return null;
     } catch {

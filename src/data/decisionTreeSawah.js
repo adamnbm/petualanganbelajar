@@ -26,11 +26,11 @@ export const DECISION_TREES = {
       "m0_pbl1_orientasi": {
         id: "m0_pbl1_orientasi",
         isMain: false,
-        title: "Orientasi Masalah: Sawah Pak Tani",
+        title: "Orientasi Masalah: Sawah Pak Budi",
         introSpeech: [
           "Halo, Detektif Sawah! 👋🌾",
-          "Pak Tani sedang bingung. Di sawahnya ada padi, belalang, tikus, ular, elang, jamur, dan makhluk hidup lainnya. Mereka ternyata memiliki peran yang berbeda-beda.",
-          "Pak Tani membutuhkan bantuanmu untuk mencari tahu:\n• Siapa yang dapat membuat makanan sendiri?\n• Siapa yang mendapatkan makanan dari makhluk hidup lain?\n• Siapa yang membantu menguraikan sisa makhluk hidup?\n\nAyo kita selidiki!"
+          "Pak Budi sedang bingung. Di sawahnya ada padi, belalang, tikus, ular, elang, jamur, dan makhluk hidup lainnya. Mereka ternyata memiliki peran yang berbeda-beda.",
+          "Pak Budi membutuhkan bantuanmu untuk mencari tahu:\n• Siapa yang dapat membuat makanan sendiri?\n• Siapa yang mendapatkan makanan dari makhluk hidup lain?\n• Siapa yang membantu menguraikan sisa makhluk hidup?\n\nAyo kita selidiki!"
         ],
         question: "Perhatikan setiap tantangan. Jawab sesuai dengan apa yang benar-benar kamu pikirkan. Jangan takut salah! Aku akan membantumu menemukan jawabannya.",
         options: [
@@ -463,7 +463,7 @@ export const DECISION_TREES = {
         title: "Misi 1 Selesai!",
         introSpeech: [
           "🎉 Luar biasa, Detektif Sawah! Kamu telah menuntaskan seluruh tahapan Misi 1 (Siapa Aku?) dari orientasi masalah hingga refleksi pemahaman!",
-          "Kamu berhasil membuktikan bahwa padi adalah PRODUSEN mandiri yang memasak makanannya sendiri di sawah Pak Tani."
+          "Kamu berhasil membuktikan bahwa padi adalah PRODUSEN mandiri yang memasak makanannya sendiri di sawah Pak Budi."
         ],
         question: "Lencana 'Penemu Sang Produsen' dan bintang prestasimu siap dibuka! 🌾🏆",
         options: [

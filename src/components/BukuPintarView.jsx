@@ -414,7 +414,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
                 </div>
               )}
 
-              {/* 6. PERBANDINGAN SOLUSI: DILEMA PAK TANI (KARTU 5) */}
+              {/* 6. PERBANDINGAN SOLUSI: DILEMA PAK BUDI (KARTU 5) */}
               {activeModalCard.comparison && (
                 <div className="codex-comparison-container">
                   <div className="comparison-box box-negative">
