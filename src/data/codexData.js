@@ -18,7 +18,7 @@ export const CODEX_CARDS = [
     pointLetter: "A",
     kartuNumber: 1,
     missionId: "misi_1",
-    missionName: "Misi 1: Siapa Aku?",
+    missionName: "Misi 1: Dari Mana Makananku?",
     title: "Mengenal Ekosistem dan Rantai Makanan",
     subtitle: "Hubungan Timbal Balik Makhluk Hidup & Lingkungannya",
     category: "Ekosistem & Rantai Makanan",
@@ -117,7 +117,7 @@ export const CODEX_CARDS = [
     pointLetter: "B",
     kartuNumber: 2,
     missionId: "misi_2",
-    missionName: "Misi 2: Rantai Makanan",
+    missionName: "Misi 2: Ke Mana Energi Pergi?",
     title: "Dari Mana Energi Berasal?",
     subtitle: "Fotosintesis, Sumber Energi Matahari & Aliran Panah Energi",
     category: "Aliran Energi & Fotosintesis",
@@ -285,7 +285,7 @@ export const CODEX_CARDS = [
   // ==========================================
   {
     id: "codex_kartu_4",
-    pointLetter: "Misi 4",
+    pointLetter: "D",
     kartuNumber: 4,
     missionId: "misi_4",
     missionName: "Misi 4: Sawah dalam Bahaya!",
@@ -335,7 +335,7 @@ export const CODEX_CARDS = [
         dominoSteps: [
           { step: 1, title: "Jumlah Ular Berkurang", desc: "Ular ditangkap atau diburu manusia.", icon: "📉🐍" },
           { step: 2, title: "Jumlah Tikus Bertambah", desc: "Tikus bebas berkembang biak tanpa pemangsa alami.", icon: "📈🐀" },
-          { step: 3, title: "Lebih Banyak Padi Dimakan", desc: "Rombongan tikus memakan rumpun padi Pak Tani.", icon: "🌾💥" },
+          { step: 3, title: "Lebih Banyak Padi Dimakan", desc: "Rombongan tikus memakan rumpun padi Pak Budi.", icon: "🌾💥" },
           { step: 4, title: "Tanaman Padi Habis Rusak", desc: "Sawah hancur dan hasil panen gagal total.", icon: "📉🌾" }
         ]
       },
@@ -372,10 +372,10 @@ export const CODEX_CARDS = [
   // ==========================================
   {
     id: "codex_kartu_5",
-    pointLetter: "D",
+    pointLetter: "E",
     kartuNumber: 5,
     missionId: "misi_5",
-    missionName: "Misi 5: Jaga Keseimbangan!",
+    missionName: "Misi 5: Selamatkan Sawah Pak Budi!",
     title: "Penguatan: Menjaga Keseimbangan Ekosistem Sawah",
     subtitle: "Solusi Bijak Menjaga Harmoni Sawah & Sahabat Petani",
     category: "Penguatan & Keseimbangan",
@@ -391,8 +391,8 @@ export const CODEX_CARDS = [
       "Langkah bijak: Kelola sawah ramah lingkungan dan lindungi habitat predator alami."
     ],
     hook: {
-      title: "Dilema Pak Tani: Mengapa Tidak Boleh Membasmi Semua Tikus?",
-      story: "Pak Tani ingin membasmi SEMUA tikus karena padi di sawah sering rusak. Pak Tani berpikir: 'Apakah ini solusi yang baik jika semua tikus dimusnahkan?'",
+      title: "Dilema Pak Budi: Mengapa Tidak Boleh Membasmi Semua Tikus?",
+      story: "Pak Budi ingin membasmi SEMUA tikus karena padi di sawah sering rusak. Pak Budi berpikir: 'Apakah ini solusi yang baik jika semua tikus dimusnahkan?'",
       question: "Yuk, kita lihat apa yang bisa terjadi jika semua tikus dibasmi vs bagaimana cara menjaga keseimbangan!",
       explanation: "Di alam sawah, setiap hewan memiliki tugasnya. Memutus satu bagian dapat menimbulkan kekacauan yang jauh lebih rumit!"
     },

@@ -192,7 +192,7 @@ export const MISSIONS_DATA = [
       "Ayo susun rantai makanan dan selidiki arti tanda panahnya. Dari mana energi mereka berasal?",
     gradeLevel: "SD Kelas 5 - 6",
     description:
-      "Bantu Pak Tani menyusun urutan rantai makanan, menemukan arti tanda panah (→), dan menyelidiki dari mana sumber energi pertama berasal!",
+      "Bantu Pak Budi menyusun urutan rantai makanan, menemukan arti tanda panah (→), dan menyelidiki dari mana sumber energi pertama berasal!",
     misconceptions: [
       {
         id: "urutan_terbalik",
@@ -260,7 +260,7 @@ export const MISSIONS_DATA = [
     conversationConfig: {
       openingSpeech: [
         "Halo Detektif Cilik! 👋 Selamat datang di Pos Pengamatan 2 bersama SOKRABOT!",
-        "Di sawah Pak Tani, kita menemukan beberapa makhluk hidup: padi 🌾, tikus 🐀, ular 🐍, dan elang 🦅.",
+        "Di sawah Pak Budi, kita menemukan beberapa makhluk hidup: padi 🌾, tikus 🐀, ular 🐍, dan elang 🦅.",
       ],
       concepts: [
         {
@@ -329,7 +329,7 @@ export const MISSIONS_DATA = [
           ],
           hints: {
             h1: "Ular tidak bisa memakan bulir padi langsung, ia mencari mangsa daging di pematang sawah 🐍",
-            h2: "Elang terbang tinggi mengincar ular, ular mengincar tikus, dan tikus memakan bulir padi Pak Tani 💡",
+            h2: "Elang terbang tinggi mengincar ular, ular mengincar tikus, dan tikus memakan bulir padi Pak Budi 💡",
             h3: null,
           },
         },
@@ -347,10 +347,10 @@ export const MISSIONS_DATA = [
     category: "Misteri Pemburu Sawah",
     focus: "Peran Predator dan Mangsa di Ekosistem Sawah",
     pedagogicalIndicator:
-      "Ayo selidiki siapa yang memburu dan siapa yang diburu. Bisakah kamu menemukan perbedannya?",
+      "Ayo selidiki siapa yang memburu dan siapa yang diburu. Bisakah kamu menemukan perbedaannya?",
     gradeLevel: "SD Kelas 5 - 6",
     description:
-      "Di sawah Pak Tani, seekor ular terlihat memburu dan memakan tikus! Selidiki siapakah yang bertindak sebagai predator dan siapakah mangsa!",
+      "Di sawah Pak Budi, seekor ular terlihat memburu dan memakan tikus! Selidiki siapakah yang bertindak sebagai predator dan siapakah mangsa!",
     misconceptions: [
       {
         id: "predator_karena_ukuran",
@@ -391,7 +391,7 @@ export const MISSIONS_DATA = [
     conversationConfig: {
       openingSpeech: [
         "Selamat datang di Pos Pengamatan 3, Detektif Cilik! ⚡",
-        "Pak Tani sedang memperhatikan tanda panah pada diagram Padi → Tikus 🌾🐀.",
+        "Pak Budi sedang memperhatikan tanda panah pada diagram Padi → Tikus 🌾🐀.",
       ],
       concepts: [
         {
@@ -467,7 +467,7 @@ export const MISSIONS_DATA = [
             "cahaya matahari",
           ],
           hints: {
-            h1: "Apa yang menyinari sawah Pak Tani setiap pagi hari dari langit? ☀️",
+            h1: "Apa yang menyinari sawah Pak Budi setiap pagi hari dari langit? ☀️",
             h2: "Padi berdaun hijau menangkap cahaya matahari untuk fotosintesis membuat makanannya sendiri! 💡",
             h3: null,
           },
@@ -491,7 +491,7 @@ export const MISSIONS_DATA = [
       "Ayo selidiki bagaimana perubahan jumlah hewan dapat memengaruhi kehidupan di sawah!",
     gradeLevel: "SD Kelas 5 - 6",
     description:
-      "Gawat! Populasi Ular di sawah berkurang drastis. Apa yang akan terjadi pada populasi Tikus dan tanaman Padi Pak Tani?",
+      "Gawat! Populasi Ular di sawah berkurang drastis. Apa yang akan terjadi pada populasi Tikus dan tanaman Padi Pak Budi?",
     misconceptions: [
       {
         id: "ular_berkurang_tikus_berkurang",
@@ -531,7 +531,7 @@ export const MISSIONS_DATA = [
 
     conversationConfig: {
       openingSpeech: [
-        "Gawat, Detektif Cilik! Ada kabar darurat dari sawah Pak Tani ⚠️!",
+        "Gawat, Detektif Cilik! Ada kabar darurat dari sawah Pak Budi ⚠️!",
         "Karena banyak yang takut, ular-ular di sawah ditangkap dan jumlahnya berkurang drastis! 😱",
       ],
       concepts: [
@@ -573,10 +573,10 @@ export const MISSIONS_DATA = [
           title: "Efek Domino terhadap Padi dan Keseimbangan",
           transitionSpeech: [
             "Analisis yang tepat sekali! Populasi tikus meledak tanpa pemangsa!",
-            "Sekarang, mari kita telusuri dampak lanjutannya terhadap sawah Pak Tani...",
+            "Sekarang, mari kita telusuri dampak lanjutannya terhadap sawah Pak Budi...",
           ],
           openingQuestion:
-            "Ketika jumlah tikus bertambah sangat banyak, apa yang akan terjadi pada tanaman padi Pak Tani dan keseimbangan ekosistem sawah? 🌾💥",
+            "Ketika jumlah tikus bertambah sangat banyak, apa yang akan terjadi pada tanaman padi Pak Budi dan keseimbangan ekosistem sawah? 🌾💥",
           targetUnderstanding:
             "Tanaman padi akan semakin banyak dimakan oleh hama tikus sehingga padi rusak dan berkurang. Perubahan pada satu organisme mempengaruhi organisme lainnya dan mengganggu keseimbangan ekosistem.",
           misconceptions: [
@@ -601,7 +601,7 @@ export const MISSIONS_DATA = [
           ],
           hints: {
             h1: "Tikus-tikus yang kelaparan akan menyerbu apa yang ada di sawah? 🌾🐀",
-            h2: "Ribuan tikus akan memakan padi Pak Tani hingga habis! Inilah bukti bahwa semua makhluk di sawah saling terkait. 💡",
+            h2: "Ribuan tikus akan memakan padi Pak Budi hingga habis! Inilah bukti bahwa semua makhluk di sawah saling terkait. 💡",
             h3: {
               image: "/visual_domino_populasi.jpg",
               label: "Diagram Efek Domino Sawah",
@@ -619,7 +619,7 @@ export const MISSIONS_DATA = [
     missionNumber: 5,
     title: "Selamatkan Sawah Pak Budi!",
     subTitle:
-      "Pak Budi ingin membasi semua tikus agar padinya aman. Apakah itu keputusan yang tepat?",
+      "Pak Budi ingin membasmi semua tikus agar padinya aman. Apakah itu keputusan yang tepat?",
     icon: "🛡️",
     category: "Misi Penyelamatan Sawah",
     focus:
@@ -628,7 +628,7 @@ export const MISSIONS_DATA = [
       "Ayo Bantu Pak Budi memilih tindakan terbaik agar kehidupan di sawah tetap seimbang!",
     gradeLevel: "SD Kelas 5 - 6",
     description:
-      "Pak Tani ingin membasmi semua tikus di sawah! Apakah itu solusi yang tepat? Selidiki dampaknya terhadap rantai makanan dan temukan cara yang lebih bijak untuk menjaga keseimbangan ekosistem!",
+      "Pak Budi ingin membasmi semua tikus di sawah! Apakah itu solusi yang tepat? Selidiki dampaknya terhadap rantai makanan dan temukan cara yang lebih bijak untuk menjaga keseimbangan ekosistem!",
     misconceptions: [
       {
         id: "basmi_semua_tepat",
@@ -651,7 +651,7 @@ export const MISSIONS_DATA = [
       "Rantai Makanan",
     ],
     characters: [
-      { name: "Pak Tani", emoji: "👨‍🌾", role: "Pengambil Keputusan" },
+      { name: "Pak Budi", emoji: "👨‍🌾", role: "Pengambil Keputusan" },
       { name: "Tikus", emoji: "🐀", role: "Populasi yang Ingin Dibasmi" },
       {
         name: "Ular",
@@ -673,8 +673,8 @@ export const MISSIONS_DATA = [
 
     conversationConfig: {
       openingSpeech: [
-        "Perhatian Detektif Cilik! Ada masalah besar di sawah Pak Tani ⚠️!",
-        "Tikus menjadi terlalu banyak dan Pak Tani ingin membasmi semuanya! Apakah itu bijak? 🤔",
+        "Perhatian Detektif Cilik! Ada masalah besar di sawah Pak Budi ⚠️!",
+        "Tikus menjadi terlalu banyak dan Pak Budi ingin membasmi semuanya! Apakah itu bijak? 🤔",
       ],
       concepts: [
         {

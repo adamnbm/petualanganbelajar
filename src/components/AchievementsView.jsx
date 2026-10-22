@@ -193,7 +193,7 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
       {/* 4 Lencana Kehormatan (PRD Section 6) */}
       <section className="badges-section">
         <h2 className="section-title">
-          <span>Koleksi 4 Lencana Kehormatan Sawah</span>
+          <span>Koleksi 5 Lencana Kehormatan Sawah</span>
         </h2>
 
         <div className="badges-grid">

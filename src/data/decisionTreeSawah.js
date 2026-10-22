@@ -518,7 +518,7 @@ export const DECISION_TREES = {
         title: "Urutan Rantai Makanan Sawah",
         introSpeech: [
           "Halo Detektif Cilik! 👋 Selamat datang di penyelidikan pertama bersama SOKRABOT!",
-          "Di sawah Pak Tani, kita menemukan beberapa makhluk hidup: padi 🌾, tikus 🐀, ular 🐍, dan elang 🦅."
+          "Di sawah Pak Budi, kita menemukan beberapa makhluk hidup: padi 🌾, tikus 🐀, ular 🐍, dan elang 🦅."
         ],
         question: "Manakah urutan hubungan makan dan dimakan yang tepat?",
         options: [
@@ -1565,9 +1565,9 @@ export const DECISION_TREES = {
         title: "Kesimpulan Arti Panah",
         introSpeech: [
           "Kita sudah mengumpulkan semua petunjuk.",
-          "Sekarang bantu Pak Tani menjelaskan: Padi → Tikus → Ular → Elang."
+          "Sekarang bantu Pak Budi menjelaskan: Padi → Tikus → Ular → Elang."
         ],
-        question: "Kita sudah mengumpulkan semua petunjuk.\nSekarang bantu Pak Tani menjelaskan:\nPadi → Tikus → Ular → Elang\nApa arti tanda panah pada rantai makanan tersebut?",
+        question: "Kita sudah mengumpulkan semua petunjuk.\nSekarang bantu Pak Budi menjelaskan:\nPadi → Tikus → Ular → Elang\nApa arti tanda panah pada rantai makanan tersebut?",
         isOpenEnded: true,
         placeholder: "Tuliskan arti tanda panah pada rantai makanan...",
         conceptContext: {
@@ -1772,7 +1772,7 @@ export const DECISION_TREES = {
   // MISI 2: JEJAK ENERGI (Arti Panah & Aliran Energi)
   // Sesuai Diagram GBPM "MISI 2.1" s/d "MISI 2 PBL 5"
   // =========================================================================
-    // =========================================================================
+  // =========================================================================
   // MISI 3: SIAPA MEMBURU SIAPA? (Predator & Mangsa)
   // Sesuai Diagram Canva Halaman 7/17 (Page 7 - MISI 3 P1)
   // =========================================================================
@@ -2395,9 +2395,9 @@ export const DECISION_TREES = {
         mainIndex: 4,
         title: "Kesimpulan Temuan",
         introSpeech: [
-          "Sekarang bantu Pak Tani menyelesaikan temuannya 🌾."
+          "Sekarang bantu Pak Budi menyelesaikan temuannya 🌾."
         ],
-        question: "Sekarang bantu Pak Tani menyelesaikan temuannya.\nLengkapi dan tulis kembali pada kolom chatmu!\n\nPredator adalah hewan yang ______,\nMangsa adalah hewan yang ______.",
+        question: "Sekarang bantu Pak Budi menyelesaikan temuannya.\nLengkapi dan tulis kembali pada kolom chatmu!\n\nPredator adalah hewan yang ______,\nMangsa adalah hewan yang ______.",
         isOpenEnded: true,
         placeholder: "Predator adalah hewan yang..., Mangsa adalah hewan yang...",
         conceptContext: {
@@ -2850,7 +2850,7 @@ export const DECISION_TREES = {
             next: "m4_2_kembali_penyelidikan_sebelumnya"
           }
         ],
-        hintLevel1: "Tikus memakan padi di sawah. Jika hama tikus semakin banyak, apa yang terjadi pada tanaman padi Pak Tani? 🐀🌾",
+        hintLevel1: "Tikus memakan padi di sawah. Jika hama tikus semakin banyak, apa yang terjadi pada tanaman padi Pak Budi? 🐀🌾",
         hintLevel2: "Semakin banyak tikus yang makan padi, tanaman padi akan semakin berkurang! 🌾⬇️"
       },
 
@@ -3282,7 +3282,7 @@ export const DECISION_TREES = {
         isEnd: true,
         mainIndex: 5,
         title: "MISI 4 BERHASIL!",
-        question: "🎉 MISI 4 BERHASIL!\n\nKamu berhasil menyelamatkan sawah Pak Tani!\n\nDalam rantai makanan, organisme saling berhubungan.\nJika jumlah satu organisme berubah, organisme lain dapat ikut terpengaruh.\n\nContohnya:\n🐍 Ular berkurang\n↓\n🐀 Tikus bertambah\n↓\n🌾 Padi semakin banyak dimakan dan dapat berkurang\n\nJadi, perubahan jumlah satu organisme dapat memengaruhi keseimbangan ekosistem. 🏆",
+        question: "🎉 MISI 4 BERHASIL!\n\nKamu berhasil menyelamatkan sawah Pak Budi!\n\nDalam rantai makanan, organisme saling berhubungan.\nJika jumlah satu organisme berubah, organisme lain dapat ikut terpengaruh.\n\nContohnya:\n🐍 Ular berkurang\n↓\n🐀 Tikus bertambah\n↓\n🌾 Padi semakin banyak dimakan dan dapat berkurang\n\nJadi, perubahan jumlah satu organisme dapat memengaruhi keseimbangan ekosistem. 🏆",
         options: [
           {
             id: "Selesai",
@@ -3313,10 +3313,10 @@ export const DECISION_TREES = {
         mainIndex: 1,
         title: "PBL 1: Membasmi Semua Tikus?",
         introSpeech: [
-          "Karena tikus menjadi terlalu banyak di sawah, Pak Tani memutuskan...",
+          "Karena tikus menjadi terlalu banyak di sawah, Pak Budi memutuskan...",
           "\"Bagaimana kalau semua tikus di sawah dibasmi saja?\""
         ],
-        question: "Karena tikus menjadi terlalu banyak di sawah, Pak Tani berkata:\n\"Bagaimana kalau semua tikus di sawah dibasmi saja?\"\n\nMenurutmu, apakah tindakan tersebut tepat untuk menjaga keseimbangan ekosistem sawah?",
+        question: "Karena tikus menjadi terlalu banyak di sawah, Pak Budi berkata:\n\"Bagaimana kalau semua tikus di sawah dibasmi saja?\"\n\nMenurutmu, apakah tindakan tersebut tepat untuk menjaga keseimbangan ekosistem sawah?",
         options: [
           {
             id: "A",
@@ -3574,21 +3574,21 @@ export const DECISION_TREES = {
       },
 
       // ════════════════════════════════════════════════════════════════════════
-      // REFLEKSI AKHIR: Saran untuk Pak Tani (Canva Page 17)
+      // REFLEKSI AKHIR: Saran untuk Pak Budi (Canva Page 17)
       // ════════════════════════════════════════════════════════════════════════
       "m5_refleksi_start": {
         id: "m5_refleksi_start",
         isMain: true,
         mainIndex: 3,
-        title: "Refleksi Akhir: Saran untuk Pak Tani",
+        title: "Refleksi Akhir: Saran untuk Pak Budi",
         introSpeech: [
           "Di awal permainan, kita menemukan:",
-          "\"Pak Tani mengalami gagal panen karena jumlah tikus di sawah meningkat.\"",
+          "\"Pak Budi mengalami gagal panen karena jumlah tikus di sawah meningkat.\"",
           "Sekarang, setelah menyelesaikan semua penyelidikan..."
         ],
-        question: "Di awal permainan, kita menemukan:\n\"Pak Tani mengalami gagal panen karena jumlah tikus di sawah meningkat.\"\n\nSekarang, setelah menyelesaikan semua penyelidikan:\nApa saranmu kepada Pak Tani agar tanaman padi terlindungi tetapi keseimbangan ekosistem sawah tetap terjaga?",
+        question: "Di awal permainan, kita menemukan:\n\"Pak Budi mengalami gagal panen karena jumlah tikus di sawah meningkat.\"\n\nSekarang, setelah menyelesaikan semua penyelidikan:\nApa saranmu kepada Pak Budi agar tanaman padi terlindungi tetapi keseimbangan ekosistem sawah tetap terjaga?",
         isOpenEnded: true,
-        placeholder: "Tuliskan saranmu untuk Pak Tani agar padi terlindungi dan ekosistem tetap seimbang...",
+        placeholder: "Tuliskan saranmu untuk Pak Budi agar padi terlindungi dan ekosistem tetap seimbang...",
         conceptContext: {
           concept: "Mengendalikan jumlah tikus tanpa membasmi seluruhnya. Menjaga keberadaan ular sebagai predator alami tikus. Keseimbangan ekosistem harus dijaga agar semua organisme tetap terhubung.",
           keywords: ["mengendalikan", "tidak membasmi semua", "predator alami", "ular", "keseimbangan", "ekosistem", "saling terhubung", "populasi", "tidak menghilangkan"],
@@ -3674,7 +3674,7 @@ export const DECISION_TREES = {
         isEnd: true,
         mainIndex: 3,
         title: "SELAMAT! MISI SELESAI!",
-        question: "🎉 Yeah, benar! SELAMAT! MISI SELESAI!\n\nKamu berhasil membantu Pak Tani.\nDalam ekosistem, setiap organisme saling berhubungan. Perubahan jumlah satu organisme dapat memengaruhi organisme lainnya.\n\nKarena itu, menjaga keseimbangan bukan berarti menghilangkan satu organisme seluruhnya, tetapi menjaga agar populasi dan hubungan antarorganisme tidak terganggu.\n\n🏆 Kamu resmi menjadi PENJAGA EKOSISTEM!",
+        question: "🎉 Yeah, benar! SELAMAT! MISI SELESAI!\n\nKamu berhasil membantu Pak Budi.\nDalam ekosistem, setiap organisme saling berhubungan. Perubahan jumlah satu organisme dapat memengaruhi organisme lainnya.\n\nKarena itu, menjaga keseimbangan bukan berarti menghilangkan satu organisme seluruhnya, tetapi menjaga agar populasi dan hubungan antarorganisme tidak terganggu.\n\n🏆 Kamu resmi menjadi PENJAGA EKOSISTEM!",
         options: [
           {
             id: "Selesai",
