@@ -18,7 +18,7 @@ export const DECISION_TREES = {
   // =========================================================================
   misi_1: {
     missionId: "misi_1",
-    title: "Misi 1: Siapa Aku? (Peran Produsen)",
+    title: "Misi 1: Siapa Aku?",
     startNodeId: "m0_pbl1_orientasi",
     totalMainQuestions: 3,
     nodes: {
@@ -484,7 +484,7 @@ export const DECISION_TREES = {
 
   misi_2: {
     missionId: "misi_2",
-    title: "Misi 2: Rantai Makanan",
+    title: "Misi 2: Jejak Energi",
     startNodeId: "m1_start",
     totalMainQuestions: 5,
     nodes: {
@@ -1756,7 +1756,7 @@ export const DECISION_TREES = {
   // =========================================================================
   misi_3: {
     missionId: "misi_3",
-    title: "Misi 3: Siapa Memburu Siapa? (Predator & Mangsa)",
+    title: "Misi 3: Siapa Makan Siapa?",
     startNodeId: "m3_1_start",
     totalMainQuestions: 4,
     nodes: {
@@ -2516,7 +2516,7 @@ export const DECISION_TREES = {
   // =========================================================================
   misi_4: {
     missionId: "misi_4",
-    title: "Misi 4: Sawah dalam Bahaya! (Dinamika Populasi)",
+    title: "Misi 4: Sawah dalam Bahaya!",
     startNodeId: "m4_1_start",
     totalMainQuestions: 5,
     nodes: {
@@ -3278,7 +3278,7 @@ export const DECISION_TREES = {
   // =========================================================================
   misi_5: {
     missionId: "misi_5",
-    title: "Misi 5: Jaga Keseimbangan! (Solusi Ekosistem)",
+    title: "Misi 5: Selamatkan Ekosistem!",
     startNodeId: "m5_1_start",
     totalMainQuestions: 3,
     nodes: {

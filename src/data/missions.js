@@ -16,13 +16,13 @@ export const MISSIONS_DATA = [
     id: "misi_1",
     code: "TP 1",
     missionNumber: 1,
-    title: "Dari Mana Makananku?",
-    subTitle: "Peran Padi sebagai Produsen Mandiri",
+    title: "Siapa Aku?",
+    subTitle: "Mengenali penghuni sawah",
     icon: "🌱",
-    category: "Produsen & Fotosintesis",
-    focus: "Bagaimana Padi Mendapatkan Makanannya (Konsep Produsen)",
+    category: "Produsen, Konsumen, Pengurai",
+    focus: "Siswa menentukan peran organisme dan menjelaskan alasannya",
     pedagogicalIndicator:
-      "Ayo Selidiki bagaimana tanaman padi mendapatkan makanan!",
+      "Menentukan peran organisme (produsen, konsumen, pengurai) dan menjelaskan alasannya",
     gradeLevel: "SD Kelas 5 - 6",
     description:
       "Selidiki rahasia tanaman padi di sawah Pak Budi! Dari mana padi mendapatkan makanannya? Apakah menyerap makanan jadi dari tanah atau membuat makanannya sendiri dengan bantuan cahaya matahari?",
@@ -183,13 +183,13 @@ export const MISSIONS_DATA = [
     id: "misi_2",
     code: "TP 2",
     missionNumber: 2,
-    title: "Ke Mana Energi Pergi?",
-    subTitle: "Ada hubungan rahasia antara padi, tikus, ular dan elang!",
+    title: "Jejak Energi",
+    subTitle: "Mencari perjalanan energi",
     icon: "🌾",
-    category: "Misteri Rantai Makanan",
+    category: "Rantai Makanan & Arah Energi",
     focus: "Hubungan Makan-Dimakan, Arti Panah & Sumber Energi di Sawah",
     pedagogicalIndicator:
-      "Ayo susun rantai makanan dan selidiki arti tanda panahnya. Dari mana energi mereka berasal?",
+      "Menyusun rantai dan menjelaskan arti panah",
     gradeLevel: "SD Kelas 5 - 6",
     description:
       "Bantu Pak Budi menyusun urutan rantai makanan, menemukan arti tanda panah (→), dan menyelidiki dari mana sumber energi pertama berasal!",
@@ -341,13 +341,13 @@ export const MISSIONS_DATA = [
     id: "misi_3",
     code: "TP 3",
     missionNumber: 3,
-    title: "Siapa Memburu Siapa?",
-    subTitle: "Ada pemburu dan hewan yang diburu di sawah Pak Budi!",
+    title: "Siapa Makan Siapa?",
+    subTitle: "Menyelidiki hubungan organisme",
     icon: "🐍",
-    category: "Misteri Pemburu Sawah",
+    category: "Pemangsa dan Mangsa",
     focus: "Peran Predator dan Mangsa di Ekosistem Sawah",
     pedagogicalIndicator:
-      "Ayo selidiki siapa yang memburu dan siapa yang diburu. Bisakah kamu menemukan perbedaannya?",
+      "Menentukan siapa memakan/dimakan dan alasannya",
     gradeLevel: "SD Kelas 5 - 6",
     description:
       "Di sawah Pak Budi, seekor ular terlihat memburu dan memakan tikus! Selidiki siapakah yang bertindak sebagai predator dan siapakah mangsa!",
@@ -481,14 +481,13 @@ export const MISSIONS_DATA = [
     code: "TP 4",
     missionNumber: 4,
     title: "Sawah dalam Bahaya!",
-    subTitle:
-      "Jumlah ular di sawah Pak Budi tiba-tiba berkurang. Apa yang akan terjadi pada tikus dan tanaman padi?",
+    subTitle: "Memulihkan keseimbangan sawah",
     icon: "⚠️",
-    category: "Misteri Sawah Pak Budi",
+    category: "Perubahan Populasi",
     focus:
       "Efek Domino Penurunan Populasi Predator terhadap Keseimbangan Sawah",
     pedagogicalIndicator:
-      "Ayo selidiki bagaimana perubahan jumlah hewan dapat memengaruhi kehidupan di sawah!",
+      "Memprediksi akibat jika satu populasi naik/turun",
     gradeLevel: "SD Kelas 5 - 6",
     description:
       "Gawat! Populasi Ular di sawah berkurang drastis. Apa yang akan terjadi pada populasi Tikus dan tanaman Padi Pak Budi?",
@@ -617,15 +616,14 @@ export const MISSIONS_DATA = [
     id: "misi_5",
     code: "TP 5",
     missionNumber: 5,
-    title: "Selamatkan Sawah Pak Budi!",
-    subTitle:
-      "Pak Budi ingin membasmi semua tikus agar padinya aman. Apakah itu keputusan yang tepat?",
+    title: "Selamatkan Ekosistem!",
+    subTitle: "Menyelesaikan masalah akhir ekosistem sawah",
     icon: "🛡️",
-    category: "Misi Penyelamatan Sawah",
+    category: "Integrasi Konsep Ekosistem Sawah",
     focus:
-      "Mengevaluasi Tindakan Manusia terhadap Keseimbangan Ekosistem Sawah",
+      "Siswa menyelesaikan kasus ekosistem sawah dengan menggunakan konsep-konsep dari Misi 1–4 serta memberikan alasan atas solusi yang dipilih",
     pedagogicalIndicator:
-      "Ayo Bantu Pak Budi memilih tindakan terbaik agar kehidupan di sawah tetap seimbang!",
+      "Menyelesaikan kasus ekosistem sawah & memberikan alasan solusi yang dipilih",
     gradeLevel: "SD Kelas 5 - 6",
     description:
       "Pak Budi ingin membasmi semua tikus di sawah! Apakah itu solusi yang tepat? Selidiki dampaknya terhadap rantai makanan dan temukan cara yang lebih bijak untuk menjaga keseimbangan ekosistem!",
