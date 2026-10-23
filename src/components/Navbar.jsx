@@ -105,7 +105,7 @@ export default function Navbar({
             onClick={() => onNavigate("guide")}
             id="nav-link-guide"
           >
-            <span>1. Petunjuk Penggunaan</span>
+            <span>1. Petunjuk Bermain</span>
           </button>
 
           <button
