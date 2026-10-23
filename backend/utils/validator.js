@@ -92,7 +92,8 @@ export function validateConversationalInput(body) {
       studentName,
       conversationHistory,
       wrongCountForConcept: Math.min(Number(body.wrongCountForConcept) || 0, 10),
-      hintsGiven
+      hintsGiven,
+      isReflection: Boolean(body.isReflection)
     }
   };
 }

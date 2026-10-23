@@ -44,7 +44,8 @@ export async function sendConversationalMessage({
   studentName = 'Detektif Cilik',
   conversationHistory = [],
   wrongCountForConcept = 0,
-  hintsGiven = []
+  hintsGiven = [],
+  isReflection = false
 }) {
   try {
     const res = await fetch(`${API_BASE_URL}/chat`, {
@@ -61,7 +62,8 @@ export async function sendConversationalMessage({
         studentName,
         conversationHistory,
         wrongCountForConcept,
-        hintsGiven
+        hintsGiven,
+        isReflection
       })
     });
 

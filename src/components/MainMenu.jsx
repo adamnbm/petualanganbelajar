@@ -241,7 +241,7 @@ export default function MainMenu({
               <BookOpen size={32} className="text-white" />
             </div>
             <div className="card-text-wrapper">
-              <h3 className="card-nav-title">Buku Pintar (Codex)</h3>
+              <h3 className="card-nav-title">Buku Pintar</h3>
               <p className="card-nav-desc">
                 <span className="desc-mobile show-on-mobile-only">
                   Kumpulkan pengetahuan tentang jaring makanan, makhluk hidup,
@@ -325,9 +325,7 @@ export default function MainMenu({
               borderColor: "#f59e0b"
             }}
           >
-            <div className="card-badge-top" style={{ background: "#f59e0b", color: "#ffffff", fontWeight: "800" }}>
-              BARU! 🎮 Game Interaktif
-            </div>
+
             <div className="card-icon-circle" style={{ background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" }}>
               <Gamepad2 size={32} className="text-white" />
             </div>

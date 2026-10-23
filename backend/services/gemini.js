@@ -33,25 +33,32 @@ function getGeminiClient() {
 
 // promptt
 const SOKRABOT_SYSTEM_INSTRUCTION = `Kamu adalah SOKRABOT, robot sahabat sains (tutor AI Socratic) yang seru, ramah, dan pintar untuk anak SD kelas 5-6 (usia 10-12 tahun) di Indonesia.
-Tugas utamamu: Mengapresiasi pemikiran siswa, menganalisis alasan mereka, dan memberikan umpan balik ilmiah yang ramah dan menyenangkan.
+Tugas utamamu: Membimbing siswa menemukan jawaban SENDIRI melalui pertanyaan penuntun (metode Sokratik), BUKAN memberikan jawaban langsung.
 
 PANDUAN BAHASA KHUSUS ANAK SD:
 1. Selalu bersikap ceria, hangat, penuh semangat, dan bersahabat seperti kakak pembimbing atau robot kawan bermain yang asyik.
 2. Gunakan kata-kata yang mudah dipahami anak-anak. Jangan memakai kalimat yang kaku atau istilah rumit tanpa perumpamaan nyata (misal: bandingkan dengan kompor, baterai, dapur memasak, atau mainan).
 3. Sapa anak dengan ramah, misalnya "Wah Detektif [Nama]!", "Hebat sekali, Detektif [Nama]!", "Keren banget!".
 4. JANGAN PERNAH berkata ketus atau menyalahkan, seperti: "Salah", "Jawaban kamu keliru", "Bukan begitu".
-5. ATURAN SANGAT PENTING TENTANG TANDA TANYA (?):
-   - JANGAN PERNAH mengakhiri pesan dengan tanda tanya (?)!
-   - JANGAN mengajukan pertanyaan baru di akhir pesan!
-   - Selalu akhiri pesanmu dengan kalimat pernyataan, apresiasi, atau penguatan positif yang diakhiri tanda titik (.) atau tanda seru (!).
-   - Alasan: Antarmuka aplikasi sudah memiliki alur pertanyaan berikutnya secara otomatis, sehingga pesanmu harus berfungsi sebagai penguat dan penyemangat, bukan penanya.
-6. Panjang balasan: Cukup 2-3 kalimat santai dan padat. Gunakan emoji yang ramah (🌾, ☀️, 🔍, 💡, 🦉, ✨).
+5. Panjang balasan: Cukup 2-3 kalimat santai dan padat. Gunakan emoji yang ramah (🌾, ☀️, 🔍, 💡, 🦉, ✨).
+
+PRINSIP SOKRATIK (SANGAT PENTING!):
+- JANGAN PERNAH langsung memberikan jawaban yang benar kepada siswa!
+- JANGAN mengungkapkan konsep target secara eksplisit!
+- Gunakan pertanyaan penuntun (guiding question) untuk mengarahkan siswa berpikir sendiri.
+- Contoh pertanyaan penuntun: "Coba pikirkan, dari mana padi mendapat bahan untuk memasak makanannya?", "Apa ya yang terjadi kalau matahari tidak bersinar?"
 
 LOGIKA EVALUASI KONSEP:
-- Bila jawaban anak BENAR dan alasannya tepat: Beri pujian antusias dan jelaskan secara singkat mengapa konsepnya tepat. Akhiri dengan tanda seru (!). Set isConceptConfirmed = true.
-- Bila jawaban anak SEBAGIAN BENAR: Apresiasi ide baiknya, berikan penegasan konsep yang benar dalam bentuk pernyataan ramah. Set isConceptConfirmed = false.
-- Bila anak terkena MISKONSEPSI: Berikan analogi atau fakta sederhana yang meluruskan pemahaman dalam bentuk kalimat berita/penjelasan ramah (tanpa bertanya balik). Set isConceptConfirmed = false.
-- Bila anak BINGUNG atau SALAH: Berikan dorongan semangat dan petunjuk singkat dalam bentuk pernyataan. Set isConceptConfirmed = false.`;
+- Bila jawaban anak BENAR dan alasannya tepat: Beri pujian antusias dan konfirmasi singkat. Akhiri dengan tanda seru (!). Set isConceptConfirmed = true.
+- Bila jawaban anak SEBAGIAN BENAR: Apresiasi ide baiknya, lalu ajukan pertanyaan penuntun yang mengarahkan ke bagian yang belum tepat. Set isConceptConfirmed = false.
+- Bila anak terkena MISKONSEPSI: Ajukan pertanyaan penuntun yang membantu anak menyadari sendiri kekeliruannya (misal: "Hmm, coba pikirkan, apakah padi punya mulut untuk makan?"). Set isConceptConfirmed = false.
+- Bila anak BINGUNG atau SALAH: Berikan dorongan semangat lalu ajukan pertanyaan penuntun sederhana sebagai petunjuk arah berpikir. Set isConceptConfirmed = false.
+
+MODE REFLEKSI:
+- Jika konteks menyebutkan MODE_REFLEKSI, maka jawaban siswa adalah refleksi pribadi.
+- JANGAN menilai jawaban refleksi sebagai benar/salah.
+- Berikan apresiasi atas kejujuran dan proses berpikir siswa. Akhiri dengan kalimat penyemangat positif.
+- Set status = "correct" dan isConceptConfirmed = true untuk semua jawaban refleksi.`;
 
 // ─── Response Schema ─────────────────────────────────────────────────────────
 const RESPONSE_SCHEMA = {
@@ -64,7 +71,7 @@ const RESPONSE_SCHEMA = {
     },
     message: {
       type: Type.STRING,
-      description: "Respons umpan balik SOKRABOT — maksimal 2-3 kalimat pernyataan/apresiasi/penguatan. DILARANG KERAS menggunakan tanda tanya (?) di akhir pesan!"
+      description: "Respons Sokratik SOKRABOT — maksimal 2-3 kalimat. Untuk jawaban BENAR: berikan apresiasi. Untuk jawaban BELUM TEPAT: ajukan pertanyaan penuntun (Sokratik) untuk membimbing siswa berpikir. Untuk REFLEKSI: apresiasi proses berpikir siswa."
     },
     isConceptAligned: {
       type: Type.BOOLEAN,
@@ -94,7 +101,8 @@ export async function evaluateConversationalAnswer({
   studentName = "Detektif Cilik",
   conversationHistory = [],
   wrongCountForConcept = 0,
-  hintsGiven = []
+  hintsGiven = [],
+  isReflection = false
 }) {
   const client = getGeminiClient();
   // Fallback jika API key tidak tersedia
@@ -106,7 +114,8 @@ export async function evaluateConversationalAnswer({
       confirmationKeywords,
       studentAnswer,
       studentName,
-      wrongCountForConcept
+      wrongCountForConcept,
+      isReflection
     });
   }
 
@@ -119,6 +128,8 @@ export async function evaluateConversationalAnswer({
   const misconceptionList = misconceptions
     .map((m) => `- Miskonsepsi "${m.id}": jika siswa menyebutkan kata-kata seperti ${m.keywords.slice(0, 3).join(", ")}`)
     .join("\n");
+
+  const reflectionTag = isReflection ? "\n\n** MODE_REFLEKSI AKTIF: Ini adalah jawaban refleksi pribadi siswa. JANGAN menilai benar/salah. Apresiasi proses berpikirnya dan set status=correct. **" : "";
 
   const userPrompt = `
 MISI: ${missionId} | KONSEP SAAT INI: ${conceptTitle}
@@ -137,17 +148,23 @@ INFO TAMBAHAN:
 - Jawaban salah untuk konsep ini: ${wrongCountForConcept} kali
 - Hint yang sudah diberikan: ${hintsGiven.length > 0 ? hintsGiven.join(", ") : "Belum ada"}
 
-TUGAS: Evaluasi alasan siswa. Hasilkan respons umpan balik yang apresiatif dan menjelaskan konsep.
-PENTING: JANGAN PERNAH mengakhiri pesan dengan tanda tanya (?). Berikan apresiasi dan penguatan konsep dalam bentuk kalimat pernyataan positif!
-${wrongCountForConcept >= 3 ? "CATATAN: Siswa sudah salah 3+ kali — berikan penjelasan konsep yang lebih gamblang dan menguatkan." : ""}
+TUGAS: Evaluasi alasan siswa menggunakan metode Sokratik.
+- Jika BENAR: Berikan apresiasi singkat dan konfirmasi.
+- Jika BELUM TEPAT: Ajukan pertanyaan penuntun yang membimbing siswa menemukan jawaban sendiri. JANGAN memberikan jawaban langsung!
+${wrongCountForConcept >= 3 ? "CATATAN: Siswa sudah salah 3+ kali — berikan petunjuk yang lebih terarah melalui pertanyaan penuntun yang lebih spesifik, tetapi tetap JANGAN berikan jawaban langsung." : ""}
+${reflectionTag}
 `;
 
-  // Helper untuk memastikan pesan AI TIDAK diakhiri tanda tanya (?)
-  function sanitizeNoQuestionEnding(text) {
+  // Helper untuk sanitasi pesan AI
+  // Untuk jawaban correct: hapus tanda tanya di akhir
+  // Untuk jawaban lain: biarkan pertanyaan Sokratik (tanda tanya diperbolehkan)
+  function sanitizeMessage(text, status) {
     if (!text) return "";
     let cleaned = text.trim();
-    cleaned = cleaned.replace(/\?+$/, "!");
-    cleaned = cleaned.replace(/\?/g, ".");
+    if (status === "correct") {
+      // Jawaban benar: tidak perlu pertanyaan lagi, hapus ? di akhir
+      cleaned = cleaned.replace(/\?+$/, "!");
+    }
     return cleaned;
   }
 
@@ -186,13 +203,15 @@ ${wrongCountForConcept >= 3 ? "CATATAN: Siswa sudah salah 3+ kali — berikan pe
       if (responseText) {
         const parsed = JSON.parse(responseText);
         console.log(`[Gemini] Sukses mengevaluasi via model: ${modelName}`);
+        const finalStatus = isReflection ? "correct" : (parsed.status || "wrong");
         const rawMsg = parsed.message || `Wah, analisismu menarik sekali, Detektif ${studentName}! Penjelasanmu sudah dicatat dengan baik.`;
         return {
-          status: parsed.status || "wrong",
-          message: sanitizeNoQuestionEnding(rawMsg),
-          isConceptAligned: Boolean(parsed.isConceptAligned ?? (parsed.status === "correct")),
-          isConceptConfirmed: Boolean(parsed.isConceptConfirmed),
-          suggestedHintLevel: parsed.suggestedHintLevel || 0
+          status: finalStatus,
+          message: sanitizeMessage(rawMsg, finalStatus),
+          isConceptAligned: isReflection ? true : Boolean(parsed.isConceptAligned ?? (parsed.status === "correct")),
+          isConceptConfirmed: isReflection ? true : Boolean(parsed.isConceptConfirmed),
+          suggestedHintLevel: isReflection ? 0 : (parsed.suggestedHintLevel || 0),
+          isReflection
         };
       }
     } catch (err) {
@@ -209,7 +228,8 @@ ${wrongCountForConcept >= 3 ? "CATATAN: Siswa sudah salah 3+ kali — berikan pe
     confirmationKeywords,
     studentAnswer,
     studentName,
-    wrongCountForConcept
+    wrongCountForConcept,
+    isReflection
   });
 }
 
@@ -223,7 +243,8 @@ function evaluateConversationalFallback({
   confirmationKeywords,
   studentAnswer,
   studentName,
-  wrongCountForConcept
+  wrongCountForConcept,
+  isReflection = false
 }) {
   const normalized = (studentAnswer || "").toLowerCase().trim();
 
@@ -242,6 +263,18 @@ function evaluateConversationalFallback({
   const hasMisconception = !!triggeredMisconception && !isCorrect;
 
   const greeting = `Detektif ${studentName}`;
+
+  // Jawaban refleksi: selalu apresiasi positif tanpa label benar/salah
+  if (isReflection) {
+    return {
+      status: "correct",
+      message: `Terima kasih sudah berbagi pemikiranmu, ${greeting}! 🌟 Refleksimu menunjukkan bahwa kamu seorang pemikir yang hebat. Teruslah berpikir kritis seperti ini! ✨`,
+      isConceptAligned: true,
+      isConceptConfirmed: true,
+      suggestedHintLevel: 0,
+      isReflection: true
+    };
+  }
 
   if (isCorrect) {
     return {
@@ -276,9 +309,9 @@ function evaluateConversationalFallback({
 
   if (isPartial) {
     const partialResponses = [
-      `Jawabanmu sudah keren, ${greeting}! 💡 Kamu sudah menyebutkan "${matchedKeywords[0]}" — itu pemikiran yang tepat dan mengarah pada konsep yang benar.`,
-      `Sedikit lagi tepat, ${greeting}! 🔍 Kata "${matchedKeywords[0]}" yang kamu sebutkan itu penting sekali dan membantu membuka rahasia rantai makanan ini.`,
-      `Wah, kamu sudah hampir sampai, ${greeting}! 🌱 Ada pemikiran bagus di jawabanmu yang sangat mendekati konsep ilmiahnya.`
+      `Jawabanmu sudah keren, ${greeting}! 💡 Kamu sudah menyebutkan "${matchedKeywords[0]}" — coba pikirkan lagi, apa hubungannya dengan makhluk hidup lainnya di sawah?`,
+      `Sedikit lagi, ${greeting}! 🔍 Kata "${matchedKeywords[0]}" yang kamu sebutkan itu penting. Coba pikirkan, mengapa hal itu terjadi di alam?`,
+      `Wah, kamu sudah hampir sampai, ${greeting}! 🌱 Coba kembangkan lagi pemikiranmu — apa yang menyebabkan proses itu terjadi?`
     ];
     return {
       status: "partial",
@@ -288,11 +321,11 @@ function evaluateConversationalFallback({
     };
   }
 
-  // Jawaban salah / belum tepat
+  // Jawaban salah / belum tepat — berikan pertanyaan penuntun Sokratik
   const wrongResponses = [
-    `Usaha yang bagus, ${greeting}! 🌾 Setiap pengamatan dan analisismu membawamu selangkah lebih dekat untuk mengungkap jaring kehidupan di sawah.`,
-    `Tebakan yang berani, ${greeting}! 💡 Mempelajari sains memang seru karena kita bisa terus membuktikan fakta-fakta baru di alam sawah.`,
-    `Tetap semangat, ${greeting}! 🔍 SOKRABOT sangat menghargai usahamu dalam menganalisis hubungan makhluk hidup ini.`
+    `Usaha yang bagus, ${greeting}! 🌾 Coba pikirkan lagi — perhatikan hubungan antara makhluk hidup di sawah. Siapa yang membutuhkan siapa untuk mendapatkan makanan?`,
+    `Tebakan yang berani, ${greeting}! 💡 Coba perhatikan petunjuk yang sudah kita temukan sebelumnya. Apa yang terjadi dengan energi saat satu makhluk hidup memakan yang lain?`,
+    `Tetap semangat, ${greeting}! 🔍 Mari kita coba dari sudut lain — bayangkan kamu mengamati sawah. Apa yang kamu lihat terjadi antara makhluk-makhluk hidup di sana?`
   ];
 
   return {

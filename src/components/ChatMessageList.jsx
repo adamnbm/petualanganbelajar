@@ -77,11 +77,13 @@ export default function ChatMessageList({
                         <div className="banner-right">
                           {msg.isFeedback && (
                             <span
-                              className={`banner-status-tag ${msg.isCorrect ? "tag-aligned" : "tag-guide"}`}
+                              className={`banner-status-tag ${msg.isCorrect ? "tag-aligned" : msg.isReflection ? "tag-aligned" : "tag-guide"}`}
                             >
                               {msg.isCorrect
-                                ? "🌟 Alasan Tepat"
-                                : "❌ Belum Tepat • 🤔 Bimbingan"}
+                                ? msg.isReflection
+                                  ? "✍️ Refleksi • 🌟 Apresiasi"
+                                  : "🌟 Alasan Tepat"
+                                : "🤔 Pertanyaan Penuntun"}
                             </span>
                           )}
                           <span className="banner-pill-ai">✨ AI</span>

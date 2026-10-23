@@ -42,7 +42,8 @@ router.post('/chat', async (req, res) => {
       studentName,
       conversationHistory,
       wrongCountForConcept,
-      hintsGiven
+      hintsGiven,
+      isReflection
     } = validation.data;
 
     const result = await evaluateConversationalAnswer({
@@ -56,7 +57,8 @@ router.post('/chat', async (req, res) => {
       studentName,
       conversationHistory,
       wrongCountForConcept,
-      hintsGiven
+      hintsGiven,
+      isReflection: Boolean(isReflection)
     });
 
     return res.json({
@@ -65,7 +67,8 @@ router.post('/chat', async (req, res) => {
       message: result.message,
       isConceptAligned: Boolean(result.isConceptAligned ?? (result.status === 'correct')),
       isConceptConfirmed: result.isConceptConfirmed,
-      suggestedHintLevel: result.suggestedHintLevel
+      suggestedHintLevel: result.suggestedHintLevel,
+      isReflection: Boolean(result.isReflection)
     });
 
   } catch (error) {

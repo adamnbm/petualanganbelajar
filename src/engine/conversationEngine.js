@@ -158,24 +158,36 @@ export class BranchingSessionController {
           ? "padi memakan makhluk hidup lain"
           : "padi mendapat makanan jadi dari tanah";
         questionText = `Kamu memilih bahwa ${summary}. Mengapa kamu berpikir begitu?`;
-      } else if (node.id === "m0_n7") {
+      } else if (node.id === "m0_n6") {
+        // Sesuai Diagram GBPM: jika jalur miskonsepsi, siswa jawab 'Tidak' langsung meninjau kembali pertanyaan awal (N8)
         if (this.state.jalur === "miskonsepsi") {
           resolvedOptions = [
             {
-              id: "Lanjut",
-              text: "Lanjut Meninjau Kembali 🔍",
+              id: "Tidak",
+              text: "Tidak",
+              isCorrect: true,
               next: "m0_n8"
-            }
-          ];
-        } else {
-          resolvedOptions = [
+            },
             {
-              id: "Lanjut",
-              text: "Lanjut ke Penutup Misi 📝",
-              next: "m0_pbl4_penutup"
+              id: "Ya",
+              text: "Ya",
+              isWrong: true,
+              next: "m0_klarifikasi_2_from_n6"
             }
           ];
         }
+      } else if (node.id === "m0_n7") {
+        // Konfirmasi Akhir Produsen (bisa dicapai dari Jalur Benar maupun Jalur Miskonsepsi N8)
+        if (this.state.jalur === "miskonsepsi" && this.state.miskonsepsi_teratasi) {
+          questionText = "Tepat sekali! Padi dapat membuat makanannya sendiri dengan bantuan cahaya matahari. Akar membantu menyerap air dan mineral dari tanah. Makhluk hidup yang dapat membuat makanannya sendiri disebut PRODUSEN. Kamu menemukan konsep pertama: PRODUSEN.";
+        }
+        resolvedOptions = [
+          {
+            id: "Lanjut",
+            text: "Lanjut ke Penutup Misi 📝",
+            next: "m0_pbl4_penutup"
+          }
+        ];
       }
     }
 
@@ -304,10 +316,10 @@ export class BranchingSessionController {
         } else if (this.state.currentNodeId === "m0_n5") {
           advanceTarget = "m0_n6";
         } else if (this.state.currentNodeId === "m0_n6") {
-          advanceTarget = "m0_n7";
+          advanceTarget = this.state.jalur === "miskonsepsi" ? "m0_n8" : "m0_n7";
         } else if (this.state.currentNodeId === "m0_n8") {
           this.state.miskonsepsi_teratasi = true;
-          advanceTarget = "m0_selesai_n8";
+          advanceTarget = "m0_n7";
         }
 
         const strongHintMsg = {
@@ -400,6 +412,39 @@ export class BranchingSessionController {
 
     // KASUS 1: Node adalah pertanyaan terbuka (isOpenEnded) -> Panggil LIVE GEMINI AI
     if (currentNode.isOpenEnded) {
+
+      // ── Deteksi apakah node ini adalah pertanyaan refleksi ──
+      const isReflectionNode = Boolean(
+        currentNode.isReflection ||
+        (currentNode.title && currentNode.title.toLowerCase().includes("refleksi")) ||
+        (currentNode.nextOnAligned && currentNode.nextOnMisconception && currentNode.nextOnAligned === currentNode.nextOnMisconception)
+      );
+
+      // ── Deteksi jawaban off-topic / terlalu pendek / tidak relevan ──
+      const trimmedText = text.trim();
+      const isOffTopic = !isReflectionNode && (
+        trimmedText.length < 5 ||
+        /^[^a-zA-Z0-9]+$/.test(trimmedText) ||
+        /^(gak|ga|g|nggak|engga|gatau|gak tau|gk|gktau|tidak tahu|nggak tahu|idk|no|ya|iya|oke|ok)$/i.test(trimmedText)
+      );
+
+      if (isOffTopic) {
+        // Jawaban tidak dikenali / di luar topik → minta ulangi dengan petunjuk
+        const retryMsg = {
+          id: `bot_retry_${Date.now()}`,
+          sender: "bot",
+          text: `Hmm, sepertinya jawabanmu masih terlalu singkat, Detektif ${studentName}! 😊\n\nCoba jelaskan dengan lebih detail ya. Perhatikan pertanyaannya dan gunakan petunjuk yang sudah ada. SOKRABOT yakin kamu bisa! 💡`,
+          isAIGenerated: false,
+          source: "curriculum",
+          timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
+        };
+        this.state.messages = [...this.state.messages, retryMsg];
+        this.state.isBotTyping = false;
+        this.state.optionsDisabled = false;
+        this.emit();
+        return;
+      }
+
       try {
         const conceptCtx = currentNode.conceptContext || {};
         const response = await Promise.race([
@@ -410,20 +455,29 @@ export class BranchingSessionController {
             targetUnderstanding: conceptCtx.concept || currentNode.question,
             misconceptions: (conceptCtx.misconceptions || []).map((m) => ({ id: m, keywords: [m] })),
             confirmationKeywords: conceptCtx.keywords || [],
-            studentAnswer: text.trim(),
+            studentAnswer: trimmedText,
             studentName,
-            conversationHistory: this.state.messages.slice(-8)
+            conversationHistory: this.state.messages.slice(-8),
+            isReflection: isReflectionNode
           }),
           new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 45000))
         ]);
 
         // Balasan Socratic AI Gemini
-        const isAligned = Boolean(response.isConceptAligned ?? (response.status === "correct"));
+        const isAligned = isReflectionNode
+          ? true  // Refleksi selalu dianggap aligned (tidak ada benar/salah)
+          : Boolean(response.isConceptAligned ?? (response.status === "correct"));
 
         // Perbarui status pesan jawaban siswa sebelumnya dengan hasil evaluasi AI
-        userMsg.isCorrect = isAligned;
-        if (!isAligned) {
-          userMsg.misconceptionTriggered = response.status || "alasan_belum_tepat";
+        if (isReflectionNode) {
+          // Refleksi: tidak diberi label benar/salah
+          userMsg.isCorrect = true;
+          userMsg.isReflection = true;
+        } else {
+          userMsg.isCorrect = isAligned;
+          if (!isAligned) {
+            userMsg.misconceptionTriggered = response.status || "alasan_belum_tepat";
+          }
         }
 
         const botAIMsg = {
@@ -434,6 +488,7 @@ export class BranchingSessionController {
           source: "gemini_ai",
           isFeedback: true,
           isCorrect: isAligned,
+          isReflection: isReflectionNode,
           status: response.status,
           timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         };
@@ -442,7 +497,7 @@ export class BranchingSessionController {
         this.state.isBotTyping = false;
         this.emit();
 
-        if (isAligned) {
+        if (isAligned || isReflectionNode) {
           soundManager.playCorrect();
         } else {
           this.state.stats.scaffoldVisits += 1;
@@ -472,26 +527,34 @@ export class BranchingSessionController {
         this.state.isBotTyping = false;
         this.state.optionsDisabled = false;
 
-        // Fallback cerdas: periksa kata kunci
+        // Fallback cerdas: periksa kata kunci (atau refleksi selalu positif)
         const norm = text.toLowerCase();
         const keywords = currentNode.conceptContext?.keywords || ["fotosintesis", "sendiri", "matahari"];
-        const matched = keywords.some((k) => norm.includes(k));
+        const matched = isReflectionNode ? true : keywords.some((k) => norm.includes(k));
 
-        userMsg.isCorrect = matched;
-        if (!matched) {
-          userMsg.misconceptionTriggered = "alasan_belum_tepat";
+        if (isReflectionNode) {
+          userMsg.isCorrect = true;
+          userMsg.isReflection = true;
+        } else {
+          userMsg.isCorrect = matched;
+          if (!matched) {
+            userMsg.misconceptionTriggered = "alasan_belum_tepat";
+          }
         }
 
         const fallbackMsg = {
           id: `bot_fb_${Date.now()}`,
           sender: "bot",
-          text: matched
-            ? `Bagus sekali, Detektif ${studentName}! 🌟 Penjelasanmu sudah mengarah ke konsep yang tepat.`
-            : `Terima kasih penjelasannya, Detektif ${studentName}! 🤔 Mari kita selidiki buktinya bersama ya!`,
+          text: isReflectionNode
+            ? `Terima kasih sudah berbagi pemikiranmu, Detektif ${studentName}! 🌟 Refleksimu sangat berharga. Terus semangat belajar! ✨`
+            : matched
+              ? `Bagus sekali, Detektif ${studentName}! 🌟 Penjelasanmu sudah mengarah ke konsep yang tepat.`
+              : `Coba pikirkan lagi ya, Detektif ${studentName}! 🤔 Perhatikan petunjuk yang sudah ada. Apa hubungan antara makhluk hidup yang satu dengan yang lainnya?`,
           isAIGenerated: false,
           source: "curriculum_fallback",
           isFeedback: true,
           isCorrect: matched,
+          isReflection: isReflectionNode,
           timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         };
         this.state.messages = [...this.state.messages, fallbackMsg];

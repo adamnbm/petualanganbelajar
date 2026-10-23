@@ -36,7 +36,7 @@ export const DECISION_TREES = {
         options: [
           {
             id: "mulai",
-            text: "MULAI PENYELIDIKAN",
+            text: "Ayo Mulai Penyelidikan! 🔍🌾",
             next: "m0_pbl2_organisasi"
           }
         ]
@@ -56,7 +56,7 @@ export const DECISION_TREES = {
         options: [
           {
             id: "siap",
-            text: "Siap! 🚀",
+            text: "Siap, Saya Siap! 🚀",
             next: "m0_start"
           }
         ]
@@ -407,8 +407,8 @@ export const DECISION_TREES = {
         options: [
           {
             id: "Lanjut",
-            text: "Lanjut ke Penutup Misi 📝",
-            next: "m0_pbl4_penutup"
+            text: "Lihat Kesimpulan & Buka Kartu Codex 🏆",
+            next: "m0_n7"
           }
         ]
       },
@@ -437,6 +437,7 @@ export const DECISION_TREES = {
       "m0_pbl5_refleksi": {
         id: "m0_pbl5_refleksi",
         isMain: true,
+        isReflection: true,
         mainIndex: 3,
         title: "Refleksi Pemahaman Diri",
         introSpeech: [
@@ -1670,6 +1671,7 @@ export const DECISION_TREES = {
       "m2_5_refleksi_awal": {
         id: "m2_5_refleksi_awal",
         isMain: false,
+        isReflection: true,
         title: "Refleksi: Sebelum Penyelidikan",
         introSpeech: [
           "Saatnya refleksi, Detektif Cilik! ✍️"
@@ -1690,6 +1692,7 @@ export const DECISION_TREES = {
       "m2_5_refleksi_sesudah": {
         id: "m2_5_refleksi_sesudah",
         isMain: false,
+        isReflection: true,
         title: "Refleksi: Setelah Penyelidikan",
         introSpeech: [
           "Bagus! Belajar dari pengalaman adalah kunci sains 🌟."
@@ -1710,6 +1713,7 @@ export const DECISION_TREES = {
       "m2_5_jelaskan_gambar": {
         id: "m2_5_jelaskan_gambar",
         isMain: false,
+        isReflection: true,
         title: "Jelaskan dengan Bahasamu Sendiri",
         image: "/visual_padi_tikus.jpg",
         imageAlt: "Aliran energi dari Padi ke Tikus",
@@ -2433,6 +2437,7 @@ export const DECISION_TREES = {
       "m3_4_refleksi": {
         id: "m3_4_refleksi",
         isMain: false,
+        isReflection: true,
         title: "Refleksi",
         introSpeech: [
           "Refleksi ✍️"
@@ -2472,15 +2477,15 @@ export const DECISION_TREES = {
         ]
       },
 
-      // ── JAWABAN YANG DIHARAPKAN (REFLEKSI SESUAI) ─────────────────────────
+      // ── REFLEKSI SESUAI ────────────────────────────────────────────────────
       "m3_4_refleksi_sesuai": {
         id: "m3_4_refleksi_sesuai",
         isMain: false,
-        title: "Jawaban yang Diharapkan",
+        title: "Refleksi Sesuai",
         introSpeech: [
-          "Jawaban yang diharapkan: Tidak. Perannya bergantung pada hubungan dengan organisme lain. Ular menjadi predator saat memakan tikus, tetapi menjadi mangsa saat dimakan elang."
+          "Luar biasa! Refleksimu sangat bagus, Detektif Cilik! 🌟"
         ],
-        question: "Luar biasa! Kamu telah menguasai konsep predator dan mangsa secara utuh.",
+        question: "Kamu telah menguasai konsep predator dan mangsa secara utuh. Hebat sekali! 🏆",
         options: [
           {
             id: "Lanjut",
@@ -3236,6 +3241,7 @@ export const DECISION_TREES = {
       "m4_refleksi_start": {
         id: "m4_refleksi_start",
         isMain: true,
+        isReflection: true,
         mainIndex: 5,
         title: "Refleksi Akhir: Apa yang Kamu Pelajari?",
         question: "Apa hal penting yang kamu pelajari dari perubahan jumlah ular, tikus, dan padi? Ceritakan alasanmu!",
@@ -3557,6 +3563,7 @@ export const DECISION_TREES = {
       "m5_refleksi_start": {
         id: "m5_refleksi_start",
         isMain: true,
+        isReflection: true,
         mainIndex: 3,
         title: "Refleksi Akhir: Saran untuk Pak Budi",
         introSpeech: [
@@ -3606,6 +3613,7 @@ export const DECISION_TREES = {
       "m5_refleksi_tepat": {
         id: "m5_refleksi_tepat",
         isMain: false,
+        isReflection: true,
         title: "Pikirkan Kembali Jawabanmu",
         question: "Tepat. Berarti hilangnya semua tikus dapat memengaruhi organisme lain.\n\nSekarang pikirkan kembali jawabanmu. Apakah membasmi semua tikus merupakan cara yang tepat untuk menjaga keseimbangan sawah? Mengapa?",
         isOpenEnded: true,
