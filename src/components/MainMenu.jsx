@@ -270,7 +270,7 @@ export default function MainMenu({
             <div className="card-badge-top">
               {unlockedBadgeCount > 0
                 ? `${unlockedBadgeCount} Lencana`
-                : "4 Lencana Tersedia"}
+                : "5 Lencana Tersedia"}
             </div>
             <div className="card-icon-circle bg-orange">
               <Award size={32} className="text-white" />
@@ -278,7 +278,7 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Pencapaianku</h3>
               <p className="card-nav-desc">
-                Lihat koleksi Bintang Emas, 4 Lencana Kehormatan Sawah, dan
+                Lihat koleksi Bintang Emas, 5 Lencana Kehormatan Sawah, dan
                 riwayat investigasi remediasi miskonsepsi.
               </p>
             </div>

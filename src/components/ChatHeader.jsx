@@ -6,8 +6,31 @@ import {
   RotateCcw,
   Star,
   Lightbulb,
+  Search,
+  Sun,
+  Footprints,
+  ScanSearch,
+  Sprout,
 } from "lucide-react";
 import { soundManager } from "../engine/audioEffects";
+
+const renderMissionIcon = (mission) => {
+  const iconProps = { size: 24, strokeWidth: 2.3, color: mission?.accentColor || "#1b5e20" };
+  switch (mission?.missionNumber) {
+    case 1:
+      return <Search {...iconProps} />;
+    case 2:
+      return <Sun {...iconProps} />;
+    case 3:
+      return <Footprints {...iconProps} />;
+    case 4:
+      return <ScanSearch {...iconProps} />;
+    case 5:
+      return <Sprout {...iconProps} />;
+    default:
+      return <span>{mission?.icon || "🌾"}</span>;
+  }
+};
 
 export default function ChatHeader({
   mission,
@@ -69,11 +92,11 @@ export default function ChatHeader({
         </button>
 
         <div className="chat-mission-info">
-          <div className="chat-mission-icon">{mission?.icon || "🌾"}</div>
+          <div className="chat-mission-icon">{renderMissionIcon(mission)}</div>
           <div className="chat-mission-title-group">
             <div className="title-row-with-badge">
               <h2>
-                Misi {mission?.missionNumber}: {mission?.title}
+                Misi {mission?.missionNumber} — {mission?.title}
               </h2>
               <span className="chat-topic-pill">{mission?.category}</span>
             </div>

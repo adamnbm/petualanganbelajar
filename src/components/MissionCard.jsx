@@ -1,6 +1,24 @@
 import React from "react";
-import { ArrowRight, CheckCircle2, Clock, Play } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock, Play, Search, Sun, Footprints, ScanSearch, Sprout } from "lucide-react";
 import { storage } from "../utils/storage";
+
+const renderMissionIcon = (mission) => {
+  const iconProps = { size: 24, strokeWidth: 2.3, color: mission?.accentColor || "#1b5e20" };
+  switch (mission?.missionNumber) {
+    case 1:
+      return <Search {...iconProps} />;
+    case 2:
+      return <Sun {...iconProps} />;
+    case 3:
+      return <Footprints {...iconProps} />;
+    case 4:
+      return <ScanSearch {...iconProps} />;
+    case 5:
+      return <Sprout {...iconProps} />;
+    default:
+      return <span>{mission?.icon || "🌾"}</span>;
+  }
+};
 
 export default function MissionCard({ mission, onSelectMission }) {
   // Cek status dari storage
@@ -24,7 +42,7 @@ export default function MissionCard({ mission, onSelectMission }) {
     <div className="mission-card" id={`card-${mission.id}`}>
       <div className="mission-card-header">
         <div className="mission-icon-box">
-          {mission.icon}
+          {renderMissionIcon(mission)}
         </div>
         <span className={`mission-status-pill ${statusClass}`}>
           {statusLabel}

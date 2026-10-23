@@ -2,23 +2,23 @@
  * SOKRABOT Master Decision Trees & Socratic Flowchart Matrix
  * Sesuai dengan Diagram Alur GBPM Terbaru
  * 5 Misi Utama:
- *   Misi 1: Siapa Aku? (Peran Padi sebagai Produsen — Fotosintesis)
- *   Misi 2: Rantai Makanan (Urutan Hubungan Makan-Dimakan)
- *   Misi 3: Jejak Energi (Arti Panah & Aliran Energi) — Sub 2.1, 2.2, 2.3, 2.4 PBL4, PBL5
- *   Misi 4: Predator & Mangsa — Sub P1, P2, P3, PBL4
- *   Misi 5: Dinamika Populasi — Sub PBL3 P1, P2, P3, PBL4, Refleksi
+ *   Misi 1: Detektif Penghuni Sawah (Peran Padi sebagai Produsen — Fotosintesis)
+ *   Misi 2: Rahasia Aliran Energi (Urutan Hubungan Makan-Dimakan & Aliran Energi)
+ *   Misi 3: Jejak Pemburu dan Mangsa (Predator & Mangsa) — Sub 2.1, 2.2, 2.3, 2.4 PBL4, PBL5
+ *   Misi 4: Misteri Tikus yang Bertambah (Dinamika Populasi) — Sub P1, P2, P3, PBL4
+ *   Misi 5: Penyelamat Sawah Pak Budi (Solusi Keseimbangan Ekosistem) — Sub PBL3 P1, P2, P3, PBL4, Refleksi
  */
 
 export const DECISION_TREES = {
   // =========================================================================
-  // MISI 1: SIAPA AKU? (Peran Padi sebagai Produsen)
+  // MISI 1: DETEKTIF PENGHUNI SAWAH (Peran Padi sebagai Produsen)
   // =========================================================================
-  // MISI 1: SIAPA AKU? (Peran Padi sebagai Produsen)
+  // MISI 1: DETEKTIF PENGHUNI SAWAH (Peran Padi sebagai Produsen)
   // Sesuai Diagram GBPM "MISI 1" — Bagaimana cara padi mendapatkan makanannya
   // =========================================================================
   misi_1: {
     missionId: "misi_1",
-    title: "Misi 1: Siapa Aku?",
+    title: "Misi 1: Detektif Penghuni Sawah",
     startNodeId: "m0_pbl1_orientasi",
     totalMainQuestions: 3,
     nodes: {
@@ -56,7 +56,7 @@ export const DECISION_TREES = {
         options: [
           {
             id: "siap",
-            text: "Siap, Saya Siap! 🚀",
+            text: "Siap! 🚀",
             next: "m0_start"
           }
         ]
@@ -463,7 +463,7 @@ export const DECISION_TREES = {
         isEnd: true,
         title: "Misi 1 Selesai!",
         introSpeech: [
-          "🎉 Luar biasa, Detektif Sawah! Kamu telah menuntaskan seluruh tahapan Misi 1 (Siapa Aku?) dari orientasi masalah hingga refleksi pemahaman!",
+          "🎉 Luar biasa, Detektif Sawah! Kamu telah menuntaskan seluruh tahapan Misi 1 (Detektif Penghuni Sawah) dari orientasi masalah hingga refleksi pemahaman!",
           "Kamu berhasil membuktikan bahwa padi adalah PRODUSEN mandiri yang memasak makanannya sendiri di sawah Pak Budi."
         ],
         question: "Lencana 'Penemu Sang Produsen' dan bintang prestasimu siap dibuka! 🌾🏆",
@@ -485,7 +485,7 @@ export const DECISION_TREES = {
 
   misi_2: {
     missionId: "misi_2",
-    title: "Misi 2: Jejak Energi",
+    title: "Misi 2: Rahasia Aliran Energi",
     startNodeId: "m1_start",
     totalMainQuestions: 5,
     nodes: {
@@ -1755,12 +1755,12 @@ export const DECISION_TREES = {
   // Sesuai Diagram GBPM "MISI 2.1" s/d "MISI 2 PBL 5"
   // =========================================================================
   // =========================================================================
-  // MISI 3: SIAPA MEMBURU SIAPA? (Predator & Mangsa)
+  // MISI 3: JEJAK PEMBURU DAN MANGSA (Predator & Mangsa)
   // Sesuai Diagram Canva Halaman 7/17 (Page 7 - MISI 3 P1)
   // =========================================================================
   misi_3: {
     missionId: "misi_3",
-    title: "Misi 3: Siapa Makan Siapa?",
+    title: "Misi 3: Jejak Pemburu dan Mangsa",
     startNodeId: "m3_1_start",
     totalMainQuestions: 4,
     nodes: {
@@ -2381,7 +2381,7 @@ export const DECISION_TREES = {
         ],
         question: "Sekarang bantu Pak Budi menyelesaikan temuannya.\nLengkapi dan tulis kembali pada kolom chatmu!\n\nPredator adalah hewan yang ______,\nMangsa adalah hewan yang ______.",
         isOpenEnded: true,
-        placeholder: "Predator adalah hewan yang..., Mangsa adalah hewan yang...",
+        placeholder: "Predator adalah hewan yang... Mangsa adalah hewan yang...",
         conceptContext: {
           concept: "Predator adalah hewan yang memburu atau memakan hewan lain. Mangsa adalah hewan yang diburu atau dimakan oleh predator.",
           keywords: ["memburu", "memakan", "memangsa", "diburu", "dimakan", "dimangsa", "predator", "mangsa"],
@@ -2521,7 +2521,7 @@ export const DECISION_TREES = {
   // =========================================================================
   misi_4: {
     missionId: "misi_4",
-    title: "Misi 4: Sawah dalam Bahaya!",
+    title: "Misi 4: Misteri Tikus yang Bertambah",
     startNodeId: "m4_1_start",
     totalMainQuestions: 5,
     nodes: {
@@ -3284,7 +3284,7 @@ export const DECISION_TREES = {
   // =========================================================================
   misi_5: {
     missionId: "misi_5",
-    title: "Misi 5: Selamatkan Ekosistem!",
+    title: "Misi 5: Penyelamat Sawah Pak Budi",
     startNodeId: "m5_1_start",
     totalMainQuestions: 3,
     nodes: {

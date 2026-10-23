@@ -4,11 +4,11 @@
  * Materi: Ekosistem Sawah — Mode: Percakapan Socratic Bercabang + Live Gemini AI
  *
  * 5 Misi:
- *   Misi 1: Siapa Aku? (Peran Padi sebagai Produsen — Fotosintesis)
- *   Misi 2: Rantai Makanan (Urutan Hubungan Makan-Dimakan)
- *   Misi 3: Jejak Energi (Arti Panah & Aliran Energi)
- *   Misi 4: Siapa Memburu Siapa? (Predator & Mangsa)
- *   Misi 5: Sawah dalam Bahaya! (Dinamika Populasi)
+ *   Misi 1: Detektif Penghuni Sawah (Peran Padi sebagai Produsen — Fotosintesis)
+ *   Misi 2: Rahasia Aliran Energi (Urutan Hubungan Makan-Dimakan & Aliran Energi)
+ *   Misi 3: Jejak Pemburu dan Mangsa (Predator & Mangsa)
+ *   Misi 4: Misteri Tikus yang Bertambah (Dinamika Populasi)
+ *   Misi 5: Penyelamat Sawah Pak Budi (Solusi Keseimbangan Ekosistem)
  */
 
 export const MISSIONS_DATA = [
@@ -16,9 +16,10 @@ export const MISSIONS_DATA = [
     id: "misi_1",
     code: "TP 1",
     missionNumber: 1,
-    title: "Siapa Aku?",
-    subTitle: "Mengenali penghuni sawah",
-    icon: "🌱",
+    title: "Detektif Penghuni Sawah",
+    subTitle: "Mengenali peran produsen, konsumen, dan pengurai",
+    icon: "🔍",
+    iconName: "Search",
     category: "Produsen, Konsumen, Pengurai",
     focus: "Siswa menentukan peran organisme dan menjelaskan alasannya",
     pedagogicalIndicator:
@@ -183,9 +184,10 @@ export const MISSIONS_DATA = [
     id: "misi_2",
     code: "TP 2",
     missionNumber: 2,
-    title: "Jejak Energi",
-    subTitle: "Mencari perjalanan energi",
-    icon: "🌾",
+    title: "Rahasia Aliran Energi",
+    subTitle: "Menelusuri sumber energi dan arah aliran energi dalam rantai makanan",
+    icon: "☀️",
+    iconName: "Sun",
     category: "Rantai Makanan & Arah Energi",
     focus: "Hubungan Makan-Dimakan, Arti Panah & Sumber Energi di Sawah",
     pedagogicalIndicator:
@@ -341,9 +343,10 @@ export const MISSIONS_DATA = [
     id: "misi_3",
     code: "TP 3",
     missionNumber: 3,
-    title: "Siapa Makan Siapa?",
-    subTitle: "Menyelidiki hubungan organisme",
-    icon: "🐍",
+    title: "Jejak Pemburu dan Mangsa",
+    subTitle: "Memahami hubungan predator dan mangsa",
+    icon: "👣",
+    iconName: "Footprints",
     category: "Pemangsa dan Mangsa",
     focus: "Peran Predator dan Mangsa di Ekosistem Sawah",
     pedagogicalIndicator:
@@ -480,9 +483,10 @@ export const MISSIONS_DATA = [
     id: "misi_4",
     code: "TP 4",
     missionNumber: 4,
-    title: "Sawah dalam Bahaya!",
-    subTitle: "Memulihkan keseimbangan sawah",
-    icon: "⚠️",
+    title: "Misteri Tikus yang Bertambah",
+    subTitle: "Memprediksi dampak berkurangnya ular terhadap jumlah tikus dan tanaman padi",
+    icon: "🎯",
+    iconName: "ScanSearch",
     category: "Perubahan Populasi",
     focus:
       "Efek Domino Penurunan Populasi Predator terhadap Keseimbangan Sawah",
@@ -616,9 +620,10 @@ export const MISSIONS_DATA = [
     id: "misi_5",
     code: "TP 5",
     missionNumber: 5,
-    title: "Selamatkan Ekosistem!",
-    subTitle: "Menyelesaikan masalah akhir ekosistem sawah",
-    icon: "🛡️",
+    title: "Penyelamat Sawah Pak Budi",
+    subTitle: "Merumuskan solusi dan merefleksikan perubahan pemahaman untuk menjaga keseimbangan ekosistem",
+    icon: "🌱",
+    iconName: "Sprout",
     category: "Integrasi Konsep Ekosistem Sawah",
     focus:
       "Siswa menyelesaikan kasus ekosistem sawah dengan menggunakan konsep-konsep dari Misi 1–4 serta memberikan alasan atas solusi yang dipilih",

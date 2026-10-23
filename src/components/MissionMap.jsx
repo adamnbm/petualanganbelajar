@@ -10,10 +10,33 @@ import {
   Info,
   Shield,
   Zap,
-  Target
+  Target,
+  Search,
+  Sun,
+  Footprints,
+  ScanSearch,
+  Sprout
 } from "lucide-react";
 import { MISSIONS_DATA } from "../data/missions";
 import { getAllMissionProgress } from "../utils/sokrabotProgress";
+
+const renderMissionIcon = (mission) => {
+  const iconProps = { size: 30, strokeWidth: 2.2, color: mission.accentColor || "#2e7d32" };
+  switch (mission.missionNumber) {
+    case 1:
+      return <Search {...iconProps} />;
+    case 2:
+      return <Sun {...iconProps} />;
+    case 3:
+      return <Footprints {...iconProps} />;
+    case 4:
+      return <ScanSearch {...iconProps} />;
+    case 5:
+      return <Sprout {...iconProps} />;
+    default:
+      return <span className="level-big-emoji">{mission.icon}</span>;
+  }
+};
 
 export default function MissionMap({ onSelectMission, onBackToMenu }) {
   const [progressMap, setProgressMap] = useState(getAllMissionProgress());
@@ -141,13 +164,13 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
                 </div>
 
                 <div className="level-card-main">
-                  <div className="level-icon-box" style={{ borderColor: mission.accentColor }}>
-                    <span className="level-big-emoji">{mission.icon}</span>
+                  <div className="level-icon-box" style={{ borderColor: mission.accentColor, backgroundColor: `${mission.accentColor}12` }}>
+                    {renderMissionIcon(mission)}
                   </div>
 
                   <div className="level-info-content">
                     <h2 className="level-title">
-                      Misi {mission.missionNumber}: {mission.title}
+                      Misi {mission.missionNumber} — {mission.title}
                     </h2>
                     <h3 className="level-sub-title">{mission.subTitle}</h3>
                     <p className="level-pedagogy-indicator">
