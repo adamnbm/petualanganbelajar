@@ -170,21 +170,21 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
             <div className="rule-stars">⭐⭐⭐</div>
             <div className="rule-desc">
               <strong>3 Bintang (Sempurna)</strong>
-              <small>Menjawab benar pada percobaan pertama tanpa membuka Hint.</small>
+              <small>Menjawab benar pada percobaan pertama tanpa membuka petunjuk.</small>
             </div>
           </div>
           <div className="star-rule-pill">
             <div className="rule-stars">⭐⭐</div>
             <div className="rule-desc">
               <strong>2 Bintang (Mandiri)</strong>
-              <small>Memperbaiki jawaban setelah 1–2 bimbingan Socratic atau Hint H1-H2.</small>
+              <small>Memperbaiki jawaban setelah mendapat 1–2 petunjuk dari SOKRABOT.</small>
             </div>
           </div>
           <div className="star-rule-pill">
             <div className="rule-stars">⭐</div>
             <div className="rule-desc">
               <strong>1 Bintang (Berbantuan)</strong>
-              <small>Menyelesaikan misi dengan bantuan diagram Hint Level 3 Visual.</small>
+              <small>Menyelesaikan misi dengan bantuan gambar petunjuk visual.</small>
             </div>
           </div>
         </div>
@@ -222,7 +222,21 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
                 </div>
 
                 <div className="badge-details">
-                  <div className="badge-status-chip">
+                  <div className="badge-status-chip" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.35rem" }}>
+                    <span
+                      className="badge-mission-source-tag"
+                      style={{
+                        backgroundColor: `${badge.accentColor}15`,
+                        color: badge.accentColor,
+                        border: `1px solid ${badge.accentColor}35`,
+                        fontSize: "0.74rem",
+                        fontWeight: "700",
+                        padding: "0.15rem 0.55rem",
+                        borderRadius: "9999px"
+                      }}
+                    >
+                      {badge.missionName || badge.category}
+                    </span>
                     {isUnlocked ? (
                       <span className="chip-earned">
                         <CheckCircle2 size={13} />

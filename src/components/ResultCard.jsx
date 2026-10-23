@@ -55,11 +55,11 @@ export default function ResultCard({
 
   let starReasonText = "";
   if (starsEarned === 3) {
-    starReasonText = "Sempurna! Kamu berhasil menyelesaikan investigasi pada percobaan pertama tanpa membuka Hint!";
+    starReasonText = "Sempurna! Kamu berhasil menyelesaikan misi pada percobaan pertama tanpa membuka petunjuk! 🌟";
   } else if (starsEarned === 2) {
-    starReasonText = "Bagus sekali! Kamu berhasil merefleksikan dan memperbaiki jawaban lewat penalaran Socratic/Hint H1-H2!";
+    starReasonText = "Bagus sekali! Kamu berhasil memahami dan memperbaiki jawabanmu bersama SOKRABOT! 💡";
   } else {
-    starReasonText = "Hebat! Kamu berhasil menuntaskan misi dengan bantuan diagram visual Level 3!";
+    starReasonText = "Hebat! Kamu berhasil menuntaskan misi dengan bantuan diagram petunjuk visual! 🌾";
   }
 
   return (

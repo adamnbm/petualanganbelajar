@@ -66,7 +66,7 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
 
         <div className="map-header-center">
           <h1 className="map-main-title">Peta Misi Sawah 🌾</h1>
-          <p className="map-sub-title">{MISSIONS_DATA.length} Misi Investigasi Socratic (Level Lock 1-{MISSIONS_DATA.length})</p>
+          <p className="map-sub-title">Selesaikan {MISSIONS_DATA.length} Misi Berurutan Bersama SOKRABOT</p>
         </div>
 
         <div className="map-header-placeholder"></div>
@@ -97,9 +97,9 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
           className="map-mascot-badge"
         />
         <div className="map-intro-text">
-          <h3>Panduan Detektif: Telusuri Pematang Sawah Runtut</h3>
+          <h3>🤖 Misi Seru Bersama SOKRABOT!</h3>
           <p>
-            Setiap misi menyimpan satu rahasia sains penting. Selesaikan percakapan Socratic misi demi misi untuk membuka gembok level berikutnya, meraih bintang emas, dan mengungkap kartu Buku Pintar!
+            Setiap misi menyimpan satu rahasia alam yang seru. Selesaikan misimu satu per satu bersama SOKRABOT untuk membuka misi berikutnya, mengumpulkan bintang emas, dan membuka kartu di Buku Pintar! 🌾✨
           </p>
         </div>
       </div>

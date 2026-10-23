@@ -213,8 +213,8 @@ export default function MainMenu({
                   informasi penting di sekitar sawah.
                 </span>
                 <span className="desc-desktop hide-on-mobile">
-                  Jelajahi 5 level misi bertingkat (Level Lock 1-5). Selesaikan
-                  tantangan Socratic dan kumpulkan bintang maksimal!
+                  Jelajahi 5 misi seru di pematang sawah. Pecahkan teka-tekinya
+                  bersama SOKRABOT dan kumpulkan bintang sebanyak-banyaknya! ⭐
                 </span>
               </p>
             </div>
@@ -248,8 +248,8 @@ export default function MainMenu({
                   dan keseimbangan ekosistem.
                 </span>
                 <span className="desc-desktop hide-on-mobile">
-                  Koleksi kartu konsep ilmiah interaktif. Kartu akan terbuka
-                  otomatis setelah percakapan Socratic selesai!
+                  Koleksi kartu rahasia sains ekosistem sawah. Kartu akan terbuka
+                  otomatis setiap kali kamu berhasil menyelesaikan misi! 🌾
                 </span>
               </p>
             </div>
@@ -279,7 +279,7 @@ export default function MainMenu({
               <h3 className="card-nav-title">Pencapaianku</h3>
               <p className="card-nav-desc">
                 Lihat koleksi Bintang Emas, 5 Lencana Kehormatan Sawah, dan
-                riwayat investigasi remediasi miskonsepsi.
+                riwayat seluruh petualangan hebatmu di sawah! 🏆
               </p>
             </div>
             <div className="card-footer-action">
@@ -332,7 +332,7 @@ export default function MainMenu({
             <div className="card-text-wrapper">
               <h3 className="card-nav-title">Arena Rantai Makanan</h3>
               <p className="card-nav-desc">
-                Uji kemampuan menalarmu menyusun urutan organisme dan melacak arah panah aliran energi ekosistem sawah!
+                Uji kemampuanmu dalam menyusun rantai makanan!
               </p>
             </div>
             <div className="card-footer-action">

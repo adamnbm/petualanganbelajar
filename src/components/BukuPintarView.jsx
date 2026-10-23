@@ -31,7 +31,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
 
         <div className="codex-header-center">
           <h1 className="codex-main-title">Buku Pintar 📖</h1>
-          <p className="codex-sub-title">Modul Belajar Ilmiah Lengkap & Remediasi Konsep Ekosistem Sawah</p>
+          <p className="codex-sub-title">Kumpulan Catatan Rahasia Sains & Fakta Seru Ekosistem Sawah 🌾</p>
         </div>
 
         <div className="codex-badge-counter">
@@ -43,9 +43,9 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
       {/* Hero Intro */}
       <div className="codex-intro-card">
         <div className="codex-intro-left">
-          <h2>Koleksi Modul Ilmiah Detektif Cilik</h2>
+          <h2>Koleksi Buku Pintar 📖</h2>
           <p>
-            Setiap kali kamu berhasil menuntaskan dialog Socratic di satu pos misi, kartu konsep ilmiah sejati akan terbuka otomatis di Buku Pintar ini. Kumpulkan ke-5 kartu untuk menguasai seluruh konsep ekosistem sawah!
+            Setiap kali kamu berhasil menyelesaikan sebuah misi, kartu rahasia baru akan terbuka otomatis di sini. Ayo kumpulkan kelima kartunya dan jadilah Detektif Sawah yang hebat! 🌾✨
           </p>
         </div>
         <div className="codex-progress-pill">
@@ -80,7 +80,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
               {/* Status Ribbon */}
               <div className="card-top-ribbon">
                 <span className="mission-source-tag">
-                  {card.pointLetter ? `Poin ${card.pointLetter} • ${card.missionName}` : card.missionName}
+                  {card.missionName}
                 </span>
                 <span className="status-badge-icon">
                   {isUnlocked ? (
@@ -121,7 +121,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
                   <p className="codex-card-snippet">
                     {isUnlocked
                       ? (card.subtitle || card.fact.slice(0, 110) + "...")
-                      : `Selesaikan ${card.missionName} untuk membuka kartu sains ini!`}
+                      : `Selesaikan ${card.missionName} untuk membuka kartu rahasia ini! 🔍`}
                   </p>
                 </div>
               </div>
@@ -143,7 +143,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
                       }
                     }}
                   >
-                    <span>Investigasi Sekarang ➔</span>
+                    <span>Mulai Misi ➔</span>
                   </button>
                 )}
               </div>
@@ -168,7 +168,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
             >
               <div className="header-meta-row">
                 <span className="meta-category-badge">
-                  {activeModalCard.pointLetter ? `Poin ${activeModalCard.pointLetter} : Kartu Pintar ${activeModalCard.kartuNumber}` : `Kartu Pintar ${activeModalCard.kartuNumber}`}
+                  Kartu Pintar {activeModalCard.kartuNumber}
                 </span>
                 <span className="meta-category-badge meta-cat-sub">{activeModalCard.category}</span>
                 <span className="meta-mission-ref">{activeModalCard.missionName}</span>

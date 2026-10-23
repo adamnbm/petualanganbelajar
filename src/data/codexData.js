@@ -11,17 +11,16 @@
 
 export const CODEX_CARDS = [
   // ==========================================
-  // KARTU PINTAR 1 (POINT A)
+  // KARTU PINTAR 1
   // ==========================================
   {
     id: "codex_kartu_1",
-    pointLetter: "A",
     kartuNumber: 1,
     missionId: "misi_1",
-    missionName: "Misi 1: Siapa Aku?",
-    title: "Mengenal Ekosistem dan Rantai Makanan",
-    subtitle: "Hubungan Timbal Balik Makhluk Hidup & Lingkungannya",
-    category: "Ekosistem & Rantai Makanan",
+    missionName: "Misi 1 — Detektif Penghuni Sawah",
+    title: "Detektif Penghuni Sawah",
+    subtitle: "Mengenali peran produsen, konsumen, dan pengurai",
+    category: "Produsen, Konsumen, Pengurai",
     icon: "🌾",
     accentColor: "#2E7D32",
     myth: "Makhluk hidup di alam hidup sendiri-sendiri tanpa membutuhkan lingkungan atau makhluk hidup lainnya.",
@@ -110,16 +109,15 @@ export const CODEX_CARDS = [
   },
 
   // ==========================================
-  // KARTU PINTAR 2 (POINT B)
+  // KARTU PINTAR 2
   // ==========================================
   {
     id: "codex_kartu_2",
-    pointLetter: "B",
     kartuNumber: 2,
     missionId: "misi_2",
-    missionName: "Misi 2: Jejak Energi",
-    title: "Dari Mana Energi Berasal?",
-    subtitle: "Fotosintesis, Sumber Energi Matahari & Aliran Panah Energi",
+    missionName: "Misi 2 — Rahasia Aliran Energi",
+    title: "Rahasia Aliran Energi",
+    subtitle: "Menelusuri sumber energi dan arah aliran energi dalam rantai makanan",
     category: "Aliran Energi & Fotosintesis",
     icon: "☀️",
     accentColor: "#D97706",
@@ -193,16 +191,15 @@ export const CODEX_CARDS = [
   },
 
   // ==========================================
-  // KARTU PINTAR 3 (POINT C)
+  // KARTU PINTAR 3
   // ==========================================
   {
     id: "codex_kartu_3",
-    pointLetter: "C",
     kartuNumber: 3,
     missionId: "misi_3",
-    missionName: "Misi 3: Siapa Makan Siapa?",
-    title: "Siapa Predator dan Siapa Mangsa?",
-    subtitle: "Aksi Berburu, Mangsa, dan Peran Ganda Hewan di Sawah",
+    missionName: "Misi 3 — Jejak Pemburu dan Mangsa",
+    title: "Jejak Pemburu dan Mangsa",
+    subtitle: "Memahami hubungan predator dan mangsa",
     category: "Predator & Mangsa",
     icon: "🦅",
     accentColor: "#EA580C",
@@ -281,16 +278,15 @@ export const CODEX_CARDS = [
   },
 
   // ==========================================
-  // KARTU PINTAR 4 (MISI 4)
+  // KARTU PINTAR 4
   // ==========================================
   {
     id: "codex_kartu_4",
-    pointLetter: "D",
     kartuNumber: 4,
     missionId: "misi_4",
-    missionName: "Misi 4: Sawah dalam Bahaya!",
-    title: "Apa yang Terjadi Jika Jumlah Makhluk Hidup Berubah?",
-    subtitle: "Dinamika Populasi & Dampak Efek Domino di Sawah",
+    missionName: "Misi 4 — Misteri Tikus yang Bertambah",
+    title: "Misteri Tikus yang Bertambah",
+    subtitle: "Memprediksi dampak berkurangnya ular terhadap jumlah tikus dan tanaman padi",
     category: "Dinamika Populasi",
     icon: "⚠️",
     accentColor: "#DC2626",
@@ -368,17 +364,16 @@ export const CODEX_CARDS = [
   },
 
   // ==========================================
-  // KARTU PINTAR 5 (POINT D / PENGUATAN)
+  // KARTU PINTAR 5
   // ==========================================
   {
     id: "codex_kartu_5",
-    pointLetter: "E",
     kartuNumber: 5,
     missionId: "misi_5",
-    missionName: "Misi 5: Selamatkan Ekosistem!",
-    title: "Penguatan: Menjaga Keseimbangan Ekosistem Sawah",
-    subtitle: "Solusi Bijak Menjaga Harmoni Sawah & Sahabat Petani",
-    category: "Penguatan & Keseimbangan",
+    missionName: "Misi 5 — Penyelamat Sawah Pak Budi",
+    title: "Penyelamat Sawah Pak Budi",
+    subtitle: "Merumuskan solusi dan merefleksikan perubahan pemahaman untuk menjaga keseimbangan ekosistem",
+    category: "Keseimbangan Ekosistem",
     icon: "🛡️",
     accentColor: "#15803D",
     myth: "Solusi terbaik membasmi hama sawah adalah dengan memusnahkan semua tikus dan predator berbahaya sampai habis.",

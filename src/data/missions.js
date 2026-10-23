@@ -68,7 +68,7 @@ export const MISSIONS_DATA = [
       name: "Penemu Sang Produsen",
       icon: "🌱",
       description:
-        "Menyelesaikan Misi 1 dengan membongkar rahasia fotosintesis padi (Minimal 2 ⭐)!",
+        "Menyelesaikan Misi 1 — Detektif Penghuni Sawah (Minimal 2 ⭐)!",
     },
     codexUnlockIds: ["codex_kartu_1"],
 
@@ -252,10 +252,10 @@ export const MISSIONS_DATA = [
     accentColor: "#388E3C",
     badgeReward: {
       id: "badge_ahli_penghuni",
-      name: "Ahli Rantai Makanan",
-      icon: "🌾",
+      name: "Penjelajah Aliran Energi",
+      icon: "☀️",
       description:
-        "Menyelesaikan Misi 2 dengan minimal perolehan 2 Bintang (⭐).",
+        "Menyelesaikan Misi 2 — Rahasia Aliran Energi (Minimal 2 ⭐)!",
     },
     codexUnlockIds: ["codex_kartu_2"],
 
@@ -385,9 +385,10 @@ export const MISSIONS_DATA = [
     accentColor: "#E65100",
     badgeReward: {
       id: "badge_pelacak_predator",
-      name: "Pengamat Predator",
-      icon: "🐍",
-      description: "Menyelesaikan Penyelidikan Predator dan Mangsa!",
+      name: "Pelacak Predator & Mangsa",
+      icon: "🦅",
+      description:
+        "Menyelesaikan Misi 3 — Jejak Pemburu dan Mangsa (Minimal 2 ⭐)!",
     },
     codexUnlockIds: ["codex_kartu_3"],
 
@@ -525,10 +526,10 @@ export const MISSIONS_DATA = [
     accentColor: "#C62828",
     badgeReward: {
       id: "badge_penyelamat_ekosistem",
-      name: "Penjaga Keseimbangan Ekosistem",
-      icon: "🛡️",
+      name: "Pemecah Misteri Tikus",
+      icon: "🎯",
       description:
-        "Menyelesaikan Misi 4 dan memahami pentingnya menjaga keseimbangan ekosistem (3 ⭐)!",
+        "Menyelesaikan Misi 4 — Misteri Tikus yang Bertambah!",
     },
     codexUnlockIds: ["codex_kartu_4"],
 
@@ -667,10 +668,10 @@ export const MISSIONS_DATA = [
     accentColor: "#1565C0",
     badgeReward: {
       id: "badge_penjaga_ekosistem",
-      name: "Penjaga Ekosistem Sejati",
+      name: "Penyelamat Sawah Sejati",
       icon: "🛡️",
       description:
-        "Menyelesaikan Misi 5 dan memahami pentingnya solusi bijak untuk menjaga keseimbangan ekosistem!",
+        "Menyelesaikan Misi 5 — Penyelamat Sawah Pak Budi (Raih 3 ⭐)!",
     },
     codexUnlockIds: ["codex_kartu_5"],
 
