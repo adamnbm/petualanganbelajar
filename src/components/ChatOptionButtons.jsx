@@ -18,44 +18,11 @@ export default function ChatOptionButtons({
     return null;
   }
 
-  // Menentukan label header yang kontekstual dan ramah anak
+  // Label header hanya ditampilkan jika terdapat opsi pilihan ganda
+  // Jika tombol aksi tunggal (seperti Mulai, Siap, Lanjut), tidak perlu label header agar bersih
   const getPromptHeader = () => {
-    if (options.length === 1) {
-      const optId = String(options[0].id || "").toLowerCase();
-      const optText = String(options[0].text || "").toLowerCase();
-
-      if (optId.includes("mulai") || optText.includes("mulai")) {
-        return {
-          icon: <Rocket size={16} className="prompt-header-icon" style={{ color: "#10b981" }} />,
-          text: "Siap Mulai Penyelidikan?"
-        };
-      }
-      if (optId.includes("siap") || optText.includes("siap")) {
-        return {
-          icon: <Sparkles size={16} className="prompt-header-icon" style={{ color: "#f59e0b" }} />,
-          text: "Persiapan Penyelidikan:"
-        };
-      }
-      if (optId.includes("kembali") || optText.includes("kembali")) {
-        return {
-          icon: <RotateCcw size={16} className="prompt-header-icon" style={{ color: "#3b82f6" }} />,
-          text: "Pikirkan Kembali:"
-        };
-      }
-      return {
-        icon: <ArrowRight size={16} className="prompt-header-icon" style={{ color: "#10b981" }} />,
-        text: "Langkah Selanjutnya:"
-      };
-    }
-
-    const isYesNo = options.every((o) =>
-      ["ya", "tidak"].includes(String(o.id || "").toLowerCase())
-    );
-    if (isYesNo) {
-      return {
-        icon: <MessageSquareText size={16} />,
-        text: "Tentukan Pilihanmu:"
-      };
+    if (options.length <= 1) {
+      return null;
     }
 
     return {
@@ -68,10 +35,12 @@ export default function ChatOptionButtons({
 
   return (
     <div className="chat-interactive-dock" id="chat-options-dock">
-      <div className="options-prompt-label">
-        {header.icon}
-        <span>{header.text}</span>
-      </div>
+      {header && (
+        <div className="options-prompt-label">
+          {header.icon}
+          <span>{header.text}</span>
+        </div>
+      )}
 
       <div className={`options-grid ${options.length === 1 ? "options-grid-single" : ""}`}>
         {options.map((opt) => {
