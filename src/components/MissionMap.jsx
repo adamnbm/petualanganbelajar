@@ -122,11 +122,11 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
                 id={`btn-mission-node-${mission.missionNumber}`}
               >
                 <div className="level-card-header">
-                  <div className="level-code-tag">
+                  {/* <div className="level-code-tag">
                     <span>{mission.code}</span>
                     <span className="dot-sep">•</span>
                     <span>{mission.category}</span>
-                  </div>
+                  </div> */}
 
                   {/* Stars Display */}
                   <div className="level-stars-row">
@@ -151,8 +151,8 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
                     </h2>
                     <h3 className="level-sub-title">{mission.subTitle}</h3>
                     <p className="level-pedagogy-indicator">
-                      <Target size={14} className="inline-icon" />
-                      <span>{mission.pedagogicalIndicator}</span>
+                      {/* <Target size={14} className="inline-icon" /> */}
+                      <span>{mission.category}</span>
                     </p>
                   </div>
                 </div>

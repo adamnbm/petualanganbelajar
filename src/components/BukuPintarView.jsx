@@ -30,7 +30,7 @@ export default function BukuPintarView({ onBackToMenu, onSelectMission }) {
         </button>
 
         <div className="codex-header-center">
-          <h1 className="codex-main-title">Buku Pintar (Codex) 📖</h1>
+          <h1 className="codex-main-title">Buku Pintar 📖</h1>
           <p className="codex-sub-title">Modul Belajar Ilmiah Lengkap & Remediasi Konsep Ekosistem Sawah</p>
         </div>
 
