@@ -23,7 +23,7 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
     if (isLocked) {
       setLockedNotice({
         title: `Misi ${mission.missionNumber} Masih Terkunci 🔒`,
-        message: `Detektif perlu menuntaskan Misi ${mission.missionNumber - 1} terlebih dahulu untuk membuka investigasi di pos ini!`
+        message: `Detektif perlu menuntaskan Misi ${mission.missionNumber - 1} terlebih dahulu untuk membuka investigasi di misi ini!`
       });
       setTimeout(() => setLockedNotice(null), 3500);
       return;
@@ -43,7 +43,7 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
 
         <div className="map-header-center">
           <h1 className="map-main-title">Peta Misi Sawah 🌾</h1>
-          <p className="map-sub-title">{MISSIONS_DATA.length} Pos Investigasi Socratic (Level Lock 1-{MISSIONS_DATA.length})</p>
+          <p className="map-sub-title">{MISSIONS_DATA.length} Misi Investigasi Socratic (Level Lock 1-{MISSIONS_DATA.length})</p>
         </div>
 
         <div className="map-header-placeholder"></div>
@@ -76,7 +76,7 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
         <div className="map-intro-text">
           <h3>Panduan Detektif: Telusuri Pematang Sawah Runtut</h3>
           <p>
-            Setiap pos menyimpan satu rahasia sains penting. Selesaikan percakapan Socratic pos demi pos untuk membuka gembok level berikutnya, meraih bintang emas, dan mengungkap kartu Buku Pintar!
+            Setiap misi menyimpan satu rahasia sains penting. Selesaikan percakapan Socratic misi demi misi untuk membuka gembok level berikutnya, meraih bintang emas, dan mengungkap kartu Buku Pintar!
           </p>
         </div>
       </div>
@@ -160,7 +160,7 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
                 {/* Footer Action Button (Touch target >= 48px) */}
                 <div className="level-card-footer">
                   <div className="level-status-pill">
-                    {isLocked && <span className="status-locked">🔒 Terkunci (Selesaikan Pos Sebelumnya)</span>}
+                    {isLocked && <span className="status-locked">🔒 Terkunci (Selesaikan Misi Sebelumnya)</span>}
                     {isCompleted && <span className="status-done">✅ Tuntas ({starsEarned} ⭐)</span>}
                     {isInProgress && <span className="status-progress">🟡 Sedang Berjalan</span>}
                     {!isLocked && !isCompleted && !isInProgress && (
