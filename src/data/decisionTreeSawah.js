@@ -642,7 +642,7 @@ export const DECISION_TREES = {
         title: "Klarifikasi Pemakan Tikus",
         introSpeech: [
           "Ingat, padi adalah tumbuhan yang tidak bisa memakan hewan 🌾.",
-          "Hewan apa yang suka memangsa tikus di sawah? 🐍"
+          "Coba pikirkan hewan melata yang biasa berburu di pematang sawah... 🔍"
         ],
         question: "Siapa yang memakan tikus di sawah?",
         options: [
@@ -796,7 +796,7 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Perpindahan Energi dari Padi",
         introSpeech: [
-          "Bagus. Kalau begitu, setelah tikus memakan padi, energi dari padi berpindah ke mana?"
+          "Bagus sekali! Pemahamanmu semakin tepat 🌟."
         ],
         question: "Setelah tikus memakan padi, energi dari padi berpindah ke mana?",
         isOpenEnded: true,
@@ -816,10 +816,9 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Klarifikasi Energi",
         introSpeech: [
-          "Coba pikirkan: tikus makan padi untuk mendapatkan tenaga 🐀.",
-          "Tenaga atau energi itu berpindah dari padi ke tubuh tikus."
+          "Coba pikirkan: tikus makan padi untuk mendapatkan tenaga dan bertahan hidup 🐀🌾."
         ],
-        question: "Jadi energi dari padi berpindah ke...?",
+        question: "Setelah padi dimakan, energi dari tanaman padi akan berpindah ke tubuh siapa?",
         options: [
           {
             id: "A",
@@ -987,9 +986,9 @@ export const DECISION_TREES = {
         title: "Klarifikasi Padi Bukan Pemakan",
         introSpeech: [
           "Ingat, padi adalah tumbuhan yang tidak bisa memakan hewan 🌾.",
-          "Justru tikus yang memakan padi."
+          "Di alam sawah, justru tikuslah yang memakan bulir padi."
         ],
-        question: "Benar, tikus memakan padi. Setelah tikus memakan padi, siapa yang mendapatkan energi dari makanan tersebut?",
+        question: "Setelah tikus memakan padi, siapakah yang mendapatkan energi dari makanan tersebut?",
         options: [
           {
             id: "A",
@@ -1010,9 +1009,9 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Siapa yang Mendapatkan Energi",
         introSpeech: [
-          "Benar, tikus memakan padi."
+          "Tepat sekali analisismu! 🌾"
         ],
-        question: "Setelah tikus memakan padi, siapa yang mendapatkan energi dari makanan tersebut?",
+        question: "Setelah tikus memakan padi, siapakah yang mendapatkan energi dari makanan tersebut?",
         options: [
           {
             id: "A",
@@ -1155,10 +1154,10 @@ export const DECISION_TREES = {
         mainIndex: 4,
         title: "Sumber Energi Padi",
         introSpeech: [
-          "Kita sudah mengikuti energi: Padi → Tikus → Ular → Elang ⚡.",
-          "Tetapi ada satu misteri terakhir..."
+          "Kita sudah mengikuti aliran energi: Padi → Tikus → Ular → Elang ⚡.",
+          "Tetapi masih ada satu teka-teki penting..."
         ],
-        question: "Kita sudah mengikuti energi:\nPadi → Tikus → Ular → Elang\nTetapi ada satu misteri terakhir.\nDari mana padi memperoleh energi untuk membuat makanannya?",
+        question: "Dari mana tanaman padi memperoleh energi untuk membuat makanannya sendiri?",
         options: [
           {
             id: "A",
@@ -1492,9 +1491,9 @@ export const DECISION_TREES = {
         title: "Cahaya Matahari Datang dari Langit",
         introSpeech: [
           "Cahaya matahari bersinar dari langit ke daun hijau, bukan masuk ke dalam tanah ☀️🌱.",
-          "Yang diserap oleh akar di dalam tanah adalah air dan mineral."
+          "Akar di dalam tanah menyerap zat penting yang terlarut bersama air."
         ],
-        question: "Jadi, apa yang diserap akar padi dari dalam tanah?",
+        question: "Jadi, zat apa yang diserap akar padi dari dalam tanah?",
         options: [
           {
             id: "A",
@@ -1543,10 +1542,10 @@ export const DECISION_TREES = {
         mainIndex: 5,
         title: "Kesimpulan Arti Panah",
         introSpeech: [
-          "Kita sudah mengumpulkan semua petunjuk.",
-          "Sekarang bantu Pak Budi menjelaskan: Padi → Tikus → Ular → Elang."
+          "Semua petunjuk penting berhasil kita kumpulkan! 🔍🌾",
+          "Perhatikan rantai makanan ini: Padi → Tikus → Ular → Elang."
         ],
-        question: "Kita sudah mengumpulkan semua petunjuk.\nSekarang bantu Pak Budi menjelaskan:\nPadi → Tikus → Ular → Elang\nApa arti tanda panah pada rantai makanan tersebut?",
+        question: "Sekarang bantu Pak Budi menjelaskan: Apa arti tanda panah (→) pada rantai makanan tersebut?",
         isOpenEnded: true,
         placeholder: "Tuliskan arti tanda panah pada rantai makanan...",
         conceptContext: {
@@ -1948,7 +1947,7 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Sebutan Hewan yang Diburu",
         introSpeech: [
-          "Tepat! Tikus adalah hewan yang diburu dan dimakan ular."
+          "Tepat! Dalam peristiwa tersebut, tikus menjadi sasaran buruan ular 🐍🐀."
         ],
         question: "Hewan yang diburu dan dimakan oleh hewan lain disebut apa?",
         options: [
@@ -2022,9 +2021,9 @@ export const DECISION_TREES = {
         mainIndex: 2,
         title: "Mengapa Tikus Disebut Mangsa?",
         introSpeech: [
-          "Kita sudah tahu bahwa ular memburu tikus 🐍🐀."
+          "Kita sudah tahu bahwa ular memburu tikus di sawah 🐍🐀."
         ],
-        question: "Kita sudah tahu bahwa ular memburu tikus.\nLalu, mengapa tikus disebut mangsa?",
+        question: "Lalu, mengapa tikus disebut sebagai mangsa?",
         options: [
           {
             id: "A",
@@ -2071,7 +2070,7 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Betul! Kamu Hebat!",
         introSpeech: [
-          "Karena diburu atau dimakan hewan lain."
+          "Tepat sekali analisismu! 🌟👏"
         ],
         question: "Betul! Kamu hebat! Hewan yang diburu dan dimakan oleh predator disebut mangsa.",
         options: [
@@ -2137,7 +2136,7 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Tepat!",
         introSpeech: [
-          "Tepat! Hewan yang diburu dan dimakan oleh hewan lain disebut mangsa."
+          "Tepat sekali jawabanmu! 👏"
         ],
         question: "Jadi tikus disebut mangsa karena tikus yang diburu dan dimakan oleh ular.",
         options: [
@@ -2207,9 +2206,9 @@ export const DECISION_TREES = {
         mainIndex: 3,
         title: "Elang Memburu Ular",
         introSpeech: [
-          "Seekor elang memburu dan memakan ular 🦅🐍."
+          "Perhatikan di udara! Seekor elang terbang memburu dan memakan ular 🦅🐍."
         ],
-        question: "Seekor elang memburu dan memakan ular.\nDalam hubungan tersebut, manakah yang tepat?",
+        question: "Dalam hubungan elang dan ular tersebut, manakah yang tepat?",
         options: [
           {
             id: "A",
@@ -2284,9 +2283,9 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Perhatikan Siapa Memburu Siapa",
         introSpeech: [
-          "Perhatikan siapa yang memburu siapa 🔍."
+          "Perhatikan interaksi antara kedua hewan tersebut dengan saksama 🔍."
         ],
-        question: "Siapa yang memburu dan memakan ular?",
+        question: "Di antara kedua hewan tersebut, siapa yang memburu dan memakan ular?",
         options: [
           {
             id: "A",
@@ -2377,9 +2376,9 @@ export const DECISION_TREES = {
         mainIndex: 4,
         title: "Kesimpulan Temuan",
         introSpeech: [
-          "Sekarang bantu Pak Budi menyelesaikan temuannya 🌾."
+          "Hebat! Penyelidikan predator dan mangsa hampir tuntas 🌾."
         ],
-        question: "Sekarang bantu Pak Budi menyelesaikan temuannya.\nLengkapi dan tulis kembali pada kolom chatmu!\n\nPredator adalah hewan yang ______,\nMangsa adalah hewan yang ______.",
+        question: "Bantu Pak Budi melengkapi kesimpulan ini di kolom chat:\n\nPredator adalah hewan yang ______,\nMangsa adalah hewan yang ______.",
         isOpenEnded: true,
         placeholder: "Predator adalah hewan yang... Mangsa adalah hewan yang...",
         conceptContext: {
@@ -2535,9 +2534,9 @@ export const DECISION_TREES = {
         title: "Penyelidikan 1: Hubungan Ular dan Tikus",
         introSpeech: [
           "Perhatikan hubungan berikut: 🌾 Padi → 🐀 Tikus → 🐍 Ular",
-          "Sekarang jumlah ular berkurang."
+          "Kondisi di sawah saat ini: jumlah ular berkurang drastis! 📉🐍"
         ],
-        question: "Perhatikan hubungan berikut:\n🌾 Padi → 🐀 Tikus → 🐍 Ular\nSekarang jumlah ular berkurang.\nMenurutmu, apa yang kemungkinan terjadi pada jumlah tikus?",
+        question: "Menurutmu, apa yang kemungkinan terjadi pada jumlah tikus?",
         options: [
           {
             id: "A",
@@ -2688,9 +2687,9 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Ular Berkurang dan Tikus yang Dimangsa",
         introSpeech: [
-          "Benar! Ular memangsa tikus 🐍🐀."
+          "Tepat sekali! Ular memangsa tikus di sawah 🐍🐀."
         ],
-        question: "Benar! Jika jumlah ular berkurang, tikus yang dimangsa ular akan...",
+        question: "Jika jumlah ular pemangsa berkurang, tikus yang dimangsa ular akan...",
         options: [
           {
             id: "A",
@@ -2810,10 +2809,9 @@ export const DECISION_TREES = {
         mainIndex: 2,
         title: "Penyelidikan 2: Efek pada Padi",
         introSpeech: [
-          "Kita menemukan bahwa:",
-          "Ular berkurang ⇒ Tikus bertambah"
+          "Dari penyelidikan sebelumnya kita menemukan:\nUlar berkurang ⇒ Tikus bertambah 📈🐀"
         ],
-        question: "Kita menemukan bahwa:\nUlar berkurang ⇒ Tikus bertambah\n\nJika jumlah tikus bertambah, apa yang kemungkinan terjadi pada padi?",
+        question: "Jika jumlah tikus semakin bertambah banyak, apa yang kemungkinan terjadi pada padi?",
         options: [
           {
             id: "A",
@@ -2844,10 +2842,9 @@ export const DECISION_TREES = {
         title: "Kembali ke Penyelidikan Sebelumnya",
         introSpeech: [
           "Coba ingat kembali penyelidikan sebelumnya 🔍:",
-          "Tikus memakan padi.",
-          "Jika jumlah tikus di sawah bertambah banyak, apa yang terjadi pada padi yang dimakan?"
+          "Tikus memakan bulir padi untuk mendapatkan energi."
         ],
-        question: "Bila populasi tikus meledak banyak, padi yang dimakan akan...",
+        question: "Bila populasi tikus di sawah bertambah banyak, padi yang dimakan akan...",
         options: [
           {
             id: "A",
@@ -2986,10 +2983,9 @@ export const DECISION_TREES = {
         mainIndex: 3,
         title: "Penyelidikan 3: Rantai Pengaruh Ular ke Padi",
         introSpeech: [
-          "Sekarang perhatikan hasil penyelidikan kita:",
-          "Ular berkurang ⇒ Tikus bertambah ⇒ Padi berkurang"
+          "Perhatikan alur peristiwa yang telah kita temukan:\nUlar berkurang ⇒ Tikus bertambah ⇒ Padi berkurang 🌾"
         ],
-        question: "Sekarang perhatikan hasil penyelidikan kita:\nUlar berkurang ⇒ Tikus bertambah ⇒ Padi berkurang\n\nMengapa berkurangnya ular akhirnya dapat memengaruhi padi? Ceritakan alasanmu!",
+        question: "Mengapa berkurangnya ular akhirnya dapat memengaruhi tanaman padi? Ceritakan alasanmu!",
         isOpenEnded: true,
         placeholder: "Ceritakan alasanmu mengapa berkurangnya ular memengaruhi padi...",
         conceptContext: {
@@ -3297,10 +3293,9 @@ export const DECISION_TREES = {
         mainIndex: 1,
         title: "PBL 1: Membasmi Semua Tikus?",
         introSpeech: [
-          "Karena tikus menjadi terlalu banyak di sawah, Pak Budi memutuskan...",
-          "\"Bagaimana kalau semua tikus di sawah dibasmi saja?\""
+          "Karena tikus menjadi terlalu banyak di sawah, Pak Budi sempat berkata:\n\"Bagaimana kalau semua tikus di sawah dibasmi saja?\" 🌾🐭"
         ],
-        question: "Karena tikus menjadi terlalu banyak di sawah, Pak Budi berkata:\n\"Bagaimana kalau semua tikus di sawah dibasmi saja?\"\n\nMenurutmu, apakah tindakan tersebut tepat untuk menjaga keseimbangan ekosistem sawah?",
+        question: "Menurutmu, apakah tindakan membasmi semua tikus tersebut tepat untuk menjaga keseimbangan ekosistem sawah?",
         options: [
           {
             id: "A",
@@ -3369,9 +3364,9 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Pikirkan Hubungan Tikus dan Ular",
         introSpeech: [
-          "Coba pikirkan kembali hubungan dalam rantai makanan 🔗:"
+          "Perhatikan kembali hubungan makan dan dimakan ini 🔗:\n🐀 Tikus → 🐍 Ular"
         ],
-        question: "Coba pikirkan kembali hubungan:\n🐀 Tikus → 🐍 Ular\n\nJika semua tikus hilang, apa yang mungkin terjadi pada sumber makanan ular?",
+        question: "Jika semua tikus di sawah hilang, apa yang mungkin terjadi pada sumber makanan ular?",
         options: [
           {
             id: "A",
@@ -3514,9 +3509,9 @@ export const DECISION_TREES = {
         mainIndex: 2,
         title: "Solusi yang Tepat",
         introSpeech: [
-          "Tepat! Kita perlu mencari cara lain yang tidak mengganggu keseimbangan 🌿"
+          "Tepat sekali! Kita perlu mencari cara bijak yang tidak merusak alam 🌿."
         ],
-        question: "Tepat, jadi kita perlu mencari cara lain yang tidak mengganggu keseimbangan.\n\nMenurutmu, tindakan mana yang lebih tepat?",
+        question: "Menurutmu, tindakan mana yang lebih tepat untuk menjaga sawah Pak Budi?",
         options: [
           {
             id: "A",
@@ -3567,11 +3562,10 @@ export const DECISION_TREES = {
         mainIndex: 3,
         title: "Refleksi Akhir: Saran untuk Pak Budi",
         introSpeech: [
-          "Di awal permainan, kita menemukan:",
-          "\"Pak Budi mengalami gagal panen karena jumlah tikus di sawah meningkat.\"",
-          "Sekarang, setelah menyelesaikan semua penyelidikan..."
+          "Di awal petualangan, Pak Budi mengalami masalah karena jumlah tikus di sawah meningkat.",
+          "Sekarang, kamu sudah menyelesaikan semua penyelidikan ekosistem sawah bersama SOKRABOT! 🎓✨"
         ],
-        question: "Di awal permainan, kita menemukan:\n\"Pak Budi mengalami gagal panen karena jumlah tikus di sawah meningkat.\"\n\nSekarang, setelah menyelesaikan semua penyelidikan:\nApa saranmu kepada Pak Budi agar tanaman padi terlindungi tetapi keseimbangan ekosistem sawah tetap terjaga?",
+        question: "Apa saranmu kepada Pak Budi agar tanaman padi terlindungi tetapi keseimbangan ekosistem sawah tetap terjaga?",
         isOpenEnded: true,
         placeholder: "Tuliskan saranmu untuk Pak Budi agar padi terlindungi dan ekosistem tetap seimbang...",
         conceptContext: {
@@ -3591,9 +3585,9 @@ export const DECISION_TREES = {
         isMain: false,
         title: "Ingat Kembali Penyelidikan",
         introSpeech: [
-          "Coba ingat kembali hasil penyelidikan kita 🔍"
+          "Coba ingat kembali apa yang sudah kita pelajari sebelumnya 🔍"
         ],
-        question: "Coba ingat kembali hasil penyelidikan kita.\nJika semua tikus hilang, apa yang mungkin terjadi pada ular?",
+        question: "Jika semua tikus di sawah hilang, apa yang mungkin terjadi pada ular?",
         options: [
           {
             id: "A",
