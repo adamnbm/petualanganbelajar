@@ -494,20 +494,56 @@ export const DECISION_TREES = {
   misi_2: {
     missionId: "misi_2",
     title: "Misi 2: Rahasia Aliran Energi",
-    startNodeId: "m1_start",
+    startNodeId: "m1_pbl1_orientasi",
     totalMainQuestions: 5,
     nodes: {
+      // ── PBL 1: ORIENTASI SISWA PADA MASALAH ──────────────────────────────
+      "m1_pbl1_orientasi": {
+        id: "m1_pbl1_orientasi",
+        isMain: false,
+        title: "Orientasi Masalah: Jejak Energi",
+        introSpeech: [
+          "Selamat datang di Misi 2, Detektif Sawah! 🌾⚡ Sekarang Pak Budi menemukan hubungan seperti ini:",
+          "Padi → Tikus → Ular → Elang",
+          "Tetapi Pak Budi bingung. Apa sebenarnya arti tanda panah itu. Dari mana energi mereka berasal dan ke mana energi berpindah. Ayo kita ikuti Jejak Energi untuk membantu Pak Budi! 🔍⚡"
+        ],
+        question: "Siap memulai penyelidikan Jejak Energi?",
+        options: [
+          {
+            id: "mulai",
+            text: "Ayo Mulai! 🚀",
+            next: "m1_start"
+          }
+        ]
+      },
+
+      // ── PBL 2: MENGORGANISASI SISWA UNTUK BELAJAR ────────────────────────
+      "m1_pbl2_organisasi": {
+        id: "m1_pbl2_organisasi",
+        isMain: false,
+        title: "Mengorganisasi Penyelidikan",
+        introSpeech: [
+          "Dalam misi ini kita akan mencari tahu:",
+          "Siapa memakan siapa, apa arti tanda panah, dan bagaimana energi berpindah dalam rantai makanan. 🌾🐀🐍🦅",
+          "Jawablah sesuai dengan yang benar-benar kamu pikirkan. Aku akan membantumu menyelidikinya."
+        ],
+        question: "Siap memulai penyelidikan.",
+        options: [
+          {
+            id: "siap",
+            text: "Mulai Penyelidikan! 🔍",
+            next: "m1_start"
+          }
+        ]
+      },
+
       // ── KOTAK AWAL: Pertanyaan Urutan Rantai Makanan ──────────────────────
       "m1_start": {
         id: "m1_start",
         isMain: true,
         mainIndex: 1,
         title: "Urutan Rantai Makanan Sawah",
-        introSpeech: [
-          "Halo Detektif Cilik! 👋 Selamat datang di penyelidikan pertama bersama SOKRABOT!",
-          "Di sawah Pak Budi, kita menemukan beberapa makhluk hidup: padi 🌾, tikus 🐀, ular 🐍, dan elang 🦅."
-        ],
-        question: "Manakah urutan hubungan makan dan dimakan yang tepat?",
+        question: "Manakah urutan hubungan makan dan dimakan yang tepat.",
         options: [
           {
             id: "A",
@@ -527,8 +563,8 @@ export const DECISION_TREES = {
             next: "m1_bc_open"
           }
         ],
-        hintLevel1: "Pikirkan siapa yang dimakan oleh siapa. Tikus suka memakan apa di sawah? 🐀🌾",
-        hintLevel2: "Urutan dimulai dari yang dimakan pertama: Padi dimakan oleh... lalu hewan itu dimakan oleh siapa lagi?"
+        hintLevel1: "Pikirkan siapa yang dimakan oleh siapa. Tikus suka memakan apa di sawah. 🐀🌾",
+        hintLevel2: "Urutan dimulai dari yang dimakan pertama: Padi dimakan oleh... lalu hewan itu dimakan oleh siapa lagi."
       },
 
       // ── SISWA PILIH A (Benar): Tanya Alasan ──────────────────────────────
