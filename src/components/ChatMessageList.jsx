@@ -124,9 +124,24 @@ export default function ChatMessageList({
                   </div>
                 )}
 
+                {/* Message Text Content */}
+                {msg.text && (
+                  <div className="bubble-text-content">
+                    {msg.text.split("\n").map((line, idx) => (
+                      <React.Fragment key={idx}>
+                        {line}
+                        {idx < msg.text.split("\n").length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                )}
+
                 {/* Contextual Illustration from Scenario */}
                 {msg.image && (
-                  <div className="bubble-context-image-box">
+                  <div
+                    className="bubble-context-image-box"
+                    style={{ marginTop: msg.text ? "0.75rem" : 0, marginBottom: 0 }}
+                  >
                     <img
                       src={msg.image}
                       alt={msg.imageAlt || "Ilustrasi Skenario"}
@@ -135,23 +150,14 @@ export default function ChatMessageList({
                     />
                     {msg.imageCaption &&
                       !msg.imageCaption.toLowerCase().includes("fotosintesis") &&
-                      !msg.imageCaption.toLowerCase().includes("sinar matahari") && (
+                      !msg.imageCaption.toLowerCase().includes("sinar matahari") &&
+                      !msg.imageCaption.toLowerCase().includes("bingung") && (
                         <div className="bubble-image-caption">
                           <span>🔍 {msg.imageCaption}</span>
                         </div>
                       )}
                   </div>
                 )}
-
-                {/* Message Text Content */}
-                <div className="bubble-text-content">
-                  {msg.text.split("\n").map((line, idx) => (
-                    <React.Fragment key={idx}>
-                      {line}
-                      {idx < msg.text.split("\n").length - 1 && <br />}
-                    </React.Fragment>
-                  ))}
-                </div>
 
                 {/* Quick button to open visual diagram if H3 was given */}
                 {msg.hintLevel === "h3" && onOpenVisualHint && (

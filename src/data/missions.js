@@ -60,7 +60,7 @@ export const MISSIONS_DATA = [
       { name: "Matahari", emoji: "☀️", role: "Sumber Cahaya Fotosintesis" },
       { name: "Akar & Tanah", emoji: "🌱", role: "Penyerap Air & Mineral" },
     ],
-    totalMainQuestions: 3,
+    totalMainQuestions: 1,
     estimatedMinutes: 5,
     accentColor: "#2E7D32",
     badgeReward: {

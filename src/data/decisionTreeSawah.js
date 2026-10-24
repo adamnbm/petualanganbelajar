@@ -20,7 +20,7 @@ export const DECISION_TREES = {
     missionId: "misi_1",
     title: "Misi 1: Detektif Penghuni Sawah",
     startNodeId: "m0_pbl1_orientasi",
-    totalMainQuestions: 3,
+    totalMainQuestions: 1,
     nodes: {
       // ── PBL 1: ORIENTASI SISWA PADA MASALAH ──────────────────────────────
       "m0_pbl1_orientasi": {
@@ -29,7 +29,11 @@ export const DECISION_TREES = {
         title: "Orientasi Masalah: Sawah Pak Budi",
         introSpeech: [
           "Halo, Detektif Sawah! 👋🌾",
-          "Pak Budi sedang bingung. Di sawahnya ada padi, belalang, tikus, ular, elang, jamur, dan makhluk hidup lainnya. Mereka ternyata memiliki peran yang berbeda-beda.",
+          {
+            text: "Pak Budi sedang bingung. Di sawahnya ada padi, belalang, tikus, ular, elang, jamur, dan makhluk hidup lainnya. Mereka ternyata memiliki peran yang berbeda-beda.",
+            image: "/visual_pakbudi_bingung.jpg",
+            imageAlt: "Pak Budi sedang bingung di sawah"
+          },
           "Pak Budi membutuhkan bantuanmu untuk mencari tahu:\n• Siapa yang dapat membuat makanan sendiri?\n• Siapa yang mendapatkan makanan dari makhluk hidup lain?\n• Siapa yang membantu menguraikan sisa makhluk hidup?\n\nAyo kita selidiki!"
         ],
         question: "Perhatikan setiap tantangan. Jawab sesuai dengan apa yang benar-benar kamu pikirkan. Jangan takut salah! Aku akan membantumu menemukan jawabannya.",
@@ -122,7 +126,7 @@ export const DECISION_TREES = {
         id: "m0_n3a",
         isMain: false,
         title: "Periksa Pemikiran (Jalur Benar)",
-        question: "Bagus! Sekarang kita periksa lagi pemikiranmu. Kalau padi membuat makanannya sendiri, apa yang diambil padi dari tanah?",
+        question: "Hebat! 🌾 Padi bisa membuat makanannya sendiri, lho! Tapi, apa ya yang diserap akar padi dari tanah agar bisa tumbuh subur?",
         options: [
           {
             id: "B",
@@ -343,14 +347,15 @@ export const DECISION_TREES = {
         id: "m0_n7",
         isMain: false,
         isConceptCompleted: true,
+        isEnd: true,
         title: "Konfirmasi Akhir: PRODUSEN",
         question: "Tepat! Padi dapat membuat makanannya sendiri dengan bantuan cahaya matahari. Akar membantu menyerap air dan mineral dari tanah. Makhluk hidup yang dapat membuat makanannya sendiri disebut PRODUSEN. Kamu menemukan konsep pertama: PRODUSEN.",
         unlockCodex: "codex_kartu_1",
         options: [
           {
-            id: "Lanjut",
-            text: "Lanjut ke Penutup Misi 📝",
-            next: "m0_pbl4_penutup"
+            id: "SELESAI",
+            text: "Lihat Hasil Misi 1 & Lanjut ke Misi 2! 🏆🚀",
+            next: "END"
           }
         ]
       },
@@ -402,13 +407,16 @@ export const DECISION_TREES = {
       "m0_selesai_n8": {
         id: "m0_selesai_n8",
         isMain: false,
+        isConceptCompleted: true,
+        isEnd: true,
         title: "Penyelidikan Selesai",
-        question: "Jawabanmu sudah berubah, hebat! 🌟 Kamu berhasil membuktikan bahwa padi adalah produsen yang membuat makanannya sendiri.",
+        question: "Jawabanmu sudah berubah, hebat! 🌟 Kamu berhasil membuktikan bahwa padi adalah produsen yang membuat makanannya sendiri. Makhluk hidup yang dapat membuat makanannya sendiri disebut PRODUSEN. Kamu menemukan konsep pertama: PRODUSEN!",
+        unlockCodex: "codex_kartu_1",
         options: [
           {
-            id: "Lanjut",
-            text: "Lihat Kesimpulan & Buka Kartu Codex 🏆",
-            next: "m0_n7"
+            id: "SELESAI",
+            text: "Lihat Hasil Misi 1 & Lanjut ke Misi 2! 🏆🚀",
+            next: "END"
           }
         ]
       },

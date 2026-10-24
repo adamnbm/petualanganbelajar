@@ -18,6 +18,14 @@ import {
 } from "../utils/sokrabotProgress";
 import { sendConversationalMessage } from "../services/api";
 
+function formatAITextWithoutQuestionMark(text) {
+  if (!text) return "";
+  let cleaned = text.trim();
+  cleaned = cleaned.replace(/\?+/g, ".");
+  cleaned = cleaned.replace(/\.{2,}/g, ".");
+  return cleaned;
+}
+
 // ─── State Awal Session ────────────────────────────────────────────────────────
 export function createInitialSession(missionId) {
   const tree = getTreeByMissionId(missionId);
@@ -105,8 +113,8 @@ export class BranchingSessionController {
       this.state = saved;
       if (this.missionId === "misi_1" && Array.isArray(this.state.messages)) {
         this.state.messages = this.state.messages.map((m) => {
-          if (m.imageCaption && (m.imageCaption.includes("sinar matahari") || m.imageCaption.includes("fotosintesis") || m.imageCaption.includes("subur"))) {
-            return { ...m, imageCaption: null, image: "/visual_sawah_pak_budi.jpg" };
+          if (m.imageCaption && (m.imageCaption.includes("sinar matahari") || m.imageCaption.includes("fotosintesis") || m.imageCaption.includes("subur") || m.imageCaption.includes("bingung"))) {
+            return { ...m, imageCaption: null, image: m.image || "/visual_sawah_pak_budi.jpg" };
           }
           return m;
         });
@@ -183,9 +191,9 @@ export class BranchingSessionController {
         }
         resolvedOptions = [
           {
-            id: "Lanjut",
-            text: "Lanjut ke Penutup Misi 📝",
-            next: "m0_pbl4_penutup"
+            id: "SELESAI",
+            text: "Lihat Hasil Misi 1 & Lanjut ke Misi 2! 🏆🚀",
+            next: "END"
           }
         ];
       }
@@ -319,7 +327,7 @@ export class BranchingSessionController {
           advanceTarget = this.state.jalur === "miskonsepsi" ? "m0_n8" : "m0_n7";
         } else if (this.state.currentNodeId === "m0_n8") {
           this.state.miskonsepsi_teratasi = true;
-          advanceTarget = "m0_n7";
+          advanceTarget = "m0_selesai_n8";
         }
 
         const strongHintMsg = {
@@ -483,7 +491,7 @@ export class BranchingSessionController {
         const botAIMsg = {
           id: `bot_gemini_${Date.now()}`,
           sender: "bot",
-          text: response.message,
+          text: formatAITextWithoutQuestionMark(response.message),
           isAIGenerated: true,
           source: "gemini_ai",
           isFeedback: true,
@@ -626,7 +634,7 @@ export class BranchingSessionController {
       const guideMsg = {
         id: `bot_gemini_guide_${Date.now()}`,
         sender: "bot",
-        text: `${response.message}\n\nSekarang, coba pilih salah satu jawaban di bawah ini ya, Detektif! 👇`,
+        text: `${formatAITextWithoutQuestionMark(response.message)}\n\nSekarang, coba pilih salah satu jawaban di bawah ini ya, Detektif! 👇`,
         isAIGenerated: true,
         source: "gemini_ai",
         timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })

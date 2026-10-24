@@ -45,19 +45,23 @@ PANDUAN BAHASA KHUSUS ANAK SD:
 PRINSIP SOKRATIK (SANGAT PENTING!):
 - JANGAN PERNAH langsung memberikan jawaban yang benar kepada siswa!
 - JANGAN mengungkapkan konsep target secara eksplisit!
-- Gunakan pertanyaan penuntun (guiding question) untuk mengarahkan siswa berpikir sendiri.
-- Contoh pertanyaan penuntun: "Coba pikirkan, dari mana padi mendapat bahan untuk memasak makanannya?", "Apa ya yang terjadi kalau matahari tidak bersinar?"
+- Bimbing siswa untuk berpikir mandiri melalui kalimat arahan atau petunjuk eksploratif.
+- ATURAN TANDA BACA KHUSUS: JANGAN PERNAH mengakhiri kalimat atau respons dengan tanda tanya (?). Jangan gunakan tanda tanya di akhir kalimat manapun. Selalu gunakan kalimat pernyataan atau ajakan yang diakhiri tanda titik (.) atau tanda seru (!).
+  Contoh yang BENAR:
+  • "Coba perhatikan dari mana padi mendapat bahan untuk memasak makanannya."
+  • "Mari kita amati apa yang terjadi jika matahari tidak bersinar!"
+  • "Coba renungkan hubungan antara pemangsa dan makanannya di sawah."
 
 LOGIKA EVALUASI KONSEP:
-- Bila jawaban anak BENAR dan alasannya tepat: Beri pujian antusias dan konfirmasi singkat. Akhiri dengan tanda seru (!). Set isConceptConfirmed = true.
-- Bila jawaban anak SEBAGIAN BENAR: Apresiasi ide baiknya, lalu ajukan pertanyaan penuntun yang mengarahkan ke bagian yang belum tepat. Set isConceptConfirmed = false.
-- Bila anak terkena MISKONSEPSI: Ajukan pertanyaan penuntun yang membantu anak menyadari sendiri kekeliruannya (misal: "Hmm, coba pikirkan, apakah padi punya mulut untuk makan?"). Set isConceptConfirmed = false.
-- Bila anak BINGUNG atau SALAH: Berikan dorongan semangat lalu ajukan pertanyaan penuntun sederhana sebagai petunjuk arah berpikir. Set isConceptConfirmed = false.
+- Bila jawaban anak BENAR dan alasannya tepat: Beri pujian antusias dan konfirmasi singkat. Akhiri dengan tanda seru (!) atau tanda titik (.). Set isConceptConfirmed = true.
+- Bila jawaban anak SEBAGIAN BENAR: Apresiasi ide baiknya, lalu berikan kalimat ajakan yang mengarahkan ke bagian yang belum tepat (akhiri dengan tanda titik atau tanda seru, JANGAN tanda tanya). Set isConceptConfirmed = false.
+- Bila anak terkena MISKONSEPSI: Berikan petunjuk yang membantu anak menyadari sendiri kekeliruannya tanpa tanda tanya (akhiri dengan tanda titik atau tanda seru). Set isConceptConfirmed = false.
+- Bila anak BINGUNG atau SALAH: Berikan dorongan semangat lalu berikan kalimat penuntun arah berpikir tanpa tanda tanya (akhiri dengan tanda titik atau tanda seru). Set isConceptConfirmed = false.
 
 MODE REFLEKSI:
 - Jika konteks menyebutkan MODE_REFLEKSI, maka jawaban siswa adalah refleksi pribadi.
 - JANGAN menilai jawaban refleksi sebagai benar/salah.
-- Berikan apresiasi atas kejujuran dan proses berpikir siswa. Akhiri dengan kalimat penyemangat positif.
+- Berikan apresiasi atas kejujuran dan proses berpikir siswa. Akhiri dengan kalimat penyemangat positif tanpa tanda tanya.
 - Set status = "correct" dan isConceptConfirmed = true untuk semua jawaban refleksi.`;
 
 // ─── Response Schema ─────────────────────────────────────────────────────────
@@ -71,7 +75,7 @@ const RESPONSE_SCHEMA = {
     },
     message: {
       type: Type.STRING,
-      description: "Respons Sokratik SOKRABOT — maksimal 2-3 kalimat. Untuk jawaban BENAR: berikan apresiasi. Untuk jawaban BELUM TEPAT: ajukan pertanyaan penuntun (Sokratik) untuk membimbing siswa berpikir. Untuk REFLEKSI: apresiasi proses berpikir siswa."
+      description: "Respons Sokratik SOKRABOT — maksimal 2-3 kalimat. PENTING: JANGAN PERNAH mengakhiri kalimat atau respons dengan tanda tanya (?). Gunakan kalimat pernyataan atau arahan yang diakhiri tanda titik (.) atau seru (!)."
     },
     isConceptAligned: {
       type: Type.BOOLEAN,
@@ -149,22 +153,21 @@ INFO TAMBAHAN:
 - Hint yang sudah diberikan: ${hintsGiven.length > 0 ? hintsGiven.join(", ") : "Belum ada"}
 
 TUGAS: Evaluasi alasan siswa menggunakan metode Sokratik.
-- Jika BENAR: Berikan apresiasi singkat dan konfirmasi.
-- Jika BELUM TEPAT: Ajukan pertanyaan penuntun yang membimbing siswa menemukan jawaban sendiri. JANGAN memberikan jawaban langsung!
-${wrongCountForConcept >= 3 ? "CATATAN: Siswa sudah salah 3+ kali — berikan petunjuk yang lebih terarah melalui pertanyaan penuntun yang lebih spesifik, tetapi tetap JANGAN berikan jawaban langsung." : ""}
+- Jika BENAR: Berikan apresiasi singkat dan konfirmasi (akhiri dengan ! atau .).
+- Jika BELUM TEPAT: Berikan kalimat arahan/ajakan yang membimbing siswa menemukan jawaban sendiri. JANGAN memberikan jawaban langsung!
+- ATURAN TANDA BACA WAJIB: JANGAN PERNAH mengakhiri kalimat dengan tanda tanya (?). Gunakan tanda titik (.) atau tanda seru (!).
+${wrongCountForConcept >= 3 ? "CATATAN: Siswa sudah salah 3+ kali — berikan petunjuk yang lebih terarah melalui kalimat pemandu yang lebih spesifik, tetapi tetap JANGAN berikan jawaban langsung." : ""}
 ${reflectionTag}
 `;
 
-  // Helper untuk sanitasi pesan AI
-  // Untuk jawaban correct: hapus tanda tanya di akhir
-  // Untuk jawaban lain: biarkan pertanyaan Sokratik (tanda tanya diperbolehkan)
-  function sanitizeMessage(text, status) {
+  // Helper untuk sanitasi pesan AI agar tidak ada tanda tanya di akhir kalimat
+  function sanitizeMessage(text) {
     if (!text) return "";
     let cleaned = text.trim();
-    if (status === "correct") {
-      // Jawaban benar: tidak perlu pertanyaan lagi, hapus ? di akhir
-      cleaned = cleaned.replace(/\?+$/, "!");
-    }
+    // Ganti semua tanda tanya dengan tanda titik (.)
+    cleaned = cleaned.replace(/\?+/g, ".");
+    // Rapikan jika ada tanda titik berulang
+    cleaned = cleaned.replace(/\.{2,}/g, ".");
     return cleaned;
   }
 
@@ -309,9 +312,9 @@ function evaluateConversationalFallback({
 
   if (isPartial) {
     const partialResponses = [
-      `Jawabanmu sudah keren, ${greeting}! 💡 Kamu sudah menyebutkan "${matchedKeywords[0]}" — coba pikirkan lagi, apa hubungannya dengan makhluk hidup lainnya di sawah?`,
-      `Sedikit lagi, ${greeting}! 🔍 Kata "${matchedKeywords[0]}" yang kamu sebutkan itu penting. Coba pikirkan, mengapa hal itu terjadi di alam?`,
-      `Wah, kamu sudah hampir sampai, ${greeting}! 🌱 Coba kembangkan lagi pemikiranmu — apa yang menyebabkan proses itu terjadi?`
+      `Jawabanmu sudah keren, ${greeting}! 💡 Kamu sudah menyebutkan "${matchedKeywords[0]}" — coba perhatikan hubungannya dengan makhluk hidup lainnya di sawah.`,
+      `Sedikit lagi, ${greeting}! 🔍 Kata "${matchedKeywords[0]}" yang kamu sebutkan itu penting. Mari kita pikirkan bersama alasan hal itu bisa terjadi di alam.`,
+      `Wah, kamu sudah hampir sampai, ${greeting}! 🌱 Coba kembangkan lagi pemikiranmu mengenai penyebab proses itu terjadi.`
     ];
     return {
       status: "partial",
@@ -321,11 +324,11 @@ function evaluateConversationalFallback({
     };
   }
 
-  // Jawaban salah / belum tepat — berikan pertanyaan penuntun Sokratik
+  // Jawaban salah / belum tepat — berikan arahan penuntun Sokratik
   const wrongResponses = [
-    `Usaha yang bagus, ${greeting}! 🌾 Coba pikirkan lagi — perhatikan hubungan antara makhluk hidup di sawah. Siapa yang membutuhkan siapa untuk mendapatkan makanan?`,
-    `Tebakan yang berani, ${greeting}! 💡 Coba perhatikan petunjuk yang sudah kita temukan sebelumnya. Apa yang terjadi dengan energi saat satu makhluk hidup memakan yang lain?`,
-    `Tetap semangat, ${greeting}! 🔍 Mari kita coba dari sudut lain — bayangkan kamu mengamati sawah. Apa yang kamu lihat terjadi antara makhluk-makhluk hidup di sana?`
+    `Usaha yang bagus, ${greeting}! 🌾 Coba pikirkan lagi hubungan antara makhluk hidup di sawah dan siapa yang membutuhkan siapa untuk mendapatkan makanan.`,
+    `Tebakan yang berani, ${greeting}! 💡 Coba perhatikan petunjuk yang sudah kita temukan sebelumnya tentang perpindahan energi saat satu makhluk hidup memakan yang lain.`,
+    `Tetap semangat, ${greeting}! 🔍 Mari kita amati bersama interaksi yang terjadi antara makhluk-makhluk hidup di sawah.`
   ];
 
   return {

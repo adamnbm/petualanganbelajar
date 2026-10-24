@@ -97,7 +97,7 @@ export default function MissionMap({ onSelectMission, onBackToMenu }) {
           className="map-mascot-badge"
         />
         <div className="map-intro-text">
-          <h3>🤖 Misi Seru Bersama SOKRABOT!</h3>
+          <h3>Misi Seru Bersama SOKRABOT!</h3>
           <p>
             Setiap misi menyimpan satu rahasia alam yang seru. Selesaikan misimu satu per satu bersama SOKRABOT untuk membuka misi berikutnya, mengumpulkan bintang emas, dan membuka kartu di Buku Pintar! 🌾✨
           </p>
