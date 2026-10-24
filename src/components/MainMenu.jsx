@@ -107,8 +107,6 @@ export default function MainMenu({
             dan berkurang. Kira-kira apa penyebabnya, ya? Ayo bantu SOKRABOT
             mencari petunjuk, menyelidiki hubungan antar makhluk hidup di sawah,
             dan menemukan jawaban dari misteri ini!
-            <br />
-            <span className="start-penyelidikan">Ayo mulai penyelidikan!</span>
           </p>
 
           {/* Quick Stats Pill */}

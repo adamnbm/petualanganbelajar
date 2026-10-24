@@ -472,13 +472,44 @@ export class BranchingSessionController {
         ]);
 
         // Balasan Socratic AI Gemini
-        const isAligned = isReflectionNode
+        let isAligned = isReflectionNode
           ? true  // Refleksi selalu dianggap aligned (tidak ada benar/salah)
           : Boolean(response.isConceptAligned ?? (response.status === "correct"));
 
-        // Perbarui status pesan jawaban siswa sebelumnya dengan hasil evaluasi AI
+        // Proteksi Jawaban Benar: Jika AI menandai bukan correct (misal 'partial' atau 'wrong')
+        // tetapi alasan siswa sebenarnya mengandung konsep ilmiah yang tepat tanpa miskonsepsi
+        if (!isAligned && !isReflectionNode) {
+          const normText = trimmedText.toLowerCase();
+          const conceptCtx = currentNode.conceptContext || {};
+          const misconceptions = conceptCtx.misconceptions || [];
+          const hasMisconception = misconceptions.some((m) => {
+            const mText = typeof m === "string" ? m : m.id || "";
+            return mText && normText.includes(mText.toLowerCase());
+          });
+
+          if (!hasMisconception) {
+            const keywords = conceptCtx.keywords || [];
+            const matchedKw = keywords.some((kw) => normText.includes(kw.toLowerCase()));
+
+            // Khusus m1_a_open: siswa sudah memilih urutan rantai makanan yang tepat
+            if (currentNode.id === "m1_a_open") {
+              const hasAnimals =
+                (normText.includes("padi") && normText.includes("tikus")) ||
+                (normText.includes("tikus") && normText.includes("ular")) ||
+                (normText.includes("ular") && normText.includes("elang"));
+              const hasEating =
+                normText.includes("makan") || normText.includes("dimakan") || normText.includes("memakan");
+              if (hasAnimals && hasEating) {
+                isAligned = true;
+              }
+            } else if (matchedKw || response.status === "partial") {
+              isAligned = true;
+            }
+          }
+        }
+
+        // Perbarui status pesan jawaban siswa sebelumnya dengan hasil evaluasi
         if (isReflectionNode) {
-          // Refleksi: tidak diberi label benar/salah
           userMsg.isCorrect = true;
           userMsg.isReflection = true;
         } else {
@@ -488,16 +519,23 @@ export class BranchingSessionController {
           }
         }
 
+        // Jika siswa benar tapi AI menghasilkan balasan yang ragu/mengoreksi bagian yang sudah benar,
+        // sesuaikan teks bot agar selalu memberikan apresiasi positif
+        let botText = formatAITextWithoutQuestionMark(response.message);
+        if (isAligned && response.status !== "correct" && !isReflectionNode) {
+          botText = `Wah, hebat sekali, Detektif ${studentName}! 🌟 Alasan dan penjelasanmu jitu sekali. Kamu sudah memahami hubungan rantai makanan ini dengan sangat baik! ✨`;
+        }
+
         const botAIMsg = {
           id: `bot_gemini_${Date.now()}`,
           sender: "bot",
-          text: formatAITextWithoutQuestionMark(response.message),
+          text: botText,
           isAIGenerated: true,
           source: "gemini_ai",
           isFeedback: true,
           isCorrect: isAligned,
           isReflection: isReflectionNode,
-          status: response.status,
+          status: isAligned ? "correct" : response.status,
           timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         };
 

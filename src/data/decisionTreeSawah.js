@@ -77,10 +77,7 @@ export const DECISION_TREES = {
         image: "/visual_sawah_pak_budi.jpg",
         imageAlt: "Tanaman padi di sawah Pak Budi",
         imageCaption: null,
-        introSpeech: [
-          "Hebat! Mari kita mulai penyelidikan pertama! 🌾"
-        ],
-        question: "Padi terlihat menjadi yang pertama dalam rantai makanan. Bagaimana cara padi mendapatkan makanannya?",
+        question: "Detektif, coba perhatikan tanaman padi di sawah Pak Budi! 🌾\n\nPadi bisa tumbuh semakin besar. Menurutmu, dari mana padi mendapatkan makanannya?",
         options: [
           {
             id: "A",
@@ -576,11 +573,16 @@ export const DECISION_TREES = {
         isOpenEnded: true,
         placeholder: "Ketik alasanmu di sini... Mengapa urutan itu yang benar?",
         conceptContext: {
-          concept: "Padi dimakan tikus, tikus dimakan ular, ular dimakan elang — urutan berdasarkan siapa memakan siapa dalam rantai makanan sawah",
-          keywords: ["padi dimakan tikus", "tikus dimakan ular", "ular dimakan elang", "makan", "dimakan", "rantai", "memakan"],
+          concept: "Padi dimakan tikus (tikus memakan padi), tikus dimakan ular (ular memakan tikus), ular dimakan elang (elang memakan ular) — urutan berdasarkan siapa memakan siapa dalam rantai makanan sawah",
+          keywords: [
+            "padi dimakan tikus", "tikus dimakan ular", "ular dimakan elang",
+            "tikus memakan padi", "ular memakan tikus", "elang memakan ular",
+            "tikus makan padi", "ular makan tikus", "elang makan ular",
+            "makan", "dimakan", "memakan", "rantai", "urutan", "pemangsa"
+          ],
           misconceptions: ["elang makan padi", "ular makan padi", "tikus makan ular", "terbalik"]
         },
-        nextOnAligned: "m1_tanya_pemakan_ular",
+        nextOnAligned: "m1_reinforcement",
         nextOnMisconception: "m1_periksa_padi"
       },
 
