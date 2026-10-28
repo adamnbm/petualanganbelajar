@@ -77,7 +77,7 @@ export const DECISION_TREES = {
         image: "/visual_sawah_pak_budi.jpg",
         imageAlt: "Tanaman padi di sawah Pak Budi",
         imageCaption: null,
-        question: "Detektif, coba perhatikan tanaman padi di sawah Pak Budi! 🌾\n\nPadi bisa tumbuh semakin besar. Menurutmu, dari mana padi mendapatkan makanannya?",
+        question: "Detektif, coba perhatikan tanaman padi di sawah Pak Budi! 🌾\nPadi bisa tumbuh semakin besar. Menurutmu, dari mana padi mendapatkan makanannya?",
         options: [
           {
             id: "A",
