@@ -199,12 +199,23 @@ export default function MainMenu({
             tabIndex={0}
             id="menu-btn-peta-misi"
           >
-            <div className="card-badge-top">5 Pos Pembelajaran</div>
-            <div className="card-icon-circle bg-emerald">
-              <MapPin size={32} className="text-white" />
+            <div className="card-deco-emoji">🗺️</div>
+            <div className="card-icon-wrapper">
+              <div className="card-icon-ring"></div>
+              <div className="card-icon-circle-3d">
+                <img
+                  src="/icons/icon_peta_3d.jpg"
+                  alt="Ikon Peta Misi Sawah"
+                  className="card-3d-img"
+                  loading="eager"
+                />
+              </div>
             </div>
             <div className="card-text-wrapper">
-              <h3 className="card-nav-title">Peta Misi Sawah</h3>
+              <div className="card-title-row">
+                <h3 className="card-nav-title">Peta Misi Sawah</h3>
+                <span className="card-badge-pill">📍 5 Pos Pembelajaran</span>
+              </div>
               <p className="card-nav-desc">
                 <span className="desc-mobile show-on-mobile-only">
                   Jelajahi peta interaktif untuk menemukan lokasi misi dan
@@ -218,7 +229,7 @@ export default function MainMenu({
             </div>
             <div className="card-footer-action">
               <span className="action-label">Buka Peta Misi</span>
-              <ChevronRight size={20} className="action-arrow" />
+              <ChevronRight size={18} className="action-arrow" />
             </div>
           </div>
 
@@ -230,16 +241,28 @@ export default function MainMenu({
             tabIndex={0}
             id="menu-btn-buku-pintar"
           >
-            <div className="card-badge-top">
-              {unlockedCodexCount > 0
-                ? `${unlockedCodexCount} Terbuka`
-                : "Semua Terkunci"}
-            </div>
-            <div className="card-icon-circle bg-amber">
-              <BookOpen size={32} className="text-white" />
+            <div className="card-deco-emoji">🔬</div>
+            <div className="card-icon-wrapper">
+              <div className="card-icon-ring"></div>
+              <div className="card-icon-circle-3d">
+                <img
+                  src="/icons/icon_buku_3d.jpg"
+                  alt="Ikon Buku Pintar"
+                  className="card-3d-img"
+                  loading="eager"
+                />
+              </div>
             </div>
             <div className="card-text-wrapper">
-              <h3 className="card-nav-title">Buku Pintar</h3>
+              <div className="card-title-row">
+                <h3 className="card-nav-title">Buku Pintar</h3>
+                <span className="card-badge-pill">
+                  📖{" "}
+                  {unlockedCodexCount > 0
+                    ? `${unlockedCodexCount} Terbuka`
+                    : "Semua Terkunci"}
+                </span>
+              </div>
               <p className="card-nav-desc">
                 <span className="desc-mobile show-on-mobile-only">
                   Kumpulkan pengetahuan tentang jaring makanan, makhluk hidup,
@@ -253,7 +276,7 @@ export default function MainMenu({
             </div>
             <div className="card-footer-action">
               <span className="action-label">Baca Buku Pintar</span>
-              <ChevronRight size={20} className="action-arrow" />
+              <ChevronRight size={18} className="action-arrow" />
             </div>
           </div>
 
@@ -265,16 +288,28 @@ export default function MainMenu({
             tabIndex={0}
             id="menu-btn-pencapaianku"
           >
-            <div className="card-badge-top">
-              {unlockedBadgeCount > 0
-                ? `${unlockedBadgeCount} Lencana`
-                : "5 Lencana Tersedia"}
-            </div>
-            <div className="card-icon-circle bg-orange">
-              <Award size={32} className="text-white" />
+            <div className="card-deco-emoji">🏆</div>
+            <div className="card-icon-wrapper">
+              <div className="card-icon-ring"></div>
+              <div className="card-icon-circle-3d">
+                <img
+                  src="/icons/icon_pencapaian_3d.jpg"
+                  alt="Ikon Pencapaianku"
+                  className="card-3d-img"
+                  loading="eager"
+                />
+              </div>
             </div>
             <div className="card-text-wrapper">
-              <h3 className="card-nav-title">Pencapaianku</h3>
+              <div className="card-title-row">
+                <h3 className="card-nav-title">Pencapaianku</h3>
+                <span className="card-badge-pill">
+                  🏅{" "}
+                  {unlockedBadgeCount > 0
+                    ? `${unlockedBadgeCount} Lencana`
+                    : "5 Lencana Tersedia"}
+                </span>
+              </div>
               <p className="card-nav-desc">
                 Lihat koleksi Bintang Emas, 5 Lencana Kehormatan Sawah, dan
                 riwayat seluruh petualangan hebatmu di sawah! 🏆
@@ -282,7 +317,7 @@ export default function MainMenu({
             </div>
             <div className="card-footer-action">
               <span className="action-label">Lihat Pencapaian</span>
-              <ChevronRight size={20} className="action-arrow" />
+              <ChevronRight size={18} className="action-arrow" />
             </div>
           </div>
 
@@ -294,12 +329,23 @@ export default function MainMenu({
             tabIndex={0}
             id="menu-btn-petunjuk"
           >
-            <div className="card-badge-top">Panduan Lengkap</div>
-            <div className="card-icon-circle bg-teal">
-              <HelpCircle size={32} className="text-white" />
+            <div className="card-deco-emoji">💡</div>
+            <div className="card-icon-wrapper">
+              <div className="card-icon-ring"></div>
+              <div className="card-icon-circle-3d">
+                <img
+                  src="/icons/icon_petunjuk_3d.jpg"
+                  alt="Ikon Petunjuk Bermain"
+                  className="card-3d-img"
+                  loading="eager"
+                />
+              </div>
             </div>
             <div className="card-text-wrapper">
-              <h3 className="card-nav-title">Petunjuk Bermain</h3>
+              <div className="card-title-row">
+                <h3 className="card-nav-title">Petunjuk Bermain</h3>
+                <span className="card-badge-pill">📋 Panduan Lengkap</span>
+              </div>
               <p className="card-nav-desc">
                 Pahami cara menalar bersama SOKRABOT, aturan bintang, dan trik
                 menggunakan petunjuk bertingkat H1-H3.
@@ -307,7 +353,7 @@ export default function MainMenu({
             </div>
             <div className="card-footer-action">
               <span className="action-label">Baca Petunjuk</span>
-              <ChevronRight size={20} className="action-arrow" />
+              <ChevronRight size={18} className="action-arrow" />
             </div>
           </div>
 
@@ -318,24 +364,31 @@ export default function MainMenu({
             role="button"
             tabIndex={0}
             id="menu-btn-minigame"
-            style={{
-              position: "relative",
-              borderColor: "#f59e0b"
-            }}
           >
-
-            <div className="card-icon-circle" style={{ background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" }}>
-              <Gamepad2 size={32} className="text-white" />
+            <div className="card-deco-emoji">⚡</div>
+            <div className="card-icon-wrapper">
+              <div className="card-icon-ring"></div>
+              <div className="card-icon-circle-3d">
+                <img
+                  src="/icons/icon_minigame_3d.jpg"
+                  alt="Ikon Arena Rantai Makanan"
+                  className="card-3d-img"
+                  loading="eager"
+                />
+              </div>
             </div>
             <div className="card-text-wrapper">
-              <h3 className="card-nav-title">Arena Rantai Makanan</h3>
+              <div className="card-title-row">
+                <h3 className="card-nav-title">Arena Rantai Makanan</h3>
+                <span className="card-badge-pill">🎮 Mini Game</span>
+              </div>
               <p className="card-nav-desc">
-                Uji kemampuanmu dalam menyusun rantai makanan!
+                Uji kemampuanmu dalam menyusun rantai makanan! Tantang dirimu dan raih skor tertinggi! 🔥
               </p>
             </div>
             <div className="card-footer-action">
-              <span className="action-label" style={{ color: "#d97706", fontWeight: "800" }}>Mainkan Game</span>
-              <ChevronRight size={20} className="action-arrow" style={{ color: "#d97706" }} />
+              <span className="action-label">Mainkan Game</span>
+              <ChevronRight size={18} className="action-arrow" />
             </div>
           </div>
         </div>
