@@ -11361,59 +11361,7 @@ body {
   text-align: left;
 }
 
-/* Card Minigame di Menu Utama */
-.card-minigame {
-  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 60%, #fef3c7 100%);
-  border: 2px solid #f59e0b !important;
-}
-
-.card-minigame .card-icon-circle {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-}
-
-.card-badge-pulse-gold {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background: #f59e0b;
-  color: #ffffff;
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
-}
-
-/* Desktop Banner Layout for Minigame Card (5th Card) */
-@media (min-width: 769px) {
-  .card-minigame {
-    grid-column: 1 / -1;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    padding: 1.4rem 2rem !important;
-    gap: 1.5rem !important;
-    border-radius: 24px !important;
-  }
-
-  .card-minigame .card-icon-circle {
-    width: 60px !important;
-    height: 60px !important;
-    border-radius: 18px !important;
-    flex-shrink: 0 !important;
-  }
-
-  .card-minigame .card-text-wrapper {
-    flex: 1 !important;
-  }
-
-  .card-minigame .card-footer-action {
-    flex-shrink: 0 !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    border-top: none !important;
-  }
-}
+/* (Legacy card-minigame menu overrides removed — now unified with .menu-nav-card) */
 
 /* ==========================================================================
    FOOD CHAIN INPUT GAME — Fill-in-the-Name Cards
