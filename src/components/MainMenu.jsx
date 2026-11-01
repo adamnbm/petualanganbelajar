@@ -191,7 +191,42 @@ export default function MainMenu({
         </h2>
 
         <div className="menu-cards-grid">
-          {/* 1. PETA MISI */}
+          {/* 1. PETUNJUK BERMAIN */}
+          <div
+            className="menu-nav-card card-petunjuk"
+            onClick={() => onNavigate("guide")}
+            role="button"
+            tabIndex={0}
+            id="menu-btn-petunjuk"
+          >
+            <div className="card-deco-emoji">💡</div>
+            <div className="card-icon-wrapper">
+              <div className="card-icon-ring"></div>
+              <div className="card-icon-circle-3d">
+                <img
+                  src="/icons/icon_petunjuk_3d.jpg"
+                  alt="Ikon Petunjuk Bermain"
+                  className="card-3d-img"
+                  loading="eager"
+                />
+              </div>
+            </div>
+            <div className="card-text-wrapper">
+              <div className="card-title-row">
+                <h3 className="card-nav-title">Petunjuk Bermain</h3>
+                <span className="card-badge-pill">📋 Panduan Lengkap</span>
+              </div>
+              <p className="card-nav-desc">
+                Halaman ini menyajikan informasi mengenai panduan dan langkah-langkah bermain SOKRABOT untuk membantu pemain memahami alur petualangan dalam menyelesaikan misi pembelajaran rantai makanan.
+              </p>
+            </div>
+            <div className="card-footer-action">
+              <span className="action-label">Baca Petunjuk</span>
+              <ChevronRight size={18} className="action-arrow" />
+            </div>
+          </div>
+
+          {/* 2. PETA MISI */}
           <div
             className="menu-nav-card card-peta-misi"
             onClick={() => onNavigate("map")}
@@ -233,7 +268,7 @@ export default function MainMenu({
             </div>
           </div>
 
-          {/* 2. BUKU PINTAR (CODEX) */}
+          {/* 3. BUKU PINTAR (CODEX) */}
           <div
             className="menu-nav-card card-buku-pintar"
             onClick={() => onNavigate("codex")}
@@ -280,7 +315,7 @@ export default function MainMenu({
             </div>
           </div>
 
-          {/* 3. PENCAPAIANKU */}
+          {/* 4. PENCAPAIANKU */}
           <div
             className="menu-nav-card card-pencapaian"
             onClick={() => onNavigate("achievements")}
@@ -317,42 +352,6 @@ export default function MainMenu({
             </div>
             <div className="card-footer-action">
               <span className="action-label">Lihat Pencapaian</span>
-              <ChevronRight size={18} className="action-arrow" />
-            </div>
-          </div>
-
-          {/* 4. PETUNJUK BERMAIN */}
-          <div
-            className="menu-nav-card card-petunjuk"
-            onClick={() => onNavigate("guide")}
-            role="button"
-            tabIndex={0}
-            id="menu-btn-petunjuk"
-          >
-            <div className="card-deco-emoji">💡</div>
-            <div className="card-icon-wrapper">
-              <div className="card-icon-ring"></div>
-              <div className="card-icon-circle-3d">
-                <img
-                  src="/icons/icon_petunjuk_3d.jpg"
-                  alt="Ikon Petunjuk Bermain"
-                  className="card-3d-img"
-                  loading="eager"
-                />
-              </div>
-            </div>
-            <div className="card-text-wrapper">
-              <div className="card-title-row">
-                <h3 className="card-nav-title">Petunjuk Bermain</h3>
-                <span className="card-badge-pill">📋 Panduan Lengkap</span>
-              </div>
-              <p className="card-nav-desc">
-                Pahami cara menalar bersama SOKRABOT, aturan bintang, dan trik
-                menggunakan petunjuk bertingkat H1-H3.
-              </p>
-            </div>
-            <div className="card-footer-action">
-              <span className="action-label">Baca Petunjuk</span>
               <ChevronRight size={18} className="action-arrow" />
             </div>
           </div>
