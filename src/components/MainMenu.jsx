@@ -217,7 +217,7 @@ export default function MainMenu({
                 <span className="card-badge-pill">📋 Panduan Lengkap</span>
               </div>
               <p className="card-nav-desc">
-                Halaman ini menyajikan informasi mengenai panduan dan langkah-langkah bermain SOKRABOT untuk membantu pemain memahami alur petualangan dalam menyelesaikan misi pembelajaran rantai makanan.
+                Yuk, mulai petualangan serumu bersama SOKRABOT! Pelajari cara bermain, jelajahi peta misi, kumpulkan kartu pengetahuan, dan raih berbagai penghargaan sambil belajar tentang rantai makanan!
               </p>
             </div>
             <div className="card-footer-action">

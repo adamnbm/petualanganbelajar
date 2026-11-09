@@ -88,13 +88,13 @@ export const DECISION_TREES = {
             id: "B",
             text: "Mendapatkan makanan yang sudah jadi dari tanah melalui akar.",
             misconceptionTriggered: "produsen_pemakan_pupuk",
-            next: "m0_n2"
+            next: "m0_n3b"
           },
           {
             id: "C",
             text: "Mendapatkan makanan dengan memakan makhluk hidup lain.",
             misconceptionTriggered: "padi_seperti_hewan",
-            next: "m0_n2"
+            next: "m0_n3b"
           }
         ],
         hintLevel1: "Perhatikan daun hijau padi saat terkena sinar matahari pagi ☀️🌾",

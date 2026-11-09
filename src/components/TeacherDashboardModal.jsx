@@ -11,6 +11,7 @@ import {
   Trash2,
   HardDrive,
   AlertTriangle,
+  HelpCircle,
   Flag
 } from "lucide-react";
 import { studentSession } from "../utils/studentSession";
@@ -74,8 +75,26 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
       };
     }
 
+    // Deteksi "Belum Paham / Tidak Tahu" (Bukan Miskonsepsi)
+    const normText = (msg.text || "").toLowerCase().trim();
+    const notSureKeywords = [
+      "gatau", "tidak tahu", "nggak tahu", "ngga tahu", "nda tau",
+      "kurang tahu", "belum tahu", "belum paham", "kurang paham",
+      "bingung", "lupa", "kurang ngerti", "tidak mengerti", "gak tau",
+      "nggak ngerti", "ga faham", "belum faham", "gatauu", "gataw", "ga tau"
+    ];
+    const isNotSureText = notSureKeywords.some((kw) => normText.includes(kw));
+
+    if (msg.sender === "user" && (msg.isNotSure || msg.misconceptionTriggered === "belum_paham" || isNotSureText)) {
+      return {
+        hasMisconception: false,
+        isNotSure: true,
+        label: "Belum Paham / Tidak Tahu"
+      };
+    }
+
     // 2. Properti eksplisit dari engine
-    if (msg.misconceptionTriggered) {
+    if (msg.misconceptionTriggered && msg.misconceptionTriggered !== "belum_paham") {
       const cleanName = msg.misconceptionTriggered.replace(/_/g, " ");
       return {
         hasMisconception: true,
@@ -125,7 +144,6 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
         }
       }
 
-      const normText = (msg.text || "").toLowerCase().trim();
       if (KNOWN_MISCONCEPTIONS[normText]) {
         const cleanName = KNOWN_MISCONCEPTIONS[normText].replace(/_/g, " ");
         return {
@@ -136,8 +154,17 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
       }
     }
 
-    // 4. Untuk balasan bot yang mengoreksi miskonsepsi
+    // 4. Untuk balasan bot yang mengoreksi miskonsepsi / membantu belum paham
     if (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false) {
+      const prevMsg = transcriptList[index - 1];
+      const prevNorm = (prevMsg?.text || "").toLowerCase().trim();
+      if (prevMsg && (prevMsg.isNotSure || prevMsg.misconceptionTriggered === "belum_paham" || notSureKeywords.some((kw) => prevNorm.includes(kw)))) {
+        return {
+          hasMisconception: false,
+          isNotSure: true,
+          label: "Bimbingan Socratic (Membantu Siswa Belum Paham)"
+        };
+      }
       return {
         hasMisconception: true,
         isAutoDetected: true,
@@ -346,6 +373,7 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                     const isBot = msg.sender === "bot";
                     const info = getMisconceptionDetails(msg, i, selectedTranscript.conversation_transcript);
                     const hasMisconception = info.hasMisconception;
+                    const isNotSure = info.isNotSure;
 
                     return (
                       <div
@@ -360,12 +388,12 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                         {isBot && (
                           <div style={{
                             width: "32px", height: "32px", borderRadius: "50%",
-                            background: hasMisconception ? "#fee2e2" : "#d1fae5",
-                            border: hasMisconception ? "2px solid #ef4444" : "none",
+                            background: hasMisconception ? "#fee2e2" : (isNotSure ? "#fef3c7" : "#d1fae5"),
+                            border: hasMisconception ? "2px solid #ef4444" : (isNotSure ? "2px solid #f59e0b" : "none"),
                             display: "flex", alignItems: "center", justifyContent: "center",
                             fontSize: "1.1rem", flexShrink: 0, marginTop: "2px"
                           }}>
-                            {hasMisconception ? "⚠️" : "🤖"}
+                            {hasMisconception ? "⚠️" : (isNotSure ? "🤔" : "🤖")}
                           </div>
                         )}
                         <div style={{ display: "flex", flexDirection: "column", gap: "3px", maxWidth: "75%" }}>
@@ -376,14 +404,18 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                               fontSize: "0.92rem",
                               background: hasMisconception
                                 ? "#fef2f2"
-                                : (isBot ? (msg.isFeedback ? (msg.isCorrect ? "#ecfdf5" : "#fffbeb") : "white") : "#0284c7"),
-                              color: hasMisconception ? "#7f1d1d" : (isBot ? "#1e293b" : "white"),
+                                : (isNotSure
+                                  ? (isBot ? "#fffbeb" : "#0284c7")
+                                  : (isBot ? (msg.isFeedback ? (msg.isCorrect ? "#ecfdf5" : "#fffbeb") : "white") : "#0284c7")),
+                              color: hasMisconception
+                                ? "#7f1d1d"
+                                : (isNotSure ? (isBot ? "#78350f" : "white") : (isBot ? "#1e293b" : "white")),
                               border: hasMisconception
                                 ? "2px solid #ef4444"
-                                : (isBot ? "1px solid #cbd5e1" : "none"),
+                                : (isNotSure ? (isBot ? "2px solid #fcd34d" : "none") : (isBot ? "1px solid #cbd5e1" : "none")),
                               boxShadow: hasMisconception
                                 ? "0 4px 14px rgba(239, 68, 68, 0.16)"
-                                : "0 2px 4px rgba(0,0,0,0.04)",
+                                : (isNotSure && isBot ? "0 4px 12px rgba(245, 158, 11, 0.12)" : "0 2px 4px rgba(0,0,0,0.04)"),
                               transition: "all 0.2s ease"
                             }}
                           >
@@ -397,6 +429,21 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                               }}>
                                 <AlertTriangle size={11} />
                                 <span>{info.label}</span>
+                              </div>
+                            )}
+
+                            {/* Badge Oranye/Kuning Belum Paham */}
+                            {isNotSure && (
+                              <div style={{
+                                display: "inline-flex", alignItems: "center", gap: "4px",
+                                fontWeight: "800", fontSize: "0.73rem", marginBottom: "5px",
+                                color: isBot ? "#92400e" : "#fef08a",
+                                background: isBot ? "#fef3c7" : "rgba(254, 243, 199, 0.2)",
+                                border: isBot ? "1px solid #fde68a" : "1px solid rgba(253, 230, 138, 0.4)",
+                                padding: "2px 7px", borderRadius: "7px", width: "fit-content"
+                              }}>
+                                <HelpCircle size={11} />
+                                <span>{info.label || "Belum Paham / Tidak Tahu"}</span>
                               </div>
                             )}
 
@@ -440,12 +487,12 @@ export default function TeacherDashboardModal({ isOpen, onClose }) {
                         {!isBot && (
                           <div style={{
                             width: "32px", height: "32px", borderRadius: "50%",
-                            background: hasMisconception ? "#fee2e2" : "#fef3c7",
+                            background: hasMisconception ? "#fee2e2" : (isNotSure ? "#fef3c7" : "#e0f2fe"),
                             display: "flex", alignItems: "center", justifyContent: "center",
                             fontSize: "1.1rem", flexShrink: 0, marginTop: "2px",
-                            border: hasMisconception ? "2px solid #ef4444" : "none"
+                            border: hasMisconception ? "2px solid #ef4444" : (isNotSure ? "2px solid #f59e0b" : "none")
                           }}>
-                            {hasMisconception ? "⚠️" : "👦"}
+                            {hasMisconception ? "⚠️" : (isNotSure ? "🤔" : "👦")}
                           </div>
                         )}
                       </div>

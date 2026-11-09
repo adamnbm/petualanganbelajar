@@ -322,9 +322,9 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
                       </div>
                     </td>
                     <td>
-                      {prog.misconceptions_triggered && prog.misconceptions_triggered.length > 0 ? (
+                      {prog.misconceptions_triggered && prog.misconceptions_triggered.filter(mt => mt !== "belum_paham" && mt !== "tidak_tahu").length > 0 ? (
                         <div className="tag-misconceptions">
-                          {prog.misconceptions_triggered.map((mt, i) => (
+                          {prog.misconceptions_triggered.filter(mt => mt !== "belum_paham" && mt !== "tidak_tahu").map((mt, i) => (
                             <span key={i} className="chip-misconception">
                               {mt.replace(/_/g, " ")}
                             </span>
@@ -402,11 +402,11 @@ export default function AchievementsView({ onBackToMenu, onSelectMission }) {
                     </div>
                   </div>
 
-                  {prog.misconceptions_triggered && prog.misconceptions_triggered.length > 0 && (
+                  {prog.misconceptions_triggered && prog.misconceptions_triggered.filter(mt => mt !== "belum_paham" && mt !== "tidak_tahu").length > 0 && (
                     <div className="mmc-misconceptions">
                       <span className="mmc-misc-label">Miskonsepsi Terdeteksi:</span>
                       <div className="tag-misconceptions">
-                        {prog.misconceptions_triggered.map((mt, i) => (
+                        {prog.misconceptions_triggered.filter(mt => mt !== "belum_paham" && mt !== "tidak_tahu").map((mt, i) => (
                           <span key={i} className="chip-misconception">
                             {mt.replace(/_/g, " ")}
                           </span>

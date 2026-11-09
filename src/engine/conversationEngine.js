@@ -378,7 +378,7 @@ export class BranchingSessionController {
   _resolveOpenEndedNextNode(currentNode, isAligned) {
     if (this.missionId === "misi_1") {
       if (currentNode.id === "m0_n2") {
-        return this.state.jalur === "benar" ? "m0_n3a" : "m0_n3b";
+        return this.state.jalur === "benar" ? "m0_n3a" : "m0_n4b";
       }
       if (currentNode.id === "m0_n3b") {
         return "m0_n4b";
@@ -508,10 +508,23 @@ export class BranchingSessionController {
           }
         }
 
+        // Periksa apakah jawaban siswa adalah ungkapan belum paham / tidak tahu
+        const notSureKeywords = [
+          "gatau", "tidak tahu", "nggak tahu", "ngga tahu", "nda tau",
+          "kurang tahu", "belum tahu", "belum paham", "kurang paham",
+          "bingung", "lupa", "kurang ngerti", "tidak mengerti", "gak tau",
+          "nggak ngerti", "ga faham", "belum faham", "gatauu", "gataw"
+        ];
+        const isNotSureAnswer = notSureKeywords.some((kw) => normText.includes(kw));
+
         // Perbarui status pesan jawaban siswa sebelumnya dengan hasil evaluasi
         if (isReflectionNode) {
           userMsg.isCorrect = true;
           userMsg.isReflection = true;
+        } else if (isNotSureAnswer) {
+          userMsg.isCorrect = false;
+          userMsg.isNotSure = true;
+          userMsg.misconceptionTriggered = "belum_paham";
         } else {
           userMsg.isCorrect = isAligned;
           if (!isAligned) {
@@ -577,10 +590,21 @@ export class BranchingSessionController {
         const norm = text.toLowerCase();
         const keywords = currentNode.conceptContext?.keywords || ["fotosintesis", "sendiri", "matahari"];
         const matched = isReflectionNode ? true : keywords.some((k) => norm.includes(k));
+        const notSureKeywords = [
+          "gatau", "tidak tahu", "nggak tahu", "ngga tahu", "nda tau",
+          "kurang tahu", "belum tahu", "belum paham", "kurang paham",
+          "bingung", "lupa", "kurang ngerti", "tidak mengerti", "gak tau",
+          "nggak ngerti", "ga faham", "belum faham", "gatauu", "gataw"
+        ];
+        const isNotSureAnswer = notSureKeywords.some((kw) => norm.includes(kw));
 
         if (isReflectionNode) {
           userMsg.isCorrect = true;
           userMsg.isReflection = true;
+        } else if (isNotSureAnswer) {
+          userMsg.isCorrect = false;
+          userMsg.isNotSure = true;
+          userMsg.misconceptionTriggered = "belum_paham";
         } else {
           userMsg.isCorrect = matched;
           if (!matched) {
@@ -595,7 +619,9 @@ export class BranchingSessionController {
             ? `Terima kasih sudah berbagi pemikiranmu, Detektif ${studentName}! 🌟 Refleksimu sangat berharga. Terus semangat belajar! ✨`
             : matched
               ? `Bagus sekali, Detektif ${studentName}! 🌟 Penjelasanmu sudah mengarah ke konsep yang tepat.`
-              : `Coba pikirkan lagi ya, Detektif ${studentName}! 🤔 Perhatikan petunjuk yang sudah ada. Apa hubungan antara makhluk hidup yang satu dengan yang lainnya?`,
+              : isNotSureAnswer
+                ? `Tidak apa-apa jika belum tahu, Detektif ${studentName}! 😊 Mari kita amati bersama bukti-bukti yang ada di sawah.`
+                : `Coba pikirkan lagi ya, Detektif ${studentName}! 🤔 Perhatikan petunjuk yang sudah ada. Apa hubungan antara makhluk hidup yang satu dengan yang lainnya?`,
           isAIGenerated: false,
           source: "curriculum_fallback",
           isFeedback: true,
@@ -603,6 +629,7 @@ export class BranchingSessionController {
           isReflection: isReflectionNode,
           timestamp: new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
         };
+
         this.state.messages = [...this.state.messages, fallbackMsg];
         this.emit();
 

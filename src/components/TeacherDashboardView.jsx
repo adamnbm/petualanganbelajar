@@ -168,8 +168,26 @@ export default function TeacherDashboardView({ onBackToMenu }) {
       };
     }
 
-    // 2. Properti eksplisit dari engine
-    if (msg.misconceptionTriggered) {
+    // Deteksi "Belum Paham / Tidak Tahu" (Bukan Miskonsepsi)
+    const normText = (msg.text || "").toLowerCase().trim();
+    const notSureKeywords = [
+      "gatau", "tidak tahu", "nggak tahu", "ngga tahu", "nda tau",
+      "kurang tahu", "belum tahu", "belum paham", "kurang paham",
+      "bingung", "lupa", "kurang ngerti", "tidak mengerti", "gak tau",
+      "nggak ngerti", "ga faham", "belum faham", "gatauu", "gataw", "ga tau"
+    ];
+    const isNotSureText = notSureKeywords.some((kw) => normText.includes(kw));
+
+    if (msg.sender === "user" && (msg.isNotSure || msg.misconceptionTriggered === "belum_paham" || isNotSureText)) {
+      return {
+        hasMisconception: false,
+        isNotSure: true,
+        label: "Belum Paham / Tidak Tahu"
+      };
+    }
+
+    // 2. Properti eksplisit dari engine (kecuali "belum_paham")
+    if (msg.misconceptionTriggered && msg.misconceptionTriggered !== "belum_paham") {
       const cleanName = msg.misconceptionTriggered.replace(/_/g, " ");
       return {
         hasMisconception: true,
@@ -222,7 +240,6 @@ export default function TeacherDashboardView({ onBackToMenu }) {
       }
 
       // Cek apakah teks pesan siswa cocok dengan daftar opsi miskonsepsi kurikulum
-      const normText = (msg.text || "").toLowerCase().trim();
       if (KNOWN_MISCONCEPTIONS[normText]) {
         const cleanName = KNOWN_MISCONCEPTIONS[normText].replace(/_/g, " ");
         return {
@@ -233,8 +250,17 @@ export default function TeacherDashboardView({ onBackToMenu }) {
       }
     }
 
-    // 4. Untuk balasan bot yang mengoreksi miskonsepsi
+    // 4. Untuk balasan bot yang mengoreksi miskonsepsi / membantu belum paham
     if (msg.sender === "bot" && msg.isFeedback && msg.isCorrect === false) {
+      const prevMsg = transcriptList[index - 1];
+      const prevNorm = (prevMsg?.text || "").toLowerCase().trim();
+      if (prevMsg && (prevMsg.isNotSure || prevMsg.misconceptionTriggered === "belum_paham" || notSureKeywords.some((kw) => prevNorm.includes(kw)))) {
+        return {
+          hasMisconception: false,
+          isNotSure: true,
+          label: "Bimbingan Socratic (Membantu Siswa Belum Paham)"
+        };
+      }
       return {
         hasMisconception: true,
         isAutoDetected: true,
@@ -335,7 +361,10 @@ export default function TeacherDashboardView({ onBackToMenu }) {
 
     const rows = sessions.map((s) => {
       const misconceptionsList = Array.isArray(s.misconceptions)
-        ? s.misconceptions.map((m) => (typeof m === "string" ? m : m.name || m.id)).join("; ")
+        ? s.misconceptions
+            .map((m) => (typeof m === "string" ? m : m.name || m.id))
+            .filter((m) => m && m !== "belum_paham" && m !== "tidak_tahu")
+            .join("; ")
         : "-";
 
       return [
@@ -399,7 +428,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
       const miscs = Array.isArray(s.misconceptions) ? s.misconceptions : [];
       miscs.forEach((m) => {
         const text = typeof m === "string" ? m : m.name || m.id || "Miskonsepsi";
-        if (!map[key].allMisconceptions.includes(text)) {
+        if (text !== "belum_paham" && text !== "tidak_tahu" && !map[key].allMisconceptions.includes(text)) {
           map[key].allMisconceptions.push(text);
         }
       });
@@ -490,7 +519,14 @@ export default function TeacherDashboardView({ onBackToMenu }) {
     0
   );
   const totalMisconceptionsDetected = sessions.reduce(
-    (acc, curr) => acc + (Array.isArray(curr.misconceptions) ? curr.misconceptions.length : 0),
+    (acc, curr) => {
+      const list = Array.isArray(curr.misconceptions) ? curr.misconceptions : [];
+      const valid = list.filter((m) => {
+        const text = typeof m === "string" ? m : m.name || m.id || "";
+        return text && text !== "belum_paham" && text !== "tidak_tahu";
+      });
+      return acc + valid.length;
+    },
     0
   );
 
@@ -863,6 +899,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                 const isBot = msg.sender === "bot";
                 const info = getMisconceptionDetails(msg, i, selectedTranscript.conversation_transcript);
                 const hasMisconception = info.hasMisconception;
+                const isNotSure = info.isNotSure;
 
                 return (
                   <div
@@ -881,8 +918,8 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           width: "34px",
                           height: "34px",
                           borderRadius: "50%",
-                          background: hasMisconception ? "#fee2e2" : "#d1fae5",
-                          border: hasMisconception ? "2px solid #ef4444" : "none",
+                          background: hasMisconception ? "#fee2e2" : (isNotSure ? "#fef3c7" : "#d1fae5"),
+                          border: hasMisconception ? "2px solid #ef4444" : (isNotSure ? "2px solid #f59e0b" : "none"),
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -891,7 +928,7 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           marginTop: "2px"
                         }}
                       >
-                        {hasMisconception ? "⚠️" : "🤖"}
+                        {hasMisconception ? "⚠️" : (isNotSure ? "🤔" : "🤖")}
                       </div>
                     )}
 
@@ -903,16 +940,22 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           fontSize: "0.92rem",
                           background: hasMisconception
                             ? "#fef2f2"
-                            : (isBot ? (msg.isHint ? "#fffbeb" : "white") : "#0284c7"),
+                            : (isNotSure
+                              ? (isBot ? "#fffbeb" : "#0284c7")
+                              : (isBot ? (msg.isHint ? "#fffbeb" : "white") : "#0284c7")),
                           color: hasMisconception
                             ? "#7f1d1d"
-                            : (isBot ? "#1e293b" : "white"),
+                            : (isNotSure
+                              ? (isBot ? "#78350f" : "white")
+                              : (isBot ? "#1e293b" : "white")),
                           border: hasMisconception
                             ? "2px solid #ef4444"
-                            : (isBot ? (msg.isHint ? "1px solid #fde68a" : "1px solid #e2e8f0") : "none"),
+                            : (isNotSure
+                              ? (isBot ? "2px solid #fcd34d" : "none")
+                              : (isBot ? (msg.isHint ? "1px solid #fde68a" : "1px solid #e2e8f0") : "none")),
                           boxShadow: hasMisconception
                             ? "0 4px 14px rgba(239, 68, 68, 0.16)"
-                            : "0 2px 4px rgba(0,0,0,0.03)",
+                            : (isNotSure && isBot ? "0 4px 12px rgba(245, 158, 11, 0.12)" : "0 2px 4px rgba(0,0,0,0.03)"),
                           transition: "all 0.2s ease"
                         }}
                       >
@@ -936,6 +979,29 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           >
                             <AlertTriangle size={12} />
                             <span>{info.label}</span>
+                          </div>
+                        )}
+
+                        {/* Badge Oranye/Kuning Belum Paham */}
+                        {isNotSure && (
+                          <div
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "5px",
+                              fontWeight: "800",
+                              fontSize: "0.74rem",
+                              marginBottom: "6px",
+                              color: isBot ? "#92400e" : "#fef08a",
+                              background: isBot ? "#fef3c7" : "rgba(254, 243, 199, 0.2)",
+                              border: isBot ? "1px solid #fde68a" : "1px solid rgba(253, 230, 138, 0.4)",
+                              padding: "3px 8px",
+                              borderRadius: "8px",
+                              width: "fit-content"
+                            }}
+                          >
+                            <HelpCircle size={12} />
+                            <span>{info.label || "Belum Paham / Tidak Tahu"}</span>
                           </div>
                         )}
 
@@ -1012,17 +1078,17 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                           width: "34px",
                           height: "34px",
                           borderRadius: "50%",
-                          background: hasMisconception ? "#fee2e2" : "#fef3c7",
+                          background: hasMisconception ? "#fee2e2" : (isNotSure ? "#fef3c7" : "#e0f2fe"),
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           fontSize: "1.1rem",
                           flexShrink: 0,
                           marginTop: "2px",
-                          border: hasMisconception ? "2px solid #ef4444" : "none"
+                          border: hasMisconception ? "2px solid #ef4444" : (isNotSure ? "2px solid #f59e0b" : "none")
                         }}
                       >
-                        {hasMisconception ? "⚠️" : "👦"}
+                        {hasMisconception ? "⚠️" : (isNotSure ? "🤔" : "👦")}
                       </div>
                     )}
                   </div>
@@ -1118,7 +1184,10 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                 const stars = sessionRecord?.stars_earned ?? sessionRecord?.starsEarned ?? 3;
                 const score = sessionRecord?.score_percent ?? sessionRecord?.scorePercent ?? 100;
                 const hints = sessionRecord?.hints_used ?? sessionRecord?.hintsUsed ?? 0;
-                const miscs = Array.isArray(sessionRecord?.misconceptions) ? sessionRecord.misconceptions : [];
+                const miscs = (Array.isArray(sessionRecord?.misconceptions) ? sessionRecord.misconceptions : []).filter(m => {
+                  const t = typeof m === "string" ? m : m.name || m.id || "";
+                  return t && t !== "belum_paham" && t !== "tidak_tahu";
+                });
 
                 return (
                   <div
@@ -1579,7 +1648,10 @@ export default function TeacherDashboardView({ onBackToMenu }) {
                       const missionTitle = s.mission_title || s.missionTitle || s.mission_id || "Misi Sawah";
                       const score = s.score_percent ?? s.scorePercent ?? 100;
                       const hints = s.hints_used ?? s.hintsUsed ?? 0;
-                      const miscs = Array.isArray(s.misconceptions) ? s.misconceptions : [];
+                      const miscs = (Array.isArray(s.misconceptions) ? s.misconceptions : []).filter(m => {
+                        const t = typeof m === "string" ? m : m.name || m.id || "";
+                        return t && t !== "belum_paham" && t !== "tidak_tahu";
+                      });
                       const timeStr = new Date(s.created_at || s.completed_at || Date.now()).toLocaleString("id-ID", {
                         day: "2-digit",
                         month: "short",
