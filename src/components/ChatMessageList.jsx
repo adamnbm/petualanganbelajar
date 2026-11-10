@@ -95,16 +95,16 @@ export default function ChatMessageList({
                           <Lightbulb size={13} className="banner-icon-hint" />
                           <span className="banner-title-hint">
                             Bukan AI •{" "}
-                            <strong>
+                            {/* <strong>
                               Petunjuk {msg.hintLevel?.toUpperCase() || "H1"}
-                            </strong>
+                            </strong> */}
                           </span>
                         </div>
-                        {/* <div className="banner-right">
+                        <div className="banner-right">
                           <span className="banner-pill-system">
                             💡 Petunjuk
                           </span>
-                        </div> */}
+                        </div>
                       </>
                     ) : (
                       <>
