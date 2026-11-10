@@ -74,7 +74,7 @@ export default function ChatMessageList({
                             Respon: <strong>Gemini AI (Live)</strong>
                           </span>
                         </div>
-                        <div className="banner-right">
+                        {/* <div className="banner-right">
                           {msg.isFeedback && (
                             <span
                               className={`banner-status-tag ${msg.isCorrect ? "tag-aligned" : msg.isReflection ? "tag-aligned" : "tag-guide"}`}
@@ -87,7 +87,7 @@ export default function ChatMessageList({
                             </span>
                           )}
                           <span className="banner-pill-ai">✨ AI</span>
-                        </div>
+                        </div> */}
                       </>
                     ) : msg.isHint ? (
                       <>
@@ -100,11 +100,11 @@ export default function ChatMessageList({
                             </strong>
                           </span>
                         </div>
-                        <div className="banner-right">
+                        {/* <div className="banner-right">
                           <span className="banner-pill-system">
                             💡 Petunjuk
                           </span>
-                        </div>
+                        </div> */}
                       </>
                     ) : (
                       <>
@@ -140,7 +140,10 @@ export default function ChatMessageList({
                 {msg.image && (
                   <div
                     className="bubble-context-image-box"
-                    style={{ marginTop: msg.text ? "0.75rem" : 0, marginBottom: 0 }}
+                    style={{
+                      marginTop: msg.text ? "0.75rem" : 0,
+                      marginBottom: 0,
+                    }}
                   >
                     <img
                       src={msg.image}
@@ -149,8 +152,12 @@ export default function ChatMessageList({
                       loading="lazy"
                     />
                     {msg.imageCaption &&
-                      !msg.imageCaption.toLowerCase().includes("fotosintesis") &&
-                      !msg.imageCaption.toLowerCase().includes("sinar matahari") &&
+                      !msg.imageCaption
+                        .toLowerCase()
+                        .includes("fotosintesis") &&
+                      !msg.imageCaption
+                        .toLowerCase()
+                        .includes("sinar matahari") &&
                       !msg.imageCaption.toLowerCase().includes("bingung") && (
                         <div className="bubble-image-caption">
                           <span>🔍 {msg.imageCaption}</span>
